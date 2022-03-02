@@ -1,0 +1,149 @@
+C01-proc.ConvertInput E1 DPT1: In=Out=1
+C01-startLogic: Input E1; Value 1      
+C01-endedLogic: Logic OR, Value 1
+C01-startOnDelay: Time 0.0 s
+C01-startStairlight: Factor 90, Base sec/10
+C01-startBlink: BlinkTime      1.0 s       
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1        
+C01-knxWrite KO 127 bool value 1
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: Logic OR, Value 1
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+
+C01-endedOffDelay: Normal delay time 0.5
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: No execution, Logic OR, Value 1 (Value not changed)
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-endedBlink Channel 0
+C01-endedStairlight: Factor 90, Base sec/10
+C01-startOffDelay: Time 0.5 s
+
+    C01-proc.ConvertInput E1 DPT1: In=Out=1
+    C01-startLogic: Input E1; Value 1
+    C01-endedLogic: Logic OR, Value 1
+    C01-startOnDelay: Time 0.0 s
+    C01-startStairlight: Factor 90, Base sec/10
+    C01-startBlink: BlinkTime      1.0 s
+    C01-endedOnDelay: Normal delay time 0.0
+    C01-proc.Output: Value 1
+    C01-knxWrite KO 127 bool value 1
+
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+C01-proc.Blink: Off
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0
+
+C01-proc.Blink: On
+C01-startOnDelay: Time 0.0 s
+C01-endedOnDelay: Normal delay time 0.0
+C01-proc.Output: Value 1
+C01-knxWrite KO 127 bool value 1
+
+C01-endedBlink Channel 0
+C01-endedStairlight: Factor 90, Base sec/10
+C01-startOffDelay: Time 0.5 s
+C01-endedOffDelay: Normal delay time 0.5
+C01-knxWrite KO 127 bool value 0

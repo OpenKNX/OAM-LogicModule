@@ -1,0 +1,90 @@
+Channel 4, 5, 6, Eingang 1 bekommt eine 1 (Fenster offen) vom Sensor
+    startLogic Channel 04: Input E1; Value 0
+        startLogic Channel 05: Input E1; Value 1
+            startLogic Channel 06: Input E1; Value 1
+    endedLogic Channel 04: Logic OR
+    startOffDelay Channel 04: Time    0.0 s
+        endedLogic Channel 05: Logic AND
+        startOnDelay Channel 05: Time    0.4 s
+            endedLogic Channel 06: No execution
+    endedOffDelay Channel 04: Normal delay time
+
+Channel 5, 6, Eingang 2 bekommt eine 0 (Fenster kipp) vom Sensor
+        startLogic Channel 05: Input E1; Value 0
+            startLogic Channel 06: Input E1; Value 1
+
+proc.InternalInputs Channel 07: Input 2, Value 0
+                startLogic Channel 07: Input E1; Value 0
+        endedLogic Channel 05: Logic AND
+        startOffDelay Channel 05: Time    0.0 s
+        endedOnDelay Channel 05: OFF during OnDelay
+            endedLogic Channel 06: Logic AND
+            startOnDelay Channel 06: Time    0.4 s
+                endedLogic Channel 07: Logic AND
+                startOffDelay Channel 07: Time    0.0 s
+        endedOffDelay Channel 05: Normal delay time
+                endedOffDelay Channel 07: Normal delay time
+
+proc.InternalInputs Channel 08: Input 1, Value 0
+                    startLogic Channel 08: Input E1; Value 1
+proc.InternalInputs Channel 11: Input 1, Value 0
+                        startLogic Channel 11: Input E1; Value 1
+proc.InternalInputs Channel 12: Input 1, Value 0
+                            startLogic Channel 12: Input E1; Value 1
+proc.InternalInputs Channel 16: Input 1, Value 0
+                                startLogic Channel 16: Input E1; Value 0
+                    endedLogic Channel 08: Logic AND
+                    startOnDelay Channel 08: Time    0.2 s
+                        endedLogic Channel 11: Logic OR
+                        startOnDelay Channel 11: Time    0.0 s
+                            endedLogic Channel 12: Logic OR
+                            startOnDelay Channel 12: Time    0.0 s
+                                endedLogic Channel 16: Logic OR
+                                startOffDelay Channel 16: Time    0.2 s
+                        endedOnDelay Channel 11: Normal delay time
+                            endedOnDelay Channel 12: Normal delay time
+                        proc.Output Channel 11: Value 1
+                        knxWrite KO 157 bool value 1
+                            proc.Output Channel 12: Value 1
+                            knxWrite KO 160 bool value 1
+Channel 13, Eingang 1 bekommt eine 1 (Fenster offen)
+                                    startLogic Channel 13: Input E1; Value 1
+                                    endedLogic Channel 13: Logic OR
+                                    startOnDelay Channel 13: Time   60.0 s
+                    endedOnDelay Channel 08: Normal delay time
+                                endedOffDelay Channel 16: Normal delay time
+                    proc.Output Channel 08: Value 1
+                    knxWrite KO 148 int value 2
+Channel 10, Eingang 1 bekommt eine 2 (Raumstatus Fenster)
+                                        startLogic Channel 10: Input E1; Value 1
+                                        endedLogic Channel 10: Logic OR
+                                        startOnDelay Channel 10: Time    0.0 s
+                                        endedOnDelay Channel 10: Normal delay time
+            endedOnDelay Channel 06: Normal delay time
+                                        proc.Output Channel 10: Value 1
+                                        knxWrite KO 154 int value 2
+proc.InternalInputs Channel 09: Input 2, Value 1
+                                            startLogic Channel 09: Input E1; Value 1
+            proc.Output Channel 06: Value 1
+            knxWrite KO 142 int value 3
+                                            endedLogic Channel 09: Logic OR
+                                            startOnDelay Channel 09: Time    0.1 s
+            startLogic Channel 06: Input E1; Value 1
+            endedLogic Channel 06: No execution
+                                            endedOnDelay Channel 09: Normal delay time
+                    proc.InternalInputs Channel 08: Input 2, Value 1
+                    startLogic Channel 08: Input E1; Value 0
+                                            proc.Output Channel 09: Value 1
+                                            knxWrite KO 151 int value 3
+                                        startLogic Channel 10: Input E1; Value 1
+                    endedLogic Channel 08: Logic AND
+                    startOffDelay Channel 08: Time    0.0 s
+                                        endedLogic Channel 10: Logic OR
+                                        startOnDelay Channel 10: Time    0.0 s
+                    endedOffDelay Channel 08: Normal delay time
+                                        endedOnDelay Channel 10: Normal delay time
+                                        proc.Output Channel 10: Value 1
+                                        knxWrite KO 154 int value 3
+                                    endedOnDelay Channel 13: Normal delay time
+                                    proc.Output Channel 13: Value 1
+                                    knxWrite KO 163 bool value 1

@@ -1,0 +1,81 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build PlatformIO",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "build"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload JLINK",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "uploadJLINK",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload ATMEL",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "uploadATMEL",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload USB",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "uploadUSB",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "MultiplyChannels",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\bin\\MultiplyChannels.exe",
+            "args": [
+                "create",
+                "--Debug",
+                "src/Logikmodul"
+            ],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "label": "MultiplyChannels-Release",
+            "type": "shell",
+            "command": "release\\BuildRelease.cmd",
+            "args": [],
+            "problemMatcher": [],
+            "group": "test"
+        }
+    ]
+}

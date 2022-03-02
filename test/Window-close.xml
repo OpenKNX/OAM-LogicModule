@@ -1,0 +1,4 @@
+<CommunicationLog xmlns="http://knx.org/xml/telegrams/01">
+  <Telegram Timestamp="2021-02-12T08:15:27.0210734Z" Service="L_Data.ind" FrameFormat="CommonEmi" RawData="2900BCE0102E7931010081" />
+  <Telegram Timestamp="2021-02-12T08:15:27.0881519Z" Service="L_Data.ind" FrameFormat="CommonEmi" RawData="2900BCE0102E7930010080" />
+</CommunicationLog>
