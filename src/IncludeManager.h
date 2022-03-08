@@ -8,19 +8,19 @@
 #endif
 #ifdef SENSORMODULE
 #pragma message "Building Logic for SENSORMODULE"
-#include "../../knx-sensor/src/Sensormodul.h"
+#include "../../OAM-SensorModule/src/Sensormodul.h"
 #endif
 #ifdef PMMODULE
 #pragma message "Building Logic for PMMODULE"
-#include "../../knx-pm/src/PMmodul.h"
+#include "../../OAM-PresenceModule/src/PMmodul.h"
 #endif
 #ifdef WIREGATEWAY
 #pragma message "Building Logic for WIREGATEWAY"
-#include "../../knx-wire/src/WireGateway.h"
+#include "../../OAM-OneWireModule/src/WireGateway.h"
 #endif
 #ifdef ENOCEANGATEWAY
 #pragma message "Building Logic for ENOCEANGATEWAY"
-#include "../../knx-enocean-gateway/src/EnoceanGateway.h"
+#include "../../OAM-EnoceanGateway/src/EnoceanGateway.h"
 // #elif TEST
 // #include "../../knx-test/src/Test.h"
 // #pragma message "Building Logic for TEST"
