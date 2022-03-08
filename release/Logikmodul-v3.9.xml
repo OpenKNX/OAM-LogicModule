@@ -36,8 +36,8 @@
               <mc:include href="../src/Logikmodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="LOG" />
               <mc:include href="../src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" type="template" prefix="LOG" />
             </ComObjectRefs>
-            <AddressTable MaxEntries="2048" />
-            <AssociationTable MaxEntries="2048" />
+            <AddressTable MaxEntries="2047" />
+            <AssociationTable MaxEntries="2047" />
             <LoadProcedures>
               <LoadProcedure MergeId="2">
                 <LdCtrlRelSegment LsmIdx="4" Size="0" Mode="1" Fill="0" AppliesTo="full" />
