@@ -436,6 +436,15 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%126" Name="f%C%OOffPADevice" ParameterType="M-00FA_A-0001-01-0000_PT-PADevice"      Offset="1" BitOffset="0" Text="" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%280" Name="f%C%OOffFunction" ParameterType="M-00FA_A-0001-01-0000_PT-ValueFunction" Offset="0" BitOffset="0" Text="    Wert für AUS ermitteln als" Value="1" />
     </Union>
+    <Union SizeInBit="32">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="100" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%377" Name="f%C%E1UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput" Offset="0" BitOffset="0" Text="Kommunikationsobjekt für Eingang 1" Value="0" />
+      <!-- 3 Bit frei -->
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%378" Name="f%C%E1OtherKO"    ParameterType="M-00FA_A-0001-01-0000_PT-KONumber"   Offset="0" BitOffset="4" Text="    Nummer des Kommunikationsobjekts" Value="%K0%" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%379" Name="f%C%E2UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput" Offset="2" BitOffset="0" Text="Kommunikationsobjekt für Eingang 2" Value="0" />
+      <!-- 3 Bit frei -->
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%C%380" Name="f%C%E2OtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KONumber" Offset="2" BitOffset="4" Text="    Nummer des Kommunikationsobjekts" Value="%K1%" />
+    </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%128" Name="f%C%NameInput1" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 1" Value="" />
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%129" Name="f%C%NameInput2" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 2" Value="" />
     <Parameter Id="M-00FA_A-0001-01-0000_P-%C%132" Name="f%C%NameOutput" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Ausgang" Value="" />
@@ -873,6 +882,12 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%375_R-%C%3752" RefId="M-00FA_A-0001-01-0000_UP-%C%375" Text="Ausschalt-Wert" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%376_R-%C%3761" RefId="M-00FA_A-0001-01-0000_UP-%C%376" Text="Bis-Wert" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%376_R-%C%3762" RefId="M-00FA_A-0001-01-0000_UP-%C%376" Text="Einschalt-Wert" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771" RefId="M-00FA_A-0001-01-0000_UP-%C%377" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3781" RefId="M-00FA_A-0001-01-0000_UP-%C%378" Access="Read" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3782" RefId="M-00FA_A-0001-01-0000_UP-%C%378" Value="1" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791" RefId="M-00FA_A-0001-01-0000_UP-%C%379" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3801" RefId="M-00FA_A-0001-01-0000_UP-%C%380" Access="Read" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3802" RefId="M-00FA_A-0001-01-0000_UP-%C%380" Value="1" />
   </ParameterRefs>
   <ComObjectTable>
     <ComObject Id="M-00FA_A-0001-01-0000_O-%K0%" Name="KOf%C%E1" Text="Eingang 1" Number="%K0%" FunctionText="Logik %C%, Eingang 1" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled"  CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled"  ReadOnInitFlag="Disabled" />
@@ -978,41 +993,56 @@
                 <when test="1 3">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%11" Name="f%C%ExtInput1Delta" Text="Eingang 1: {{0:Differenzwert}}" TextParameterRefId="M-00FA_A-0001-01-0000_P-%C%128_R-%C%1281">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%128_R-%C%1281" />
-                    <!-- E1 dpt -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091">
+                    <!-- E1 choose KO -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
                       <when test="0">
-                        <!-- DPT1 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%01" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3781" />
                       </when>
                       <when test="1">
-                        <!-- DPT2 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%02" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3782" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
                       </when>
-                      <when test="2">
-                        <!-- DPT5 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
-                      </when>
-                      <when test="3">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
-                      </when>
-                      <when test="4">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
-                      </when>
-                      <when test="5">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
-                      </when>
-                      <when test="6">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
-                      </when>
-                      <when test="7">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
-                      </when>
-                      <when test="9">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%09" />
-                      </when>
-                      <when test="10">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
+                    </choose>
+                    <!-- E1 dpt -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                      <when test="0">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091">
+                          <when test="0">
+                            <!-- DPT1 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%01" />
+                          </when>
+                          <when test="1">
+                            <!-- DPT2 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%02" />
+                          </when>
+                          <when test="2">
+                            <!-- DPT5 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
+                          </when>
+                          <when test="3">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
+                          </when>
+                          <when test="4">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
+                          </when>
+                          <when test="5">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
+                          </when>
+                          <when test="6">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
+                          </when>
+                          <when test="7">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
+                          </when>
+                          <when test="9">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%09" />
+                          </when>
+                          <when test="10">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
+                          </when>
+                        </choose>
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
@@ -1020,7 +1050,11 @@
                       <when test="1">
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
                           <when test="1">
-                            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%130_R-%C%1301" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%130_R-%C%1301" />
+                              </when>
+                            </choose>
                           </when>
                         </choose>
                       </when>
@@ -1054,6 +1088,17 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                   </when>
                   <when test="!=0">
+                    <!-- E1 choose KO -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                      <when test="0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3781" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%378_R-%C%3782" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                      </when>
+                    </choose>
                     <!-- E1 dpt -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%009_R-%C%0091">
@@ -1106,13 +1151,21 @@
                       </when>
                       <when test="0">
                         <!-- DPT1 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%01" />
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                          <when test="0">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%01" />
+                          </when>
+                        </choose>
                       </when>
                       <when test="1">
                         <!-- DPT2 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%370_R-%C%3701">
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%02" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%02" />
+                              </when>
+                            </choose>
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%010_R-%C%0101" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%098_R-%C%0981" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%099_R-%C%0991" />
@@ -1126,28 +1179,30 @@
                       <when test="2">
                         <!-- DPT5 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
-                          <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
+                              </when>
+                            </choose>
+                         </when>
+                         <when test="0">
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%011_R-%C%0111" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%012_R-%C%0121" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%011_R-%C%0112" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%012_R-%C%0122" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%03" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT5%C%001" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1194,28 +1249,30 @@
                       <when test="3">
                         <!-- DPT5.001 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%013_R-%C%0131" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%014_R-%C%0141" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%013_R-%C%0132" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%014_R-%C%0142" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%04" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT5x%C%001" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1262,28 +1319,30 @@
                       <when test="4">
                         <!-- DPT6 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%015_R-%C%0151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%016_R-%C%0161" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%015_R-%C%0152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%016_R-%C%0162" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%05" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT6%C%001" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1330,28 +1389,30 @@
                       <when test="5">
                         <!-- DPT7 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%017_R-%C%0171" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%018_R-%C%0181" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%017_R-%C%0172" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%018_R-%C%0182" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%06" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT7%C%001" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1382,28 +1443,30 @@
                       <when test="6">
                         <!-- DPT8 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%019_R-%C%0191" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%020_R-%C%0201" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%019_R-%C%0192" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%020_R-%C%0202" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%07" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT8%C%001" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1434,23 +1497,26 @@
                       <when test="7">
                         <!-- DPT9 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%021_R-%C%0211" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%022_R-%C%0221" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%373_R-%C%3731" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%374_R-%C%3741" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%021_R-%C%0212" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%022_R-%C%0222" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%373_R-%C%3732" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%374_R-%C%3742" />
                           </when>
@@ -1463,7 +1529,13 @@
                         <!-- DPT17 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%370_R-%C%3701">
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%09" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%09" />
+                              </when>
+                            </choose>
+                          </when>
+                          <when test="4">
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%023_R-%C%0231" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%101_R-%C%1011" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%102_R-%C%1021" />
@@ -1481,23 +1553,26 @@
                       <when test="10">
                         <!-- DPT232 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%093_R-%C%0931">
+                          <when test="0 1 2 3">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%024_R-%C%0241" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%025_R-%C%0251" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1151" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1161" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%024_R-%C%0242" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%025_R-%C%0252" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K0%_R-%K0%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%115_R-%C%1152" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%116_R-%C%1162" />
                           </when>
@@ -1514,7 +1589,11 @@
                           <when test="1">
                             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
                               <when test="1">
-                                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%130_R-%C%1301" />
+                                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%377_R-%C%3771">
+                                  <when test="0">
+                                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%130_R-%C%1301" />
+                                  </when>
+                                </choose>
                               </when>
                             </choose>
                           </when>
@@ -1540,41 +1619,56 @@
                 <when test="1 3">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%13" Name="f%C%ExtInput2Delta" Text="Eingang 2: {{0:Differenzwert}}" TextParameterRefId="M-00FA_A-0001-01-0000_P-%C%129_R-%C%1291">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%129_R-%C%1291" />
-                    <!-- E2 dpt -->
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291">
+                    <!-- E2 choose KO -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
                       <when test="0">
-                        <!-- DPT1 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%01" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3801" />
                       </when>
                       <when test="1">
-                        <!-- DPT2 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%02" />
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3802" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
                       </when>
-                      <when test="2">
-                        <!-- DPT5 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
-                      </when>
-                      <when test="3">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%04" />
-                      </when>
-                      <when test="4">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
-                      </when>
-                      <when test="5">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
-                      </when>
-                      <when test="6">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
-                      </when>
-                      <when test="7">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
-                      </when>
-                      <when test="9">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%09" />
-                      </when>
-                      <when test="10">
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
+                    </choose>
+                    <!-- E2 dpt -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                      <when test="0">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291">
+                          <when test="0">
+                            <!-- DPT1 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%01" />
+                          </when>
+                          <when test="1">
+                            <!-- DPT2 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%02" />
+                          </when>
+                          <when test="2">
+                            <!-- DPT5 -->
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
+                          </when>
+                          <when test="3">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%04" />
+                          </when>
+                          <when test="4">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
+                          </when>
+                          <when test="5">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
+                          </when>
+                          <when test="6">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
+                          </when>
+                          <when test="7">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
+                          </when>
+                          <when test="9">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%09" />
+                          </when>
+                          <when test="10">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
+                          </when>
+                        </choose>
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
@@ -1582,7 +1676,11 @@
                       <when test="1">
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
                           <when test="1">
-                            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%131_R-%C%1311" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%131_R-%C%1311" />
+                              </when>
+                            </choose>
                           </when>
                         </choose>
                       </when>
@@ -1617,6 +1715,17 @@
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                   </when>
                   <when test="!=0" >
+                    <!-- E2 choose KO -->
+                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791" />
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                      <when test="0">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3801" />
+                      </when>
+                      <when test="1">
+                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%380_R-%C%3802" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                      </when>
+                    </choose>
                     <!-- E2 dpt -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291" />
                     <choose ParamRefId="M-00FA_A-0001-01-0000_P-%C%029_R-%C%0291">
@@ -1669,13 +1778,21 @@
                       </when>
                       <when test="0">
                         <!-- DPT1 -->
-                        <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%01" />
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                          <when test="0">
+                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%01" />
+                          </when>
+                        </choose>
                       </when>
                       <when test="1">
                         <!-- DPT2 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%372_R-%C%3721">
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%02" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%02" />
+                              </when>
+                            </choose>
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%030_R-%C%0301" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%095_R-%C%0951" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%096_R-%C%0961" />
@@ -1689,28 +1806,30 @@
                       <when test="2">
                         <!-- DPT5 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%031_R-%C%0311" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%032_R-%C%0321" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1421" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1431" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%031_R-%C%0312" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%032_R-%C%0322" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1422" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1432" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%03" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT5%C%002" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1757,8 +1876,14 @@
                       <when test="3">
                         <!-- DPT5.001 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%04" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%04" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%033_R-%C%0331" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%034_R-%C%0341" />
                           </when>
@@ -1825,28 +1950,30 @@
                       <when test="4">
                         <!-- DPT6 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%035_R-%C%0351" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%036_R-%C%0361" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1421" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1431" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%035_R-%C%0352" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%036_R-%C%0362" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1422" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1432" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%05" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT6%C%002" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1893,28 +2020,30 @@
                       <when test="5">
                         <!-- DPT7 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%037_R-%C%0371" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%038_R-%C%0381" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1421" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1431" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%037_R-%C%0372" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%038_R-%C%0382" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1422" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1432" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%06" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT7%C%002" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1945,28 +2074,30 @@
                       <when test="6">
                         <!-- DPT8 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3 4">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%039_R-%C%0391" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%040_R-%C%0401" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1421" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1431" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%039_R-%C%0392" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%040_R-%C%0402" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1422" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1432" />
                           </when>
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%07" />
                             <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="DPT8%C%002" Inline="true" Layout="Grid">
                               <Rows>
                                 <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1997,23 +2128,26 @@
                       <when test="7">
                         <!-- DPT9 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%041_R-%C%0411" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%042_R-%C%0421" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%375_R-%C%3751" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%376_R-%C%3761" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%041_R-%C%0412" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%042_R-%C%0422" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%08" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%375_R-%C%3752" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%376_R-%C%3762" />
                           </when>
@@ -2026,7 +2160,13 @@
                         <!-- DPT17 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%372_R-%C%3721">
                           <when test="4">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%09" />
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%09" />
+                              </when>
+                            </choose>
+                          </when>
+                          <when test="4">
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%043_R-%C%0431" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%108_R-%C%1081" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%109_R-%C%1091" />
@@ -2044,23 +2184,26 @@
                       <when test="10">
                         <!-- DPT232 -->
                         <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%094_R-%C%0941">
+                          <when test="0 1 2 3">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                              <when test="0">
+                                <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
+                              </when>
+                            </choose>
+                          </when>
                           <when test="0">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%044_R-%C%0441" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%045_R-%C%0451" />
                           </when>
                           <when test="1">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1421" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1431" />
                           </when>
                           <when test="2">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%044_R-%C%0442" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%045_R-%C%0452" />
                           </when>
                           <when test="3">
-                            <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%K1%_R-%K1%10" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%142_R-%C%1422" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%143_R-%C%1432" />
                           </when>
@@ -2077,7 +2220,11 @@
                           <when test="1">
                             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-8_R-81">
                               <when test="1">
-                                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%131_R-%C%1311" />
+                                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%C%379_R-%C%3791">
+                                  <when test="0">
+                                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%C%131_R-%C%1311" />
+                                  </when>
+                                </choose>
                               </when>
                             </choose>
                           </when>

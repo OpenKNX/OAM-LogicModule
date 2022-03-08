@@ -142,7 +142,7 @@
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 30
-#define LOG_ParamBlockSize 100
+#define LOG_ParamBlockSize 104
 #define LOG_fChannelDelay              0      // int32_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
 #define LOG_fCalculate                 5      // 2 Bits, Bit 1-0
@@ -750,13 +750,21 @@
 #define     LOG_fOOffPALineShift 0
 #define LOG_fOOffPADevice             87      // uint8_t
 #define LOG_fOOffFunction             86      // 8 Bits, Bit 7-0
+#define LOG_fE1UseOtherKO             100      // 1 Bit, Bit 7
+#define     LOG_fE1UseOtherKOMask 0x80
+#define     LOG_fE1UseOtherKOShift 7
+#define LOG_fE1OtherKO                100      // uint12_t
+#define LOG_fE2UseOtherKO             102      // 1 Bit, Bit 7
+#define     LOG_fE2UseOtherKOMask 0x80
+#define     LOG_fE2UseOtherKOShift 7
+#define LOG_fE2OtherKO                102      // uint12_t
 
 // Communication objects per channel (multiple occurance)
 #define LOG_KoOffset 20
 #define LOG_KoBlockSize 3
-#define LOG_KoKOfE1 0
-#define LOG_KoKOfE2 1
-#define LOG_KoKOfO 2
+#define LOG_KoKOfE1 20
+#define LOG_KoKOfE2 21
+#define LOG_KoKOfO 22
 
 // Communication objects with single occurance
 #define LOG_KoHeartbeat 1

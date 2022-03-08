@@ -15,6 +15,12 @@ struct sLoopCallbackParams {
     void *instance;
 };
 
+struct sKoLookup {
+    uint16_t koIndex;
+    uint8_t channelIndex;
+    uint8_t ioIndex;
+};
+
 class Logic
 {
   public:
@@ -31,6 +37,9 @@ class Logic
     static void addLoopCallback(loopCallback iLoopCallback, void *iThis);
 
     // instance
+    void addKoLookup(uint16_t iKoIndex, uint8_t iChannelId, uint8_t iIOIndex);
+    bool getKoLookup(uint16_t iKoIndex, sKoLookup **iKoLookup = nullptr);
+
     EepromManager *getEEPROM();
     void writeAllInputsToEEPROMFacade();
     void processAllInternalInputs(LogicChannel *iChannel, bool iValue);
@@ -55,6 +64,10 @@ class Logic
     uint8_t mNumChannels; // Number of channels defined in knxprod
     uint32_t mSaveInterruptTimestamp = 0;
     uint16_t mSaveInterruptCount = 0;
+
+    // we need a lookup for external KO
+    sKoLookup mKoLookup[LOG_ChannelsFirmware * 3]; // max 3*4*100 = 1200 Byte, too much?
+    uint16_t mNumKoLookups = 0;
 
     uint32_t mLastWriteToEEPROM = 0;
     bool mIsValidEEPROM = false;

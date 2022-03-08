@@ -818,6 +818,16 @@
                   <Enumeration Text="Moskau (+3)" Value="3" Id="M-00FA_A-0001-01-0000_PT-Timezone_EN-3" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-KONumber" Name="KONumber">
+                <!-- We assume, there will be never more that 4095 KO -->
+                <TypeNumber SizeInBit="12" Type="unsignedInt" minInclusive="1" maxInclusive="999" />
+              </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-KOInput" Name="KOInput">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Neues KO erzeugen" Value="0" Id="M-00FA_A-0001-01-0000_PT-KOInput_EN-0" />
+                  <Enumeration Text="Bestehendes KO nutzen" Value="1" Id="M-00FA_A-0001-01-0000_PT-KOInput_EN-1" />
+                </TypeRestriction>
+              </ParameterType>
             </ParameterTypes>
             <Parameters>
               <!-- Standard parameter in any of our devices -->

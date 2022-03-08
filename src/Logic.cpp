@@ -82,6 +82,37 @@ uint8_t Logic::getChannelId(LogicChannel *iChannel) {
     return lResult;
 }
 
+void Logic::addKoLookup(uint16_t iKoIndex, uint8_t iChannelId, uint8_t iIOIndex) 
+{
+    // first implementation, in future we use sorted insert
+    mKoLookup[mNumKoLookups].koIndex = iKoIndex;
+    mKoLookup[mNumKoLookups].channelIndex = iChannelId;
+    mKoLookup[mNumKoLookups].ioIndex = iIOIndex;
+    mNumKoLookups++;
+}
+
+bool Logic::getKoLookup(uint16_t iKoIndex, sKoLookup **iKoLookup) 
+{
+    sKoLookup *lIterator = *iKoLookup;
+    if (*iKoLookup == 0)
+        lIterator = &mKoLookup[0];
+    else
+        lIterator++;
+    while (lIterator->koIndex > 0)
+    {
+        if (lIterator->koIndex == iKoIndex)
+        {
+            *iKoLookup = lIterator;
+            return true;
+        }
+        else
+        {
+            lIterator++;
+        }
+    }
+    return false;
+}
+
 bool Logic::prepareChannels() {
     bool lResult = false;
     for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
@@ -220,6 +251,13 @@ void Logic::writeAllInputsToEEPROMFacade() {
 // on input level, all dpt > 1 values are converted to bool by the according converter
 void Logic::processInputKo(GroupObject &iKo)
 {
+    // we have to check first, if external KO are used
+    sKoLookup *lKoLookup = nullptr;
+    while (getKoLookup(iKo.asap(), &lKoLookup)) 
+    {
+        LogicChannel *lChannel = mChannel[lKoLookup->channelIndex];
+        lChannel->processInput(lKoLookup->ioIndex);
+    }
     if (iKo.asap() == LOG_KoTime) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
         sTimer.setTimeFromBus(&lTmp);
@@ -244,9 +282,9 @@ void Logic::processInputKo(GroupObject &iKo)
             PCA9632_SetColor(0, 0, 0);
     }
 #endif
-    else if (iKo.asap() >= LOG_KoOffset && iKo.asap() < LOG_KoOffset + mNumChannels * LOG_KoBlockSize)
+    else if (iKo.asap() >= LOG_KoOffset + LOG_KoKOfE1 && iKo.asap() < LOG_KoOffset + LOG_KoKOfE1 + mNumChannels * LOG_KoBlockSize)
     {
-        uint16_t lKoNumber = iKo.asap() - LOG_KoOffset;
+        uint16_t lKoNumber = iKo.asap() - LOG_KoOffset - LOG_KoKOfE1;
         uint8_t lChannelId = lKoNumber / LOG_KoBlockSize;
         uint8_t lIOIndex = lKoNumber % LOG_KoBlockSize + 1;
         LogicChannel *lChannel = mChannel[lChannelId];

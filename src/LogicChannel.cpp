@@ -150,8 +150,23 @@ uint8_t *LogicChannel::getStringParam(uint16_t iParamIndex)
 uint16_t LogicChannel::calcKoNumber(uint8_t iIOIndex, uint8_t iChannelId)
 {
     // do not use iIOIndex = 0
-    uint16_t lIndex = (iIOIndex) ? LOG_KoOffset - 1 + iIOIndex + iChannelId * LOG_KoBlockSize : iChannelId;
-    return lIndex;
+    uint8_t lKoNumber = LOG_KoOffset + iChannelId * LOG_KoBlockSize;
+    switch (iIOIndex)
+    {
+        case IO_Input1:
+            lKoNumber += LOG_KoKOfE1;
+            break;
+        case IO_Input2:
+            lKoNumber += LOG_KoKOfE2;
+            break;
+        case IO_Output:
+            lKoNumber += LOG_KoKOfO;
+            break;
+        default:
+            lKoNumber = iChannelId;
+            break;
+    }
+    return lKoNumber;
 }
 
 // static
@@ -167,7 +182,26 @@ uint16_t LogicChannel::calcKoNumber(uint8_t iIOIndex)
 
 GroupObject *LogicChannel::getKo(uint8_t iIOIndex)
 {
-    return LogicChannel::getKoForChannel(iIOIndex, mChannelId);
+    // new behaviour since 4.0: We support also external KO for input
+    GroupObject *lKo = nullptr;
+    uint16_t lExternalAccess = 0;
+    if (iIOIndex == IO_Input1)
+    {
+        lExternalAccess = getWordParam(LOG_fE1OtherKO);
+    }
+    else if (iIOIndex == IO_Input2)
+    {
+        lExternalAccess = getWordParam(LOG_fE2OtherKO);
+    }
+    bool lUseExternal = lExternalAccess & 0x8000;    // LOG_fE1UseOtherKOMask; // mask is for both inputs identical
+    if (lUseExternal)
+    {
+        uint16_t lKoNumber = lExternalAccess & 0x3FFF; // mask ist for both inputs indentical
+        lKo = &knx.getGroupObject(lKoNumber);
+    }
+    if (lKo == nullptr)
+        lKo = LogicChannel::getKoForChannel(iIOIndex, mChannelId);
+    return lKo;
 }
 
 Dpt &LogicChannel::getKoDPT(uint8_t iIOIndex)
@@ -1819,6 +1853,12 @@ bool LogicChannel::prepareChannel()
         {
             // input is active, we set according flag
             pValidActiveIO |= BIT_EXT_INPUT_1 << 4;
+            // prepare input for external KO
+            uint16_t lExternalKo = getWordParam(LOG_fE1OtherKO);
+            if (lExternalKo & 0x8000) // LOG_fE1UseOtherKOMask)
+            {
+                sLogic->addKoLookup(lExternalKo & 0x03FFF, mChannelId, IO_Input1);
+            }
             // prepare input for cyclic read
             pInputProcessing.repeatInput1Delay = getIntParam(LOG_fE1Repeat);
             if (pInputProcessing.repeatInput1Delay)
@@ -1866,6 +1906,12 @@ bool LogicChannel::prepareChannel()
         {
             // input is active, we set according flag
             pValidActiveIO |= BIT_EXT_INPUT_2 << 4;
+            // prepare input for external KO
+            uint16_t lExternalKo = getWordParam(LOG_fE2OtherKO);
+            if (lExternalKo & 0x8000) // LOG_fE2UseOtherKOMask)
+            {
+                sLogic->addKoLookup(lExternalKo & 0x3FFF, mChannelId, IO_Input2);
+            }
             // prepare input for cyclic read
             pInputProcessing.repeatInput2Delay = getIntParam(LOG_fE2Repeat);
             if (pInputProcessing.repeatInput2Delay)
