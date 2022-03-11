@@ -20,7 +20,7 @@
 #endif
 #ifdef ENOCEANGATEWAY
 #pragma message "Building Logic for ENOCEANGATEWAY"
-#include "../../OAM-EnoceanGateway/src/EnoceanGateway.h"
+#include "../../OAM-EnoceanModule/src/EnoceanGateway.h"
 // #elif TEST
 // #include "../../knx-test/src/Test.h"
 // #pragma message "Building Logic for TEST"
