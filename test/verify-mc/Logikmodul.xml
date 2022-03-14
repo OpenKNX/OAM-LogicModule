@@ -13,7 +13,7 @@
             <Code>
               <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
             </Code>
-            <mc:define prefix="LOG" header="Logikmodul.h" NumChannels="10" KoOffset="20" />
+            <mc:define prefix="LOG" header="Logikmodul.h" NumChannels="2" KoOffset="20" />
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <mc:include href="Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
