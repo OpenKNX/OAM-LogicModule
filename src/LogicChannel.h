@@ -15,7 +15,7 @@
 #define SAVE_BUFFER_NUM_PAGES 41 // so next store should start at page 41
 
 // here we define, how many channels are compiled into firmware, has to be greater equal the number in knxprod
-#define LOG_ChannelsFirmware COUNT_LOG_CHANNEL
+#define LOG_ChannelsFirmware LOG_ChannelCount
 
 // enum input defaults
 #define VAL_InputDefault_Undefined 0
