@@ -150,7 +150,7 @@ uint8_t *LogicChannel::getStringParam(uint16_t iParamIndex)
 uint16_t LogicChannel::calcKoNumber(uint8_t iIOIndex, uint8_t iChannelId)
 {
     // do not use iIOIndex = 0
-    uint8_t lKoNumber = LOG_KoOffset + iChannelId * LOG_KoBlockSize;
+    uint16_t lKoNumber = LOG_KoOffset + iChannelId * LOG_KoBlockSize;
     switch (iIOIndex)
     {
         case IO_Input1:
