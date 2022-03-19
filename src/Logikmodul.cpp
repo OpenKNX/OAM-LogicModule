@@ -1,11 +1,6 @@
 #ifdef LOGICMODULE
 #include "Helper.h"
-#include "Hardware.h"
 #include "Logic.h"
-
-const uint8_t cFirmwareMajor = 3;    // 0-31
-const uint8_t cFirmwareMinor = 8;    // 0-31
-const uint8_t cFirmwareRevision = 0; // 0-63
 
 struct sRuntimeInfo
 {
@@ -75,8 +70,6 @@ void appSetup(bool iSaveSupported)
 
     if (knx.configured())
     {
-        // 5 bit major, 5 bit minor, 6 bit revision
-        // knx.bau().deviceObject().version(cFirmwareMajor << 11 | cFirmwareMinor << 6 | cFirmwareRevision);
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         gLogic.setup(iSaveSupported);

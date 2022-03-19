@@ -58,9 +58,9 @@
             "problemMatcher": []
         },
         {
-            "label": "MultiplyChannels",
+            "label": "OpenKNXproducer-Develop",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\bin\\MultiplyChannels.exe",
+            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
             "args": [
                 "create",
                 "--Debug",
@@ -70,10 +70,15 @@
             "group": "test"
         },
         {
-            "label": "MultiplyChannels-Release",
+            "label": "OpenKNXproducer-Release",
             "type": "shell",
-            "command": "release\\BuildRelease.cmd",
-            "args": [],
+            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
+            "args": [
+                "create",
+                "--Debug",
+                "--OutputFile=src/LogicModule.knxprod",
+                "src/Logikmodul-Release"
+            ],
             "problemMatcher": [],
             "group": "test"
         }

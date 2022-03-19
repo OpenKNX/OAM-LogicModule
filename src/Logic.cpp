@@ -1,6 +1,5 @@
 #include "Logic.h"
 #include "Helper.h"
-#include "Hardware.h"
 #include "Timer.h"
 #include "TimerRestore.h"
 #include "PCA9632.h"

@@ -1,7 +1,6 @@
 #include "LogicChannel.h"
 #include "Logic.h"
 #include "Helper.h"
-#include "Hardware.h"
 #include "PCA9632.h"
 #include "LogicFunction.h"
 

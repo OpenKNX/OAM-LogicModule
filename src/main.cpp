@@ -1,5 +1,5 @@
 #include <OpenKNX.h>
-#include "Hardware.h"
+#include "HardwareDevices.h"
 
 void appSetup(bool iSaveSupported);
 void appLoop();
