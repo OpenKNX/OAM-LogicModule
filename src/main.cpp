@@ -1,3 +1,4 @@
+#ifdef LOGICMODULE
 #include <OpenKNX.h>
 #include "HardwareDevices.h"
 
@@ -54,3 +55,4 @@ void loop()
     if (knx.configured())
         appLoop();
 }
+#endif
