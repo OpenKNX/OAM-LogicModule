@@ -869,7 +869,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000005" Name="HeartbeatDelayTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
               </Union>
               <Union SizeInBit="16">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="9" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="5" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000034" Name="ReadTimeDate" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="0" Text="Uhrzeit und Datum nach einem Neustart vom Bus lesen" Value="1" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000035" Name="BuzzerInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="1" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000036" Name="LedInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="2" Text="Optischer Signalgeber vorhanden (RGB-LED)?" Value="0" />
@@ -885,7 +885,7 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000147" Name="Watchdog" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="1" BitOffset="5" Text="Wachdog aktivieren" Value="0" />
               </Union>
               <Union SizeInBit="32">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="11" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="7" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000152"  Name="Neujahr"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="0" Text="1. Neujahr"                   SuffixText="1. Januar"           Value="1" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000110" Name="DreiKoenige"        ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="1" Text="2. Heilige Drei Könige"           SuffixText="6. Januar"           Value="1" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000111" Name="Weiberfastnacht"    ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="2" Text="3. Weiberfastnacht"           SuffixText="52 Tage vor Ostern"  Value="0" />
@@ -917,19 +917,19 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000137" Name="Silvester"          ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="4" Text="29. Silvester"                 SuffixText="31. Dezember"        Value="1" />
               </Union>
               <Union SizeInBit="64">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="15" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="11" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000142" Name="Latitude"  ParameterType="M-00FA_A-0001-01-0000_PT-Latitude"  Offset="0" BitOffset="0" Text="Breitengrad" SuffixText="Lat"  Value="50.115377" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000143" Name="Longitude" ParameterType="M-00FA_A-0001-01-0000_PT-Longitude" Offset="4" BitOffset="0" Text="Längengrad"  SuffixText="Long" Value="8.683764"  />
               </Union>
               <Union SizeInBit="48">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="23" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="19" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000148" Name="BuzzerSilent" ParameterType="M-00FA_A-0001-01-0000_PT-BuzzerFrequency" Offset="0" BitOffset="0" Text="Frequenz für Buzzer (leise)"  SuffixText="Hz" Value="1800" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000149" Name="BuzzerNormal" ParameterType="M-00FA_A-0001-01-0000_PT-BuzzerFrequency" Offset="2" BitOffset="0" Text="Frequenz für Buzzer (normal)" SuffixText="Hz" Value="3200" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000150" Name="BuzzerLoud"   ParameterType="M-00FA_A-0001-01-0000_PT-BuzzerFrequency" Offset="4" BitOffset="0" Text="Frequenz für Buzzer (laut)"   SuffixText="Hz" Value="2400" />
               </Union>
               <Union SizeInBit="8">
                 <!-- 5 Bit frei -->
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="29" BitOffset="0" />
+                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="25" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000151" Name="LedMapping" ParameterType="M-00FA_A-0001-01-0000_PT-RGBMapping" Offset="0" BitOffset="0" Text="Lötpad A / B / C entspicht" Value="1" />
               </Union>
             </Parameters>
