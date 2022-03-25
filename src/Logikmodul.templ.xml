@@ -2,9 +2,14 @@
 <KNX xmlns:mc="http://github.com/mumpf/multiply-channels" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knx.org/xml/project/14 ../../../knx.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" CreatedBy="KNX MT" ToolVersion="5.1.255.16695" xmlns="http://knx.org/xml/project/14">
   <Parameters>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%001" Name="f%C%Name" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung des Kanals" Value="" />
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%002" Name="f%C%ChannelDelay" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" SuffixText="Sekunden" Value="1">
+    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%002" Name="f%C%ChannelDelay" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" SuffixText="Sekunden" Value="1">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="0" BitOffset="0" />
-    </Parameter>
+    </Parameter> -->
+    <Union SizeInBit="16">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="0" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%381" Name="f%C%ChannelDelayBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%382" Name="f%C%ChannelDelayTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
+    </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%003" Name="f%C%Logic" ParameterType="M-00FA_A-0001-01-0000_PT-Logic" Text="Logik-Operation" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="4" BitOffset="0" />
     </Parameter>
@@ -47,10 +52,17 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%272" Name="f%C%TYearDay"        ParameterType="M-00FA_A-0001-01-0000_PT-YearDay"      Offset="0" BitOffset="3" Text="Typ der Zeitschaltuhr" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%274" Name="f%C%TRestoreState"   ParameterType="M-00FA_A-0001-01-0000_PT-RestoreState" Offset="0" BitOffset="1" Text="Beim Neustart letzte Schaltzeit nachholen" Value="0" />
     </Union>
-    <Union SizeInBit="32">
+    <!-- <Union SizeInBit="32">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%027" Name="f%C%E1Repeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="0" BitOffset="0" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0" />
+    </Union> -->
+    <!-- Delay pattern-->
+    <Union SizeInBit="16">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%383" Name="f%C%E1RepeatBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%384" Name="f%C%E1RepeatTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
+    <!-- 2 Byte frei wegen neuem Delay Pattern -->
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="16" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%028" Name="f%C%E2"               ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable"      Offset="0" BitOffset="4" Text="Eingang 2" Value="0" />
@@ -71,7 +83,10 @@
     </Union>
     <Union SizeInBit="32">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="19" BitOffset="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%047" Name="f%C%E2Repeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="0" BitOffset="0" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0" />
+      <!-- <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%047" Name="f%C%E2Repeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="0" BitOffset="0" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0" /> -->
+      <!-- Delay pattern-->
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%385" Name="f%C%E2RepeatBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%386" Name="f%C%E2RepeatTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
       <!-- Timer setup -->
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%171" Name="f%C%Td1DuskDawn" ParameterType="M-00FA_A-0001-01-0000_PT-DuskDawn" Offset="0" BitOffset="0" Text="Zeitbezug" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%179" Name="f%C%Td2DuskDawn" ParameterType="M-00FA_A-0001-01-0000_PT-DuskDawn" Offset="0" BitOffset="4" Text="Zeitbezug" Value="0" />
@@ -344,15 +359,23 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%051" Name="f%C%I2Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang Y als interner Eingang 2, Y =" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="41" BitOffset="0" />
     </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%053" Name="f%C%OTimeBase" ParameterType="M-00FA_A-0001-01-0000_PT-TimeBase" Text="Zeitbasis für Treppenlicht" Value="0">
+    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%053" Name="f%C%OTimeBase" ParameterType="M-00FA_A-0001-01-0000_PT-TimeBase" Text="Zeitbasis für Treppenlicht" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054" Name="f%C%OTime" ParameterType="M-00FA_A-0001-01-0000_PT-TimeBasedTime" Text="Zeit für Treppenlicht" Value="10">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="43" BitOffset="0" />
-    </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%057" Name="f%C%OBlink" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="Treppenlicht blinkt im n/10 Sekunden Rythmus (0 = nicht blinken)" SuffixText="/10 Sekunden" Value="0">
+    </Parameter> -->
+    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%057" Name="f%C%OBlink" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="Treppenlicht blinkt im n/10 Sekunden Rythmus (0 = nicht blinken)" SuffixText="/10 Sekunden" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
-    </Parameter>
+    </Parameter> -->
+    <!-- Stair delay pattern-->
+    <Union SizeInBit="32">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%053" Name="f%C%OStairtimeBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%054" Name="f%C%OStairtimeTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%387" Name="f%C%OBlinkBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%388" Name="f%C%OBlinkTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
+    </Union>
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="51" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%058" Name="f%C%ODelay"          ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"  Offset="0" BitOffset="0" Text="Ausgang schaltet zeitverzögert" Value="0" />
@@ -361,12 +384,20 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%119" Name="f%C%ODelayOffRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffRepeat" Offset="0" BitOffset="4" Text="Erneutes AUS führt zu" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%120" Name="f%C%ODelayOffReset"  ParameterType="M-00FA_A-0001-01-0000_PT-OnOffReset"  Offset="0" BitOffset="6" Text="Darauffolgendes EIN führt zu" Value="0" />
     </Union>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%059" Name="f%C%ODelayOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EINschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" SuffixText="/10 Sekunden" Value="0">
+    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%059" Name="f%C%ODelayOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EINschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" SuffixText="/10 Sekunden" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%060" Name="f%C%ODelayOff" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="AUSschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" SuffixText="/10 Sekunden" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="56" BitOffset="0" />
-    </Parameter>
+    </Parameter> -->
+    <!-- OnOff delay pattern-->
+    <Union SizeInBit="32">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%059" Name="f%C%ODelayOnBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%060" Name="f%C%ODelayOnTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%062" Name="f%C%ODelayOffBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%063" Name="f%C%ODelayOffTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
+    </Union>
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="60" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%052" Name="f%C%OStair"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="0" Text="Ausgang hat eine Treppenlichtfunktion" Value="0" />
@@ -375,12 +406,19 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%061" Name="f%C%ORepeat"       ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="3" Text="Ausgang wiederholt zyklisch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%127" Name="f%C%OOutputFilter" ParameterType="M-00FA_A-0001-01-0000_PT-OutputFilter" Offset="0" BitOffset="4" Text="Wiederholungsfilter" Value="0" />
     </Union>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%062" Name="f%C%ORepeatOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EIN-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" SuffixText="/10 Sekunden" Value="0">
+    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%062" Name="f%C%ORepeatOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EIN-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" SuffixText="/10 Sekunden" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%063" Name="f%C%ORepeatOff" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="AUS-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" SuffixText="/10 Sekunden" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
-    </Parameter>
+    </Parameter> -->
+    <Union SizeInBit="32">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%389" Name="f%C%ORepeatOnBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%390" Name="f%C%ORepeatOnTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%391" Name="f%C%ORepeatOffBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%392" Name="f%C%ORepeatOffTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
+    </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%064" Name="f%C%ODpt" ParameterType="M-00FA_A-0001-01-0000_PT-OutputDpt" Text="DPT für Ausgang" Value="0">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="69" BitOffset="0" />
     </Parameter>
@@ -473,7 +511,7 @@
   </Parameters>
   <ParameterRefs>
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%001_R-%T%%CCC%00101" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%001" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%002_R-%T%%CCC%00201" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%002" />
+    <!-- <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%002_R-%T%%CCC%00201" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%002" /> -->
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%003_R-%T%%CCC%00301" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%003" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%004_R-%T%%CCC%00401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%004" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%005_R-%T%%CCC%00501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%005" />
@@ -512,7 +550,7 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%025_R-%T%%CCC%02501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%025" Text="Bis-Wert" Value="16777216" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%025_R-%T%%CCC%02502" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%025" Text="Einschalt-Wert" Value="10000000" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027" />
+    <!-- <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027" /> -->
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%028_R-%T%%CCC%02801" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%028" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%029_R-%T%%CCC%02901" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%029" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%030_R-%T%%CCC%03001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%030" />
@@ -546,26 +584,23 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%045_R-%T%%CCC%04501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%045" Text="Bis-Wert" Value="16777216" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%045_R-%T%%CCC%04502" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%045" Text="Einschalt-Wert" Value="10000000" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047" />
+    <!-- <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047" /> -->
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%048_R-%T%%CCC%04801" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%048" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%049_R-%T%%CCC%04901" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%049" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%050_R-%T%%CCC%05001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%050" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%051_R-%T%%CCC%05101" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%051" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%052_R-%T%%CCC%05201" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%052" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%053_R-%T%%CCC%05301" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%053" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05401" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054" SuffixText="/10 Sekunden" Value="50" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05402" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054" SuffixText="Sekunden"     Value="10" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05403" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054" SuffixText="Minuten"      Value="2"  />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05404" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054" SuffixText="Stunden"      Value="1"  />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%053_R-%T%%CCC%05301" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%053" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%054_R-%T%%CCC%05401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%054" Value="50" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%055_R-%T%%CCC%05501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%055" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%056_R-%T%%CCC%05601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%056" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%057_R-%T%%CCC%05701" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%057" />
+    <!-- <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%057_R-%T%%CCC%05701" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%057" /> -->
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%058_R-%T%%CCC%05801" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%058" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%059_R-%T%%CCC%05901" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%059" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%060_R-%T%%CCC%06001" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%060" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%059_R-%T%%CCC%05901" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%059" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%060_R-%T%%CCC%06001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%060" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%061_R-%T%%CCC%06101" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%061" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%062_R-%T%%CCC%06201" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%062" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%063_R-%T%%CCC%06301" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%063" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%062_R-%T%%CCC%06201" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%062" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%063_R-%T%%CCC%06301" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%063" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%064_R-%T%%CCC%06401" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%064" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%065_R-%T%%CCC%06501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%065" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%066_R-%T%%CCC%06601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%066" />
@@ -888,6 +923,18 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%380_R-%T%%CCC%38001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%380" Access="Read" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%380_R-%T%%CCC%38002" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%380" Value="1" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%381_R-%T%%CCC%38101" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%381" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%382_R-%T%%CCC%38201" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%382" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%383_R-%T%%CCC%38301" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%383" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%385_R-%T%%CCC%38501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%385" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%387_R-%T%%CCC%38701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%387" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%388_R-%T%%CCC%38801" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%388" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%389_R-%T%%CCC%38901" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%389" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%390_R-%T%%CCC%39001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%390" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%391_R-%T%%CCC%39101" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%391" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%392_R-%T%%CCC%39201" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%392" />
   </ParameterRefs>
   <ComObjectTable>
     <ComObject Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Name="KOf%C%E1" Text="Eingang 1" Number="%K0%" FunctionText="Logik %C%, Eingang 1" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled"  CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled"  ReadOnInitFlag="Disabled" />
@@ -932,7 +979,21 @@
       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%133_R-%T%%CCC%13301" />
 
       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%001_R-%T%%CCC%00101" />
-      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%002_R-%T%%CCC%00201" />
+      <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%002_R-%T%%CCC%00201" /> -->
+      <!-- E1Repeat Delay pattern -->
+      <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%ChannelDelayCycle" Inline="true" Layout="Grid">
+        <Columns>
+          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+        </Columns>
+        <Rows>
+          <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+        </Rows>
+        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" Cell="1,1" />
+        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%382_R-%T%%CCC%38201" Cell="1,2" />
+        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%381_R-%T%%CCC%38101" Cell="1,3" />
+      </ParameterBlock>
       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%166_R-%T%%CCC%16601" />
       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%003_R-%T%%CCC%00301" />
@@ -1046,9 +1107,9 @@
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000007_R-%T%00000701">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
                       <when test="1">
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000008_R-%T%00000801">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
                           <when test="1">
                             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
                               <when test="0">
@@ -1060,8 +1121,22 @@
                       </when>
                     </choose>
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701">
+                    <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
+                    <!-- E1Repeat Delay pattern -->
+                    <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                      <Columns>
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                      </Columns>
+                      <Rows>
+                        <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                      </Rows>
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Cell="1,1" />
+                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
+                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
+                    </ParameterBlock>
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401">
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%164_R-%T%%CCC%16401" />
                       </when>
@@ -1585,9 +1660,9 @@
                     <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%093_R-%T%%CCC%09301">
                       <when test="!=5">
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000007_R-%T%00000701">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
                           <when test="1">
-                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000008_R-%T%00000801">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
                               <when test="1">
                                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
                                   <when test="0">
@@ -1599,8 +1674,22 @@
                           </when>
                         </choose>
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
-                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" />
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701">
+                        <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
+                        <!-- E1Repeat Delay pattern -->
+                        <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                          <Columns>
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                          </Columns>
+                          <Rows>
+                            <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                          </Rows>
+                          <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Cell="1,1" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
+                        </ParameterBlock>
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401">
                           <when test=">0">
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%164_R-%T%%CCC%16401" />
                           </when>
@@ -1672,9 +1761,9 @@
                       </when>
                     </choose>
                     <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000007_R-%T%00000701">
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
                       <when test="1">
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000008_R-%T%00000801">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
                           <when test="1">
                             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
                               <when test="0">
@@ -1686,8 +1775,22 @@
                       </when>
                     </choose>
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" />
-                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701">
+                    <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
+                    <!-- E2Repeat Delay pattern -->
+                    <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                      <Columns>
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                        <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                      </Columns>
+                      <Rows>
+                        <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                      </Rows>
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Cell="1,1" />
+                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
+                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
+                    </ParameterBlock>
+                    <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601">
                       <when test=">0">
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%165_R-%T%%CCC%16501" />
                       </when>
@@ -2216,9 +2319,9 @@
                     <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%094_R-%T%%CCC%09401">
                       <when test="!=5">
                         <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000007_R-%T%00000701">
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
                           <when test="1">
-                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000008_R-%T%00000801">
+                            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
                               <when test="1">
                                 <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
                                   <when test="0">
@@ -2230,8 +2333,22 @@
                           </when>
                         </choose>
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
-                        <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" />
-                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701">
+                        <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
+                        <!-- E2Repeat Delay pattern -->
+                        <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                          <Columns>
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                          </Columns>
+                          <Rows>
+                            <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                          </Rows>
+                          <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" Cell="1,1" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
+                        </ParameterBlock>
+                        <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601">
                           <when test=">0">
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%165_R-%T%%CCC%16501" />
                           </when>
@@ -2311,7 +2428,7 @@
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%275_R-%T%%CCC%27501" />
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%272_R-%T%%CCC%27201" />
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%273_R-%T%%CCC%27301" />
-            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
+            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000138_R-%T%00013801">
               <when test="1">
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%276_R-%T%%CCC%27601" />
               </when>
@@ -2619,39 +2736,81 @@
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%052_R-%T%%CCC%05201" />
             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%052_R-%T%%CCC%05201">
               <when test="!=0">
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%053_R-%T%%CCC%05301" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%053_R-%T%%CCC%05301">
-                  <when test="0">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05401" />
-                  </when>
-                  <when test="1">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05402" />
-                  </when>
-                  <when test="2">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05403" />
-                  </when>
-                  <when test="3">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%054_R-%T%%CCC%05404" />
-                  </when>
-                </choose>
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%053_R-%T%%CCC%05301" /> -->
+                <!-- Stairtime Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%OStairtimeCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Zeit für Treppenlicht" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%054_R-%T%%CCC%05401" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%053_R-%T%%CCC%05301" Cell="1,3" />
+                </ParameterBlock>
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%055_R-%T%%CCC%05501" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%056_R-%T%%CCC%05601" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%057_R-%T%%CCC%05701" />
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%057_R-%T%%CCC%05701" /> -->
+                <!-- Blink Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%OBlinkCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Treppenlicht blinkt im n/10 Sekunden Rythmus (0 = nicht blinken)" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%388_R-%T%%CCC%38801" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%387_R-%T%%CCC%38701" Cell="1,3" />
+                </ParameterBlock>
               </when>
             </choose>
             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%058_R-%T%%CCC%05801" />
             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%058_R-%T%%CCC%05801">
               <when test="!=0">
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%059_R-%T%%CCC%05901" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%059_R-%T%%CCC%05901">
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%059_R-%T%%CCC%05901" /> -->
+                <!-- DelayOn Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%ODelayOnCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EINschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%060_R-%T%%CCC%06001" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%059_R-%T%%CCC%05901" Cell="1,3" />
+                </ParameterBlock>
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%060_R-%T%%CCC%06001">
                   <when test=">0">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%117_R-%T%%CCC%11701" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%118_R-%T%%CCC%11801" />
                   </when>
                 </choose>
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%060_R-%T%%CCC%06001" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%060_R-%T%%CCC%06001">
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%060_R-%T%%CCC%06001" /> -->
+                <!-- DelayOff Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%ODelayOffCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUSschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%063_R-%T%%CCC%06301" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%062_R-%T%%CCC%06201" Cell="1,3" />
+                </ParameterBlock>
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%390_R-%T%%CCC%39001">
                   <when test=">0">
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%119_R-%T%%CCC%11901" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%120_R-%T%%CCC%12001" />
@@ -2666,17 +2825,45 @@
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%061_R-%T%%CCC%06101" />
             <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%061_R-%T%%CCC%06101">
               <when test="!=0">
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%062_R-%T%%CCC%06201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%063_R-%T%%CCC%06301" />
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%062_R-%T%%CCC%06201" /> -->
+                <!-- RepeatOn Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%ORepeatOnCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EIN-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%390_R-%T%%CCC%39001" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%389_R-%T%%CCC%38901" Cell="1,3" />
+                </ParameterBlock>
+                <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%063_R-%T%%CCC%06301" /> -->
+                <!-- RepeatOff Delay pattern -->
+                <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%ORepeatOffCycle" Inline="true" Layout="Grid">
+                  <Columns>
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
+                    <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
+                  </Columns>
+                  <Rows>
+                    <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUS-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" Cell="1,1" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%392_R-%T%%CCC%39201" Cell="1,2" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%391_R-%T%%CCC%39101" Cell="1,3" />
+                </ParameterBlock>
               </when>
             </choose>
             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Der bis hierher ermittelte Zustand steht als Ausgangswert des Kanals für weitere Logikkanäle zur Verfügung" />
             <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%064_R-%T%%CCC%06401" />
-            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000005_R-%T%00000501">
+            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501">
               <when test="0">
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000006_R-%T%00000601">
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601">
                   <when test="0">
                     <!-- No Buzzer, no Led -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%065_R-%T%%CCC%06501" />
@@ -2690,7 +2877,7 @@
                 </choose>
               </when>
               <when test="1">
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000006_R-%T%00000601">
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601">
                   <when test="0">
                     <!-- Only Buzzer, no Led -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%134_R-%T%%CCC%13401" />
@@ -2775,9 +2962,9 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%279_R-%T%%CCC%27901" />
               </when>
             </choose>
-            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000005_R-%T%00000501">
+            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501">
               <when test="0">
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000006_R-%T%00000601">
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601">
                   <when test="0">
                     <!-- No Buzzer, no Led -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%077_R-%T%%CCC%07701" />
@@ -2791,7 +2978,7 @@
                 </choose>
               </when>
               <when test="1">
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000006_R-%T%00000601">
+                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601">
                   <when test="0">
                     <!-- Only Buzzer, no Led -->
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%137_R-%T%%CCC%13701" />

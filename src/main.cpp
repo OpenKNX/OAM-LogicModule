@@ -1,5 +1,6 @@
 #ifdef LOGICMODULE
 #include <OpenKNX.h>
+#include <Logikmodul.h>
 #include "HardwareDevices.h"
 
 void appSetup(bool iSaveSupported);
@@ -26,7 +27,7 @@ void setup()
 #endif
 
     // initialize knx-stack and check versions
-    OpenKNX::knxRead(0 /* 0xA0 */, 0x65, 5, 0);
+    OpenKNX::knxRead(MAIN_OpenKnxId, MAIN_ApplicationNumber, MAIN_ApplicationVersion, 0);
 
     // pin or GPIO the programming led is connected to. Default is LED_BUILDIN
     knx.ledPin(PROG_LED_PIN);

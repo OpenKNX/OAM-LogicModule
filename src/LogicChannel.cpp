@@ -142,6 +142,11 @@ uint8_t *LogicChannel::getStringParam(uint16_t iParamIndex)
     return knx.paramData(lIndex);
 }
 
+uint32_t LogicChannel::getTimeDelayParam(uint16_t iParamIndex, bool iAsSeconds /* = false */)
+{
+    return getDelayPattern(calcParamIndex(iParamIndex), iAsSeconds);
+}
+
 /*******************************
  * ComObject helper
  * ****************************/
@@ -644,7 +649,7 @@ void LogicChannel::startStartup()
 
 void LogicChannel::processStartup()
 {
-    if (delayCheck(pOnDelay, getIntParam(LOG_fChannelDelay) * 1000))
+    if (delayCheck(pOnDelay, getTimeDelayParam(LOG_fChannelDelayBase)))
     {
         // we waited enough, remove pipeline marker
 #if LOGIC_TRACE
@@ -682,7 +687,7 @@ void LogicChannel::processInput(uint8_t iIOIndex)
 // we send an ReadRequest if reading from input 1 should be repeated
 void LogicChannel::processRepeatInput1()
 {
-    uint32_t lRepeatTime = getIntParam(LOG_fE1Repeat) * 1000;
+    uint32_t lRepeatTime = getTimeDelayParam(LOG_fE1RepeatBase);
 
     if (delayCheck(pInputProcessing.repeatInput1Delay, lRepeatTime))
     {
@@ -696,7 +701,7 @@ void LogicChannel::processRepeatInput1()
 // we send an ReadRequest if reading from input 1 should be repeated
 void LogicChannel::processRepeatInput2()
 {
-    uint32_t lRepeatTime = getIntParam(LOG_fE2Repeat) * 1000;
+    uint32_t lRepeatTime = getTimeDelayParam(LOG_fE2RepeatBase);
 
     if (delayCheck(pInputProcessing.repeatInput2Delay, lRepeatTime))
     {
@@ -720,14 +725,14 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
 
     switch (iIOIndex)
     {
-        case 1:
+        case IO_Input1:
             lRepeatInputBit = PIP_REPEAT_INPUT1;
-            lRepeatTime = getIntParam(LOG_fE1Repeat);
+            lRepeatTime = getTimeDelayParam(LOG_fE1RepeatBase);
             lJustOneTelegram = getByteParam(LOG_fE1DefaultRepeat) & LOG_fE1DefaultRepeatMask;
             break;
-        case 2:
+        case IO_Input2:
             lRepeatInputBit = PIP_REPEAT_INPUT2;
-            lRepeatTime = getIntParam(LOG_fE2Repeat);
+            lRepeatTime = getTimeDelayParam(LOG_fE2RepeatBase);
             lJustOneTelegram = getByteParam(LOG_fE2DefaultRepeat) & LOG_fE2DefaultRepeatMask;
             break;
         default:
@@ -1217,11 +1222,7 @@ void LogicChannel::startStairlight(bool iOutput)
 
 void LogicChannel::processStairlight()
 {
-    uint8_t lStairTimeBase = getByteParam(LOG_fOTimeBase);
-    uint32_t lStairTime = getIntParam(LOG_fOTime);
-    uint32_t lTime = lStairTime * cTimeFactors[lStairTimeBase];
-
-    if (delayCheck(pStairlightDelay, lTime))
+    if (delayCheck(pStairlightDelay, getTimeDelayParam(LOG_fOStairtimeBase)))
     {
 #if LOGIC_TRACE
         if (debugFilter()) 
@@ -1241,7 +1242,7 @@ void LogicChannel::processStairlight()
 
 void LogicChannel::startBlink()
 {
-    uint32_t lBlinkTime = getIntParam(LOG_fOBlink);
+    uint32_t lBlinkTime = getTimeDelayParam(LOG_fOBlinkBase);
     if (lBlinkTime > 0)
     {
 #if LOGIC_TRACE
@@ -1258,7 +1259,7 @@ void LogicChannel::startBlink()
 
 void LogicChannel::processBlink()
 {
-    uint32_t lBlinkTime = getIntParam(LOG_fOBlink) * 100;
+    uint32_t lBlinkTime = getTimeDelayParam(LOG_fOBlinkBase);
     if (delayCheck(pBlinkDelay, lBlinkTime))
     {
         bool lOn = (pCurrentOut & BIT_OUTPUT_BLINK);
@@ -1366,7 +1367,7 @@ void LogicChannel::startOnDelay()
 
 void LogicChannel::processOnDelay()
 {
-    uint32_t lOnDelay = getIntParam(LOG_fODelayOn) * 100;
+    uint32_t lOnDelay = getTimeDelayParam(LOG_fODelayOnBase);
     if (delayCheck(pOnDelay, lOnDelay))
     {
 #if LOGIC_TRACE
@@ -1458,7 +1459,7 @@ void LogicChannel::startOffDelay()
 
 void LogicChannel::processOffDelay()
 {
-    uint32_t lOffDelay = getIntParam(LOG_fODelayOff) * 100;
+    uint32_t lOffDelay = getTimeDelayParam(LOG_fODelayOffBase);
     if (delayCheck(pOffDelay, lOffDelay))
     {
 #if LOGIC_TRACE
@@ -1529,7 +1530,7 @@ void LogicChannel::startOnOffRepeat(bool iOutput)
             pRepeatOnOffDelay = millis();
             pCurrentPipeline &= ~PIP_OFF_REPEAT;
             processOutput(iOutput);
-            if (getIntParam(LOG_fORepeatOn) > 0) {
+            if (getTimeDelayParam(LOG_fORepeatOnBase) > 0) {
                 pCurrentPipeline |= PIP_ON_REPEAT;
 #if LOGIC_TRACE
                 if (debugFilter())
@@ -1547,7 +1548,7 @@ void LogicChannel::startOnOffRepeat(bool iOutput)
             pRepeatOnOffDelay = millis();
             pCurrentPipeline &= ~PIP_ON_REPEAT;
             processOutput(iOutput);
-            if (getIntParam(LOG_fORepeatOff) > 0) {
+            if (getTimeDelayParam(LOG_fORepeatOffBase) > 0) {
                 pCurrentPipeline |= PIP_OFF_REPEAT;
 #if LOGIC_TRACE
                 if (debugFilter())
@@ -1569,12 +1570,12 @@ void LogicChannel::processOnOffRepeat()
     // set both in parallel
     if (pCurrentPipeline & PIP_ON_REPEAT)
     {
-        lRepeat = getIntParam(LOG_fORepeatOn) * 100;
+        lRepeat = getTimeDelayParam(LOG_fORepeatOnBase);
         lValue = true;
     }
     if (pCurrentPipeline & PIP_OFF_REPEAT)
     {
-        lRepeat = getIntParam(LOG_fORepeatOff) * 100;
+        lRepeat = getTimeDelayParam(LOG_fORepeatOffBase);
         lValue = false;
     }
 
@@ -1859,7 +1860,7 @@ bool LogicChannel::prepareChannel()
                 sLogic->addKoLookup(lExternalKo & 0x03FFF, mChannelId, IO_Input1);
             }
             // prepare input for cyclic read
-            pInputProcessing.repeatInput1Delay = getIntParam(LOG_fE1Repeat);
+            pInputProcessing.repeatInput1Delay = getTimeDelayParam(LOG_fE1RepeatBase);
             if (pInputProcessing.repeatInput1Delay)
             {
                 pInputProcessing.repeatInput1Delay = millis();
@@ -1912,7 +1913,7 @@ bool LogicChannel::prepareChannel()
                 sLogic->addKoLookup(lExternalKo & 0x3FFF, mChannelId, IO_Input2);
             }
             // prepare input for cyclic read
-            pInputProcessing.repeatInput2Delay = getIntParam(LOG_fE2Repeat);
+            pInputProcessing.repeatInput2Delay = getTimeDelayParam(LOG_fE2RepeatBase);
             if (pInputProcessing.repeatInput2Delay)
             {
                 pInputProcessing.repeatInput2Delay = millis();

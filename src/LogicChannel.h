@@ -188,7 +188,7 @@
 
 // extern KnxFacade<LinuxPlatform, Bau57B0> knx;
 
-const uint32_t cTimeFactors[] = {100, 1000, 60000, 3600000};
+// const uint32_t cTimeFactors[] = {100, 1000, 60000, 3600000};
 
 class Logic;
 
@@ -212,6 +212,7 @@ class LogicChannel
     int32_t getSIntParam(uint16_t iParamIndex);
     float getFloatParam(uint16_t iParamIndex);
     uint8_t* getStringParam(uint16_t iParamIndex);
+    uint32_t getTimeDelayParam(uint16_t iParamIndex, bool iAsSeconds = false);
     GroupObject *getKo(uint8_t iIOIndex);
     Dpt &getKoDPT(uint8_t iIOIndex);
     void knxWriteBool(uint8_t iIOIndex, bool iValue);

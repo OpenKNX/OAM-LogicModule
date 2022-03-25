@@ -4,8 +4,14 @@
 // Parameter with single occurance
 
 #define LOG_NumChannels                0      // uint8_t
-#define LOG_StartupDelay               1      // int32_t
-#define LOG_Heartbeat                  5      // int32_t
+#define LOG_StartupDelayBase           1      // 2 Bits, Bit 7-6
+#define     LOG_StartupDelayBaseMask 0xC0
+#define     LOG_StartupDelayBaseShift 6
+#define LOG_StartupDelayTime           1      // uint14_t
+#define LOG_HeartbeatDelayBase         3      // 2 Bits, Bit 7-6
+#define     LOG_HeartbeatDelayBaseMask 0xC0
+#define     LOG_HeartbeatDelayBaseShift 6
+#define LOG_HeartbeatDelayTime         3      // uint14_t
 #define LOG_ReadTimeDate               9      // 1 Bit, Bit 7
 #define     LOG_ReadTimeDateMask 0x80
 #define     LOG_ReadTimeDateShift 7
@@ -151,10 +157,15 @@
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
 
+#define LOG_ChannelCount 2
+
 // Parameter per channel
 #define LOG_ParamBlockOffset 30
 #define LOG_ParamBlockSize 104
-#define LOG_fChannelDelay              0      // int32_t
+#define LOG_fChannelDelayBase          0      // 2 Bits, Bit 7-6
+#define     LOG_fChannelDelayBaseMask 0xC0
+#define     LOG_fChannelDelayBaseShift 6
+#define LOG_fChannelDelayTime          0      // uint14_t
 #define LOG_fLogic                     4      // 8 Bits, Bit 7-0
 #define LOG_fCalculate                 5      // 2 Bits, Bit 1-0
 #define     LOG_fCalculateMask 0x03
@@ -209,7 +220,10 @@
 #define LOG_fTRestoreState            11      // 2 Bits, Bit 6-5
 #define     LOG_fTRestoreStateMask 0x60
 #define     LOG_fTRestoreStateShift 5
-#define LOG_fE1Repeat                 12      // int32_t
+#define LOG_fE1RepeatBase             12      // 2 Bits, Bit 7-6
+#define     LOG_fE1RepeatBaseMask 0xC0
+#define     LOG_fE1RepeatBaseShift 6
+#define LOG_fE1RepeatTime             12      // uint14_t
 #define LOG_fE2                       16      // 4 Bits, Bit 3-0
 #define     LOG_fE2Mask 0x0F
 #define     LOG_fE2Shift 0
@@ -238,7 +252,10 @@
 #define LOG_fTVacation                18      // 2 Bits, Bit 6-5
 #define     LOG_fTVacationMask 0x60
 #define     LOG_fTVacationShift 5
-#define LOG_fE2Repeat                 19      // int32_t
+#define LOG_fE2RepeatBase             19      // 2 Bits, Bit 7-6
+#define     LOG_fE2RepeatBaseMask 0xC0
+#define     LOG_fE2RepeatBaseShift 6
+#define LOG_fE2RepeatTime             19      // uint14_t
 #define LOG_fTd1DuskDawn              19      // 4 Bits, Bit 7-4
 #define     LOG_fTd1DuskDawnMask 0xF0
 #define     LOG_fTd1DuskDawnShift 4
@@ -675,9 +692,14 @@
 #define     LOG_fI2Shift 0
 #define LOG_fI1Function               40      // uint8_t
 #define LOG_fI2Function               41      // uint8_t
-#define LOG_fOTimeBase                42      // 8 Bits, Bit 7-0
-#define LOG_fOTime                    43      // int32_t
-#define LOG_fOBlink                   47      // int32_t
+#define LOG_fOStairtimeBase           42      // 2 Bits, Bit 7-6
+#define     LOG_fOStairtimeBaseMask 0xC0
+#define     LOG_fOStairtimeBaseShift 6
+#define LOG_fOStairtimeTime           42      // uint14_t
+#define LOG_fOBlinkBase               44      // 2 Bits, Bit 7-6
+#define     LOG_fOBlinkBaseMask 0xC0
+#define     LOG_fOBlinkBaseShift 6
+#define LOG_fOBlinkTime               44      // uint14_t
 #define LOG_fODelay                   51      // 1 Bit, Bit 7
 #define     LOG_fODelayMask 0x80
 #define     LOG_fODelayShift 7
@@ -693,8 +715,14 @@
 #define LOG_fODelayOffReset           51      // 1 Bit, Bit 1
 #define     LOG_fODelayOffResetMask 0x02
 #define     LOG_fODelayOffResetShift 1
-#define LOG_fODelayOn                 52      // int32_t
-#define LOG_fODelayOff                56      // int32_t
+#define LOG_fODelayOnBase             52      // 2 Bits, Bit 7-6
+#define     LOG_fODelayOnBaseMask 0xC0
+#define     LOG_fODelayOnBaseShift 6
+#define LOG_fODelayOnTime             52      // uint14_t
+#define LOG_fODelayOffBase            54      // 2 Bits, Bit 7-6
+#define     LOG_fODelayOffBaseMask 0xC0
+#define     LOG_fODelayOffBaseShift 6
+#define LOG_fODelayOffTime            54      // uint14_t
 #define LOG_fOStair                   60      // 1 Bit, Bit 7
 #define     LOG_fOStairMask 0x80
 #define     LOG_fOStairShift 7
@@ -710,8 +738,14 @@
 #define LOG_fOOutputFilter            60      // 2 Bits, Bit 3-2
 #define     LOG_fOOutputFilterMask 0x0C
 #define     LOG_fOOutputFilterShift 2
-#define LOG_fORepeatOn                61      // int32_t
-#define LOG_fORepeatOff               65      // int32_t
+#define LOG_fORepeatOnBase            61      // 2 Bits, Bit 7-6
+#define     LOG_fORepeatOnBaseMask 0xC0
+#define     LOG_fORepeatOnBaseShift 6
+#define LOG_fORepeatOnTime            61      // uint14_t
+#define LOG_fORepeatOffBase           63      // 2 Bits, Bit 7-6
+#define     LOG_fORepeatOffBaseMask 0xC0
+#define     LOG_fORepeatOffBaseShift 6
+#define LOG_fORepeatOffTime           63      // uint14_t
 #define LOG_fODpt                     69      // 8 Bits, Bit 7-0
 #define LOG_fOOn                      70      // 8 Bits, Bit 7-0
 #define LOG_fOOnBuzzer                70      // 8 Bits, Bit 7-0
@@ -777,3 +811,6 @@
 #define LOG_KoKOfE2 1
 #define LOG_KoKOfO 2
 
+#define MAIN_OpenKnxId 0xA0
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 1
