@@ -37,7 +37,7 @@
                   <Rows>
                     <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                   </Rows>
-                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="In Betrieb senden all" Cell="1,1" />
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="In Betrieb senden alle" Cell="1,1" />
                   <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000005_R-%T%00000501" Cell="1,2" />
                   <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000004_R-%T%00000401" Cell="1,3" />
                 </ParameterBlock>
