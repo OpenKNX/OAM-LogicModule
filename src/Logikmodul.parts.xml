@@ -7,6 +7,7 @@
           <Dynamic>
             <ChannelIndependentBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="General" Text="Logik: Obere Parameter">
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Gerätestart" UIHint="Headline" />
                 <!-- Time -->
                 <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000002_R-%T%00000201" />
                 <!-- Date -->
@@ -51,6 +52,8 @@
                 </choose>
               </ParameterBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-2" Name="Hardware" Text="Logic: Hardware">
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Installierte Hardware" UIHint="Headline" />
                 <!-- Buzzer installed? -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501" />
                 <!-- RGB-LED installed? -->
@@ -71,11 +74,13 @@
                 </choose>
               </ParameterBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-3" Name="Diagnose" Text="Logik: Diagnose">
-                <!-- activate Watchdog? -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000147_R-%T%00014701" />
                 <!-- Expert screen: we allow definition of buzzer frequencies -->
                 <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="LogicExtraSettings" Text="Experteneinstellungen">
+                  <!-- activate Watchdog? -->
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Watchdog" UIHint="Headline" />
+                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000147_R-%T%00014701" />
                   <!-- Show diagnose? -->
+                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                   <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Diagnose" UIHint="Headline" />
                   <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Das Diagnoseobjekt ist derzeit für interne Verwendung (Debug) vorgesehen." />
                   <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000146_R-%T%00014601" />
@@ -85,13 +90,13 @@
                       <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000007_R-%T%00000701" />
                     </when>
                   </choose>
-                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                   <!-- We implement here also led/buzzer lock KO -->
                   <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601">
                     <when test="1">
                       <!-- show lock KO for LED -->
                       <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000008_R-%T%00000801" />
                       <!-- show extra settings for LED-->
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="RGB-LED" UIHint="Headline" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Damit die LED in korrekten Farben leuchtet, muss hier angegeben werden, welcher Treiberausgang mit welchem LED-Beinchen verbunden ist." />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Platine liegt so, dass von den 4 Lötpads für die LED das ganz linke +5V ist. Die folgenden 3 Lötpads sind A, B und C." />
@@ -104,6 +109,7 @@
                       <!-- show lock KO for Buzzer -->
                       <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000009_R-%T%00000901" />
                       <!-- show extra settings for Buzzer-->
+                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Buzzer" UIHint="Headline" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die beim Buzzer verwendeten Frequenzen für leise, normal und laut können hier eingestellt werden" />
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000148_R-%T%00014801" />
@@ -114,66 +120,6 @@
                     </when>
                   </choose>
                 </ParameterBlock>
-              </ParameterBlock>
-              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="Holidays" Text="Urlaub/Feiertage">
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-49" Text="Zeit" UIHint="Headline" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-47" Text="Damit der Sonnenauf- und Untergang korrekt berechnet werden kann, muss man genaue Geokoordinaten des Standorts angeben. Standardwert ist Frankfurt/Main." />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000142_R-%T%00014201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000143_R-%T%00014301" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-46" Text="Ferner wird die Zeitzone des Ortes benötigt und ob die Zeit auf dem Bus auch die Sommerzeit berücksichtigt." />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000144_R-%T%00014401" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000145_R-%T%00014501" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-48" Text="" UIHint="HorizontalRuler" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-50" Text="Urlaub" UIHint="Headline" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-51" Text="Zeitschaltuhren können auch Urlaubszeiten berücksichtigen. Damit das funktioniert, muss eine Urlaubszeit über das KO 4 dem Gerät mitgeteilt werden." />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000138_R-%T%00013801" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000138_R-%T%00013801">
-                  <when test="1">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000140_R-%T%00014001" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000004_R-%T%00000401" />
-                  </when>
-                </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-52" Text="" UIHint="HorizontalRuler" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-53" Text="Feiertage" UIHint="Headline" />
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-54" Text="Das Gerät kann die berechneten Feiertage auch auf den Bus senden. Über das KO 5 wird mitgeteilt, ob 'Heute' ein Feiertag ist, über KO 6 ob 'Morgen' ein Feiertag ist." />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000139_R-%T%00013901" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000139_R-%T%00013901">
-                  <when test="1">
-                    <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000141_R-%T%00014101" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000005_R-%T%00000501" />
-                    <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000006_R-%T%00000601" />
-                  </when>
-                </choose>
-                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-55" Text="Im folgendend kann bestimmt werden, welche Feiertage berechnet werden sollen. Diese Feiertage werden auch von den Zeitschaltuhren berücksichtigt." />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000152_R-%T%00015201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000110_R-%T%00011001" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000111_R-%T%00011101" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000112_R-%T%00011201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000113_R-%T%00011301" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000114_R-%T%00011401" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000115_R-%T%00011501" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000116_R-%T%00011601" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000117_R-%T%00011701" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000118_R-%T%00011801" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000119_R-%T%00011901" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000120_R-%T%00012001" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000121_R-%T%00012101" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000122_R-%T%00012201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000123_R-%T%00012301" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000124_R-%T%00012401" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000125_R-%T%00012501" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000126_R-%T%00012601" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000127_R-%T%00012701" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000128_R-%T%00012801" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000129_R-%T%00012901" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000130_R-%T%00013001" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000131_R-%T%00013101" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000132_R-%T%00013201" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000133_R-%T%00013301" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000134_R-%T%00013401" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000135_R-%T%00013501" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000136_R-%T%00013601" />
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000137_R-%T%00013701" />
               </ParameterBlock>
             </ChannelIndependentBlock>
           </Dynamic>

@@ -243,7 +243,7 @@ void Logic::writeAllInputsToEEPROMFacade() {
     print("WriteAllInputsToEEPROM took: ");
     println(lTime);
 #else
-    print("No write to EEPROM, not available!");
+    println("No write to EEPROM, not available!");
 #endif
 }
 
