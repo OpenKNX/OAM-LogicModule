@@ -60,18 +60,6 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601" />
                 <!-- EEPROM installed -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
-                  <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-13" Text="Ohne EEPROM kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
-                  </when>
-                </choose>
-                <!-- Turn off Hardware -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801" />
-                <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
-                  <when test="0">
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-81" Text="Ohne Abschaltmöglichkeit der Zusatzhardware (RGB-LED, Buzzer) kann das Logikmodul Werte der Eingänge nicht speichern und nach einem Neustart wieder zur Verfügung stellen. Diese Funktion wird in der Applikation nicht angeboten." UIHint="Information" />
-                  </when>
-                </choose>
               </ParameterBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-3" Name="Diagnose" Text="Logik: Diagnose">
                 <!-- Expert screen: we allow definition of buzzer frequencies -->
@@ -101,7 +89,6 @@
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Damit die LED in korrekten Farben leuchtet, muss hier angegeben werden, welcher Treiberausgang mit welchem LED-Beinchen verbunden ist." />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Platine liegt so, dass von den 4 Lötpads für die LED das ganz linke +5V ist. Die folgenden 3 Lötpads sind A, B und C." />
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000151_R-%T%00015101" />
-                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                     </when>
                   </choose>
                   <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501">
@@ -116,7 +103,6 @@
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000149_R-%T%00014901" />
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000150_R-%T%00015001" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Der Buzzer kann nur 'AN' oder 'AUS'. Die Lautstärke wird durch Frequenz wählt, die niicht im optimalen Arbeitsbereich liegt. Die Standardwerte meinen also 'leise und tief', 'normal und hoch', 'laut und mittel'." />
-                      <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                     </when>
                   </choose>
                 </ParameterBlock>

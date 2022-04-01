@@ -24,9 +24,6 @@
 #define LOG_EepromInstalled            5      // 1 Bit, Bit 4
 #define     LOG_EepromInstalledMask 0x10
 #define     LOG_EepromInstalledShift 4
-#define LOG_NCN5130Installed           5      // 1 Bit, Bit 3
-#define     LOG_NCN5130InstalledMask 0x08
-#define     LOG_NCN5130InstalledShift 3
 #define LOG_VacationKo                 5      // 1 Bit, Bit 2
 #define     LOG_VacationKoMask 0x04
 #define     LOG_VacationKoShift 2
@@ -813,4 +810,4 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 7
+#define MAIN_ApplicationVersion 11

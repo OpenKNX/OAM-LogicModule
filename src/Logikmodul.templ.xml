@@ -944,7 +944,7 @@
   <ComObjectRefs>
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00201" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="1 Bit"    DatapointType="DPST-1-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00202" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="2 Bit"    DatapointType="DPST-2-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00203" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="1 Byte"   DatapointType="DPST-5-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00203" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="1 Byte"   DatapointType="DPST-5-5"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00204" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="1 Byte"   DatapointType="DPST-5-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00205" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="1 Byte"   DatapointType="DPST-6-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00206" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="2 Bytes"  DatapointType="DPST-7-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
@@ -955,7 +955,7 @@
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%002_R-%T%%CCC%00211" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%002" Text="{{0:Ausgang}}"   ObjectSize="3 Bytes"  DatapointType="DPST-232-600" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%132_R-%T%%CCC%13201" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00001" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="1 Bit"    DatapointType="DPST-1-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00002" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="2 Bit"    DatapointType="DPST-2-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00003" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="1 Byte"   DatapointType="DPST-5-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00003" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="1 Byte"   DatapointType="DPST-5-5"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00004" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="1 Byte"   DatapointType="DPST-5-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00005" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="1 Byte"   DatapointType="DPST-6-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00006" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="2 Bytes"  DatapointType="DPST-7-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
@@ -965,7 +965,7 @@
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00010" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Text="{{0:Eingang 1}}" ObjectSize="3 Bytes"  DatapointType="DPST-232-600" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%128_R-%T%%CCC%12801" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00101" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="1 Bit"    DatapointType="DPST-1-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00102" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="2 Bit"    DatapointType="DPST-2-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
-    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00103" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="1 Byte"   DatapointType="DPST-5-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
+    <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00103" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="1 Byte"   DatapointType="DPST-5-5"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00104" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="1 Byte"   DatapointType="DPST-5-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00105" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="1 Byte"   DatapointType="DPST-6-10"    TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00106" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="2 Bytes"  DatapointType="DPST-7-1"     TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
@@ -1118,17 +1118,9 @@
                       </choose>
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingangswert vorbelegen" UIHint="Headline" />
-                      <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
-                        <when test="1">
-                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
-                            <when test="1">
-                              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
-                                <when test="0">
-                                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
-                                </when>
-                              </choose>
-                            </when>
-                          </choose>
+                      <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
+                        <when test="0">
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
                         </when>
                       </choose>
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
@@ -1675,17 +1667,9 @@
                         <when test="!=5">
                           <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                           <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingangswert vorbelegen" UIHint="Headline" />
-                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
-                            <when test="1">
-                              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
-                                <when test="1">
-                                  <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
-                                    <when test="0">
-                                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
-                                    </when>
-                                  </choose>
-                                </when>
-                              </choose>
+                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
+                            <when test="0">
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
                             </when>
                           </choose>
                           <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
@@ -1780,17 +1764,9 @@
                       </choose>
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                       <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingangswert vorbelegen" UIHint="Headline" />
-                      <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
-                        <when test="1">
-                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
-                            <when test="1">
-                              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
-                                <when test="0">
-                                  <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
-                                </when>
-                              </choose>
-                            </when>
-                          </choose>
+                      <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
+                        <when test="0">
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
                         </when>
                       </choose>
                       <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
@@ -2342,17 +2318,9 @@
                         <when test="!=5">
                           <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                           <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingangswert vorbelegen" UIHint="Headline" />
-                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701">
-                            <when test="1">
-                              <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%000038_R-%T%00003801">
-                                <when test="1">
-                                  <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
-                                    <when test="0">
-                                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
-                                    </when>
-                                  </choose>
-                                </when>
-                              </choose>
+                          <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
+                            <when test="0">
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
                             </when>
                           </choose>
                           <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />

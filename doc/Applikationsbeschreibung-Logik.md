@@ -8,95 +8,45 @@ Sie ist in die Bereiche
 * Logikdokumentation
 * Logikkanäle
 
-gegliedert, wobei die Logikkanäle wiederum in bis zu 80 Kanäle untergierdert sind.
+gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergierdert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
 
 ## Änderungshistorie
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-17.04.2020: Firmware 1.1.0, Applikation 1.4 - 1.7
+01.04.2022: Firmware 1.0.0, Applikation 1.0
 
-* neue Optionen bei 'Logik sendet ihren Wert weiter'
-* Ergänzung bei 'Wert vom Bus lesen'
-* vergessene Beschreibung 'Eingang wird alle n Sekunden gelesen'
-* neue Einstellung 'Nur so lange zyklisch lesen, bis erstes Telegramm eingeht'
-* Ergänzung bei 'Ja - Tonwiedergabe (Buzzer)'
-* **inkompatible Änderung**: Beim Update der Applikation werden für die KO der Logikkanäle die bereits zugeordneten GA nicht übernommen. Alle Parameter bleiben erhalten.
-
-01.02.2021: Firmware 2.0.0, Applikation 2.0 - 2.3
-
-* **inkompatible Änderung**: Einige Paraemter und fast alle Kommunikationsobjekte sind anders belegt. Es gibt ein neues Kapitel 'Update der Applikation', das alle notwendigen neuen Einstellungen nach dem Update beschreibt.
-* Neues Kapitel 'Zeitschaltuhren'
-* Anpassung im Kapitel 'Uhrzeit und Datum nach einem Neustart vom Bus lesen'
-
-20.02.2021: Fi
-rmware 2.1.0, Applikation 2.0 - 2.3
-
-* Firmware-Only-Fix: TOR war unvollständig implementiert und verhielt sich nicht so wie beschrieben. Das ist nun behoben. Der Fix hat aber das bisherige (falsche) Verhalten geändert. **Logiken, die TOR benutzen, sollten neu getestet werden.**
-* Firmware-Only-Fix: Falls man das S-Flag an einem Ausgangs-KO gesetzt hat, haben Schreibvorgänge fälschlicherweise den externen Eingang 2 beeinflusst. Dies ist nur korrigiert und ein Ausgangs-KO kann normal zur Zwischenspeicherung von Werten verwendet werden.
-
-27.02.2021: Firmware 2.1.1, Applikation 2.0 - 2.3
-
-* Firmware-Only-Fix: Die interne Behandlung, wann ein Eingang, der eine Logikfunktion triggert, diese Triggereigenschaft verliert, war nicht korrekt. Das konnte dazu führen, dass auch nicht-triggernde Eingänge die Logikauswertung getriggert haben. Beispiel: E1 triggert ein UND, E2 nicht. E1 und E2 sind AUS. Wenn jetzt E1 auf AN geht, triggert er das UND, Ergebnis ist 0. Wenn jetzt E2 auf AN geht, bevor bevor das Ergebnis der vorherigen Auswertung auf den Bus gesendet wurde, würde das AN von E2 auch triggern und das UND ein AN liefern. Das war nicht korrekt und ist jetzt korrigiert.
-
-01.03.2021: Firmware 2.4.0, Applikation 2.4 - 2.7
-
-* Auch beim Trigger "Jedes Eingangstelegramm" ist es jetzt möglich, das erste Ergebnis nicht zu senden.
-* Info-Ausgaben (LED Signal oder Akkustisches Signal (Buzzer)) können jetzt auch global gesperrt werden (z.B. nachts).
-* Jede Info-Ausgabe (LED-Signal oder Akkustisches Signal (Buzzer)) kann auch als Alarm parametrisiert werden, die Ausgabe kommt dann trotz globaler Sperre (neues Kapitel "Alarmausgabe" ergänzt)
-* FIX: Die Flags "Feiertage auf dem Bus verfügbar machen?" und "Nach Neustart Urlaubsinfo lesen?" wurden fälschlicherweise gemeinsam ausgewertet (ein anhaken des ersten hat auch zum Lesen der Urlaugsinfo geführt).
-
-05.03.2021: Firmware 2.4.1, Applikation 2.4 - 2.7
-
-* FIX: Das Blinkmodul hat fälschlicherweise den Ausgangszustand der Logik verändert. Das konnte bei "nur bei geändertem Ergebnis senden" auch zu unerwarteten Logik-Triggern führen. Immer wenn während des Blinkens am Eingang ein Signal ankam, dass invers zum Blinkstatus war, wurde unerwünscht getriggert.
-
-12.04.2021: Firmware 3.1.0, Applikation 3.1
-
-* FIX: Bei Zeitschaltuhren hat die Kombination "Feiertage wie Sonntage behandeln" und "Im Urlaub nicht schalten" nicht funktioniert.
-
-12.05.2021: Firmware 3.2.0, Applikation 3.2
-
-* Feature: Einfache Formeln in einer Logik (+, -, *, /, min, max und avg mit 2 Eingängen)
-* Feature: Es können jetzt bis zu 30 Benutzerfunktionen im Coding definiert und in der ETS Applikation ausgewählt werden
-* Feature: Eingangs-Konverter können jetzt für DPT5, DPT5.001, DPT6, DPT7 und DPT8 auch mit mehreren Einzelwerten definiert werden (ähnlich wie die bisherige Definition von Szenen-Convertern)
-* Eingänge können jetzt auch einen DPT-Gerechten konstanten Wert enthalten, der dann in Formeln weiter verarbeitet oder direkt am Ausgang genutzt werden kann^
-* Kapitel "Formeln" samt Unterkapiteln neu hinzugefügt.
-* Kapitel "Wert für EIN senden" um Formelaufrufe ergänzt.
-* Kapitel "Wert für AUS senden" um Formelaufrufe ergänzt.
-* Kapitel "Einzelwert-Konverter" ergänzt.
-* Kapitel "Konstanten" ergänzt.
-
-11.01.2022: Firmware 3.8.0, Applikation 3.8
-
-* Feature: Es wird nicht nur ausgegeben, ob "Heute" bzw. "Morgen" ein Feiertag ist (DPT1), sondern welcher Feiertag es ist (DPT5)
-* Kapitel "Feiertage auf dem Bus verfügbar machen" um das neue Feature ergänzt
-* Kapitel "Beispiele" mit einem Beispiel ergänzt, dass die frühere Funktionalität wieder herstellt.
-* **Inkompatible Änderung** KO 5 und KO 6 sind jetzt DPT5.010 statt DPT1.001. **Vor einem Upgrade** müssen alle mit diesen KO verknüpften GA entfernt werden.
-* Fix: Eingangskonverter "Differenzintervall" und "Differenzhysterese" für DPT9.x funktionierten nicht
-* **Inkompatible Änderung** Bei einem Update gehen die Parameter für Von-/Bis- bzw. Einschalt-/Ausschalt-Wert bei Eingangskonvertern "Differenzintervall" und "Differenzhysterese" für DPT9 verloren. Diese müssen nach einem Update manuell nachgetragen werden.
+* initiales Release als OpenKNX Logikmodul
+* Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logik) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
+* (intern) verbesserte Kommunikation mit dem KNX-Bus
+* (intern) Kein EEPROM mehr nötig, KO-Werte werden beim Stromausfall im Flash gespeichert
+* ETS-Applikation wird auch mit der ETS 6 getestet
+* Eingänge können jetzt auch beliebige Kommunikationsobjekte der gesamten Applikation (nicht nur des Logikmoduls) sein, keine Verbindung über GA nötig
+* Die ETS-Applikation wurde optisch überarbeitet und übersichtlicher gestaltet
+* ETS-Kanäle werden neu unterstützt
+* Es wird technisch überprüft, ob die ETS-Applikation mit der installierten Firmware übereinstimmt
+* **Wichtig:** Diese Version ist eine komplett neue Applikation und somit nicht kompatibel zu der früheren Version 3.8. Die ETS-Applikation muss komplett neu parametrisiert werden.
 
 <div style="page-break-after: always;"></div>
 
-## Allgemeine Parameter
+# Allgemeine Parameter
 
 ![Allgemeine Parameter](AllgemeineParameter.PNG)
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
 
-### Anzahl verfügbarer Logikkanäle
+Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Pukte vorhanden sein.
 
-Dieses Feld gibt an, für wie viele Logikkanäle dieses Applikationsprogramm erstellt wurde.
-
-Es stehen ETS-Applikationen mit 10, 20, 40 und 80 Logikkanälen zur Verfügung. Die Anzahl der Logikkanäle wesentlich die Programmierzeit mit der ETS. Ein Logikmodul mit 10 Logikkanälen braucht ca. 30 Sekunden für die Programmierung, mit 80 Logikkanälen weit über 3 Minuten. Die Programmierzeit hängt immer von der Anzahl der verfügbaren Logikkanäle ab, nicht von der Anzahl der genutzen.
+## Gerätestart
 
 ### Zeit bis das Gerät nach einem Neustart aktiv wird
 
-Hier kann man festlegen, wie viele Sekunden vergehen sollen, bis nach einem Neustart des Geräts, sei es durch Busspannungsausfall, Reset über den Bus oder auch durch ein Drücken der Reset-Taste, das Gerät seine Funktion aufnimmt.
+Hier kann man festlegen, wie viel Zeit vergehen soll, bis das Gerät nach einem Neustart seine Funktion aufnimmt. Dabei ist es egal, ob der Neustart durch einen Busspannungsausfall, einen Reset über den Bus, durch ein Drücken der Reset-Taste oder durch den Watchdog ausgelöst wurde.
 
 Da das Gerät prinzipiell (sofern parametriert) auch Lesetelegramme auf den Bus senden kann, kann mit dieser Einstellung verhindert werden, dass bei einem Busneustart von vielen Geräten viele Lesetelegramme auf einmal gesendet werden und so der Bus überlastet wird.
 
-### In Betrieb senden alle...
+### In Betrieb senden alle
 
-Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hier wird das Sendeintervall in Sekunden eingestellt.
+Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hier wird das Sendeintervall eingestellt.
 
 Sollte hier eine 0 angegeben werden, wird kein "In Betrieb"-Signal gesendet und das KO 1 steht nicht zur Verfügung.
 
@@ -106,7 +56,7 @@ Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart kön
 
 Wenn dieser Parameter gesetzt ist, wird die Uhrzeit und das Datum alle 20-30 Sekunden über ein Lesetelegramm vom Bus gelesen, bis eine entsprechende Antwort kommt. Falls keine Uhr im KNX-System vorhanden ist oder die Uhr nicht auf Leseanfragen antworten kann, sollte dieser Parameter auf "Nein" gesetzt werden.
 
-### Vorhandene Hardware
+### Installierte Hardware
 
 Die Firmware im Logikmodul unterstützt eine Vielzahl an Hardwarevarianten. Um nicht für jede Hardwarekombination ein eigenes Applikationsprogramm zu benötigen, kann über die folgenden Felder die Hardwareausstattung des Logikmoduls bestimmt werden.
 
@@ -126,29 +76,35 @@ Das Logikmodul unterstützt auch die Ausgabe eines Lichtsignals mittels einer RG
 
 Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Lichtausgabe sperren kann. Damit kann man verhindern, dass z.B. nachts die LED leuchtet.
 
-#### Nichtflüchtiger Speicher vorhanden (EEPROM)
+#### Zusätzliches EEPROM vorhanden?
 
-Ein EEPROM ist ein Speicher, der seine Informationen auch nach einem Stromausfall nicht verliert. Ein solches EEPROM wird von der Firmware genutzt, um Werte von bestimmten Kommunikationsobjekten zu speichern.
+Das Logikmodul kann die Werte von ausgewählten Kommunikationsobjekten speichern und nach einem Neustart wiederherstellen. Diese werden normalerweise im Flash-Speicher gespeichert, in dem auch die Firmware abgelegt wird.
 
-Ist kein EEPROM auf dem Board vorhanden, können diese Informationen nicht gespeichert werden. Die Applikation wird dann alle Einstellungen, die ein Speichern erlauben, nicht anbieten. In einem solchen Fall erscheint die folgende Information:
-![Info EEPROM](InfoEeprom.PNG)
+Der Nachteil vom Flash-Speicher ist der, das bei einem Firmware-Update möglicherweise der gesamte Flash-Speicher gelöscht wird und somit die gespeicherten KO-Werte verloren gehen.
 
-#### Zusatzhardware abschaltbar (z.B. mit dem NCN5130)?
+Sollte ein zusätzliches EEPROM vorhanden sein, werden die KO-Daten dort gespeichert und bleiben auch bei einem Firmware-Update erhalten.
 
-Damit bei einem Stromausfall Daten in einem EEPROM gespeichert werden können, muss nicht nur ein EEPROM vorhanden sein, sondern auch genügend lange Strom zum Speichern vorhanden sein. Angeschlossene Hardware (RGB-LED, Buzzer) verbrauchen aber viel Strom und verhindern somit die Speicherung bei Stromausfall.
+# Experteneinstellungen
 
-Die Firmware unterstützt aber eine Abschaltung der Zusatzhardware, falls der Strom ausfällt. Derzeit wird die Abschaltung nur über den NCN5130 (KNX-Bus-Interface) unterstützt, kann aber bei Bedarf entsprechend um weitere Abschaltmöglichkeiten erweitert werden.
+## Watchdog
 
-Ist keine Möglichkeit zur Abschaltung vorhanden, wird die Speicherung ins EEPROM unterbunden. Die Applikation wird dann alle Einstellungen, die ein Speichern erlauben, nicht anbieten. In einem solchen Fall erscheint die folgende Information:
-![Info Stromabschaltung](InfoPower.PNG)
-
-#### Diagnoseobjekt anzeigen
+## Diagnose
 
 Man kann mit dem Logikmodul ein Diagnoseobjekt (KO 7) einschalten. Dieses Diagnoseobjekt ist primär für Debugzwecke vorhanden, kann aber auch einem User bei einigen Fragen weiter helfen.
 
 Die Grundidee vom Diagnoseobjekt: Man sendet mit der ETS Kommandos an das KO 7 und bekommt eine entsprechende Antwort. Derzeit sind nur wenige Kommandos für die Nutzung durch den Enduser geeignet, allerdings werden im Laufe der Zeit immer weitere Kommandos hinzukommen und werden im Kapitel Diagnoseobjekt beschrieben.
 
-## Logikdokumentation
+#### Diagnoseobjekt anzeigen
+
+Mit einem 'Ja' wird das KO 7 'Diagnoseobjekt' freigeschaltet.
+
+## RGB-LED
+
+## Buzzer
+
+
+
+# Logikdokumentation
 
 Eine stichwortartige Abhandlung dieser Dokumentation ist auch in der Applikation enthalten und auf 3 Unterseiten aufgeteilt.
 
@@ -164,7 +120,7 @@ Hier werden die Funktionsmodule für die Eingänge beschrieben.
 
 Hier werden die Funktionsmodule für die Ausgänge beschrieben.
 
-## Urlaub/Feiertage
+# Urlaub/Feiertage
 
 Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen erfordert.
 
