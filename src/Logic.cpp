@@ -534,6 +534,8 @@ void Logic::setup(bool iSaveSupported) {
 
 void Logic::loop()
 {
+    if (!knx.configured())
+        return;
 #ifdef WATCHDOG
     if (delayCheck(gWatchdogDelay, 1000) && ((knx.paramByte(LOG_Watchdog) & LOG_WatchdogMask) >> LOG_WatchdogShift))
     {
@@ -541,15 +543,13 @@ void Logic::loop()
         gWatchdogDelay = millis();
     }
 #endif
-    if (!knx.configured())
-        return;
 
     processInterrupt();
     sTimer.loop(); // clock and timer async methods
     loopSubmodules();
 
     // we loop on all channels and execute pipeline
-    for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
+    for (uint8_t lIndex = 0; lIndex < mNumChannels && knx.configured(); lIndex++)
     {
         LogicChannel *lChannel = mChannel[lIndex];
         if (sTimer.minuteChanged())
@@ -557,7 +557,7 @@ void Logic::loop()
         lChannel->loop();
         loopSubmodules();
     }
-    if (sTimer.minuteChanged()) {
+    if (sTimer.minuteChanged() && knx.configured()) {
         sendHoliday();
         sTimer.clearMinuteChanged();
         loopSubmodules();
@@ -572,6 +572,9 @@ EepromManager *Logic::getEEPROM() {
 // start timer implementation
 void Logic::processTimerRestore() {
     static uint32_t sTimerRestoreDelay = 1;
+    if (!knx.configured())
+        return;
+        
     if (sTimerRestoreDelay == 0)
         return;
     if (sTimer.isTimerValid() == tmValid && delayCheck(sTimerRestoreDelay, 500)) {
@@ -623,7 +626,8 @@ void Logic::loopSubmodules() {
     uint8_t lCount = sCount / 2;
     knx.loop();
     // we call submodules half as often as knx.loop();
-    if (lCount * 2 == sCount && lCount < sNumLoopCallbacks) {
+    if (lCount * 2 == sCount && lCount < sNumLoopCallbacks && knx.configured())
+    {
         sLoopCallbacks[lCount].callback(sLoopCallbacks[lCount].instance);
     }
     sCount = (lCount < sNumLoopCallbacks) ? sCount + 1 : 0;
