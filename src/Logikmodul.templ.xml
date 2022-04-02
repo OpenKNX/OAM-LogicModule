@@ -46,11 +46,12 @@
     </Parameter>
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="9" BitOffset="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%026" Name="f%C%E1Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault" Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%130" Name="f%C%E1DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%164" Name="f%C%E1DefaultRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="4" Text="Nur so lange zyklisch lesen, bis erstes Telegramm eingeht" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%272" Name="f%C%TYearDay"        ParameterType="M-00FA_A-0001-01-0000_PT-YearDay"      Offset="0" BitOffset="3" Text="Typ der Zeitschaltuhr" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%274" Name="f%C%TRestoreState"   ParameterType="M-00FA_A-0001-01-0000_PT-RestoreState" Offset="0" BitOffset="1" Text="Beim Neustart letzte Schaltzeit nachholen" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%026" Name="f%C%E1Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault"    Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%393" Name="f%C%E1DefaultExt"    ParameterType="M-00FA_A-0001-01-0000_PT-InputDefaultExt" Offset="0" BitOffset="6" Text="Eingang vorbelegen mit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%130" Name="f%C%E1DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%164" Name="f%C%E1DefaultRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="4" Text="Nur so lange zyklisch lesen, bis erstes Telegramm eingeht" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%272" Name="f%C%TYearDay"        ParameterType="M-00FA_A-0001-01-0000_PT-YearDay"         Offset="0" BitOffset="3" Text="Typ der Zeitschaltuhr" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%274" Name="f%C%TRestoreState"   ParameterType="M-00FA_A-0001-01-0000_PT-RestoreState"    Offset="0" BitOffset="1" Text="Beim Neustart letzte Schaltzeit nachholen" Value="0" />
     </Union>
     <!-- <Union SizeInBit="32">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
@@ -62,7 +63,6 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%383" Name="f%C%E1RepeatBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%384" Name="f%C%E1RepeatTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
-    <!-- 2 Byte frei wegen neuem Delay Pattern -->
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%028" Name="f%C%E2"               ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable"      Offset="0" BitOffset="4" Text="Eingang 2" Value="0" />
@@ -75,11 +75,12 @@
     </Parameter>
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="14" BitOffset="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%046" Name="f%C%E2Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault" Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%131" Name="f%C%E2DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%165" Name="f%C%E2DefaultRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="4" Text="Nur so lange zyklisch lesen, bis erstes Telegramm eingeht" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%273" Name="f%C%THoliday"        ParameterType="M-00FA_A-0001-01-0000_PT-Holiday"      Offset="0" BitOffset="3" Text="Feiertagsbehandlung" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%276" Name="f%C%TVacation"       ParameterType="M-00FA_A-0001-01-0000_PT-Vacation"     Offset="0" BitOffset="1" Text="Urlaubsbehandlung" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%046" Name="f%C%E2Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault"    Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%394" Name="f%C%E2DefaultExt"    ParameterType="M-00FA_A-0001-01-0000_PT-InputDefaultExt" Offset="0" BitOffset="6" Text="Eingang vorbelegen mit" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%131" Name="f%C%E2DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%165" Name="f%C%E2DefaultRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="4" Text="Nur so lange zyklisch lesen, bis erstes Telegramm eingeht" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%273" Name="f%C%THoliday"        ParameterType="M-00FA_A-0001-01-0000_PT-Holiday"         Offset="0" BitOffset="3" Text="Feiertagsbehandlung" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%276" Name="f%C%TVacation"       ParameterType="M-00FA_A-0001-01-0000_PT-Vacation"        Offset="0" BitOffset="1" Text="Urlaubsbehandlung" Value="0" />
     </Union>
     <Union SizeInBit="32">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="15" BitOffset="0" />
@@ -935,6 +936,8 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%390_R-%T%%CCC%39001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%390" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%391_R-%T%%CCC%39101" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%391" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%392_R-%T%%CCC%39201" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%392" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%393_R-%T%%CCC%39301" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%393" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%394_R-%T%%CCC%39401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%394" />
   </ParameterRefs>
   <ComObjectTable>
     <ComObject Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Name="KOf%C%E1" Text="Eingang 1" Number="%K0%" FunctionText="Logik %C%, Eingang 1" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled"  CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled"  ReadOnInitFlag="Disabled" />
@@ -987,7 +990,7 @@
           <Columns>
             <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
             <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+            <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
           </Columns>
           <Rows>
             <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1121,16 +1124,19 @@
                       <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
                         <when test="0">
                           <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
+                        </when>
+                        <when test="1">
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%393_R-%T%%CCC%39301" />
                         </when>
                       </choose>
-                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
                       <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
                       <!-- E1Repeat Delay pattern -->
                       <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
                         <Columns>
                           <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                           <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
                         </Columns>
                         <Rows>
                           <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1670,16 +1676,19 @@
                           <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%377_R-%T%%CCC%37701">
                             <when test="0">
                               <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%130_R-%T%%CCC%13001" />
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
+                            </when>
+                            <when test="1">
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%393_R-%T%%CCC%39301" />
                             </when>
                           </choose>
-                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%026_R-%T%%CCC%02601" />
                           <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
                           <!-- E1Repeat Delay pattern -->
                           <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
                             <Columns>
                               <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                               <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                              <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                              <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
                             </Columns>
                             <Rows>
                               <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -1767,16 +1776,19 @@
                       <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
                         <when test="0">
                           <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
+                        </when>
+                        <when test="1">
+                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%394_R-%T%%CCC%39401" />
                         </when>
                       </choose>
-                      <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
                       <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
                       <!-- E2Repeat Delay pattern -->
                       <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
                         <Columns>
                           <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                           <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                          <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
                         </Columns>
                         <Rows>
                           <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2321,16 +2333,19 @@
                           <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%379_R-%T%%CCC%37901">
                             <when test="0">
                               <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%131_R-%T%%CCC%13101" />
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
+                            </when>
+                            <when test="1">
+                              <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%394_R-%T%%CCC%39401" />
                             </when>
                           </choose>
-                          <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%046_R-%T%%CCC%04601" />
                           <!-- <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
                           <!-- E2Repeat Delay pattern -->
                           <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
                             <Columns>
                               <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                               <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                              <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                              <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="20%" />
                             </Columns>
                             <Rows>
                               <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2744,7 +2759,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2761,7 +2776,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2783,7 +2798,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2804,7 +2819,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2836,7 +2851,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
@@ -2851,7 +2866,7 @@
                     <Columns>
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-2" Name="Col2" Width="15%" />
-                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="23%" />
+                      <Column Id="M-00FA_A-0001-01-0000_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />

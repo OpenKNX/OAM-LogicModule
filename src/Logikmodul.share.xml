@@ -223,6 +223,13 @@
                   <Enumeration Text="EIN (1)" Value="3" Id="M-00FA_A-0001-01-0000_PT-InputDefault_EN-3" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-InputDefaultExt" Name="InputDefaultExt">
+                <TypeRestriction Base="Value" SizeInBit="2">
+                  <Enumeration Text="nichts (undefiniert)" Value="0" Id="M-00FA_A-0001-01-0000_PT-InputDefaultExt_EN-0" />
+                  <Enumeration Text="AUS (0)" Value="2" Id="M-00FA_A-0001-01-0000_PT-InputDefaultExt_EN-2" />
+                  <Enumeration Text="EIN (1)" Value="3" Id="M-00FA_A-0001-01-0000_PT-InputDefaultExt_EN-3" />
+                </TypeRestriction>
+              </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-InputFunction" Name="InputFunction">
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="%N%" />
               </ParameterType>
