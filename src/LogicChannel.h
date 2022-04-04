@@ -333,7 +333,7 @@ class LogicChannel
     void startTimerInput();
     void startTimerRestoreState();
     void stopTimerRestoreState();
-    void writeSingleDptToEEPROM(uint8_t iIOIndex);
+    uint8_t *writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer);
 
     bool prepareChannel();
     void loop();

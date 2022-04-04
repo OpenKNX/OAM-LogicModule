@@ -1,0 +1,46 @@
+; PlatformIO Project Configuration File
+;
+;   Build options: build flags, source filter
+;   Upload options: custom upload port, speed and extra flags
+;   Library options: dependencies, extra library storages
+;   Advanced options: extra scripting
+;
+; Please visit documentation for the other options and examples
+; https://docs.platformio.org/page/projectconf.html
+
+[env]
+platform = atmelsam
+board = seeed_xiao
+framework = arduino
+build_flags =
+  -D DEBUG_DELAY=10000
+  -D SERIAL_DEBUG=SerialUSB
+  -D BOARD_ENOCEAN
+  -D SMALL_GROUPOBJECT
+  -D INTERNAL_GROUPOBJECT
+  -D USERDATA_SAVE_SIZE=1004
+  -D LOGICMODULE
+  -D MASK_VERSION=0x07B0
+  ; use flash directly
+  -D KNX_FLASH_SIZE=0x4000
+  -Wno-unknown-pragmas 
+  -Wno-switch
+lib_ldf_mode = deep+
+lib_extra_dirs =
+  ${PROJECT_DIR}\..
+build_type = debug
+[env:debug]
+debug_tool = jlink
+; debug_build_flags = -O0 -ggdb3
+debug_extra_cmds = 
+  set output-radix 16
+[env:build]
+upload_protocol = sam-ba
+[env:uploadUSB]
+upload_protocol = sam-ba
+[env:uploadJLINK]
+upload_protocol = jlink
+[env:uploadATMEL]
+upload_protocol = atmel-ice
+
+

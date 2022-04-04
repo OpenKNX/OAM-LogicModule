@@ -1808,13 +1808,28 @@ bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
         lKo->valueRef()[lIndex++] = Wire.read();
     return true;
 #else
-    return false;
+    // if no eeprom available, we read from flash
+    const uint8_t *lFlashBuffer = sLogic->getFlash();
+    // first check, if EEPROM contains valid values
+    if (lFlashBuffer == nullptr)
+        return false;
+    // Now check, if the DPT for requested KO is valid
+    // DPT might have changed due to new programming after last save
+    uint16_t lAddress = USERDATA_DPT_OFFSET + mChannelId * 2 + iIOIndex - 1;
+    if (!checkDpt(iIOIndex, lFlashBuffer[lAddress]))
+        return false;
+
+    // if the dpt is ok, we get the ko value
+    lAddress = USERDATA_KO_OFFSET + mChannelId * 8 + (iIOIndex - 1) * 4;
+    GroupObject *lKo = getKo(iIOIndex);
+    for (uint8_t lIndex = 0; lIndex < lKo->valueSize(); lIndex++)
+        lKo->valueRef()[lIndex] = lFlashBuffer[lAddress + lIndex];
+    return true;
 #endif
 }
 
-void LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex)
+uint8_t *LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer)
 {
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
     uint8_t lDpt = 0xFF;
     if (isInputActive(iIOIndex))
     {
@@ -1826,8 +1841,14 @@ void LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex)
             lDpt = getByteParam(iIOIndex == 1 ? LOG_fE1Dpt : LOG_fE2Dpt);
         }
     }
+#ifdef I2C_EEPROM_DEVICE_ADDRESSS
     Wire.write(lDpt);
+#else
+    // in cacse there is no EEPROM, we store all values to flash
+    // printDebug("%02X ", lDpt);
+    *iBuffer++ = lDpt;
 #endif
+    return iBuffer;
 }
 
 // retutns true, if any DPT from EEPROM does not fit to according input DPT.
