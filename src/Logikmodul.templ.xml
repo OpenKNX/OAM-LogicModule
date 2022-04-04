@@ -1141,7 +1141,7 @@
                         <Rows>
                           <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                         </Rows>
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = = nicht zyklisch lesen)" Cell="1,1" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
                       </ParameterBlock>
@@ -1693,7 +1693,7 @@
                             <Rows>
                               <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                             </Rows>
-                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = = nicht zyklisch lesen)" Cell="1,1" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
                           </ParameterBlock>
@@ -1793,7 +1793,7 @@
                         <Rows>
                           <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                         </Rows>
-                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = = nicht zyklisch lesen)" Cell="1,1" />
+                        <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
                         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
                       </ParameterBlock>
@@ -2350,7 +2350,7 @@
                             <Rows>
                               <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                             </Rows>
-                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = = nicht zyklisch lesen)" Cell="1,1" />
+                            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
                             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
                           </ParameterBlock>
@@ -2781,7 +2781,7 @@
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                     </Rows>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Treppenlicht blinkt im Rythmus&#10;(0 = = nicht blinken)" Cell="1,1" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Treppenlicht blinkt im Rythmus&#10;(0 = nicht blinken)" Cell="1,1" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%388_R-%T%%CCC%38801" Cell="1,2" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%387_R-%T%%CCC%38701" Cell="1,3" />
                   </ParameterBlock>
@@ -2803,7 +2803,7 @@
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                     </Rows>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EINschalten wird verzögert um&#10;(0 = = nicht verzögern)" Cell="1,1" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EINschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,1" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%060_R-%T%%CCC%06001" Cell="1,2" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%059_R-%T%%CCC%05901" Cell="1,3" />
                   </ParameterBlock>
@@ -2824,7 +2824,7 @@
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                     </Rows>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUSschalten wird verzögert um&#10;(0 = = nicht verzögern)" Cell="1,1" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUSschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,1" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%063_R-%T%%CCC%06301" Cell="1,2" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%062_R-%T%%CCC%06201" Cell="1,3" />
                   </ParameterBlock>
@@ -2856,7 +2856,7 @@
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                     </Rows>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EIN-Telegramm wird wiederholt alle&#10;(0 = = nicht wiederholen)" Cell="1,1" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="EIN-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,1" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%390_R-%T%%CCC%39001" Cell="1,2" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%389_R-%T%%CCC%38901" Cell="1,3" />
                   </ParameterBlock>
@@ -2871,7 +2871,7 @@
                     <Rows>
                       <Row Id="M-00FA_A-0001-01-0000_PB-nnn_R-1" Name="Row1" />
                     </Rows>
-                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUS-Telegramm wird wiederholt alle&#10;(0 = = nicht wiederholen)" Cell="1,1" />
+                    <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="AUS-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,1" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%392_R-%T%%CCC%39201" Cell="1,2" />
                     <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%391_R-%T%%CCC%39101" Cell="1,3" />
                   </ParameterBlock>
