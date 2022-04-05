@@ -205,6 +205,9 @@
 #define LOG_fE1Default                 9      // 2 Bits, Bit 1-0
 #define     LOG_fE1DefaultMask 0x03
 #define     LOG_fE1DefaultShift 0
+#define LOG_fE1DefaultExt              9      // 2 Bits, Bit 1-0
+#define     LOG_fE1DefaultExtMask 0x03
+#define     LOG_fE1DefaultExtShift 0
 #define LOG_fE1DefaultEEPROM           9      // 1 Bit, Bit 2
 #define     LOG_fE1DefaultEEPROMMask 0x04
 #define     LOG_fE1DefaultEEPROMShift 2
@@ -237,6 +240,9 @@
 #define LOG_fE2Default                14      // 2 Bits, Bit 1-0
 #define     LOG_fE2DefaultMask 0x03
 #define     LOG_fE2DefaultShift 0
+#define LOG_fE2DefaultExt             14      // 2 Bits, Bit 1-0
+#define     LOG_fE2DefaultExtMask 0x03
+#define     LOG_fE2DefaultExtShift 0
 #define LOG_fE2DefaultEEPROM          14      // 1 Bit, Bit 2
 #define     LOG_fE2DefaultEEPROMMask 0x04
 #define     LOG_fE2DefaultEEPROMShift 2
@@ -810,4 +816,4 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 11
+#define MAIN_ApplicationVersion 13

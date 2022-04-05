@@ -29,7 +29,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 <div style="page-break-after: always;"></div>
 
-# Allgemeine Parameter
+## **Allgemeine Parameter**
 
 ![Allgemeine Parameter](AllgemeineParameter.PNG)
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
@@ -38,25 +38,27 @@ Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikm
 
 ## Gerätestart
 
-### Zeit bis das Gerät nach einem Neustart aktiv wird
+### **Zeit bis das Gerät nach einem Neustart aktiv wird**
 
 Hier kann man festlegen, wie viel Zeit vergehen soll, bis das Gerät nach einem Neustart seine Funktion aufnimmt. Dabei ist es egal, ob der Neustart durch einen Busspannungsausfall, einen Reset über den Bus, durch ein Drücken der Reset-Taste oder durch den Watchdog ausgelöst wurde.
 
 Da das Gerät prinzipiell (sofern parametriert) auch Lesetelegramme auf den Bus senden kann, kann mit dieser Einstellung verhindert werden, dass bei einem Busneustart von vielen Geräten viele Lesetelegramme auf einmal gesendet werden und so der Bus überlastet wird.
 
-### In Betrieb senden alle
+**Anmerkung:** Auch wenn man hier technisch bis zu 16.000 Stunden Verzögerung angeben kann, sind nur Einstellungen im Sekundenbereich sinnvoll.
+
+### **In Betrieb senden alle**
 
 Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hier wird das Sendeintervall eingestellt.
 
 Sollte hier eine 0 angegeben werden, wird kein "In Betrieb"-Signal gesendet und das KO 1 steht nicht zur Verfügung.
 
-### Uhrzeit und Datum nach einem Neustart vom Bus lesen
+### **Uhrzeit und Datum nach einem Neustart vom Bus lesen**
 
 Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
 
 Wenn dieser Parameter gesetzt ist, wird die Uhrzeit und das Datum alle 20-30 Sekunden über ein Lesetelegramm vom Bus gelesen, bis eine entsprechende Antwort kommt. Falls keine Uhr im KNX-System vorhanden ist oder die Uhr nicht auf Leseanfragen antworten kann, sollte dieser Parameter auf "Nein" gesetzt werden.
 
-### Installierte Hardware
+### **Installierte Hardware**
 
 Die Firmware im Logikmodul unterstützt eine Vielzahl an Hardwarevarianten. Um nicht für jede Hardwarekombination ein eigenes Applikationsprogramm zu benötigen, kann über die folgenden Felder die Hardwareausstattung des Logikmoduls bestimmt werden.
 
@@ -64,67 +66,96 @@ Die Angaben in diesem Teil müssen der vorhandenen Hardware entsprechen, da sie 
 
 Falsche Angaben können zu falschern Konfigurationen der Applikation und somit zum Fehlverhalten des Logikmoduls führen.
 
-#### Akustischer Signalgeber vorhanden (Buzzer)?
+#### **Akustischer Signalgeber vorhanden (Buzzer)?**
 
 Das Logikmodul unterstützt auch die Ausgabe von Pieptönen mittels eines Buzzers. Mit einem Haken in diesem Feld wird angegeben, ob ein Buzzer installiert ist.
 
 Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Soundausgabe sperren kann. Damit kann man verhindern, dass z.B. nachts Töne ausgegeben werden.
 
-#### Optischer Signalgeber vorhanden (RGB-LED)?
+#### **Optischer Signalgeber vorhanden (RGB-LED)?**
 
 Das Logikmodul unterstützt auch die Ausgabe eines Lichtsignals mittels einer RGB-LED. Mit einem Haken in diesem Feld wird angegeben, ob eine RGB-LED installiert ist.
 
-Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Lichtausgabe sperren kann. Damit kann man verhindern, dass z.B. nachts die LED leuchtet.
+Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Lichtausgabe sperren kann. Damit kann man verhindern, dass z.B. nachts die LED leuchtet. Oder man schaltet die LED nur bei Präsenz ein und schont damit die Leuchtkraft der LED.
 
-#### Zusätzliches EEPROM vorhanden?
+#### **Zusätzliches EEPROM vorhanden?**
 
 Das Logikmodul kann die Werte von ausgewählten Kommunikationsobjekten speichern und nach einem Neustart wiederherstellen. Diese werden normalerweise im Flash-Speicher gespeichert, in dem auch die Firmware abgelegt wird.
 
-Der Nachteil vom Flash-Speicher ist der, das bei einem Firmware-Update möglicherweise der gesamte Flash-Speicher gelöscht wird und somit die gespeicherten KO-Werte verloren gehen.
+Der Nachteil vom Flash-Speicher ist, dass bei einem Firmware-Update möglicherweise der gesamte Flash-Speicher gelöscht wird und somit die gespeicherten KO-Werte verloren gehen.
 
 Sollte ein zusätzliches EEPROM vorhanden sein, werden die KO-Daten dort gespeichert und bleiben auch bei einem Firmware-Update erhalten.
 
-# Experteneinstellungen
+Duch einen Haken bei dieser Einstellung werden die Kommunikationsobjekte im EEPROM gespeichert.
 
-## Watchdog
+## **Experteneinstellungen**
 
-## Diagnose
+![Experteneinstellungen](Experteneinstellungen.png)
+
+Auf dieser Seite werden Einstellungen vorgenommen, die nicht so häufig gebraucht werden und die technisches Detailwissen erfordern
+
+### **Watchdog**
+
+Trotz hohen Qualitätsansprüchen, vielfältigen Tests und langem produktiven Einsatz kann man nie ausschließen, dass noch Fehler in der Firmware enthalten sind. Besonders ärgerlich sind Fehler, die ein Hardwaremodul zum hängen bringen und so die Funktion eingestellt wird.
+
+Das Logikmodul bringt einen Watchdog mit, welcher es erlaubt, in Situationen, die einem "Hänger" entsprechen, die Hardware automatisch neu zu starten.
+
+Der Vorteil eines Watchdog ist, dass er vor allem sporadische und selten vorkommende "Hänger" beseitigt, meist ohne dass man es merkt. 
+
+Der Nachteil ist, dass damit Fehler/Probleme veschleiert und umgangen werden, die besser an die Entwickler gemeldet und von ihnen gelöst werden sollten.
+
+Damit der Watchdog funktioniert, muss bereits die Firmware mit der Einstellung
+
+    -D WATCHDOG
+
+in der platformio.init gebaut worden sein (siehe Installationsanleitung).
+
+#### **Watchdog aktivieren**
+
+Mit einem 'Ja' wird der Watchdog eingeschaltet.
+
+### **Diagnose**
 
 Man kann mit dem Logikmodul ein Diagnoseobjekt (KO 7) einschalten. Dieses Diagnoseobjekt ist primär für Debugzwecke vorhanden, kann aber auch einem User bei einigen Fragen weiter helfen.
 
 Die Grundidee vom Diagnoseobjekt: Man sendet mit der ETS Kommandos an das KO 7 und bekommt eine entsprechende Antwort. Derzeit sind nur wenige Kommandos für die Nutzung durch den Enduser geeignet, allerdings werden im Laufe der Zeit immer weitere Kommandos hinzukommen und werden im Kapitel Diagnoseobjekt beschrieben.
 
-#### Diagnoseobjekt anzeigen
+#### **Diagnoseobjekt anzeigen**
 
 Mit einem 'Ja' wird das KO 7 'Diagnoseobjekt' freigeschaltet.
 
-## RGB-LED
+### **RGB-LED**
 
-## Buzzer
+Da RGB-LED unterschiedliche Pin-Belegungen für die Farben Rot, Grün und Blau haben, kann es passieren, dass man nach dem anlöten der LED feststellt, dass man falsche Farben präsentiert bekommt. 
 
+An dieser Stelle kann man die Pinbelegung für Rot/Grün/Blau in verschiedenen Permutationen einstellen und so softwareseitig mögliche Belegungsprobleme beseitigen.
 
+### **Buzzer**
 
-# Logikdokumentation
+Das Logikmodul untertützt 3 verschiedene Töne bzw. Lautstärken für den Buzzer.
+In den Eingabefeldern kann man die Tonfrequenzen für die einzelnen Töne für Laut/Mittel und Leise angeben. Über die Tonhöhe werden indirekt auch die Lautstärken gesteuert.
+
+## **Logikdokumentation**
 
 Eine stichwortartige Abhandlung dieser Dokumentation ist auch in der Applikation enthalten und auf 3 Unterseiten aufgeteilt.
 
-### Allgemein
+### **Allgemein**
 
 Hier ist die generelle Funktionsweise des Logikmoduls beschrieben.
 
-### Eingänge
+### **Eingänge**
 
 Hier werden die Funktionsmodule für die Eingänge beschrieben.
 
-### Ausgänge
+### **Ausgänge**
 
 Hier werden die Funktionsmodule für die Ausgänge beschrieben.
 
-# Urlaub/Feiertage
+## **Urlaub/Feiertage**
 
 Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen erfordert.
 
-### Zeit
+### **Zeit**
 
 ![Zeitangaben](Zeit.PNG)
 
@@ -134,19 +165,19 @@ Die Geokoordinaten können bei Google Maps nachgeschaut werden, indem man mit de
 
 Die Standard-Koordinaten stehen für Frankfurt am Main, Innenstadt.
 
-#### Breitengrad
+#### **Breitengrad**
 
 In dem Feld wird der Breitengrad des Standortes eingegeben.
 
-#### Längengrad
+#### **Längengrad**
 
 In dem Feld wird der Längengrad des Standortes eingegeben.
 
-#### Zeitzone
+#### **Zeitzone**
 
 Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt. Es werden nur Zeitzonen für Europa angeboten.
 
-#### Sommerzeit berücksichtigen
+#### **Sommerzeit berücksichtigen**
 
 Mit einem "Ja" wird angegeben, dass die Umschaltung der Sommerzeit nicht vom Modul vorgenommen werden soll, sondern über den Bus auf dem KO 2 (Zeit) übertragen wird. Ein "Nein" führt zur internen Berechnung der Sommerzeit, das Modul geht davon aus, dass die Zeit auf dem Bus nicht die Sommerzeitverschiebung mitmacht (eher unüblich).
 
@@ -158,29 +189,29 @@ Das eben gesagte macht sich besonders bei der Sommerzeitumstellung bemerkbar, da
 
 Empfehlung: Um solche "Sprung-" bzw. "Wiederholungseffekte" zu vermeiden, sollte man mindestens einmal pro Tag die Uhrzeit auf dem Bus ausgeben und an den Tagen der Sommerzeitumschaltung zwischen 2 und 3 Uhr morgens keine Schaltzeiten definieren.
 
-### Urlaub
+### **Urlaub**
 
 ![Urlaubsangaben](Urlaub.PNG)
 
 Zeitschaltuhren können Urlaubstage berücksichtigen, sofern diese Information vorliegt. Diese Information kann über ein Kommunikationsobjekt dem Modul mitgeteilt werden.
 
-#### Urlaubsbehandlung aktivieren?
+#### **Urlaubsbehandlung aktivieren?**
 
 Mit einem "Ja" wird ein Kommunikationsobjekt freigeschaltet, über das ein Uralubstag dem Modul mitgeteilt werden kann. Ein "EIN" besagt, dass der aktuelle Tag ein Urlaubstag ist.
 
-#### Nach Neustart Urlaubsinfo lesen?
+#### **Nach Neustart Urlaubsinfo lesen?**
 
 Erscheit nur, wenn "Urlaubsbehandlung aktivieren?" auf "Ja" steht.
 
 Hier kann angegeben werden, ob nach einem Neustart des Moduls die Information, ob der aktuelle Tag ein Urlaubstag ist, vom Bus gelesen werden soll.
 
-### Feiertage
+### **Feiertage**
 
 Für die Zeitschaltuhren wird vom Modul eine Berechnung der Feiertage vorgenommen, inklusive einiger regionaler Feiertage.
 
 ![Feiertagsangaben](Feiertage.PNG)
 
-#### Feiertage auf dem Bus verfügbar machen?
+#### **Feiertage auf dem Bus verfügbar machen?**
 
 Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über diese Kommunikationsobjekte wird die Nummer eines Feiertags gesendet. Jede gesendete Nummer entspricht genau einem Feiertag, die Nummern entsprechen den in der Liste von Feiertagseinstellungen (siehe vorheriges Bild).
 
@@ -189,13 +220,13 @@ Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über die
 
 Beide Kommunikationsobjekte (5 und 6) werden immer kurz nach Mitternacht (aber nicht exakt um Mitternacht) neu berechnet. Sie senden eine 0, wenn kein Feiertag ist und sich der Wert geändert hat.
 
-#### Nach Neuberechnung Feiertagsinfo senden?
+#### **Nach Neuberechnung Feiertagsinfo senden?**
 
 Erscheit nur, wenn "Feiertage auf dem Bus verfügbar machen?" auf "Ja" steht.
 
-Hier kann angegeben werden, ob ein neuer Feiertag aktiv auf den Bus gesendet wird. Fall "Nein" eingestellt ist, wird der Feiertag trotzdem berechnet, muss aber mit einem Lese-Request aktiv vom KO gelesen werden.
+Hier kann angegeben werden, ob ein neuer Feiertag aktiv auf den Bus gesendet wird. Falls "Nein" eingestellt ist, wird der Feiertag trotzdem berechnet, muss aber mit einem Lese-Request aktiv vom KO gelesen werden.
 
-#### Auswahlfelder für Feiertage
+#### **Auswahlfelder für Feiertage**
 
 Es folgt eine Liste der dem Modul bekannten Feiertage. Durch Auswahlfelder kann bestimmt werden, ob dieser Feiertag bei der Feiertagsinfo und bei den Zeitschaltuhren berücksichtigt werden soll.
 
@@ -203,7 +234,7 @@ Es ist nicht möglich, eigene Feiertage in diese Liste aufzunehmen. Deswegen ent
 
 Man kann aber eine (oder mehrere) Jahresschaltuhren dafür verwenden, weitere Feiertage zu definieren und das Ergebnis dieser Zeitschaltuhr auf die Feiertags-GA zu senden.
 
-## Logikkanäle
+## **Logikkanäle**
 
 Im Folgenden werden die generellen Konzepte und die grobe Funktion eines Logikkanals beschrieben. Die Parameter eines jeden Kanals werden später im Detail beschrieben.
 
@@ -229,7 +260,7 @@ Wird ein Funktionsblock nicht genutzt (nicht parametrisiert), gibt er seine Eing
 
 Das nach dem Sendefilter ermittelte Signal steht für die internen Eingänge der anderen Kanäle zur Verfügung. Ferner steht es auch einem Ausgangskonverter zur Verfügung, der als Wertwandler ausgelegt ist und den ermittelten Wert als einen anderen DPT ausgeben kann. Dabei können die Ausgbewerte festgelegt werden (Konstanten) oder ein am Eingang 1 oder Eingang 2 vorliegender Wert in den Ausgangs-DPT konvertiert werden.
 
-### Zeitschaltuhren
+### **Zeitschaltuhren**
 
 Jeder Logikkanal kann statt interner oder externer Eingänge als Zeitschaltuhr-Kanal definiert werden. Dabei kann ein EIN- oder AUS-Signal anhand von bestimmten Zeitangaben erzeugt werden.
 
@@ -261,7 +292,7 @@ Dies erlaubt sehr flexible Zeitschaltuhren für Urlaub/Feiertage.
 
 Zeitschaltuhren beginnen mit ihrer Funktion erst, nachdem mindestens einmal über den Bus Zeit und Datum gesetzt worden sind.
 
-### Startverhalten
+### **Startverhalten**
 
 Dem Startverhalten eines Logikkanals kommt eine besondere Bedeutung zu.
 
@@ -290,7 +321,7 @@ Bei Zeitschaltuhren sind keine weiteren Eingänge vorhanden, somit kann nach ein
 
 Durch die dezidierten Einstellungsmölgichkeiten des Startverhaltens pro Kanal kann man sein KNX-System sehr detailiert bezüglich des Systemstart steuern. Da genau dieses Startverhalten von vielen KNX-Geräten eher stiefmütterlich behandelt wird, hat man mit diesem Logikmodul viele Möglichkeiten, hier einzugreifen und Unzulänglichkeiten auszugleichen.
 
-### Zusammenfassung
+### **Zusammenfassung**
 
 Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinflussung des Signalverlaufs ermöglichen die Realsierung von vielen Steuerungsaufgaben, die sonst über viele Einzelgeräte oder gar Logikmaschinen verteilt werden müssen. Durch unterschiedliche Parametrierung der Funktionsblöcke kann man folgende klassische und im KNX übliche Funktionen erreichen:
 
@@ -311,7 +342,7 @@ Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinfluss
 * Zeitschaltuhr-Funktionen
 * tbc
 
-## Logik n: unbenannt
+## **Logik n: unbenannt**
 
 Da alle Kanäle identisch sind, wird hier nur ein Kanal repräsentativ beschrieben. Das gesagte kann für alle Kanäle eingestellt werden.
 
@@ -323,45 +354,57 @@ Folgende Parameter kann man für einen Logikkanal angeben:
 
 ![Logikseite](Logikseite.PNG)
 
-### Beschreibung des Kanals
+## Kanaldefinition
+
+Hier werden die Einstellungen vorgenommen, die für die Funktion des gesamten Kanals notwendig sind. 
+
+### **Beschreibung des Kanals**
 
 Der hier vergebene Name hat keinen funktionalen Einfluß, erlaubt es aber, dem Kanal einen eigenen Namen zu geben, und ihn so leichter wiederzufinden. Der Name wird im Kanalbaum dargestellt und statt dem Text "unbenannt" genommen.
 
-### Zeit bis der Kanal nach einem Neustart aktiv wird
+### **Zeit bis der Kanal nach einem Neustart aktiv wird**
 
-Neben dem "Allgemeine Parameter -> Zeit bis das Gerät nach einem Neustart aktiv wird" kann auch noch pro Kanal eine Startverzögerung sinnvoll sein. Der Grund ist in "Logikkanäle -> Startverhalten" beschrieben.
+Neben "Allgemeine Parameter -> Zeit bis das Gerät nach einem Neustart aktiv wird" kann auch noch pro Kanal eine Startverzögerung sinnvoll sein. Der Grund ist in "Logikkanäle -> Startverhalten" beschrieben.
 
-Die Verzögerungszeit wird in Sekunden angegeben.
+Die Verzögerungszeit wird hier angegeben.
 
-### Kanal deaktivieren (zu Testzwecken)
+**Anmerkung:** Auch wenn man hier technisch bis zu 16.000 Stunden Verzögerung angeben kann, sind nur Einstellungen im Sekundenbereich sinnvoll.
+
+### **Kanal deaktivieren (zu Testzwecken)**
 
 Dieser Logikkanal ist außer Funktion. Er kann vollständig definiert sein und keine Einstellung geht verloren, aber der Ausgang wird kein Telegramm senden. Dies bietet die Möglichkeit, zu Testzwecken einen bereits parametrierten Logikkanal inaktiv zu setzen, um zu schauen, ob er die Ursache für eventuelles Fehlverhalten im Haus ist. Kann zur Fehlersuche hilfreich sein.
 
-### Logik-Operation
+## Logikdefinition
+
+Hier werden die Einstellungen vorgenommen, die für die Logikausführung selbst wesentlich sind.
+
+![Logikdefinition](Logikdefinition.png)
+
+### **Logik-Operation**
 
 Mittels der Auswahlliste kann eine Operation und damit die Art der Verknüpfung der Eingänge dieses Logikkanals ausgewählt werden. Es stehen folgende Operationen zur Verfügung:
 
-#### aus
+#### **aus**
 
 Dieser Logikkanal nicht definiert und nicht aktiv. Es stehen keine Eingänge und kein Ausgang zur Verfügung. Alle entsprechenden KO sind ausgeblendet.
 
-#### UND
+#### **UND**
 
 Alle Eingänge werden über ein logisches UND verknüpft. Das Ergebnis der Verknüpfung ist EIN, wenn alle Eingänge des Funktionsblock EIN sind. Das Ergebnis ist AUS, wenn auch nur ein Eingang AUS ist.
 
-#### ODER
+#### **ODER**
 
-Alle Eingänge werden über ein logisches ODER verknüpft. Das Ergebnis der Verknüpfung ist EIN, wenn nur ein Eingang des Funktionsblock EIN ist. Das Ergebnis ist AUS, wenn alle Eingänge AUS sind.
+Alle Eingänge werden über ein logisches ODER verknüpft. Das Ergebnis der Verknüpfung ist EIN, sobald nur ein Eingang des Funktionsblock EIN ist. Das Ergebnis ist AUS, wenn alle Eingänge AUS sind.
 
-#### EXCLUSIV-ODER
+#### **EXCLUSIV-ODER**
 
 Alle Eingänge werden über ein logisches Exklusiv-ODER verknüpft. Das Ergebnis der Verknüpfung ist EIN, wenn eine ungerade Anzahl von Eingängen des Funktionsblock EIN sind. Das Ergebnis ist AUS, wenn eine gerade Anzahl von Eingängen EIN sind.
 
-#### TOR
+#### **TOR**
 
 Ein Tor hat normalerweise einen Dateneingang, Datenausgang und einen Toreingang. Wird das Tor über ein Signal am Toreingang geöffnet, können Daten vom Dateneingang zum Datenausgang fließen. Wird das Tor geschlossen, dann fließen keine Daten zwischen Dateneingang und Datenausgang.
 
-Wir das Signal am Toreingang invertiert (negiert), dann sprechen wir von einer Sperre.
+Wird das Signal am Toreingang invertiert (negiert), dann sprechen wir von einer Sperre.
 
 Da ein Logikkanal 4 Eingänge hat, ist bei einem Tor
 
@@ -370,139 +413,149 @@ Da ein Logikkanal 4 Eingänge hat, ist bei einem Tor
 
 (in Worten: Jeweils ein externer und ein interner Eingang werden über ein ODER verknüpft und bilden den entsprechenden Eingang der TOR-Verknüpfung).
 
-#### ZEITSCHALTUHR
+#### **ZEITSCHALTUHR**
 
 Dieser Logikkanal hat keine Eingänge, sondern repräsentiert eine Zeitschaltuhr. Der Âusgang wird somit durch entsprechende Zeitschaltpunkte geschaltet. Der Ausgang kann immer noch passende Funktionsmodule enthalten.
 
-### Eingang 1, Eingang 2
+### **Eingang 1, Eingang 2**
 
 Erscheint nur, wenn die Logik-Operation nicht auf "ZEITSCHALTUHR" gestellt wurde.
 
 Jeder Eingang kann durch die Auswahlfelder deaktiviert bzw. normal oder invertiert (negiert) aktiviert werden.
 
-#### inaktiv
+#### **inaktiv**
 
 Steht ein Eingang auf inaktiv, kann er nicht genutzt werden und es steht kein KO zur Verfügung, um ein Telgramm an diesen Eingang zu schicken.
 
-#### normal aktiv
+#### **normal aktiv**
 
 Für diesen Eingang erscheint ein Kommunikationsobjekt. Detailangaben zu diesem Eingang erfolgen auf einer eigenen Seite. Der aus den Eingstellungen für den Eingang ermittelte binäre Wert wird direkt der oben ausgewählten logischen Operation zur Verfügung gestellt.
 
-#### invertiert aktiv
+#### **invertiert aktiv**
 
 Für diesen Eingang erscheint ein Kommunikationsobjekt. Detailangaben zu diesem Eingang erfolgen auf einer eigenen Seite. Der aus den Eingstellungen für den Eingang ermittelte binäre Wert wird invertiert (negiert), bevor er der oben ausgewählten logischen Operation zur Verfügung gestellt wird. Invertieren (negieren) heißt, dass ein EIN-Signal zu einem AUS-Signal wird und umgekehrt.
 
-### Kanalausgang X, Kanalausgang Y
+### **Kanalausgang X, Kanalausgang Y**
 
 Erscheint nur, wenn die Logik-Operation nicht auf ZEITSCHALTUHR gestellt wurde.
 
 Auch wenn der Name es anders vermuten läßt, handelt es sich um interne Eingänge, die mit einem Ausgang eines anderen Kanals verbunden sind. Jeder interne Eingang kann durch die Auswahlfelder deaktiviert bzw. normal oder invertiert (negiert) aktiviert werden.
 
-#### inaktiv
+#### **inaktiv**
 
 Steht ein interner Eingang auf inaktiv, kann er nicht genutzt werden und er hat keinen Einfluß auf die logische Verknüpfung.
 
-#### normal aktiv
+#### **normal aktiv**
 
 Es erscheint eine eigene Seite für die Verknüpfung dieses Eingangs mit einem anderen Kanalausgang. Der Wert des Kanalausgangs wird direkt der oben ausgewählten logischen Operation zur Verfügung gestellt.
 
-#### invertiert aktiv
+#### **invertiert aktiv**
 
 Es erscheint eine eigene Seite für die Verknüpfung dieses Eingangs mit einem anderen Kanalausgang. Der Wert des Kanalausgangs wird invertiert (negiert), bevor er der oben ausgewählten logischen Operation zur Verfügung gestellt wird. Invertieren (negieren) heißt, dass ein EIN-Signal zu einem AUS-Signal wird und umgekehrt.
 
-### Logik auswerten
+## Logikauswertung
+
+Hier werden die Einstellungen vorgenommen, die für die Auswertung der Logik relevant sind.
+
+![Logikauswertung](Logikauswertung.png)
+
+### **Logik auswerten**
 
 Erscheint nur, wenn die Logik-Operation nicht auf ZEITSCHALTUHR gestellt wurde.
 
 Wie bereits in "Logikkanäle -> Startverhalten" beschrieben, ist es notwendig, einer Logikverknüpfung zu sagen, wie sie mit undefinierten Eingängen umgehen soll.
 
-#### auch wenn noch nicht alle Werte gültig sind
+#### **auch wenn noch nicht alle Werte gültig sind**
 
 Die logische Verknüpfung betrachtet alle undefinierten Eingänge als ob sie mit "inaktiv" parametriert wären. Ein UND mit 3 Eingängen, das von den einer undefiniert ist, wird bereits ein EIN senden, wenn die 2 restlichen Eingänge EIN sind.
 
 Ein TOR mit einem undefinierten Dateneingang oder einem undefinierten Toreingang kann nicht sinnvoll funktionieren und sendet dann gar nichts.
 
-#### erst wenn alle Werte gültig sind
+#### **erst wenn alle Werte gültig sind**
 
 Die logische Verknüpfung wird erst dann einen Wert ermitteln, wenn an allen Eingängen gültige Werte vorliegen.
 
-### Beim schließen vom Tor wird
+### **Beim schließen vom Tor wird**
 
 Das Auswahlfeld erscheint nur, wenn als Logik-Operation TOR gewählt wurde.
 
 Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geschlossen wird (Toreingang geht auf AUS).
 
-#### nichts gesendet
+#### **nichts gesendet**
 
-Beim schließen vom Tor wird nichts gesendet
+Beim schließen vom Tor wird nichts gesendet.
 
-#### AUS gesendet
+#### **AUS gesendet**
 
 Beim schließen vom Tor wird immer ein AUS-Signal gesendet.
 
-#### EIN gesendet
+#### **EIN gesendet**
 
 Beim schließen vom Tor wird immer ein EIN-Signal gesendet.
 
-#### Eingangswert gesendet
+#### **Eingangswert gesendet**
 
 Beim schließen vom Tor wird der Eingangswert gesendet. Da dieser Wert ja faktisch schon mal gesendet worden ist (als das Tor noch offen war), ist das effektiv eine einmalige Wiederholung des letzten Wertes.
 
-### Beim öffnen vom Tor wird
+### **Beim öffnen vom Tor wird**
 
 Das Auswahlfeld erscheint nur, wenn als logische Operation TOR gewählt wurde.
 
 Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geöffnet wird (Toreingang geht auf EIN).
 
-#### nichts gesendet
+#### **nichts gesendet**
 
 Beim öffnen vom Tor wird nichts gesendet, erst das nächste Telegramm am Dateneingang wird gesendet.
 
-#### AUS gesendet
+#### **AUS gesendet**
 
 Beim öffnen vom Tor wird immer ein AUS-Signal gesendet.
 
-#### EIN gesendet
+#### **EIN gesendet**
 
 Beim öffnen vom Tor wird immer ein EIN-Signal gesendet.
 
-#### Eingangswert gesendet
+#### **Eingangswert gesendet**
 
 Beim öffnen vom Tor wird der Eingangswert gesendet. Damit kann man erreichen, dass das letzte Signal, das vom Tor blockiert worden ist, nach dem öffnen doch noch durchkommt.
 
-### Logik sendet ihren Wert weiter
+## Logik-Trigger
 
 Bisher wurde detailiert beschrieben, wie das Logik-Funktionsmodul die Eingänge auswertet, es ist aber ebenso wichtig zu bestimmen, wann der ermittelte Ausgangswert der Logik an die folgenden Funktionsmodule weitergeschickt wird.
 
+![Logik-Trigger](Logiktrigger.png)
+
+### **Logik sendet ihren Wert weiter**
+
 Diese Auswahlbox erlaubt eine Detaillierte Einstellung des Verhaltens.
 
-#### Nur bei geändertem Ergebnis
+#### **Nur bei geändertem Ergebnis**
 
 Das Ergebnis der Logikauswertung wird nur dann weitergeschickt, wenn sich das Ergebnis geändert hat. Dazu wird das zuvor ermittelte Ergebnis der Logik (wichtig: nicht das Ergebnis am Ausgang des Logikkanals) herangezogen und mit dem aktuellen Ergebnis verglichen. Weicht es ab, wird das gerade ermittelte Ergebnis weitergeleitet.
 
-#### Nur bei geändertem Ergebnis, aber erstes Telegramm immer senden
+#### **Nur bei geändertem Ergebnis, aber erstes Telegramm immer senden**
 
 Diese Einstellung hat ein spezifisches Verhalten beim Neustart der Logik. Bei einem Neustart ist nicht klar, was "geändertes Ergebnis" heißt. Mit dieser Einstellung sagt man klar, dass das erste Ergebnis der Logik immer als "geändert" behandelt wird und so weitergeschikt wird. Gleichzeitig stellt das Ergebnis den Vergleichswert für die nächste Logikoperation dar, anhand dessen ein "geändertes Ergebnis" festgestellt werden kann.
 
-#### Nur bei geändertem Ergebnis, aber erstes Telegramm nicht senden
+#### **Nur bei geändertem Ergebnis, aber erstes Telegramm nicht senden**
 
 Diese Einstellung hat ein spezifisches Verhalten beim Neustart der Logik. Bei einem Neustart ist nicht klar, was "geändertes Ergebnis" heißt. Mit dieser Einstellung sagt man klar, dass das erste Ergebnis der Logik immer als "nicht geändert" behandelt wird und somit nicht weitergeschikt wird. Gleichzeitig stellt das Ergebnis den Vergleichswert für die nächste Logikoperation dar, anhand dessen ein "geändertes Ergebnis" festgestellt werden kann.
 
-#### bei allen Eingangstelegrammen
+#### **bei allen Eingangstelegrammen**
 
 Sobald ein neues Eingangstelegramm eintrifft, wird das Ergebnis der logischen Verknüpfung ermittelt und an den nächsten Funktionsblock weitergeleitet.
 
-#### bei allen Eingangstelegrammen, aber erstes Telegramm nicht senden
+#### **bei allen Eingangstelegrammen, aber erstes Telegramm nicht senden**
 
 Sobald ein neues Eingangstelegramm eintrifft, wird das Ergebnis der logischen Verknüpfung ermittelt und an den nächsten Funktionsblock weitergeleitet. Allerdings wird das erste Telegramm nach einem Neustart unterdrückt. Damit kann man vermeiden, dass mögliche Statusmeldungen bei einem Neustart ungewollt Logiken bzw. Folgelogiken auslösen.
 
-#### bei folgenden Eingangstelegrammen
+#### **bei folgenden Eingangstelegrammen**
 
 ![Logik sendet](LogikSendet.PNG)
 
 Es erscheint eine Liste mit allen aktiven Eingängen. Man kann die Eingänge ankreuzen, auf die die Logikauswertung reagieren soll. Nur wenn ein Telgramm von einem dieser Eingänge kommt, wird die Logikauswertung angestoßen und das Ergebnis ermittelt und an den nächsten Funktionsblock weitergeleitet.
 
-#### bei folgenden Eingangstelegrammen, aber erstes Telegramm nicht senden
+#### **bei folgenden Eingangstelegrammen, aber erstes Telegramm nicht senden**
 
 Es erscheint eine Liste mit allen aktiven Eingängen. Man kann die Eingänge ankreuzen, auf die die Logikauswertung reagieren soll. Nur wenn ein Telgramm von einem dieser Eingänge kommt, wird die Logikauswertung angestoßen und das Ergebnis ermittelt und an den nächsten Funktionsblock weitergeleitet.
 Allerdings wird das erste Telegramm nach einem Neustart unterdrückt. Damit kann man vermeiden, dass mögliche Statusmeldungen bei einem Neustart ungewollt Logiken bzw. Folgelogiken auslösen.

@@ -70,15 +70,10 @@
             "group": "test"
         },
         {
-            "label": "OpenKNXproducer-Release",
+            "label": "Buid-Release",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
-            "args": [
-                "create",
-                "--Debug",
-                "--OutputFile=src/LogicModule.knxprod",
-                "src/Logikmodul-Release"
-            ],
+            "command": "scripts/BuildRelease.ps1 ",
+            "args": [],
             "problemMatcher": [],
             "group": "test"
         }
