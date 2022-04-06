@@ -1,4 +1,4 @@
-Write-Host Suche COM-Port fuer RP2040...
+Write-Host Suche COM-Port fuer SAMD...
 $portList = get-pnpdevice -class Ports
 if ($portList) {
     foreach($device in $portList) {
@@ -15,8 +15,11 @@ if ($portList) {
     if($port)
     {
         Write-Host Verwende $port
-        mode ${port}: BAUD=1200 parity=N data=8 stop=1 | Out-Null
-        ~\bin\rp2040load.exe -v -D firmware
+        $serial = new-Object System.IO.Ports.SerialPort $port,1200,None,8,1
+        $serial.Open()
+        $serial.Close()
+        Start-Sleep -s 1
+        ./bossac --info --write --verify --reset --erase firmware.bin
     } else {
        Write-Host Kein Port gefunden!
     }

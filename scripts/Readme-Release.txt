@@ -1,0 +1,29 @@
+Dieses Release kann unter Windows 10/11 folgendermaßen installiert werden:
+- falls noch nicht geschehen: Das gesamte zip in ein Verzeichnis entpacken
+- das Verzeichnis, in das entpackt wurde, öffnen
+- rechte Maustaste auf Build-knxprod.ps1
+- "Mit PowerShell ausführen" wählen, ggf. die Sicherheitswarnung mit "Datei öffnen" bestätigen
+    (jetzt wird eine zum Release passende Produktdatenbank *.knxprod gebaut)
+- je nachdem, ob man eine Hardware mit einem SAMD oder einem RP2040 Prozessor hat:
+  (Hinweis: Es darf nur ein ARDUINO am USB stecken)
+
+SAMD
+    - Hardware an den USB-Port stecken, 
+    - beim Sensormodul dieses auch zusätzlich mit dem KNX Bus verbinden
+    - rechte Maustaste auf "Upload-Firmware-SAMD.ps1" 
+    - zweimal schnell hintereinanter die Reset Taste drücken, rote LED muss langsam pulsieren
+    - "Mit PowerShell ausführen" wählen
+        (jetzt wird die Firmware auf die Hardware geladen)
+    - die erfolgreiche Detektierung der Schnittstelle und Programmierung im Screen der Powershell prüfen
+
+RP2040
+    - Hardware an den USB-Port stecken,
+    - rechte Maustaste auf "Upload-Firmware-RP2040.ps1"
+    - "Mit PowerShell ausführen" wählen
+        (jetzt wird die Firmware auf die Hardware geladen)
+    - sobald die Firmware eroflgreich hochgeladen wurde, startet sich das Modul neu
+
+Jetzt kann man die erzeugte knxprod in die ETS über den Katalog importieren und
+danach wie gewohnt zuerst die Physikalische Adresse und nach der Parametrierung die Applikation programmieren.
+Bitte noch die Applikationsbeschreibug beachten, dort stehen Hinweise zum update (ob man z.B. nur Firmware- oder nur ETS-Update braucht, normalerweise braucht man beides).
+Fertig.

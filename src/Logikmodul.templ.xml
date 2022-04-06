@@ -1220,7 +1220,7 @@
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Von-Wert &lt;= (Eingang 1 - Eingang 2) &lt;= Bis-Wert; AUS sonst" />
                             </when>
                             <when test="2">
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Hysterese sendet AUS, wenn Eingang 1 unter den Ausschalt-Wert sinkt, sie sendet EIN, wenn Eingang 1 über den Einschat-Wert steigt." />
+                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Hysterese sendet AUS, wenn Eingang 1 unter den Ausschalt-Wert sinkt, sie sendet EIN, wenn Eingang 1 über den Einschalt-Wert steigt." />
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: AUS bei Eingang 1 &lt;= Ausschalt-Wert; EIN bei Eingang 1 &gt;= Einschalt-Wert" />
                             </when>
                             <when test="3">
@@ -1873,7 +1873,7 @@
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Von-Wert &lt;= (Eingang 2 - Eingang 1) &lt;= Bis-Wert; AUS sonst" />
                             </when>
                             <when test="2">
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Hysterese sendet AUS, wenn Eingang 2 unter den Ausschalt-Wert sinkt, sie sendet EIN, wenn Eingang 2 über den Einschat-Wert steigt." />
+                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Hysterese sendet AUS, wenn Eingang 2 unter den Ausschalt-Wert sinkt, sie sendet EIN, wenn Eingang 2 über den Einschalt-Wert steigt." />
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: AUS bei Eingang 2 &lt;= Ausschalt-Wert; EIN bei Eingang 2 &gt;= Einschalt-Wert" />
                             </when>
                             <when test="3">
