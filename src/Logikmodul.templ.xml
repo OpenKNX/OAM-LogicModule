@@ -2451,7 +2451,7 @@
               </choose>
               <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%274_R-%T%%CCC%27401" />
               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
-              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Scaltzeitpunkte" UIHint="Headline" />
+              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Schaltzeitpunkte" UIHint="Headline" />
               <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%272_R-%T%%CCC%27201">
                 <when test="1">
                   <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-18" Name="TimerYear%C%" Text="#" Inline="true" Layout="Table">

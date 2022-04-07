@@ -19,7 +19,7 @@ if ($portList) {
         $serial.Open()
         $serial.Close()
         Start-Sleep -s 1
-        ./bossac --info --write --verify --reset --erase firmware.bin
+        tools/bossac --info --write --verify --reset --erase data/firmware.bin
     } else {
        Write-Host Kein Port gefunden!
     }

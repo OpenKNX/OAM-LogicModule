@@ -1,3 +1,5 @@
+Import-Module BitsTransfer
+
 Write-Host Suche RP2040 als Disk-Laufwerk...
 $device=$(Get-WmiObject Win32_LogicalDisk | Where-Object { $_.VolumeName -match "RPI-RP2" })
 if (!$device)
@@ -20,13 +22,7 @@ if (!$device)
         {
             Write-Host Verwende $port zum neustart vom RP2040
             $serial = new-Object System.IO.Ports.SerialPort $port,1200,None,8,1
-            try
-            {
-                $serial.Open()
-            } 
-            catch
-            {
-            }
+            try { $serial.Open()} catch {}
             $serial.Close()
             # mode ${port}: BAUD=1200 parity=N data=8 stop=1 | Out-Null
             Start-Sleep -s 1
@@ -38,8 +34,9 @@ if (!$device)
 if ($device)
 {
     Write-Host Installiere firmware...
-    Copy-Item firmware.uf2 $device.DeviceID.ToString()
-    Write-Host Fertig!
+    Start-BitsTransfer -Source data/firmware.uf2 -Destination $device.DeviceID.ToString() -Description "Installiere" -DisplayName "Installiere Firmware..."
+    # Copy-Item data/firmware.uf2 $device.DeviceID.ToString()
+     Write-Host Fertig!
 }
 else 
 {

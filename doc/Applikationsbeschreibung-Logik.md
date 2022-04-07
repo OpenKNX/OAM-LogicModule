@@ -560,23 +560,49 @@ Es erscheint eine Liste mit allen aktiven Eingängen. Man kann die Eingänge ank
 Es erscheint eine Liste mit allen aktiven Eingängen. Man kann die Eingänge ankreuzen, auf die die Logikauswertung reagieren soll. Nur wenn ein Telgramm von einem dieser Eingänge kommt, wird die Logikauswertung angestoßen und das Ergebnis ermittelt und an den nächsten Funktionsblock weitergeleitet.
 Allerdings wird das erste Telegramm nach einem Neustart unterdrückt. Damit kann man vermeiden, dass mögliche Statusmeldungen bei einem Neustart ungewollt Logiken bzw. Folgelogiken auslösen.
 
-## Eingang 1: unbenannt / Eingang 2: unbenannt
+## **Eingang 1: unbenannt / Eingang 2: unbenannt**
 
 Sobald für einen Logikkanal ein externer Eingang aktiviert wurde, erscheint für jeden Eingang eine Seite.
 
 ![Eingang](Eingangseite.PNG)
 
+## Definition Eingang 1
+
 Jeder Eingang kann mit Hilfe der folgenden Einstellungen konfiguriert werden. Im Folgenden wird von Eingang n gesprochen, da die Beschreibung sowohl für Eingang 1 wie auch für Eingang 2 gilt.
 
-> **Wichtig:** Wird ein Eingang als "invertiert aktiv" eingeschaltet, so passiert die Invertierung erst direkt bei der Wertübergabe an die logische Operation des Logik-Funktionsmoduls, also erst nach der Vorbelegung und nach der Konvertierung.
+> **Wichtig:** Wird ein Eingang als "invertiert aktiv" eingeschaltet, so passiert die Invertierung erst direkt bei der Wertübergabe an die logische Operation des Logik-Funktionsmoduls, also erst nach der Vorbelegung und nach dem Eingangskonverter.
 
-### Beschreibung Eingang n
+### **Beschreibung Eingang n**
 
 Dieses Feld hat keine funktionale Auswirkung. Es erlaubt den Eingang zu benennen und diesen so leichter wiederzufinden, erhöht somit die Übersichtlichkeit.
 
 Der hier angegebene Text erscheint in der Seitenbeschreibung "Eingang n: unbenannt" statt dem Wort "unbenannt" und als Name des Kommunikationsobjektes, das zu diesem Eingang gehört.
 
-### DPT für Eingang n
+### **Kommunikationsobjekt für Eingang 1**
+
+Ein Eingang des Logikobjekts wird durch ein Kommunikationsobjekt repräsentiert. Dabei kann jedes Kommunikationsobjekt des Gerätes verwendet werden, auch KO, die nicht vom Logikmodul verwaltet werden. Dies ermöglicht, KO intern zu verbinden und so die Kommunikation auf dem Bus zu reduzieren. Eine solche interne Verbindung verhält sich genau so, als wäre der Eingang mit einer GA verbunden und Telegramme erhalten würde.
+
+#### **Neues KO erzeugen**
+
+Für den Eingng wird ein neues Kommunikationsobjekt erzeugt. Dieses KO ist somit komplett vom Logikmodul kontrolliert und verwaltet.
+
+#### **Bestehendes KO nutzen**
+
+Der Eingang wird durch ein existierendes Kommunikationsobjekt erzeugt. Das Kommunikationsobjekt wird somit anderweitig verwaltet, z.B. durch einen anderen Kanal oder eine andere Teilapplikation. Der Eingang "lauscht" somit nur auf die ankommenden Signale und kann keinerleis Aktionen an dem KO vornehmen, wie z.B. den DPT bestimmern oder Lese-Anforderungen verschicken.
+
+### **Nummer des Kommunikationsobjekts**
+
+Hier steht immer die Nummer des Kommunikationsobjekts, das als Eingang für diesen Kanal fungiert.
+
+Falls ein neues Kommunikationsobjekt erzeugt wurde, ist die Nummer nicht änderbar und nur zur Information.
+
+Falls ein bestehendes Kommunikationsobjekt genutzt werden soll, wird in dem Feld die Nummer des zu nutzenden Kommunikationsobjekts angegeben. Dieses KO muss existieren und es darf nicht ausgeblendet sein. Es muss keine GA mit dem Objekt verbunden sein.
+
+## Eingangskonverter
+
+Sobald für einen Eingang im Feld "DPT für Eingang n" etwas anderes als DPT 1 ausgewählt wird, erscheint ein DPT-Spezifischer Konverter, der eine Konvertierung in DPT 1 erlaubt. Dies ist zwingend notwendig, das die gesamte Logikverarbeitung nur mit binären Werten (DPT 1) erfolgt.
+
+### **DPT für Eingang n**
 
 Dieses Auswahlfeld legt den DPT für den Eingang fest. Unterstützt werden:
 
@@ -591,71 +617,16 @@ Dieses Auswahlfeld legt den DPT für den Eingang fest. Unterstützt werden:
 * DPT 17: Szenen Nummer (1-64)
 * DPT 232: RGB-Wert (0-16777216)
 
-Ist der DPT anders als DPT 1, erscheint je nach DPT ein Konverter, mit dem man den gewünschten Eingangs-DPT nach DPT 1 wandeln kann. Die gesamte weitere Verarbeitung des Eingangssignals erfolgt binär, also auf Basis von DPT 1. Alle Parameter der jeweiligen Konverter werden weiter unten im Kapitel "Eingangskonverter" beschrieben.
+Ist der DPT anders als DPT 1, erscheint je nach DPT ein Konverter, mit dem man den gewünschten Eingangs-DPT nach DPT 1 wandeln kann. Die gesamte weitere Verarbeitung des Eingangssignals erfolgt binär, also auf Basis von DPT 1.
 
-### Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen
+> **Wichtig:** Wenn ein bestehendes Kommunikationsobjekt genutzt wird, muss der hier eingestellte DPT dem DPT des bestehenden KO entsprechen! Das kann nicht automatisch von der Applikation ermittelt werden. Wenn hier etwas falsch eingestellt wird und der falsche Eingangskonverter benutzt wird, kann der Logikkanal nicht korrekt funktionieren. Darauf wird in der Applikation durch die folgende Information hingewiesen:
+![Warnung bestehendes KO](BestehendesKoWarnung.png)
 
-Diese Einstellung erlaubt ein dezidiertes Verhalten beim Neustart des Gerätes, wie im Kapitel "Logikkanäle -> Startverhalten" beschrieben.
-
-Diese Einstellung erscheint nur, wenn ein nichtflüchtiger Speicher vorhanden ist und Zusatzhardware (RGB-LED, Buzzer) von der Firmware abgeschaltet werden können.
-
-Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im nichtflüchtigen Speicher abgelegt wird und nach einem Neustart wieder gelesen wird. Der dann gelesene Wert wird als Vorbelegung für den Eingang genommen, falls nötig über den Eingangskonverter in einen DPT 1 konvertiert und dann die logische Operation getriggert.
-
-Da nichtflüchtige Speicher nur eine relativ geringe Anzahl an Schreibzyklen zulassen, wird der Eingangswert nicht direkt nach dem Empfang im Speicher geschrieben, sondern erst beim Stromausfall, bei einem "Gerät zurücksetzen" über die ETS oder bei einer neuprogrammierung über die ETS. Wird die RESET-Taste direkt am Gerät gedrückt, wird der nichtflüchtige Speicher nicht mit dem Eingangswert beschrieben.
-
-### Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit
-
-Dieses Auswahlfeld erlaubt eine Vorbelegung mit einem festgelegten Wert. Die Einstellung kommt aber nur zur Auswirkung, falls die vorhergehende Einstellung "Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" auf "Nein" steht, nicht vorhanden ist oder der gespeicherte Wert nicht genutzt werden kann.
-
-Es gibt einige wenige Gründe, warum ein gespeicherter Wert nicht genutzt werden kann:
-
-* Der gespeicherte Wert hat einen anderen DPT. Das passiert, wenn man das Gerät mit der Einstellung "Speichern" in Benutzung hat, dann in der ETS den DPT für den Eingang ändert und das Gerät neu programmiert. Nach dem Neustart passen dann der gespeicherte DPT und der DPT vom Eingang nicht zusammen. Der gespeicherte Wert wird dann verworfen und die Einstellung dieses Feldes als Vorbelegung genommen.
-* Es ist gar kein Wert gespeichert, dann kann er natürlich auch nicht genutzt werden und stattdessen wird die Einstellung dieses Feldes als Vorbelegung genommen.
-* Durch einen Speicherfehler konnte vor einem Neustart der Wert vom Eingang nicht gespeichert werden. Auch dann wird die Einstellung dieses Feldes als Vorbelegung genutzt. Dieser Fall ist rein Theoretisch und noch nie in der Praxis aufgetreten.
-
-Durch ein Einspielen einer neuen Applikation über die ETS werden die gespeicherten Werte im nichtflüchtigen Speicher nicht gelöscht. Falls aber eine neue Firmware über USB in das Gerät neu eingespielt wird, kann die neue Firmware möglicherweise die gespeicherten Werte der alten Firmware nicht mehr lesen. In diesem Fall würden die gespeicherten Werte aller Eingänge gelöscht und die Vorbelegung würde durch die Einstellung dieses Feldes erfolgen.
-
-#### nichts (undefiniert)
-
-Der Eingang wird nicht vorbelegt und bleibt undefiniert, bis ein erstes Telegramm vom KNX-Bus empfangen wird.
-
-#### Wert vom Bus lesen
-
-Nach der eingestellten Starterzögerung für das gesamte Gerät zuzüglich der Startverzögerung für den Logikkanal wird ein Lesetelegramm auf den KNX-Bus geschickt. Bis die Antwort empfangen wurde ist der Eingang undefiniert.
-
-Sollte in der Zeit, bis der Logikkanal startet, bereits ein Telegramm empfangen werden, dass das Lesetelegramm beantwortet hätte, wird das Lesetelegramm nicht gesendet. Damit wird verhindert, dass mehrere Eingänge, die mit der gleichen GA verbunden sind, viele Lesetelegramme auf die gleiche GA schicken.
-
-#### AUS (0)
-
-Der Eingang wird konstant mit einer 0 vorbelegt und hat somit sofort einen defnierten Zustand.
-
-#### EIN (1)
-
-Der Eingang wird konstant mit einer 1 vorbelegt und hat somit sofort einen defnierten Zustand.
-
-### Eingang wird alle n Sekunden gelesen (0=nicht zyklisch lesen)
-
-Manche Geräte können nicht von sich aus zyklisch senden. Hier kann man einstellen, dass ein Eingang aktiv den Wert zyklisch liest. In den Feld kann man angeben, wie viele Sekunden zwischen 2 Leseintervallen vergehen sollen.
-
-### Nur so lange zyklisch lesen, bis erstes Telegramm eingeht
-
-Erscheint nur, wenn bei "Eingang wird alle n Sekunden gelesen" ein Wert größer 0 eingegeben wurde.
-
-Standardmäßig wird zyklisches lesen ununterbrochen durchgeführt. Mit einem 'Ja' kann man hier festlegen, dass nur so lange zyklisch gelesen wird, bis ein erstes Telegramm eingeht, dass den Wert bestimmt. Das kann sowohl ein Antworttelegramm (GroupValueResponse) wie auch ein Schreibtelegramm (GroupValueWrite) sein.
-
-Diese Funktion vor allem nach einem Neustart der Logik von Nutzen sein, da Lesetelegramme womöglich nicht sofort beantwortet werden können, falls das antwortende Gerät sich selbst noch in der Startphase befindet. Hier kann man diese Lesetelegramme so lange wiederholen lassen, bis sie beantwortet werden können, anschließend kann ohne aktives Nachfragen auf normale Schreibtelegramme reagiert werden.
-
-Dies erlaubt es, eine KNX-Anlage nach einem Neustart relativ schnell in einen Zustand zu versetzen, bei dem alle Initialisierungen erfolgt sind und alle Funktionen erwartungskonform ausgeführt werden.
-
-## Eingangskonverter
-
-Sobald für einen Eingang im Feld "DPT für Eingang n" etwas anderes als DPT 1 ausgewählt wird, erscheint ein DPT-Spezifischer Konverter, der eine Konvertierung in DPT 1 erlaubt. Dies ist zwingend notwendig, das die gesamte Logikverarbeitung nur mit binären Werten (DPT 1) erfolgt.
-
-### DPT 1.xxx (Schalten)
+### **DPT 1.xxx (Schalten)**
 
 Für DPT 1 ist kein Konverter notwendig.
 
-### DPT 2.xxx (Zwangsführung)
+### **DPT 2.xxx (Zwangsführung)**
 
 ![Zwangsführung](Zwangsführung.PNG)
 
@@ -665,27 +636,27 @@ In dem Bildschirmausschnitt ist der Konverter so konfiguriert, dass "normal EIN"
 
 In den Auswahlfeldern können folgende Werte ausgewählt werden:
 
-#### nicht genutzt
+#### **nicht genutzt**
 
 Dieses Eingabefeld wird nicht beachtet.
 
-#### normal AUS (00)
+#### **normal AUS (00)**
 
 Wird der Zwangsführungs-Wert "normal AUS" empfangen (im KNX durch eine 00 repräsentiert), dann wird dieser zu einem EIN-Signal konvertiert.
 
-#### normal EIN (01)
+#### **normal EIN (01)**
 
 Wird der Zwangsführungs-Wert "normal EIN" empfangen (im KNX durch eine 01 repräsentiert), dann wird dieser zu einem EIN-Signal konvertiert.
 
-##### priorität AUS (10)
+##### **priorität AUS (10)**
 
 Wird der Zwangsführungs-Wert "priorität AUS" empfangen (im KNX durch eine 10 repräsentiert), dann wird dieser zu einem EIN-Signal konvertiert.
 
-#### priorität EIN (11)
+#### **priorität EIN (11)**
 
 Wird der Zwangsführungs-Wert "priorität EIN" empfangen (im KNX durch eine 11 repräsentiert), dann wird dieser zu einem EIN-Signal konvertiert.
 
-### DPT 17.001 (Szene)
+### **DPT 17.001 (Szene)**
 
 ![Szenenkonverter](Szene.PNG)
 
@@ -693,15 +664,17 @@ Der Szenenkonverter kann bis zu 8 Szenennummern in eine EIN-Signal konvertieren.
 
 In den Eingabefeldern werden die jeweiligen Szenennummern eingegeben, die zu einem EIN-Signal führen sollen. Der Wert "nicht genutzt" wird dann eingegeben, wenn das Eingabefeld nicht ausgewertet werden soll.
 
-### Zahlenbasierte DPT
+In dem Bildschirmausschnitt ist der Konverter so konfiguriert, dass aus Szene 6, 7 und 10 ein EIN-Signal generiert wird, aus allen anderen Szenen ein AUS-Signal.
 
-Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern Konvertern in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+### **Zahlenbasierte DPT**
 
-#### Wert für Eingang n bestimmen durch
+Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern  in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind alle gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+
+#### **Wert für Eingang n bestimmen durch**
 
 Mit dem Auswahlfeld wird der passende Zahlenkonverter augewählt.
 
-##### Wertintervall
+#### **Wertintervall**
 
 ![Wertintervall](Wertintervall.PNG)
 
@@ -713,9 +686,9 @@ Formal würde man schreiben:
 
 Falls man ein EIN-Signal möchte, wenn der Wert außerhalb des Intervalls liegt, muss man den Eingang invertiert einschalten.
 
-In dem angezeigten Bildschirmausschnitt wird der Wert 0 und 1 ein ein AUS-Signal konvertiert, die Werte 2 bis 255 in ein EIN-Signal.
+In dem angezeigten Bildschirmausschnitt werden die Werte 0 bis 127 in ein AUS-Signal konvertiert, die Werte 128 bis 255 in ein EIN-Signal.
 
-##### Differenzintervall
+#### **Differenzintervall**
 
 ![Differenzintervall](Differenzintervall.PNG)
 
@@ -733,7 +706,7 @@ Bei einem Differenzintervall muss der andere Eingang nicht vom gleichen DPT sein
 
 Ein Differenzintervall kann auch als Vergleicher genutzt werden, in dem Von- und Bis-Wert auf 0 gesetzt werden. Dann wird nur bei einer Differenz = 0 (was nichts anderes als die Gleichheit der beiden Eingänge bedeutet) ein EIN-Signal erzeugt.
 
-##### Hysterese
+#### **Hysterese**
 
 ![Hysterese](Hysterese.PNG)
 
@@ -748,7 +721,7 @@ Formal würde man schreiben:
 
 In dem angezeigten Bildschirmausschnitt könnte das ein Hystereseschalter für Helligkeit sein. Bei einer Helligkeit von mehr als 40000 Lux würde ein EIN-Signal erzeugt werden, das erst zu einem AUS-Signal führt, wenn die Helligkeit unter 20000 Lux sinkt.
 
-##### Differenzhysterese
+#### **Differenzhysterese**
 
 ![Differenzhysterese](Differenzhysterese.PNG)
 
@@ -765,7 +738,7 @@ In dem angezeigten Bildschirmausschnitt könnte das ein Hystereseschalter für e
 
 Die Differenzhysterese erlaubt eine Hysterese zu definieren, bei der man den Arbeitspunkt über den KNX-Bus einstellen kann.
 
-### Der "andere" Eingang bei Differenzkonvertern
+### **Der "andere" Eingang bei Differenzkonvertern**
 
 Zahlenbasierte Konverter könenn auch als Differenzkonverter genutzt werden. Dabei wird dann automatisch der "andere" Eingang aktiviert und für die Differenzberechnung genutzt.
 
@@ -778,25 +751,29 @@ Der Differenzeingang muss nicht vom gleichen DPT sein, er wird generisch in eine
 
 Wird ein Differenzeingang genutzt, sollte dieser nicht auch noch als "normal aktiv" oder "invertiert aktiv" bei einer logischen Operation genutzt werden, obwohl das grundsätzlich möglich ist. Dann würde der Differenzeingang auch einen Konverter anbieten und entsprechend ein EIN- oder AUS-Signal für die logische Operation erzeugen. Dies ist ausdrücklich nicht empfohlen und auch bisher nicht getestet. Ob man die Komplexität eines solchen Aufbaus noch durchblicken kann, ist auch zu bezweifeln.
 
-### Ganzzahlbasierte DPT
+### **Ganzzahlbasierte DPT**
 
 Alle DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx), können mittels eines weiteren Einzelwert-Konverters in ein binäres Signal umgewandelt werden. Er ist gleich für alle DPT, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
 
-#### Einzelwert-Konverter
+#### **Einzelwert-Konverter**
 
 ![Einzelwerte](Einzelwerte.png)
 
 Der Einzelwert-Konverter prüft, ob der Eingang einem der angegebenen Werte entspricht. Wenn ja, liefert der Eingang ein EIN-Signal an die Logik. Wenn er keinem der Werte enspricht, liefert er ein AUS-Signal. Geprüft wird jedesmal, wenn das Eingangs-KO einen Wert empfängt. Je nach DPT des Eingangs können unterschiedlich viele Werte geprüft werden:
 
-* DPT5: 7 Werte
-* DPT5.001: 7 Werte
-* DPT6: 7 Werte
-* DPT7: 3 Werte
-* DPT8: 3 Werte
+DPT | Anzahl Werte
+:---:|---:
+DPT 5.xxx | 7 Werte
+DPT 5.001 | 7 Werte
+DPT 6.xxx | 7 Werte
+DPT 7.xxx | 3 Werte
+DPT 8.xxx | 3 Werte
 
-Der Einzelwert-Konverter erpart einige ODER-Verknüpfungen und spart so Logikkanäle.
+Der Einzelwert-Konverter erspart einige ODER-Verknüpfungen und spart so Logikkanäle.
 
-### Konstanten
+In dem angezeigten Bildschirmausschnitt wird bei den Werten 17, 25 und 40 ein EIN-Signal erzeugt, bei allen anderen Werten ein AUS-Signal.
+
+#### **Konstanten**
 
 Alle Eingänge können auch mit einem Konstanten Wert vorbelegt werden. Dies geschieht DPT gerecht, also passend zum Eingangs-DPT. Kontanten können in Formeln verwendet werden oder direkt von Ausgängen genutzt werden. Wobei man sowieso jeden Ausgang einen kontanten Wert senden lassen kann, insofern macht es keinen Sinn, konstante Eingänge für Ausgänge zu definieren.
 
@@ -804,61 +781,132 @@ Alle Eingänge können auch mit einem Konstanten Wert vorbelegt werden. Dies ges
 
 Der Boolesche Wert einer Konstante ist immer EIN und kann in einer Logik normal genutzt werden. Natürlich ändert sich dieser Wert nie und kann auch keine Logik triggern.
 
-Wie die Konstanten der Eingänge in Formeln verwendet werden können, kann im Formel-Kapitel nachgelesen werden.
+Der Einsatz von Konstanten ist primär für Formeln gedacht. Wie die Konstanten der Eingänge in Formeln verwendet werden können, kann im Formel-Kapitel nachgelesen werden.
 
-## Kanalausgänge verbinden
+## Eingangswert vorbelegen
 
-![Interne Eingänge](InternerEingang.PNG)
+Die folgenden Einstellungen erlaubten ein dezidiertes Verhalten beim Neustart des Gerätes, wie im Kapitel "Logikkanäle -> Startverhalten" beschrieben.
+
+![Eingangswert vorbelegen](EingangVorbelegen.png)
+
+### **Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen**
+
+Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im nichtflüchtigen Speicher abgelegt wird und nach einem Neustart wieder gelesen wird. Der dann gelesene Wert wird als Vorbelegung für den Eingang genommen, falls nötig über den Eingangskonverter in einen DPT 1 konvertiert und dann die logische Operation getriggert.
+
+Da nichtflüchtige Speicher nur eine relativ geringe Anzahl an Schreibzyklen zulassen, wird der Eingangswert nicht direkt nach dem Empfang im Speicher geschrieben, sondern erst beim Stromausfall, bei einem "Gerät zurücksetzen" über die ETS oder bei einer neuprogrammierung über die ETS. Wird die RESET-Taste direkt am Gerät gedrückt, wird der nichtflüchtige Speicher nicht mit dem Eingangswert beschrieben.
+
+> **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist Hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstütz wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
+
+> **Wichtig:** Es gibt 2 unterstützte Varianten von nichtflüchtigem Speicher: FLASH und EEPROM. Der FLASH-Speicher ist der gleiche, in dem die Firmware gespeichert wird und ist immer vorhanden. Standardmäßig wird in diesen Speicher gespeichert. Dies hat aber den Nachteil, dass bei einem Firmware-Update alle gespeicherten Werte verloren gehen. Falls die Werte im EEPROM gespeichert werden (Zusatzhardware), werden sie nicht durch ein Update der Firmware überschrieben.
+
+### **Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit**
+
+Dieses Auswahlfeld erlaubt eine Vorbelegung mit einem festgelegten Wert. Die Einstellung kommt aber nur zur Auswirkung, falls die vorhergehende Einstellung "Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen" auf "Nein" steht oder der gespeicherte Wert nicht genutzt werden kann.
+
+Es gibt einige wenige Gründe, warum ein gespeicherter Wert nicht genutzt werden kann:
+
+* Der gespeicherte Wert hat einen anderen DPT. Das passiert, wenn man das Gerät mit der Einstellung "Speichern" in Benutzung hat, dann in der ETS den DPT für den Eingang ändert und das Gerät neu programmiert. Nach dem Neustart passen dann der gespeicherte DPT und der DPT vom Eingang nicht zusammen. Der gespeicherte Wert wird dann verworfen und die Einstellung dieses Feldes als Vorbelegung genommen.
+* Es ist bisher gar kein Wert gespeichert worden, dann kann er natürlich auch nicht genutzt werden und stattdessen wird die Einstellung dieses Feldes als Vorbelegung genommen. Dies passiert immer, wenn man das erste Mal ein "Ja" beim "Eingangswert Speichern" geklickt hat.
+* Es ist eine neue Firmware aufgespielt worde und die gespeicherten Werte wurden gelöscht. Das passiert immer, wenn die Werte im FLASH gespeichert werden.
+* Durch einen Speicherfehler konnte vor einem Neustart der Wert vom Eingang nicht gespeichert werden. Auch dann wird die Einstellung dieses Feldes als Vorbelegung genutzt. Dieser Fall ist rein Theoretisch und noch nie in der Praxis aufgetreten.
+
+Durch ein Einspielen einer neuen Applikation über die ETS werden die gespeicherten Werte im nichtflüchtigen Speicher nicht gelöscht.
+
+#### **nichts (undefiniert)**
+
+Der Eingang wird nicht vorbelegt und bleibt undefiniert, bis ein erstes Telegramm vom KNX-Bus empfangen wird.
+
+#### **Wert vom Bus lesen**
+
+Nach der eingestellten Starterzögerung für das gesamte Gerät zuzüglich der Startverzögerung für den Logikkanal wird ein Lesetelegramm auf den KNX-Bus geschickt. Bis die Antwort empfangen wurde ist der Eingang undefiniert.
+
+Sollte in der Zeit, bis der Logikkanal startet, bereits ein Telegramm empfangen werden, dass das Lesetelegramm beantwortet hätte, wird das Lesetelegramm nicht gesendet. Damit wird verhindert, dass mehrere Eingänge, die mit der gleichen GA verbunden sind, viele Lesetelegramme auf die gleiche GA schicken.
+
+#### **AUS (0)**
+
+Der Eingang wird konstant mit einer 0 vorbelegt und hat somit sofort einen defnierten Zustand.
+
+#### **EIN (1)**
+
+Der Eingang wird konstant mit einer 1 vorbelegt und hat somit sofort einen defnierten Zustand.
+
+### **Eingang wird alle n Sekunden gelesen (0=nicht zyklisch lesen)**
+
+Manche Geräte können nicht von sich aus zyklisch senden. Hier kann man einstellen, dass ein Eingang aktiv den Wert zyklisch liest. In den Feld kann man angeben, wie viele Sekunden zwischen 2 Leseintervallen vergehen sollen.
+
+### **Nur so lange zyklisch lesen, bis erstes Telegramm eingeht**
+
+Erscheint nur, wenn bei "Eingang wird alle n Sekunden gelesen" ein Wert größer 0 eingegeben wurde.
+
+Standardmäßig wird zyklisches lesen ununterbrochen durchgeführt. Mit einem 'Ja' kann man hier festlegen, dass nur so lange zyklisch gelesen wird, bis ein erstes Telegramm eingeht, dass den Wert bestimmt. Das kann sowohl ein Antworttelegramm (GroupValueResponse) wie auch ein Schreibtelegramm (GroupValueWrite) sein.
+
+Diese Funktion wird vor allem nach einem Neustart des gesamten KNX-Busses von Nutzen sein, da Lesetelegramme womöglich nicht sofort beantwortet werden können, falls das antwortende Gerät sich selbst noch in der Startphase befindet. Hier kann man diese Lesetelegramme so lange wiederholen lassen, bis sie beantwortet werden können, anschließend kann ohne aktives Nachfragen auf normale Schreibtelegramme reagiert werden.
+
+Dies erlaubt es, eine KNX-Anlage nach einem Neustart relativ schnell in einen Zustand zu versetzen, bei dem alle Initialisierungen erfolgt sind und alle Funktionen erwartungskonform ausgeführt werden.
+
+> **Tipp:** Auch wenn die Logik selbst den gelesenen Wert nicht braucht, kann man mit der Funktion andere Geräte unterstützen, die selbst nicht nach einem Neustart lesen können. Denn auf das Antworttelegramm kann nicht nur das lesende Gerät reagieren, sondern alle Geräte am Bus.
+
+## **Kanalausgänge verbinden**
+
 
 Wird für eine logische Operation "Kanalausgang X" oder "Kanalausgang Y" als "normal aktiv" oder "invertiert aktiv" freigeschaltet, erscheint diese Seite.
 
-Solange der Ausgang eines anderen Kanals nicht zugeordnet worden ist, wird der interne Eingang von der logischen Operation als undefiniert betrachtet.
-
 Ausgänge von anderen Kanälen können dazu genutzt werden, große Logikblöcke zu bauen, ohne für jede Teillogik (jenden Logikkanal) eine eigene GA zur Verbindung von Eingang und Ausgang zu benötigen.
 
-### Beschreibung interner Eingang 1
+![Interne Eingänge](InternerEingang.PNG)
+Solange der Ausgang eines anderen Kanals nicht zugeordnet worden ist, wird der interne Eingang von der logischen Operation als undefiniert betrachtet.
+
+## Definition Interner Eingang 1
+
+Hier werden die Verbindungseinstellungen für den Internen Eingang 1 gewählt.
 
 Erscheint nur, wenn bei der logischen Operation "Kanalausgang X" als "normal aktiv" oder "invertiert aktiv" ausgewählt wurde.
+
+### **Beschreibung interner Eingang 1**
 
 Diese Feld erlaubt eine kurze Beschreibung, wozu dieser Eingang verwendet wird. Es hat keinen Einfluß auf die Funktion des Eingangs und dient rein zu Dokumentationszwecken.
 
-### Kanalausgang X als Eingang, X =
-
-Erscheint nur, wenn bei der logischen Operation "Kanalausgang X" als "normal aktiv" oder "invertiert aktiv" ausgewählt wurde.
+### **Kanalausgang X als Eingang, X** =
 
 Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner Eingang genutzt werden soll. Solange der Eingang nicht verbunden ist (Wert im Eingabefeld ist 0) erscheint eine Warnmeldung, dass der Eingang inaktiv (undefiniert) ist.
 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
 ![Warnung Rueckkopplung](Rueckkopplung.PNG)
 
-### Beschreibung interner Eingang 2
+## Definition Interner Eingang 1
+
+Hier werden die Verbindungseinstellungen für den Internen Eingang 2 gewählt.
 
 Erscheint nur, wenn bei der logischen Operation "Kanalausgang Y" als "normal aktiv" oder "invertiert aktiv" ausgewählt wurde.
+
+### **Beschreibung interner Eingang 2**
 
 Diese Feld erlaubt eine kurze Beschreibung, wozu dieser Eingang verwendet wird. Es hat keinen Einfluß auf die Funktion des Eingangs und dient rein zu Dokumentationszwecken.
 
-### Kanalausgang Y als Eingang, Y =
-
-Erscheint nur, wenn bei der logischen Operation "Kanalausgang Y" als "normal aktiv" oder "invertiert aktiv" ausgewählt wurde.
+### **Kanalausgang Y als Eingang, Y =**
 
 Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner Eingang genutzt werden soll. Solange der Eingang nicht verbunden ist (Wert im Eingabefeld ist 0) erscheint eine Warnmeldung, dass der Eingang inaktiv (undefiniert) ist.
 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
 ![Warnung Rueckkopplung](Rueckkopplung.PNG)
 
-## Schaltzeiten: unbenannt
+## **Schaltzeiten: unbenannt**
 
 Erscheint nur, wenn die Logik-Operation auf ZEITSCHALTUHR gestellt wurde.
 
-Auf dieser Seite können die Schaltpunkte für eine Zeitschaltuhr eingegeben werden. Die Einstellmöglichkeiten sind bei jedem Logikkanal gleich, so dann nur ein Kanal beschrieben wird.
+Auf dieser Seite können die Schaltpunkte für eine Zeitschaltuhr eingegeben werden. Die Einstellmöglichkeiten sind bei jedem Logikkanal gleich, so dass nur ein Kanal beschrieben wird.
 
 ![Schaltuhr](Schaltuhr.PNG)
 
-### Beschreibung der Zeitschaltuhr
+## Definition Zeitschaltuhr
+
+In diesem Bereich wird das generelle Verhalten der Zeitschaltuhr definiert.
+
+### **Beschreibung der Zeitschaltuhr**
 
 Diese Feld erlaubt eine kurze Beschreibung, wozu diese Zeitschaltuhr verwendet wird. Es hat keinen Einfluß auf die Funktion und dient rein zu Dokumentationszwecken. Der Text wird in der Seitenbeschreibung statt dem Wort "unbenannt" genommen und erlaub so ein einfacheres wiederfinden der Zeitschaltuhr.
 
-### Typ der Zeitschaltuhr
+### **Typ der Zeitschaltuhr**
 
 Es werden genau 2 Typen von Zeitschaltuhren unterstützt:
 
@@ -867,47 +915,49 @@ Es werden genau 2 Typen von Zeitschaltuhren unterstützt:
 
 Sollten die Schaltzeiten einer Zeitschaltuhr nicht ausreichen, kann man mehrere Kanäle als Zeitschaltuhr definieren und diese dann per ODER verknüpfen.
 
-### Feiertagsbehandlung
+### **Feiertagsbehandlung**
 
 Über dieses Auswahnfeld kann man definieren, wie sich die Zeischaltuhr (also alle Schaltpunkte) bei einem Feiertag verhalten.
 
-#### Feiertage nicht beachten
+#### **Feiertage nicht beachten**
 
 Für diese Zeitschaltuhr ist die Feiertagsinformation nicht relevant. Ein Feiertag wird nicht beachtet, die Schaltzeitpunkte werden normal ausgeführt.
 
-#### An Feiertagen nicht schalten
+#### **An Feiertagen nicht schalten**
 
 An einem Feiertag wird diese Zeitschaltuhr ignoriert und nicht ausgeführt. Dies ist dann eine Zeitschaltur für "normale" Tage.
 
-#### Nur an Feiertagen schalten
+#### **Nur an Feiertagen schalten**
 
 Diese Zeitschaltuhr wird nur an einem Feiertag ausgeführt und nicht an anderen Tagen. Somit ist dies eine Zeitschaltuhr für reine Feiertage.
 
-#### Feiertage wie Sonntage behandeln
+#### **Feiertage wie Sonntage behandeln**
 
 Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Feiertag werden aber die Schaltzeiten für einen Sonntag ausgeführt, unabhängig von dem Wochentag des Feiertages.
 
-### Urlaubsbehandlung
+### **Urlaubsbehandlung**
+
+Erscheint nur, wenn unte "Urlaub/Feiertage" die Einstellung "Urlaubsbehandlung aktivieren?" mit "Ja" eingestellt wurde.
 
 Über dieses Auswahnfeld kann man definieren, wie sich die Zeischaltuhr (also alle Schaltpunkte) bei einem Urlaubstag verhalten. Ein Urlaubstag muss dem Modul extern über das KO 4 mitgeteilt werden.
 
-#### Urlaub nicht beachten
+#### **Urlaub nicht beachten**
 
 Für diese Zeitschaltuhr ist die Urlaubsinformation nicht relevant. Ein Urlaubstag wird nicht beachtet, die Schaltzeitpunkte werden normal ausgeführt.
 
-#### Bei Urlaub nicht schalten
+#### **Bei Urlaub nicht schalten**
 
 An einem Urlaubstag wird diese Zeitschaltuhr ignoriert und nicht ausgeführt. Dies ist dann eine Zeitschaltur für "normale" Tage.
 
-#### Nur bei Urlaub schalten
+#### **Nur bei Urlaub schalten**
 
 Diese Zeitschaltuhr wird nur an einem Urlaubstag ausgeführt und nicht an anderen Tagen. Somit ist dies eine Zeitschaltuhr für reine Urlaubstage.
 
-#### Urlaub wie Sonntag behandeln
+#### **Urlaub wie Sonntag behandeln**
 
 Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Urlaubstag werden aber die Schaltzeiten für einen Sonntag ausgeführt, unabhängig von den Wochentag des Urlaubstages.
 
-### Bei Neustart letzte Schaltzeit nachholen
+### **Bei Neustart letzte Schaltzeit nachholen**
 
 Nach einem Neustart des Moduls kann die letzte Schaltzeit erneut ausgeführt werden. Sobald das Datum und die Uhrzeit erstmals über den Bus gesetzt worden sind, wird nach der spätesten Schaltzeit gesucht, die noch vor dem aktuellen Datum/Uhrzeit liegt. Dieser Schaltzeitpunkt wird dann ausgeführt.
 
@@ -923,63 +973,63 @@ Bei Jahresschaltuhren wird der späteste Schaltzeitpunt, der nachberechnet wurde
 
 Der Nebenprozess beendet sich selbst, sobald alle Zeitschaltuhren einen definierten Ausgangswert haben.
 
-**Achtung:** Zeitschaltuhren, die Urlaubstage berücksichtigen, können bei der Nachberechnung der Zeitschaltpunkte nicht berücksichtigt werden, da die Information "Urlaubstag" per KO von extern dem Modul über den Bus gemeldet wird und somit nicht für die (historische) Nachberechnung zur Verfügung steht. Somit werden bei der Nachberechnung alle Zeitschaltuhren mit einer anderen Angabe als "Urlaub nicht beachten" ignoriert.
+> **Achtung:** Zeitschaltuhren, die Urlaubstage berücksichtigen, können bei der Nachberechnung der Zeitschaltpunkte nicht mit einbezogen werden, da die Information "Urlaubstag" per KO von extern dem Modul über den Bus gemeldet wird und somit nicht für die (historische) Nachberechnung zur Verfügung steht. Somit werden bei der Nachberechnung alle Zeitschaltuhren mit einer anderen Angabe als "Urlaub nicht beachten" ignoriert.
 
-## Einstellung von Schaltpunkten (tabellarisch)
+## Schaltzeitpunkte
 
-Schaltpunkte werden in einer Tabelle definiert, eine Zeile per Schaltpunkt. Im folgenden werden nur die Eingaben einer Zeile erklärt, da alle Zeilen gleich definiert werden.
+Schaltzeitpunkte werden in einer Tabelle definiert, eine Zeile per Schaltpunkt. Im folgenden werden nur die Eingaben einer Zeile erklärt, da alle Zeilen gleich definiert werden.
 
 Im folgenden werden die Spalten der Tagesschaltuhr beschrieben.
 
 ![Tagesschaltuhr](Tagesschaltuhr.PNG)
 
-### Spalte: Zeitbezug
+### **Spalte: Zeitbezug**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
 Hier wird angegeben, wie eine Zeitangabe interpretiert werden soll. Je nach Einstellung dieses Feldes wirken sich Zeitangaben in den Spalten Stunde und Minute unterschiedlich aus.
 
-#### Schaltpunkt nicht aktiviert
+#### **Schaltpunkt nicht aktiviert**
 
 Dieser Schaltpunkt ist nicht aktiv und wird nicht ausgewertet.
 
-#### Zeitpunkt
+#### **Zeitpunkt**
 
 Es wird ein Zeitpunkt bestimmt, zu dem geschaltet werden soll. Die Angabe des Zeitpunktes erfolgt über die Spalten Stunde und Minute.
 
-#### Sonnenaufgang: plus Zeitversatz
+#### **Sonnenaufgang: plus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenaufgang, zu dem die Zeitangabe, die in den Spalten Stunde und Minute steht, hinzuaddiert wird. Es wird somit um die angegebenen Stunden und Minuten nach Sonnenaufgang geschaltet.
 
-#### Sonnenaufgang: minus Zeitversatz
+#### **Sonnenaufgang: minus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenaufgang, von dem die Zeitangabe, die in den Spalten Stunde und Minute steht, abgezogen wird. Es wird somit um die angegebenen Stunden und Minuten vor Sonnenaufgang geschaltet.
 
-#### Sonnenaufgang: Frühestens um...
+#### **Sonnenaufgang: Frühestens um**
 
 Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne vor der angegebenen Uhrzeit auf, wird erst um die angegebene Uhrzeit geschaltet, sonst erst beim Sonnenaufgang. Es wird somit beim Sonnenaufgang, aber nicht früher als die angegebene Uhrzeit geschaltet.
 
-#### Sonnenaufgang: Spätestens um...
+#### **Sonnenaufgang: Spätestens um**
 
 Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit auf, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenaufgang. Es wird somit beim Sonnenaufgang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
-#### Sonnenuntergang: plus Zeitversatz
+#### **Sonnenuntergang: plus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenuntergang, zu dem die Zeitangabe, die in den Spalten Stunde und Minute steht, hinzuaddiert wird. Es wird somit um die angegebenen Stunden und Minuten nach Sonnenuntergang geschaltet.
 
-#### Sonnenuntergang: minus Zeitversatz
+#### **Sonnenuntergang: minus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenuntergang, von dem die Zeitangabe, die in den Spalten Stunde und Minute steht, abgezogen wird. Es wird somit um die angegebenen Stunden und Minuten vor Sonnenuntergang geschaltet.
 
-#### Sonnenuntergang: Frühestens um...
+#### **Sonnenuntergang: Frühestens um**
 
 Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne vor der angegebenen Uhrzeit unter, wird erst um die angegebene Uhrzeit geschaltet, sonst erst beim Sonnenuntergang. Es wird somit beim Sonnenuntergang, aber nicht früher als die angegebene Uhrzeit geschaltet.
 
-#### Sonnenuntergang: Spätestens um...
+#### **Sonnenuntergang: Spätestens um
 
 Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit unter, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenuntergang. Es wird somit beim Sonnenuntergang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
-### Spalte: Stunde
+### **Spalte: Stunde**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
@@ -987,7 +1037,7 @@ In dieser Spalte werden Stunden eingestellt, entweder als absolute Uhrzeit oder 
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Stunde ausgeführt, natürlich unter Berücksichtigung der angegebenen Minuten. So kann man stündlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
 
-### Spalte: Minute
+### **Spalte: Minute**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
@@ -995,13 +1045,13 @@ In dieser Spalte werden Minuten eingestellt, entweder als absolute Uhrzeit oder 
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Minute ausgeführt, natürlich unter Berücksichtigung der angegebenen Stunde. So kann man minütlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
 
-### Spalte: Wert
+### **Spalte: Wert**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
 In dieser Spalte wird der Wert eingestellt, den der Schaltpunkt senden soll. Dieser (rein boolesche) Wert durchläuft dann das normale Ausgangs-Processing des Logikkanals und steht am Ausgangs-KO zur Verfügung.
 
-### Spalte: Wochentag
+### **Spalte: Wochentag**
 
 Ist nur bei der Tagesschaltuhr vorhanden.
 
