@@ -975,7 +975,7 @@ Der Nebenprozess beendet sich selbst, sobald alle Zeitschaltuhren einen definier
 
 > **Achtung:** Zeitschaltuhren, die Urlaubstage berücksichtigen, können bei der Nachberechnung der Zeitschaltpunkte nicht mit einbezogen werden, da die Information "Urlaubstag" per KO von extern dem Modul über den Bus gemeldet wird und somit nicht für die (historische) Nachberechnung zur Verfügung steht. Somit werden bei der Nachberechnung alle Zeitschaltuhren mit einer anderen Angabe als "Urlaub nicht beachten" ignoriert.
 
-## Schaltzeitpunkte
+## Schaltzeitpunkte Tagesschaltuhr
 
 Schaltzeitpunkte werden in einer Tabelle definiert, eine Zeile per Schaltpunkt. Im folgenden werden nur die Eingaben einer Zeile erklärt, da alle Zeilen gleich definiert werden.
 
@@ -1059,19 +1059,21 @@ In dieser Spalte wird der Wochentag eingestellt, an dem der Schaltpunkt ausgefü
 
 Wird hier der Wert "jeder" ausgewählt, wird der Schaltpunkt an jedem Wochentag ausgeführt, natürlich unter Berücksichtigung der restlichen Angaben. So kann man täglich wiederkehrende Aktionen definieren.
 
+## Schaltzeitpunkte Jahresschaltuhr
+
 Im folgenden werden die Spalten der Jahresschaltuhr beschrieben.
 
 ![Jahresschaltuhr](Jahresschaltuhr.PNG)
 
-Bei der Jahresschaltuhr sind fast alle Spalten der Tagesschaltuhr vorhanden
+Bei der Jahresschaltuhr sind fast alle Spalten der Tagesschaltuhr vorhanden. Im folgenden werden die zuätzlichen Spalten der Jahresschaltuhr beschrieben.
 
-### Spalte: Typ
+### **Spalte: Typ**
 
 Ist nur bei der Jahresschaltuhr vorhanden.
 
 Bestimmt, ob der Schaltpunkt an einem bestimmten Tag erfolgt, oder ob mehrere Wochentage angegeben werden können. Wird "Tag" ausgewählt, kann man in der Spalte Tag einen bestimmten Tag angeben. Wird "Wochentag" ausgewählt, kann man in den Spalten "Mo" (Montag) bis "So" (Sonntag) die Wochentage auswählen, an den geschaltet wird.
 
-### Spalten: Mo, Di, Mi, Do, Fr, Sa, So
+### **Spalten: Mo, Di, Mi, Do, Fr, Sa, So**
 
 Sind nur bei der Jahresschaltuhr vorhanden.
 
@@ -1079,7 +1081,7 @@ Die Spalten sind nur eingabebereit, wenn in der Spalte Typ der Wert "Wochentag" 
 
 Man kann die Wochentage auswählen, an den für diesen Schaltpunkt geschaltet werden soll, natürlich unter Berücksichtigung der restlichen Angaben. So kann man Aktionen an bestimmten Wochentagen definieren.
 
-### Spalte: Tag
+### **Spalte: Tag**
 
 Ist nur bei der Jahresschaltuhr vorhanden.
 
@@ -1089,7 +1091,7 @@ In dieser Spalte wird der Tag eingestellt, an dem geschaltet werden soll.
 
 Wird hier der Wert "jeder" ausgewählt, wird der Schaltpunkt jeden Tag ausgeführt, natürlich unter Berücksichtigung des angegebenen Monats. So kann man täglich wiederkehrende Aktionen definieren.
 
-### Spalte: Monat
+### **Spalte: Monat**
 
 Ist nur bei der Jahresschaltuhr vorhanden.
 
@@ -1097,24 +1099,29 @@ In dieser Spalte wird der Monat eingestellt, an dem geschaltet werden soll.
 
 Wird hier der Wert "jeder" ausgewählt, wird der Schaltpunkt jeden Monat ausgeführt, natürlich unter Berücksichtigung des angegebenen Tages. So kann man Monatlich wiederkehrende Aktionen definieren.
 
-## Ausgang
+## **Ausgang**
 
 Zwischen dem Ausgang der Logik-Operation und dem physikalischen Ausgang des Logikkanals (als Kommunikationsobjekt, um KNX-Telegramme zu verschicken) können Funktionsblöcke aktiviert werden (dargestellt im Kapitel Logikblöcke), die das Aussgangssignal beeinflussen.
 
-![Ausgang](Ausgang.PNG)
 In der Grundeinstellung sind alle Funktionsblöcke deaktiviert und die Signale der logischen Operation gelangen direkt zum physikalischen Ausgang.
 
-Im folgenden Werden alle Logikblöcke, deren Einstellungen und deren Beeinflussungsmöglichkeiten beschrieben.
+## Definition Ausgang
 
-### Beschreibung Ausgang
+Im folgenden Werden alle Funktionsblöcke, deren Einstellungen und deren Beeinflussungsmöglichkeiten beschrieben.
+
+![Ausgang](Ausgang.PNG)
+
+### **Beschreibung Ausgang**
 
 Diese Einstellung hat keine funktionale Auswirkung, erlaubt es aber, dem Ausgang einen Text zu geben, um ihn einfacher zu finden.
 
 Der eingegebene Text erscheint auf dem Ausgang-Tag des Logikkanals und als Name des Kommunikationsobjekts, das diesem Ausgang zugeordnet ist.
 
-### Ausgang hat eine Treppenlichtfunktion
+### **Kommunikationsobjekt für Ausgang**
 
-Wird hier ein "Ja" ausgewählt, erscheinen folgende Felder:
+Hier wird die Nummer des Kommunikationsobjektes für diesen Ausgang angezeigt. Dies dient nur zur Information und hat keine funktionale Auswirkung.
+
+## Treppenlicht
 
 ![Treppenlicht](Treppenlicht.PNG)
 
@@ -1122,192 +1129,192 @@ Mit den Einstellungen kann ein Treppenlicht mit Blinkfunktion konfigureiert werd
 
 Solange das Treppenlicht aktiv ist, kann ein Blinkmodul den Ausgang des Funktionsmoduls in einem felsgelegten Intervall EIN- und AUSschalten.
 
-#### Zeitbasis für Treppenlicht
+### **Ausgang hat eine Treppenlichtfunktion**
 
-Die Dauer, die ein Treppenlicht eingeschaltet bleiben soll, kann von 1/10 Sekunden bis zu vielen Stunden gehen. Um die Zeiteingabe einfacher zu gestalten, gibt man erst eine Zeitbasis an, gefolgt von einer Zeit passend zu dieser Zeitbasis. Die Zeitbasis kann
+Wird hier ein "Ja" ausgewählt, erscheinen die Parameter für die Treppenlichtfunktion.
 
-* 1/10 Sekunden
-* 1 Sekunde
-* 1 Minute
-* 1 Stunde
+#### **Zeit für Treppenlicht**
 
-sein.
+Hier gibt man die Zeit an, die das Treppenlicht eingeschaltet bleiben soll.
 
-#### Zeit für Treppenlicht
-
-Hier gibt man die Zeit an, die das Treppenlicht eingeschaltet bleiben soll. Die Zeit wird passend zur Zeitbasis ausgewertet. Eine 10 mit der Zeitbasis "1 Minute" ergibt eine Zeit von 10 Minuten.
-
-#### Treppenlicht kann verlängert werden
+#### **Treppenlicht kann verlängert werden**
 
 Wählt man hier "Ja", führt ein erneutes EIN-Signal am Eingang des Funktionsblocks zum erneuten Anlaufen der Zeitzählung bei 0. Somit wird die Treppenlichtzeit zurückgesetzt und beginnt von neuem, die Treppenlichtzeit wurde somit verlängert.
 
-#### Treppenlicht kann ausgeschaltet werden
+#### **Treppenlicht kann ausgeschaltet werden**
 
 Wählt man hier ein "Ja", führt ein AUS-Signal am Eingang des Funktionsmoduls zum sofortigen Beenden des Treppenlichts und einem AUS-Signal am Ausgang des Funktionsmoduls.
 
 Ist ein "Nein" ausgewählt, wird ein AUS-Singal am Eingang des Funktionsmoduls ignoriert und hat keine Auswirkungen, solange das Treppenlicht eingeschaltet ist.
 
-#### Treppenlicht blinkt im n/10 Sekunden Rythmus
+#### **Treppenlicht blinkt im Rythmus**
 
-Bei einer Eingabe einer Zahl größer 0 wird, solange das Treppenlicht eingeschaltet ist, in dem angegebenen Takt der Ausgang des Funktionsmoduls abwechselnd ein EIN- und ein AUS-Signal erzeugt. Ist der Takt z.B. 20, wird nach 20/10=2 Sekunden von EIN auf AUS gewechselt, nach wieder 2 Sekunden dann von AUS auf EIN und so fort. Sobald das Treppenlicht beendet ist, sei es durch den Ablauf der Treppenlichtzeit oder durch ein AUS-Signal von Außen, wird das blinken beendet und ein finales AUS-Signal gesendet.
+Bei einer Eingabe einer Zahl größer 0 wird, solange das Treppenlicht eingeschaltet ist, in dem angegebenen Takt der Ausgang des Funktionsmoduls abwechselnd ein EIN- und ein AUS-Signal erzeugt. Ist der Takt z.B. 2 Sekunden, wird nach 2 Sekunden von EIN auf AUS gewechselt, nach wieder 2 Sekunden dann von AUS auf EIN und so fort. Sobald das Treppenlicht beendet ist, sei es durch den Ablauf der Treppenlichtzeit oder durch ein AUS-Signal von Außen, wird das blinken beendet und ein finales AUS-Signal gesendet.
 
 Bei der Eingabe einer 0 wird die Blinkfunktion deaktiviert.
 
 Der Bildschirmausschnitt oben zeigt ein Beispiel für ein 3 maliges Blinken in einer Sekunde, wobei die einzelnen Blinkzyklen nur 0,2 Sekunden dauern. Wenn man den Ausgang mit einem Buzzer verbindet, erhhält man eine akustische Rückmeldung (3 mal piep) für z.B. einen Fehlerfall.
 
-### Ausgang schaltet zeitverzögert
-
-Wird hier ein "Ja" ausgewählt, erscheinen folgende Felder:
+## Ein-/Ausschaltverzögerung
 
 ![Verzögerung](Verzögerung.PNG)
 
-Jedes EIN- oder AUS-Signal, dass bei diesem Funktionsblock ankommt, kann verzögert werden, mit unterschiedlichen Zeiten für die EINschalt- und AUSschaltverzögerung. Die Zeitbasis sind 1/10 Sekunden, um auch kurze Verzögerungen erreichen zu können.
+Jedes EIN- oder AUS-Signal, dass bei diesem Funktionsblock ankommt, kann verzögert werden, mit unterschiedlichen Zeiten für die EINschalt- und AUSschaltverzögerung. Die kleinste Auflösung sind 1/10 Sekunden, um auch kurze Verzögerungen erreichen zu können.
 
-Ist eine Verzögerung aktiv, kann man auch angeben, was mit folgenden EIN- bzw. AUS-Singalen passieren soll.
+### **Ausgang schaltet zeitverzögert**
 
-Im folgenden werden die Parameter im Detail erklärt.
+Wird hier ein "Ja" ausgewählt, kann man im Folgenden angeben, was mit folgenden EIN- bzw. AUS-Singalen passieren soll.
 
-#### EINschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)
+#### **EINschalten wird verzögert um (0 = nicht verzögern)**
 
-Wird hier eine Zahl größer 0 eingegeben, wird das EIN-Singal um so viele zehntel Sekunden verzögert am Ausgang des Funktionsmoduls ausgegeben.
+Wird hier eine Zahl größer 0 eingegeben, wird das EIN-Singal entsprechend der eingestellten Zeit verzögert am Ausgang des Funktionsmoduls ausgegeben.
 
 Wird eine 0 eingegeben, findet keine Verzögerung statt.
 
-#### Erneutes EIN führt zu
+#### **Erneutes EIN führt zu**
 
 Dieses Auswahlfeld erscheint nur, wenn eine EINschaltverzögerung stattfinden soll.
 
 Während das Funktionsmodul ein EIN-Signal verzögert, muss definiert werden, wie ein weiteres EIN-Signal während der Verzögerung behandelt werden soll.
 
-##### Verzögerung bleibt bestehen
+##### **Verzögerung bleibt bestehen**
 
 Während eine Verzögerung von einem EIN-Singal aktiv ist, werden daruaffolgende EIN-Signale ignoriert. Nur das erste EIN-Signal wird verzögert und nach der festgelegten Zeit weitergesendet.
 
-##### Verzögerung wird verlängert
+##### **Verzögerung wird verlängert**
 
 Während eine Verzögerung von einem EIN-Signal aktiv ist, führt ein darauffolgendes EIN-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letze EIN-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
 
-##### Sofort schalten ohne Verzögerung
+##### **Sofort schalten ohne Verzögerung**
 
 Kommt während eine Verzögerung eines EIN-Signals aktiv ist ein weiteres EIN-Signal, wird die Verzögerung sofort beendet und das zweite EIN-Signal sofort weitergeleitet. So kann man eine Aktion, die automatisiert verzögert laufen soll, durch ein manuelles Signal sofort beginnen lassen.
 
-#### Darauffolgendes AUS führt zu
+#### **Darauffolgendes AUS führt zu**
 
 Dieses Auswahlfeld erscheint nur, wenn eine EINschaltverzögerung stattfinden soll.
 
 Während das Funktionsmodul ein EIN-Signal verzögert, muss definiert werden, wie ein weiteres AUS-Signal während der Verzögerung behandelt werden soll.
 
-##### Verzögerung bleibt bestehen
+##### **Verzögerung bleibt bestehen**
 
 Während eine Verzögerung von einem EIN-Signal aktiv ist, führt ein darauffolgendes AUS-Signal zu keiner Reaktion, es wird ignoriert. Das EIN-Signal wird nach der eingestellten Verzögerungszeit gesendet.
 
-##### Verzögerung beenden ohne zu schalten
+##### **Verzögerung beenden ohne zu schalten**
 
 Kommt während eine Verzögerung eines EIN-Signals aktiv ist ein AUS-Signal, wird die Verzögerung beendet und das EIN-Signal ignoriert. Auch das AUS-Singal wird nicht gesendet, da der Ausgang des Funktionsmoduls ja bereits aus war.
 
-#### AUSschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)
+#### **AUSschalten wird verzögert (0 = nicht verzögern)**
 
-Wird hier eine Zahl größer 0 eingegeben, wird das AUS-Singal um so viele zehntel Sekunden verzögert am Ausgang des Funktionsmoduls ausgegeben.
+Wird hier eine Zahl größer 0 eingegeben, wird das AUS-Singal entsprechend der eingestellten Zeit verzögert am Ausgang des Funktionsmoduls ausgegeben.
 
 Wird eine 0 eingegeben, findet keine Verzögerung statt.
 
-#### Erneutes AUS führt zu
+#### **Erneutes AUS führt zu**
 
 Dieses Auswahlfeld erscheint nur, wenn eine AUSschaltverzögerung stattfinden soll.
 
 Während das Funktionsmodul ein AUS-Signal verzögert, muss definiert werden, wie ein weiteres AUS-Signal während der Verzögerung behandelt werden soll.
 
-##### Verzögerung bleibt bestehen
+##### **Verzögerung bleibt bestehen**
 
 Während eine Verzögerung von einem AUS-Singal aktiv ist, werden daruaffolgende AUS-Signale ignoriert. Nur das erste AUS-Signal wird verzögert und nach der festgelegten Zeit weitergesendet.
 
-##### Verzögerung wird verlängert
+##### **Verzögerung wird verlängert**
 
 Während eine Verzögerung von einem AUS-Signal aktiv ist, führt ein darauffolgendes AUS-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letze AUS-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
 
-##### Sofort schalten ohne Verzögerung
+##### **Sofort schalten ohne Verzögerung**
 
 Kommt während eine Verzögerung eines AUS-Signals aktiv ist ein weiteres AUS-Signal, wird die Verzögerung sofort beendet und das zweite AUS-Signal sofort weitergeleitet. So kann man eine Aktion, die automatisiert verzögert ausgeschaltet werden soll, durch ein manuelles Signal sofort beenden.
 
-#### Darauffolgendes EIN führt zu
+#### **Darauffolgendes EIN führt zu**
 
 Dieses Auswahlfeld erscheint nur, wenn eine AUSschaltverzögerung stattfinden soll.
 
 Während das Funktionsmodul ein AUS-Signal verzögert, muss definiert werden, wie ein weiteres EIN-Signal während der Verzögerung behandelt werden soll.
 
-##### Verzögerung bleibt bestehen
+##### **Verzögerung bleibt bestehen**
 
 Während eine Verzögerung von einem AUS-Signal aktiv ist, führt ein darauffolgendes EIN-Signal zu keiner Reaktion, es wird ignoriert. Das AUS-Signal wird nach der eingestellten Verzögerungszeit gesendet.
 
-##### Verzögerung beenden ohne zu schalten
+##### **Verzögerung beenden ohne zu schalten**
 
 Kommt während eine Verzögerung eines AUS-Signals aktiv ist ein EIN-Signal, wird die Verzögerung beendet und das AUS-Signal ignoriert. Auch das EIN-Singal wird nicht gesendet, da der Ausgang des Funktionsmoduls ja bereits an war.
 
-### Wiederholungsfilter
+## Wiederholungsfilter
 
 ![Wiederholungsfilter](Wiederholungsfilter.PNG)
 
 Durch verschiedene Kombinationen von logischer Operation, Treppenlicht, Blinken, EIN- und AUSschaltverzögerung kann es passieren, dass mehrere EIN- oder AUS-Signale hintereinander gesendet werden und zu ungewollten Effekten auf dem KNX-Bus oder bei weiteren Logikkanälen führen.
 
-Das Auswahlfeld "Wiederholungsfilter" erlaubt das Ausfiltern von unerwünschten Wiederholungen.
+### **Wiederholungsfilter**
 
-#### Alle Wiederholungen durchlassen
+Das Auswahlfeld erlaubt das Ausfiltern von unerwünschten Wiederholungen.
+
+#### **Alle Wiederholungen durchlassen**
 
 Es wird nichts gefiltert, sowohl mehrfach aufeinanderfolgende EIN-Signale wie auch mehrfach aufeinanderfolgende AUS-Signale werden durchgelassen und stehen auf Ausgang des Funktionsmoduls zur Verfügung.
 
-#### Nur EIN-Wiederholugen durchlassen
+#### **Nur EIN-Wiederholugen durchlassen**
 
 Mehrfach aufeinanderfolgende EIN-Signale werden durchgelassen. Wenn mehrere AUS-Signale aufeinanderfolgen, wird nur das erste AUS-Signal zum Ausgang des Funktionsmoduls durchgelassen.
 
-#### Nur AUS-Wiederholugen durchlassen
+#### **Nur AUS-Wiederholugen durchlassen**
 
 Mehrfach aufeinanderfolgende AUS-Signale werden durchgelassen. Wenn mehrere EIN-Signale aufeinanderfolgen, wird nur das erste EIN-Signal zum Ausgang des Funktionsmoduls durchgelassen.
 
-#### Keine Wiederholungen durchlassen
+#### **Keine Wiederholungen durchlassen**
 
 Alle Wiederholungen von EIN- oder AUS-Singalen werden ignoriert, es wird immer nur das erste EIN- oder AUS-Signal durchgelassen. Somit stehen am Ausgang des Funktionsmoduls effektiv nur Signalwechsel zur Verfügung.
 
-### Ausgang wiederholt zyklisch
-
-Wird hier ein "Ja" ausgewählt, erscheinen folgende Felder:
+## Zyklisch senden
 
 ![Zyklisch](ZyklischSenden.PNG)
 
 Nachdem durch den Wiederholungsfilter unbeabsichtigte Wiederholugen ausgefiltert wurden, werden in diesem Funktionsblock beabsichtigte Wiederholungen definiert.
 
-Man kann sowohl das EIN- wie auch das AUS-Signal in unterschiedlichen Zeitintervallen wiederholen lassen. Auch hier beträgt die Zeitbasis 1/10 Sekunden! Man sollte sehr umsichtig mit Wiederholungsintervallen unter 1 Minute umgehen, da man damit sehr leicht den KNX-Bus lahmlegen kann.
+### **Ausgang wiederholt zyklisch**
+
+Wird hier ein "Ja" ausgewählt, kann man im Folgenden angeben, in welchen Zeitintervallen die EIN- bzw. AUS-Signale wiederholt werden sollen.
+
+Man kann sowohl das EIN- wie auch das AUS-Signal in unterschiedlichen Zeitintervallen wiederholen lassen.
+
+> **Achtung:** Auch wenn es möglich ist, eine Zeitbasis von 1/10 Sekunden zu wählen, sollte man vorsichtig mit Wiederholungsintervallen unter 1 Minute umgehen, da man damit sehr leicht den KNX-Bus lahmlegen kann.
 
 Man kann natürlich auch nur das EIN- oder das AUS-Signal wiederholen lassen.
 
-In dem oben dargestellten Bildschirmausschnitt würde das EIN-Signal alle 5 Minuten wiederholt werden, das AUS-Signal jede Stunde.
+In dem oben dargestellten Bildschirmausschnitt würde das EIN-Signal alle 15 Minuten wiederholt werden, das AUS-Signal jede Stunde.
 
-#### EIN-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)
-
-Das Feld erscheint nur, wenn bei "Ausgang wiederholt zyklisch" ein "Ja" ausgewählt wurde.
-
-Die hier eingegebene Zahl in 1/10 Sekudnen bestimmt das Zeitintervall, in dem dem das EIN-Signal wiederholt wird.
-
-Die Eingabe einer 0 deaktiviert eine Wiederholung.
-
-#### AUS-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)
+#### **EIN-Telegramm wird wiederholt alle (0 = nicht wiederholen)**
 
 Das Feld erscheint nur, wenn bei "Ausgang wiederholt zyklisch" ein "Ja" ausgewählt wurde.
 
-Die hier eingegebene Zahl in 1/10 Sekudnen bestimmt das Zeitintervall, in dem dem das AUS-Signal wiederholt wird.
+Die hier eingegebene Zahl ibestimmt das Zeitintervall, in dem dem das EIN-Signal wiederholt wird.
 
 Die Eingabe einer 0 deaktiviert eine Wiederholung.
 
-### Ausgang für interne Eingänge
+#### **AUS-Telegramm wird wiederholt alle (0 = nicht wiederholen)**
+
+Das Feld erscheint nur, wenn bei "Ausgang wiederholt zyklisch" ein "Ja" ausgewählt wurde.
+
+Die hier eingegebene Zahl bestimmt das Zeitintervall, in dem dem das AUS-Signal wiederholt wird.
+
+Die Eingabe einer 0 deaktiviert eine Wiederholung.
+
+## Interne Eingänge
+
+![Interne Eingänge](InternerAusgang.png)
 
 An dieser Stelle endet die binäre Verarbeitung. Alle hier ankommenden EIN- oder AUS-Signale werden, sofern verbunden, an die entsprechenden internen Eingänge weitergeleitet und triggern dort die entsprechenden logischen Operationen.
 
-## Ausgangs-Konverter
-
-Das letzte Funktionsmodul auf dem Ausgangsbild ist ein Konverter, der das bis hierher ermittelte EIN- oder AUS-Signal in einen bestimmten DPT konvertiert und den resultierenden Wert in ein KO schreibt, damit es auf den KNX-Bus gesendet werden kann.
+## Wert für Ausgang
 
 ![Ausgangskonverter](Ausgangskonverter.PNG)
 
-### DPT für Ausgang
+Das letzte Funktionsmodul auf dem Ausgangsbild ist ein Konverter, der das bis hierher ermittelte EIN- oder AUS-Signal in einen bestimmten DPT konvertiert und den resultierenden Wert in ein KO schreibt, damit es auf den KNX-Bus gesendet werden kann.
+
+
+### **DPT für Ausgang**
 
 Dieses Auswahlfeld legt den DPT für den Ausgang fest. Unterstützt werden:
 
@@ -1325,43 +1332,45 @@ Dieses Auswahlfeld legt den DPT für den Ausgang fest. Unterstützt werden:
 
 Je nach gewähltem DPT unterscheiden sich die folgenden Felder leicht. Es werden erstmal die parameter für alle DPT beschrieben und anschließend die DPT-spezifischen.
 
-### Wert für EIN senden?
+### **Wert für EIN senden?**
 
 ![WertEinDropdown](WertEinSenden.PNG)
 
 In dieser Auswahlbox wird festgelegt, ob und was für ein Wert bei einem EIN-Signal gesendet werden soll.
 
-#### Nein
+#### **Nein**
 
 Für ein EIN-Signal wird kein Wert auf den Bus gesendet. Das entspricht einem Augangsfilter, der alle EIN-Signale unterdrückt.
 
-#### Ja - Wert vorgeben
+#### **Ja - Wert vorgeben**
 
 Hier kann der Wert, der für ein EIN-Signal gessendet wird, konstant vorgegeben werden. In einem weiteren Feld kann der konstante Wert DPT gerecht eingegeben werden.
 
-#### Ja - Wert von Eingang 1
+#### **Ja - Wert von Eingang 1**
 
 Bei einem EIN-Signal wird der Wert gesendet, der am Eingang 1 anliegt. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
-#### Ja - Wert von Eingang 2
+#### **Ja - Wert von Eingang 2**
 
 Bei einem EIN-Signal wird der Wert gesendet, der am Eingang 2 anliegt. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
-#### Ja - Wert einer Funktion
+#### **Ja - Wert einer Funktion**
 
 Bei einem EIN-Signal wird ein berechneter Wert gesendet. In einem weiteren Feld kann die Funktion ausgewählt werden, die angewendet werden soll. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
 Im Kapitel Funktionen kann nachgelesen werden, wie Funtionen und Benutzerfunktionen verwendet werden können.
 
-#### Ja - ReadRequest senden
+#### **Ja - ReadRequest senden**
 
 Bei einem EIN-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei bedarf eine Abfrage eines Ausgangs erreichen.
 
-#### Ja - 'Gerät zurücksetzen' senden
+#### **Ja - 'Gerät zurücksetzen' senden**
 
 Bei einem EIN-Signal wird kein Wert gesendet, sondern die ETS-Funktion "Gerät zurücksetzen" an eine bestimmte PA geschickt. So kann man bestimmte Geräte überwachen und bei Bedarf zurücksetzen, ohne die ETS starten zu müssen.
 
-#### Ja - Tonwiedergabe (Buzzer)
+In einem weiteren Feld kann die PA ausgegeben werden.
+
+#### **Ja - Tonwiedergabe (Buzzer)**
 
 Wird nur angeboten, wenn ein Buzzer vorhanden ist.
 
@@ -1373,7 +1382,7 @@ Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird ein Ton unabhängig v
 
 ![Tonwiedergabe](Tonwiedergabe.PNG)
 
-#### Ja - RGB-LED schalten
+#### **Ja - RGB-LED schalten**
 
 Wird nur angeboten, wenn eine RGB-LED vorhanden ist.
 
@@ -1385,7 +1394,7 @@ Falls die LED gerade über das Kommunikationsobjekt 8 gesperrt ist, wird die LED
 
 Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird die LED unabhängig von der Sperre eingeschaltet.
 
-### Wert für EIN senden als
+### **Wert für EIN senden als**
 
 ![Wert senden in Prozent](WertSendenProzent.PNG)
 
@@ -1395,7 +1404,7 @@ Hier wird ein konstanter Wert erwartet, der zu dem Ausgewählten DPT für den Au
 
 Man kann dies z.B. auch zur Invertierung nutzen, indem bei einem DPT 1 für ein EIN-Signal der Wert AUS gesendet wird und umgekehrt.
 
-### Physilalische Adresse
+### **Physilalische Adresse**
 
 ![Gerät zurücksetzen](ResetDevice.PNG)
 
@@ -1405,7 +1414,7 @@ Hier wird eine physikalische Adresse in der üblichen Punkt-Notation erwartet. D
 
 Dies entspricht genau der Funktion "Gerät zurücksetzen" in der ETS.
 
-### LED-Farbe festlegen (Schwarz=aus)
+### **LED-Farbe festlegen (Schwarz=aus)**
 
 ![Led farbe festlegen](LedColor.PNG)
 
@@ -1415,41 +1424,41 @@ Hier wird die Farbe der LED bestimmt, in der sie leuchten soll. Wird die Farbe S
 
 Diese Option kann nur funktionieren, wenn das Gerät, auf dem die Applikation Logik läuft, auch eine RGB-LED verbaut hat.
 
-### Wert für AUS senden?
+### **Wert für AUS senden?**
 
 In dieser Auswahlbox wird festgelegt, ob und was für ein Wert bei einem AUS-Signal gesendet werden soll.
 
-#### Nein
+#### **Nein**
 
 Für ein AUS-Signal wird kein Wert auf den Bus gesendet. Das entspricht einem Augangsfilter, der alle AUS-Signale unterdrückt.
 
-#### Ja - Wert vorgeben
+#### **Ja - Wert vorgeben**
 
 Hier kann der Wert, der für ein AUS-Signal gessendet wird, konstant vorgegeben werden. In einem weiteren Feld kann der konstante Wert DPT gerecht eingegeben werden.
 
-#### Ja - Wert von Eingang 1
+#### **Ja - Wert von Eingang 1**
 
 Bei einem AUS-Signal wird der Wert gesendet, der am Eingang 1 anliegt. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
-#### Ja - Wert von Eingang 2
+#### **Ja - Wert von Eingang 2**
 
 Bei einem AUS-Signal wird der Wert gesendet, der am Eingang 2 anliegt. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
-#### Ja - Wert einer Funktion
+#### **Ja - Wert einer Funktion**
 
 Bei einem AUS-Signal wird ein berechneter Wert gesendet. In einem weiteren Feld kann die Funktion ausgewählt werden, die angewendet werden soll. Sollte der Wert nicht den passenden DPT haben, wird er generisch gewandelt.
 
 Im Kapitel Funktionen kann nachgelesen werden, wie Funtionen und Benutzerfunktionen verwendet werden können.
 
-#### Ja - ReadRequest senden
+#### **Ja - ReadRequest senden**
 
 Bei einem AUS-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei bedarf eine Abfrage eines Ausgangs erreichen.
 
-#### Ja - 'Gerät zurücksetzen' senden
+#### **Ja - 'Gerät zurücksetzen' senden**
 
 Bei einem AUS-Signal wird kein Wert gesendet, sondern die ETS-Funktion "Gerät zurücksetzen" an eine bestimmte PA geschickt. So kann man bestimmte Geräte überwachen und bei Bedarf zurücksetzen, ohne die ETS starten zu müssen.
 
-#### Ja - Tonwiedergabe (Buzzer)
+#### **Ja - Tonwiedergabe (Buzzer)**
 
 Wird nur angeboten, wenn ein Buzzer vorhanden ist.
 
@@ -1459,7 +1468,7 @@ Falls der Buzzer gerade über das Kommunikationsobjekt 9 gesperrt ist, wird kein
 
 Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird ein Ton unabhängig von der Sperre ausgegeben.
 
-#### Ja - RGB-LED schalten
+#### **Ja - RGB-LED schalten**
 
 Wird nur angeboten, wenn eine RGB-LED vorhanden ist.
 
@@ -1471,7 +1480,7 @@ Falls die LED gerade über das Kommunikationsobjekt 8 gesperrt ist, wird die LED
 
 Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird die LED unabhängig von der Sperre eingeschaltet.
 
-### Wert für AUS senden als
+### **Wert für AUS senden als**
 
 Das Feld erscheint nur, wenn für "Wert für AUS senden" ein "Ja - Wert vorgeben" ausgewählt wurde.
 
@@ -1479,7 +1488,7 @@ Hier wird ein konstanter Wert erwartet, der zu dem Ausgewählten DPT für den Au
 
 Man kann dies z.B. auch zur Invertierung nutzen, indem bei einem DPT 1 für ein AUS-Signal der Wert EIN gesendet wird und umgekehrt.
 
-### Physilalische Adresse
+### **Physilalische Adresse**
 
 Das Feld erscheint nur, wenn für "Wert für AUS senden" ein "Ja - 'Gerät zurücksetzen' senden" ausgewählt wurde.
 
@@ -1487,7 +1496,7 @@ Hier wird eine physikalische Adresse in der üblichen Punkt-Notation erwartet. D
 
 Dies entspricht genau der Funktion "Gerät zurücksetzen" in der ETS.
 
-### LED-Farbe festlegen (Schwarz=aus)
+### **LED-Farbe festlegen (Schwarz=aus)**
 
 Das Feld erscheint nur, wenn für "Wert für AUS senden" ein "Ja - RGB-LED schalten" ausgewählt wurde.
 
@@ -1495,7 +1504,7 @@ Hier wird die Farbe der LED bestimmt, in der sie leuchten soll. Wird die Farbe S
 
 Diese Option kann nur funktionieren, wenn das Gerät, auf dem die Applikation Logik läuft, auch eine RGB-LED verbaut hat.
 
-### Alarmausgabe (Buzzer oder Sperre trotz Sperre schalten)?
+### **Alarmausgabe (Buzzer oder Sperre trotz Sperre schalten)?**
 
 Diese Einstellung erscheint nur, wenn die LED- oder Buzzer-Ausgabe aktiviert ist.
 
@@ -1503,11 +1512,11 @@ Wenn die Einstellung aktiviert ist, wird eine akkustische oder optische Ausgabe 
 
 So können bestimmte Töne oder RGB-Anzeigen als Alarm definiert werden. Alarme können nicht durch entsprechende Sperren abgeschaltet werden.
 
-## Formeln
+## **Formeln**
 
 Das Logikmodul enthält eine Implementierung zur verwendung von einfachen (bzw. elementaren) Formeln. Formeln können immer die Werte von einem oder zwei Eingängen eines Logikkanals verrechnen. Wird ein Ausgang so definiert, dass er den Wert einer Formel senden soll, wird die dort ausgewählte Formelfunktion aufgerufen, die Berechnung anhand der beiden Eingangswerte durchgeführt und das Ergebnis an den Ausgang gesendet.
 
-### berechnungszeitpunkt
+### **Berechnungszeitpunkt**
 
 Die Formelfunktionalität innerhalb des Logikmoduls ist eingebettet in die (boolesche) Logikfunktionalität. Man konnte schon immer bei einem Ausgang verschiedene konstante Werte für EIN oder AUS senden lassen (nicht nur DPT1) bzw. auswählen, dass man statt einem konstanten Wert den Wert vom Eingang 1 oder Eingang 2 senden lassen will. Formeln stellen eine konsequente Erweiterung dieses Konzeptes vor, indem sie erlauben, den Wert von Eingang 1 und Eingang 2 erst zu verrechnen und dann das Ergebnis zu senden.
 
@@ -1515,33 +1524,33 @@ Somit wird der Berechnungszeitpunkt einer Formel durch die Logik eines Kanals be
 
 Somit muss man neben der eigentlichen Berechnung immer auch den logischen Anteil berücksichtigen, damit die Berechnung zum gewünschten Zeitpunkt erfolgt. Es ergeben sich folgende typische Fälle:
 
-#### Formel soll berechnet werden, sobald sich irgendein Eingangswert ändert
+#### **Formel soll berechnet werden, sobald sich irgendein Eingangswert ändert**
 
 In einem solchen Fall ist der Logische Anteil unwichtig, man muss nur erreichen, dass bei jeder Wertänderung am Eingang der Ausgang senden soll.
 
 Dazu wird eine ODER-Logik benutzt, die bei jedem Eingangssignal senden soll. Die Eingangskonverter beider Eingänge werden so eingestellt, dass sie immer zu einem EIN konvertieren. Der Ausgang sendet dann nichts bei einem AUS und die gewünschte Formel bei einem EIN.
 
-#### Formel soll nur berechnet werden, wenn sich ein Eingang ändert
+#### **Formel soll nur berechnet werden, wenn sich ein Eingang ändert**
 
-In einem solchen Fall darf der Logische Anteil auch nur bei einer Wertänderung an dem gewünschten Eingang getriggert werden. 
+In einem solchen Fall darf der Logische Anteil auch nur bei einer Wertänderung an dem gewünschten Eingang getriggert werden.
 
-Dazu wird wie zuvor eine ODER-Logik benutzt, die die sendet aber nur bei dem gewünschten Eingang. Der Rest ist wie beim vorherigen Punkt.
+Dazu wird wie zuvor eine ODER-Logik benutzt, die sendet aber nur bei dem gewünschten Eingang. Der Rest ist wie beim vorherigen Punkt.
 
-#### Formel soll nur zu besimmten Zeitpunkten oder Ereignissen berechnet werden
+#### **Formel soll nur zu besimmten Zeitpunkten oder Ereignissen berechnet werden**
 
-Hier muss die Logik des Formelkanals so aufgebaut werden, dass sie nur sendet, wenn das externe Triggersignal eingeht. 
+Hier muss die Logik des Formelkanals so aufgebaut werden, dass sie nur sendet, wenn das externe Triggersignal eingeht.
 
 Dazu verwenden wir die selben Einstellungen wie im ersten Fall, nur nehmen wir eine UND-Logik und zusätzlich noch einen internen Eingang. Gesendet wird nur bei einem Signal auf dem internen Eingang.
 
 Jetzt nutzen wir einen weiteren Logikkanal, um das gewünschte Triggersignal auf den Ausgang zu bringen (das kann eine Zeitschaltuhr oder ein externes Signal sein). Den Ausgang der Hilfslogik verbinden wir mit dem internen Eingang der Formellogik.
 
-#### Formel soll nur für bestimmte Werte von einem (oder beiden) Eingängen rechnen, sonst soll immer 0 ausgegeben werden
+#### **Formel soll nur für bestimmte Werte von einem (oder beiden) Eingängen rechnen, sonst soll immer 0 ausgegeben werden**
 
-Wieder muss die Logik des Formelkanals so aufgebaut werden, dass sie nur im gewünschten Fall sendet. 
+Wieder muss die Logik des Formelkanals so aufgebaut werden, dass sie nur im gewünschten Fall sendet.
 
 Wir benutzen eine UND-Logik und senden nur bei Wertänderungen. Die Eingangskonverter beider Kanäle werden so eingestellt, dass sie bei gewünschten Werten ein EIN liefern, sonst AUS. Der Ausgang senden bei EIN das Formelergebnis, bei AUS konstant 0.
 
-### Standardformeln
+### **Standardformeln**
 
 Das Logikmodul enthält wenige bereits implementierte Standardformeln. In Zukunft können noch weitere Standardformeln hinzukommen.
 
@@ -1551,17 +1560,17 @@ Man kann Eingänge auch auf einen konstanten Wert setzen, um anschließend mit d
 
 Die Eingangswerte werden für Formeln immer in eine Fließkommazahl konvertiert, dann verrechnet und anschließend wird das (Fließkomma-)Ergebnis in den DPT des Ausgangs konvertiert.
 
-Es empfiehlt sich, die Ergebnisse einer Formel immer durch Tests zu überprüfen, da die Genauigkeit von Fließkommazahlen oberhalb vom Zahlenwert von ca. 500 nachlässt. Rechnet man aber im Bereich von einem Byte (0 bis 255 bzw. -128 bis 127), so ist die genauigkeit erwartungskonform.
+Es empfiehlt sich, die Ergebnisse einer Formel immer durch Tests zu überprüfen, da die Genauigkeit von Fließkommazahlen oberhalb vom Zahlenwert von ca. 500 nachlässt. Rechnet man aber im Bereich von einem Byte (0 bis 255 bzw. -128 bis 127), so ist die Genauigkeit erwartungskonform.
 
-Will man in einer Formel das Ergebnis einer anderen Formel nutzen, so geht das nicht über interne Eingänge. Man muss passende Ausgänge mit den entsprechenden Eingängen über GA verbinden und dann normal rechnen lassen.
+Will man in einer Formel das Ergebnis einer anderen Formel nutzen, so geht das über die Verwendung von bestehenden KO. So kann man verhindern, dass für Formelkaskaden zwischenergebnisse auf den Bus geschickt werden müssen.
 
-#### Ausgang = Eingang 1 + Eingang 2
+#### **Ausgang = Eingang 1 + Eingang 2**
 
 Die Werte der beiden Eingänge werden summiert und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den Wert des aktiven Eingangs.
 
-#### Ausgang = Eingang 1 - Eingang 2
+#### **Ausgang = Eingang 1 - Eingang 2**
 
 Der Wert von Eingang 2 wird vom Wert von Eingang 1 subtrahiert und als Ergebnis am Ausgang ausgegeben.
 
@@ -1569,13 +1578,13 @@ Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt den Wert des aktiven E
 
 Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den negativen Wert des aktiven Eingangs.
 
-#### Ausgang = Eingang 1 * Eingang 2
+#### **Ausgang = Eingang 1 * Eingang 2**
 
 Die Werte der beiden Eingänge werden multipliziert und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0 als Ergebnis.
 
-#### Ausgang = Eingang 1 / Eingang 2
+#### **Ausgang = Eingang 1 / Eingang 2**
 
 Der Wert von Eingang 1 wird durch den Wert von Eingang 2 dividiert und als Ergebnis am Ausgang ausgegeben.
 
@@ -1583,43 +1592,45 @@ Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt keinen Wert ausgegeben
 
 Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den  Wert 0 ausgegeben.
 
-#### Ausgang = (Eingang 1 + Eingang 2) / 2
+#### **Ausgang = (Eingang 1 + Eingang 2) / 2**
 
 Es wird der Durchschnitt der Werte der beiden Eingänge gebildet und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den halben Wert des aktiven Eingangs.
 
-#### Ausgang = Min(Eingang 1, Eingang 2)
+#### **Ausgang = Min(Eingang 1, Eingang 2)**
 
 Die Werte der beiden Eingänge werden verglichen und der kleinere Wert wird als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive Eingang positiv ist. Falls der aktive Eingang negativ ist, bekommt man den Wert des aktiven Eingangs.
 
-#### Ausgang = Max(Eingang 1, Eingang 2)
+#### **Ausgang = Max(Eingang 1, Eingang 2)**
 
 Die Werte der beiden Eingänge werden verglichen und der größere Wert wird als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive Eingang negativ ist. Falls der aktive Eingang positiv ist, bekommt man den Wert des aktiven Eingangs.
 
-### Benutzerfunktionen
+### **Benutzerfunktionen**
 
 Die eingentliche Stärke des Formelansatzes liegt sicherlich nicht in den implementierten Standardfunktionen, sonden in den 30 zur Verfügung stehenden Benutzerfunktionen.
 
 Man kann direkt in der Firmware bis zu 30 eigene Funktionen definieren und die beliebigen Logikausgängen zuweisen. So kann man z.B. aus einer Entfernungsmessung, wohl wissend dass dies der Füllstand einer Zisterne ist, den Messwert direkt in Liter umrechnen, indem man im Coding der Firmware alle weiteren Parameter (Tankhöhe, Tankfläche usw.) in einer passenden Formel hinterlegt. Insofern dürften Benutzerfunktionen besonders im Zusammenhang mit dem Sensormodul genutzt weren.
 
+Um eigene Benutzerfunktionen zu implementieren, muss man die gesamte Entwicklungsumgebung installiern und alle Programmdateien runterladen.
+
 ![Benutzerfunktion](Benutzerfunktion.png)
 
 Alle Benutzerfunktionen werden gleichartig aufgerufen, im Folgenden wird nur eine behandelt.
 
-#### Ausgang = Benutzerfunktion_xx(E1, E2)
+#### **Ausgang = Benutzerfunktion_xx(E1, E2)**
 
 Sobald der Ausgang senden soll, ruft er die angegebene Benutzerfunktion mit den Werten der Eingänge 1 und 2 auf. Nachdem die Berechnung erfolgt ist, sendet der Ausgang den berechneten Wert.
 
 Nichtaktive Eingänge bekommen den Wert 0 beim Aufruf der Funktion.
 
-#### Definition einer Benutzerfunktion in der Firmware
+#### **Definition einer Benutzerfunktion in der Firmware**
 
-Eine Benutzerfunktion kann in der Firmware entsprechend programmiert werden. Dies erfolgt im Projekt knx-logic.
+Eine Benutzerfunktion kann in der Firmware entsprechend programmiert werden. Dies erfolgt im Projekt OAM-LogicModule.
 
 In der Datei
 
@@ -1651,7 +1662,7 @@ Jeder Funktion stehen die Variablen E1 und E2 zur Verfügung, die die Werte der 
     #define VAL_DPT_17 9
     #define VAL_DPT_232 10
 
-#### Beispiele von Benutzerfunktionen
+### **Beispiele von Benutzerfunktionen**
 
 **Wie bekommt man die frühere Funktion "Feiertag heute" (die ein Bool, also DPT1 ausgibt) wieder?**
 
@@ -1680,31 +1691,31 @@ Auf diese Weise bekommt man die Funktionalität des früheren Logikmoduls wieder
 
 Anlog für "Feiertag morgen".
 
-## Diagnoseobjekt
+## **Diagnoseobjekt**
 
 Das Diagnoseobjekt dient primär zu Debug-Zwecken, kann aber auch vom Enduser genutzt werden, um bestimmte interne Zustände vom Logikmodul zu überprüfen. 
 
 Es funktioniert wie ein einfaches Terminal. Man sendet an das KO 7 ein Kommando (Groß-Kleinschreibung beachten) und erhält über das gleiche KO eine antwort. Im folgenden sind die Kommandos und die Antworten beschrieben.
 
-### Kommando 't' - interne Zeit
+### **Kommando 't' - interne Zeit**
 
 Gibt die interne Zeit aus. Eine Zeit kann jederzeit von außen über die KO 2 (Uhrzeit) und KO 3 (Datum) gesetzt werden und läuft dann intern weiter. Die genauigkeit der internen Uhr ist nicht besonders hoch, ein erneutes senden der Uhrzeit auf KO 2 korrigiert die interne Uhrzeit wieder. Die interne Uhrzeit kann mit diesem Kommando abgefragt werden.
 
 Auf KO 7 (Diagnoseobjekt) muss der Buchstabe 't' (klein) gesendet werden. Die Antwort erfolgt auf KO 7 (Diagnoseobjekt) im Format 'HH:MM:SS DD.MM', also als 'Stunden:Minuten:Sekunden Tag.Monat'.
 
-### Kommando 'r' - Sonnenauf-/-untergang
+### **Kommando 'r' - Sonnenauf-/-untergang**
 
 Gibt die intern berechneten Zeiten für Sonnenauf- und -untergang aus. Die Zeiten werden erst berechnet, nachdem mindestens einmal das Datum auf KO 3 gesetzt worden ist, dann bei jedem Datumswechsel, egal ob dieser Wechsel intern ermittelt oder durch ein neues von extern gesetztes Datum erfolgt. Die korrekte Berechnung von Zeiten für den Sonnenauf- und -untergang hängt auch von der korrekten Angabe der Geokoordinaten für den Standort ab.
 
 Auf KO 7 (Diagnoseobjekt) muss der Buchstabe 'r' (klein) gesendet werden. Die Antwort erfolgt auf KO 7 (Diagnoseobjekt) im Format 'RHH:MM SHH:MM'. Dabei bedeutet "R" den Sonnenaufgang (Sun**R**ise), gefolgt von Stunden:Minuten, und "S" den Sonnenuntergang (Sun**S**et), gefolgt von Stunden:Minuten.
 
-### Kommando 'o' - Ostern
+### **Kommando 'o' - Ostern**
 
 Gibt das intern berechnete Datum für den Ostersonntag aus. Das Datum wird erst berechnet, nachdem mindestens einmal das Datum auf KO 3 gesetzt worden ist, dann bei jedem Jahreswechsel, egal ob dieser Wechsel intern ermittelt oder durch ein neues von extern gesetztes Datum erfolgt.
 
 Auf KO 7 (Diagnoseobjekt) muss der Buchstabe 'o' (klein) gesendet werden. Die Antwort efolgt auf KO 7 (Diagnoseobjekt) im Format 'ODD.MM'. Dabei steht "O" für **O**stern, gefolgt von Tag.Monat. Alle anderen Feiertage, die von Ostern abhängig sind, werden in Abhängigkeit von diesem Datum errechnet.
 
-### Kommando 'l\<nn>' - interner Zustand vom Logikkanal \<nn>
+### **Kommando 'l\<nn>' - interner Zustand vom Logikkanal \<nn>**
 
 Gibt den internen Zustand des Logikkanals \<nn> aus. Konkret geht es um die Werte, die am Eingang des Funktionsblocks "Logische Verknüpfung" liegen und dessen Ausgang. Da die Werte am Eingang durch die Konverter-Funktionsblöcke erzeugt werden, ist es im Fehlerfalle interessant, die Eingangswerte zu kennen. Ebenso ist der Ausgangswert interessant, da dieser durch die Einstellungen des Funktionsblocks "Logische Verknüpfung" bestimmt wird.
 
@@ -1722,7 +1733,7 @@ ist. Die möglichen Werte a, b, c, d und q sind:
 * 1 für den logischen Wert EIN
 * X für den Wert "undefiniert" bzw. "înaktiv"
 
-## DPT Konverter
+## **DPT Konverter**
 
 Das Gerät hat ein Funktionsmodul DPT-Konverter eingebaut, dass parameterlos funktioniert (deswegen wird es auch generischer Konverter bezeichnet).
 
@@ -1773,7 +1784,7 @@ Z<sub>B</sub> |Zwang (von Binär) | Ein AUS wird nach "normal aus" (00) konverti
 
 ----
 
-## Beispiele
+## **Beispiele**
 
 Die Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften zeigen aber bereits jetzt eine Liste der möglichen Funktionen.
 
@@ -1791,25 +1802,16 @@ Die Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften ze
 
 ----
 
-## Update der Applikation
+## **Update der Applikation**
 
-TODO: Hier das allgemeine Verfahren zum Update wiederholen (derzeit nur im Sensormodul beschrieben)
+Wie eine beliebige Applikation in der ETS aktualisiert werden kann, ist im OpenKNX-Wiki beschrieben:
+<https://github.com/OpenKNX/OpenKNX/wiki/Wie-aktualisiert-man-eine-ETS-Applikation-auf-eine-aktuelle-Version>
 
-### Inkompatibilitäten beim Update
+### **Inkompatibilitäten beim Update**
 
 Trotz intensiver Versuche, eine updatefähige Applikation zu erzeugen zeigt es sich, dass durch Erweiterungen, Benutzerwünsche und teilweises Unverständnis über die Updatefunktion der ETS es nicht möglich ist, immer ein Update ohne manuellen Eingriff anzubieten.
 
-Um trotzdem ein Update für den User möglichst einfach zu gestalten, werden im folgenden alle inkompatiblen Änderungen beschrieben, so dass man klar erkennen kann, wo manuelle Eingriffe notwendig sind.
-
-#### Inkompatibilität beim Übergang von Version 1.x auf Version 2.x
-
-* Bis auf die KO 1 bis KO 3 (In Betrieb, Uhrzeit, Datum) ist es erforderlich, alle Gruppenadressen neu zuzuordnen. Der Grund ist ein technischer: Alle KO-Nummern mussten in einen anderen Nummernbereich verschoben werden.
-
-* Das Diagnoseobjekt ist neu (aus Sicht der Logik, früher gab es das schon in Sensormodul, das ist von dort in die Logik "gewandert") und muss somit über einen neuen eigenen Parameter Eingeschaltet werden. Da das Diagnoseobjekt neue Funktionen bereit hällt, wird es in einem eigenen Kapitel hier in der Applikationsbeschreibung beschrieben.
-
-* Bisher war ein Logikkanal mit der Logik-Operation "keine" dazu gedacht, den Logikkanal zu deaktivieren und alle Parameter und Kommunikationsobjekte zu erhalten. Dies führte zu Mißverständnissen und zu Rückfragen, warum die Logik denn nicht funktioniert. Ab der Version 2.0 gibt es den Parameter "Kanal deaktivieren (zu Testzwecken)", der einfach die Funktion eines Logikkanals unterdrückt. Wird die Logk-Operation auf "keine" gestellt, werden die entsrpechenden KO für Eingänge und Ausgang nicht mehr angeboten (der Kanal ist dann nicht nur deaktiviert, sondern nicht vorhanden).
-
-## Hardware
+## **Hardware**
 
 Dieses Kapital beschreibt die von dieser Firmware unterstützte Hardware
 (noch nicht ausgearbeitet)
@@ -1820,7 +1822,7 @@ RGB-LED
 
 ----
 
-## Übersicht der vorhandenen Kommunikationsobjekte
+## **Übersicht der vorhandenen Kommunikationsobjekte**
 
 Hier werden nur Kommunikationsobjekte (KO) des Logikmoduls beschrieben, die KO anderer Module sind in der jeweiligen Applikationsbeschreibung dokumentiert.
 
