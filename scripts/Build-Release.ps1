@@ -1,5 +1,10 @@
-# clean working dir
-Remove-Item -Recurse release\*
+# check for working dir
+if (Test-Path -Path release) {
+    # clean working dir
+    Remove-Item -Recurse release\*
+} else {
+    New-Item -Path release -ItemType Directory | Out-Null
+}
 
 # create required directories
 New-Item -Path release/tools -ItemType Directory | Out-Null
