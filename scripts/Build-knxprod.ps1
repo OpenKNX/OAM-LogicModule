@@ -13,10 +13,16 @@ if (!$toolsExist) {
             https://github.com/OpenKNX/OpenKNXproducer/releases
         entpacken und das Readme befolgen.
         Danach bitte dieses Script erneut starten.
+
+        ACHTUNG: Heutige Browser warnen vor dem Inhalt des OpenKNX-Tools Pakets, 
+                 weil es ausfuehrbare Programme und ein PowerShell-Skript enthaellt.
+                 Falls jemand dem Paketinhalt nicht traut, kann er sich OpenKNXproducer
+                 und bossac selber kompilieren und entsprechend installieren.
     "
+    timeout /T -1 
 }
 
 if ($toolsExist) {
     ~/bin/OpenKNXproducer.exe knxprod --Output=./LogicModule.knxprod data/LogicModule.xml
+    timeout /T 20 
 }
-timeout /T 20 

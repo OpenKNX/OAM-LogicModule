@@ -8,7 +8,7 @@ if ($toolsExist) {
     $portList = get-pnpdevice -class Ports
     if ($portList) {
         foreach($device in $portList) {
-            if ($device.Present) {
+            if ($device.Present -and $device.InstanceId.StartsWith("USB\")) {
                 $isCom = $device.Name -match "COM(\d{1,3})"
                 if($isCom)
                 {
