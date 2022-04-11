@@ -4,7 +4,7 @@
     <Manufacturer RefId="M-00FA">
       <Catalog>
         <CatalogSection Id="M-00FA_CS-OpenKNX" Name="OpenKNX" Number="OpenKNX" DefaultLanguage="de">
-          <CatalogItem Id="M-00FA_H-WPKNX101-1_HP-0001-01-0000_CI-SELFLOGIC-1" Name="OpenKNX: Logikmodul" Number="1" ProductRefId="M-00FA_H-WPKNX101-1_P-SELFLOGIC" Hardware2ProgramRefId="M-00FA_H-WPKNX101-1_HP-0001-01-0000" DefaultLanguage="de" />
+          <CatalogItem Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000_CI-%OrderNumberEncoded%-1" Name="OpenKNX: Logikmodul" Number="1" ProductRefId="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_P-%OrderNumberEncoded%" Hardware2ProgramRefId="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000" DefaultLanguage="de" />
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
@@ -15,7 +15,7 @@
         <ApplicationProgram Id="M-00FA_A-0001-01-0000" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
-              <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
+              <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
             <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1" />
             <ParameterTypes>
@@ -43,20 +43,20 @@
             <AddressTable MaxEntries="2047" />
             <AssociationTable MaxEntries="2047" />
             <Messages>
-              <Message Id="M-00FA_A-0001-01-0000_M-1" Name="VersionMismatch" Text="Diese Applikaiton kann nicht mit der installierten Firmware genutzt werden" />
+              <Message Id="M-00FA_A-0001-01-0000_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
             </Messages>
             <LoadProcedures>
               <LoadProcedure MergeId="1">
-                <LdCtrlCompareProp InlineData="000099999900" ObjIdx="0" PropId="78">
+                <LdCtrlCompareProp InlineData="%VersionCheck%" ObjIdx="0" PropId="78">
                   <OnError Cause="CompareMismatch" MessageRef="M-00FA_A-0001-01-0000_M-1" />
                 </LdCtrlCompareProp>
               </LoadProcedure>
               <LoadProcedure MergeId="2">
-                <LdCtrlRelSegment LsmIdx="4" Size="0" Mode="1" Fill="0" AppliesTo="full" />
-                <LdCtrlRelSegment LsmIdx="4" Size="0" Mode="0" Fill="0" AppliesTo="par" />
+                <LdCtrlRelSegment LsmIdx="4" Size="%MemorySize%" Mode="1" Fill="0" AppliesTo="full" />
+                <LdCtrlRelSegment LsmIdx="4" Size="%MemorySize%" Mode="0" Fill="0" AppliesTo="par" />
               </LoadProcedure>
               <LoadProcedure MergeId="4">
-                <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="0" Verify="true" AppliesTo="full,par" />
+                <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="%MemorySize%" Verify="true" AppliesTo="full,par" />
               </LoadProcedure>
               <LoadProcedure MergeId="7">
                   <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
@@ -83,14 +83,14 @@
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="M-00FA_H-WPKNX101-1" Name="OpenKNX-Logic" SerialNumber="WPKNX101" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <Hardware Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%" Name="OpenKNX-Logic" SerialNumber="WPKNX101" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
-            <Product Id="M-00FA_H-WPKNX101-1_P-SELFLOGIC" Text="LogicModule" OrderNumber="SELFLOGIC" IsRailMounted="false" DefaultLanguage="de">
+            <Product Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_P-%OrderNumberEncoded%" Text="LogicModule" OrderNumber="SELFLOGIC" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />
             </Product>
           </Products>
           <Hardware2Programs>
-            <Hardware2Program Id="M-00FA_H-WPKNX101-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
+            <Hardware2Program Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
               <ApplicationProgramRef RefId="M-00FA_A-0001-01-0000" />
               <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/110" />
             </Hardware2Program>

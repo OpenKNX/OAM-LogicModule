@@ -21,12 +21,6 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-NumChannels" Name="NumChannels">
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="%N%" maxInclusive="%N%" />
               </ParameterType>
-              <!-- <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelaySeconds" Name="DelaySeconds">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="86400" />
-              </ParameterType> -->
-              <!-- <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Name="DelayDeziSeconds">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="864000" />
-              </ParameterType> -->
               <!-- Delay pattern -->
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelayBase" Name="DelayBase">
                 <TypeRestriction Base="Value" SizeInBit="2">
