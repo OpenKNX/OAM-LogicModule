@@ -980,7 +980,7 @@
     <ComObjectRef Id="M-00FA_A-0001-01-0000_O-%T%%CCC%001_R-%T%%CCC%00110" RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="3 Bytes"  DatapointType="DPST-232-600" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%129_R-%T%%CCC%12901" />
   </ComObjectRefs>
   <Dynamic>
-    <Channel Id="M-00FA_A-0001-01-0000_CH-L%C%" Name="f%C%Logic" Number="L%C%" Text="Logik %C%: {{0:unbenannt}}" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%001_R-%T%%CCC%00101">
+    <Channel Id="M-00FA_A-0001-01-0000_CH-L%C%" Name="f%C%Logic" Number="L%C%" Text="Logik %CC%: {{0:unbenannt}}" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%001_R-%T%%CCC%00101">
       <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-%C%17" Name="f%C%Logic" Text="Logik %C%: {{0:unbenannt}}" TextParameterRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%001_R-%T%%CCC%00101">
         <!-- Any input active (hidden) -->
         <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%133_R-%T%%CCC%13301" />

@@ -179,6 +179,11 @@ void Logic::writeAllDptToEEPROM()
         println("writeAllDptToEEPROM called repeatedly within 10 seconds, skipped!");
         return;
     }
+    else if (!knx.configured())
+    {
+        println("knx not configured, no KO data available");
+        return;
+    }
     mLastWriteToEEPROM = millis();
 
     // prepare initialization
@@ -205,6 +210,11 @@ void Logic::writeAllInputsToEEPROM()
     if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
     {
         println("writeAllInputsToEEPROM called repeatedly within 10 seconds, skipped!");
+        return;
+    } 
+    else if (!knx.configured())
+    {
+        println("knx not configured, no KO data available");
         return;
     }
     mLastWriteToEEPROM = millis();
