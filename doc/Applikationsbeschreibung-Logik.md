@@ -8,24 +8,28 @@ Sie ist in die Bereiche
 * Logikdokumentation
 * Logikkanäle
 
-gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergierdert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
+gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
 
 ## Änderungshistorie
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-01.04.2022: Firmware 1.0.0, Applikation 1.0
+23.04.2022: Firmware 0.5.0, Applikation 0.5 (Beta-Release)
 
 * initiales Release als OpenKNX Logikmodul
 * Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logik) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
+* Erzeugung von Firmware und knxprod wurde stark vereinfacht
 * (intern) verbesserte Kommunikation mit dem KNX-Bus
-* (intern) Kein EEPROM mehr nötig, KO-Werte werden beim Stromausfall im Flash gespeichert
 * ETS-Applikation wird auch mit der ETS 6 getestet
 * Eingänge können jetzt auch beliebige Kommunikationsobjekte der gesamten Applikation (nicht nur des Logikmoduls) sein, keine Verbindung über GA nötig
 * Die ETS-Applikation wurde optisch überarbeitet und übersichtlicher gestaltet
 * ETS-Kanäle werden neu unterstützt
 * Es wird technisch überprüft, ob die ETS-Applikation mit der installierten Firmware übereinstimmt
 * **Wichtig:** Diese Version ist eine komplett neue Applikation und somit nicht kompatibel zu der früheren Version 3.8. Die ETS-Applikation muss komplett neu parametrisiert werden.
+
+xx.xx.2022: Firmware 1.0.0, Applikation 1.0
+
+* (intern) Kein EEPROM mehr nötig, KO-Werte werden beim Stromausfall im Flash gespeichert
 
 <div style="page-break-after: always;"></div>
 
@@ -34,7 +38,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 ![Allgemeine Parameter](AllgemeineParameter.PNG)
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
 
-Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Pukte vorhanden sein.
+Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Punkte vorhanden sein.
 
 ## Gerätestart
 
@@ -86,7 +90,7 @@ Der Nachteil vom Flash-Speicher ist, dass bei einem Firmware-Update möglicherwe
 
 Sollte ein zusätzliches EEPROM vorhanden sein, werden die KO-Daten dort gespeichert und bleiben auch bei einem Firmware-Update erhalten.
 
-Duch einen Haken bei dieser Einstellung werden die Kommunikationsobjekte im EEPROM gespeichert.
+Durch einen Haken bei dieser Einstellung werden die Kommunikationsobjekte im EEPROM gespeichert.
 
 ## **Experteneinstellungen**
 
@@ -102,7 +106,7 @@ Das Logikmodul bringt einen Watchdog mit, welcher es erlaubt, in Situationen, di
 
 Der Vorteil eines Watchdog ist, dass er vor allem sporadische und selten vorkommende "Hänger" beseitigt, meist ohne dass man es merkt. 
 
-Der Nachteil ist, dass damit Fehler/Probleme veschleiert und umgangen werden, die besser an die Entwickler gemeldet und von ihnen gelöst werden sollten.
+Der Nachteil ist, dass damit Fehler/Probleme verschleiert und umgangen werden, die besser an die Entwickler gemeldet und von ihnen gelöst werden sollten.
 
 Damit der Watchdog funktioniert, muss bereits die Firmware mit der Einstellung
 
@@ -201,7 +205,7 @@ Mit einem "Ja" wird ein Kommunikationsobjekt freigeschaltet, über das ein Uralu
 
 #### **Nach Neustart Urlaubsinfo lesen?**
 
-Erscheit nur, wenn "Urlaubsbehandlung aktivieren?" auf "Ja" steht.
+Erscheint nur, wenn "Urlaubsbehandlung aktivieren?" auf "Ja" steht.
 
 Hier kann angegeben werden, ob nach einem Neustart des Moduls die Information, ob der aktuelle Tag ein Urlaubstag ist, vom Bus gelesen werden soll.
 
@@ -230,7 +234,7 @@ Hier kann angegeben werden, ob ein neuer Feiertag aktiv auf den Bus gesendet wir
 
 Es folgt eine Liste der dem Modul bekannten Feiertage. Durch Auswahlfelder kann bestimmt werden, ob dieser Feiertag bei der Feiertagsinfo und bei den Zeitschaltuhren berücksichtigt werden soll.
 
-Es ist nicht möglich, eigene Feiertage in diese Liste aufzunehmen. Deswegen enthält die Liste auch eher unübliche Feiertage wie Rosenmontag oder 1 Advent, da diese Tage beweglich sind und somit berechnet weren müssen.
+Es ist nicht möglich, eigene Feiertage in diese Liste aufzunehmen. Deswegen enthält die Liste auch eher unübliche Feiertage wie Rosenmontag oder 1 Advent, da diese Tage beweglich sind und somit berechnet werden müssen.
 
 Man kann aber eine (oder mehrere) Jahresschaltuhren dafür verwenden, weitere Feiertage zu definieren und das Ergebnis dieser Zeitschaltuhr auf die Feiertags-GA zu senden.
 
@@ -306,7 +310,7 @@ Die einfachste Variante ist eine Konstantenbelegung: Ein Eingang kann den Wert A
 
 Eine weitere Möglichkeit ist, dass der Eingang seinen Anfangswert vom Bus liest. Damit würde der Eingang bei einem Neustart ein Lesetelegramm schicken und auf eine Antwort warten. Bis die Antwort eintrifft, ist der Eingang weiterhin undefiniert. Da bei einem Systemstart andere Geräte, die das Lesetelegramm beantworten könnten, eventuell selbst noch nicht in der Lage sind zu senden, kann man zusätzlich zum Parameter "Allgemeine Parameter -> Zeit bis das Gerät nach einem Neustart aktiv wird" auch noch pro Kanal eine Startverzögerung festlegen. Das Lesetelegramm für diesen Kanal wird erst nach der Summe der beiden Zeiten gesendet.
 
-Die letze Möglichkeit, einen Eingang vorzubelegen, ist mit dem letzten Wert, den er hatte. Dazu kann man einstellen, dass der Wert für diesen Eingang über einen Stromausfall bzw. Reset des Gerätes hinweg in einem nichtflüchtigen Speicher gespeichert wird. Bei einem Neustart des Gerätes wird der Wert aus dem nichtflüchtigen Speicher wieder gelesen und als Startwert angenommen.
+Die letzte Möglichkeit, einen Eingang vorzubelegen, ist mit dem letzten Wert, den er hatte. Dazu kann man einstellen, dass der Wert für diesen Eingang über einen Stromausfall bzw. Reset des Gerätes hinweg in einem nichtflüchtigen Speicher gespeichert wird. Bei einem Neustart des Gerätes wird der Wert aus dem nichtflüchtigen Speicher wieder gelesen und als Startwert angenommen.
 
 Das bisher beschriebene führt zu der Situation, dass ein Logikkanal nach einem Neustart, der Zeit bis das Gerät aktiv wird und der Zeit, bis der Kanal aktiv wird in einem Zustand sein kann, bei dem immer noch einer oder beide Eingägne undefiniert sind.
 
@@ -325,7 +329,7 @@ Durch die dezidierten Einstellungsmölgichkeiten des Startverhaltens pro Kanal k
 
 Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinflussung des Signalverlaufs ermöglichen die Realsierung von vielen Steuerungsaufgaben, die sonst über viele Einzelgeräte oder gar Logikmaschinen verteilt werden müssen. Durch unterschiedliche Parametrierung der Funktionsblöcke kann man folgende klassische und im KNX übliche Funktionen erreichen:
 
-* NOT (logische negierung eines Signals)
+* NOT (logische Negierung eines Signals)
 * Logische Verknüpfung AND, OR, EXOR (durch die Nutzung von internen Eingängen auch mit sehr vielen Eingängen)
 * TOR/Sperre (lasse nur ein Signal durch/nicht durch, solange ein anderes anliegt)
 * Treppenlicht
@@ -740,7 +744,7 @@ Die Differenzhysterese erlaubt eine Hysterese zu definieren, bei der man den Arb
 
 ### **Der "andere" Eingang bei Differenzkonvertern**
 
-Zahlenbasierte Konverter könenn auch als Differenzkonverter genutzt werden. Dabei wird dann automatisch der "andere" Eingang aktiviert und für die Differenzberechnung genutzt.
+Zahlenbasierte Konverter können auch als Differenzkonverter genutzt werden. Dabei wird dann automatisch der "andere" Eingang aktiviert und für die Differenzberechnung genutzt.
 
 Mit "anderer" Eingang ist foglendes gemeint:
 
@@ -937,7 +941,7 @@ Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Feie
 
 ### **Urlaubsbehandlung**
 
-Erscheint nur, wenn unte "Urlaub/Feiertage" die Einstellung "Urlaubsbehandlung aktivieren?" mit "Ja" eingestellt wurde.
+Erscheint nur, wenn unter "Urlaub/Feiertage" die Einstellung "Urlaubsbehandlung aktivieren?" mit "Ja" eingestellt wurde.
 
 Über dieses Auswahnfeld kann man definieren, wie sich die Zeischaltuhr (also alle Schaltpunkte) bei einem Urlaubstag verhalten. Ein Urlaubstag muss dem Modul extern über das KO 4 mitgeteilt werden.
 
@@ -955,7 +959,7 @@ Diese Zeitschaltuhr wird nur an einem Urlaubstag ausgeführt und nicht an andere
 
 #### **Urlaub wie Sonntag behandeln**
 
-Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Urlaubstag werden aber die Schaltzeiten für einen Sonntag ausgeführt, unabhängig von den Wochentag des Urlaubstages.
+Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Urlaubstag werden aber die Schaltzeiten für einen Sonntag ausgeführt, unabhängig vom Wochentag des Urlaubstages.
 
 ### **Bei Neustart letzte Schaltzeit nachholen**
 
@@ -969,7 +973,7 @@ Der Nebenprozess wird pro Sekunde zweimal aufgerufen und geht dabei jeweils eine
 
 Obiges bedeutet, dass der Nebenprozess für Tagesschaltuhren, die auch Wochentage enthalten können, bis zu 3 Sekunden benötigen kann, um eine (Tages-)Schaltzeit nachzuholen, da er 2 Tage pro Sekunde zurückgeht.
 
-Bei Jahresschaltuhren wird der späteste Schaltzeitpunt, der nachberechnet wurde, 366 / 2 = 183 Sekunden nach dem ersten setzen der Zeit über den Bus erreicht, also etwa 3 Minuten nach dem Neustart. Dies ist ein theoretischer Wert, da in diesem Fall der Schaltzeitpunkt vor einem Jahr liegen müsste und sich zwischendurch nicht geändert hat. Da man meistens aber einen Schaltzeitpunkt für EIN und einen für AUS definiert, wird bei Jahresschaltzeiten wahrscheinlich einer der Schaltzeitpunkte bereits früher erreichet.
+Bei Jahresschaltuhren wird der späteste Schaltzeitpunkt, der nachberechnet wurde, 366 / 2 = 183 Sekunden nach dem ersten setzen der Zeit über den Bus erreicht, also etwa 3 Minuten nach dem Neustart. Dies ist ein theoretischer Wert, da in diesem Fall der Schaltzeitpunkt vor einem Jahr liegen müsste und sich zwischendurch nicht geändert hat. Da man meistens aber einen Schaltzeitpunkt für EIN und einen für AUS definiert, wird bei Jahresschaltzeiten wahrscheinlich einer der Schaltzeitpunkte bereits früher erreichet.
 
 Der Nebenprozess beendet sich selbst, sobald alle Zeitschaltuhren einen definierten Ausgangswert haben.
 
@@ -1183,7 +1187,7 @@ Während eine Verzögerung von einem EIN-Singal aktiv ist, werden daruaffolgende
 
 ##### **Verzögerung wird verlängert**
 
-Während eine Verzögerung von einem EIN-Signal aktiv ist, führt ein darauffolgendes EIN-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letze EIN-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
+Während eine Verzögerung von einem EIN-Signal aktiv ist, führt ein darauffolgendes EIN-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letzte EIN-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
 
 ##### **Sofort schalten ohne Verzögerung**
 
@@ -1221,7 +1225,7 @@ Während eine Verzögerung von einem AUS-Singal aktiv ist, werden daruaffolgende
 
 ##### **Verzögerung wird verlängert**
 
-Während eine Verzögerung von einem AUS-Signal aktiv ist, führt ein darauffolgendes AUS-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letze AUS-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
+Während eine Verzögerung von einem AUS-Signal aktiv ist, führt ein darauffolgendes AUS-Signal zum Neustart der Verzögerungszeit. Somit läuft die Verzögerung erneut an. Dies hat zur Folge, dass das letzte AUS-Singal verzögert weitergeleitet wird und faktisch alle vorhergehenden ignoriert werden.
 
 ##### **Sofort schalten ohne Verzögerung**
 
@@ -1362,7 +1366,7 @@ Im Kapitel Funktionen kann nachgelesen werden, wie Funtionen und Benutzerfunktio
 
 #### **Ja - ReadRequest senden**
 
-Bei einem EIN-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei bedarf eine Abfrage eines Ausgangs erreichen.
+Bei einem EIN-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei Bedarf eine Abfrage eines Ausgangs erreichen.
 
 #### **Ja - 'Gerät zurücksetzen' senden**
 
@@ -1452,7 +1456,7 @@ Im Kapitel Funktionen kann nachgelesen werden, wie Funtionen und Benutzerfunktio
 
 #### **Ja - ReadRequest senden**
 
-Bei einem AUS-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei bedarf eine Abfrage eines Ausgangs erreichen.
+Bei einem AUS-Signal wird kein Wert auf die GA am Ausgang gesendet sondern ein Lesetelegramm. Damit kann man für Geräte, die kein zyklisches Senden unterstützen, bei Bedarf eine Abfrage eines Ausgangs erreichen.
 
 #### **Ja - 'Gerät zurücksetzen' senden**
 
@@ -1488,7 +1492,7 @@ Hier wird ein konstanter Wert erwartet, der zu dem Ausgewählten DPT für den Au
 
 Man kann dies z.B. auch zur Invertierung nutzen, indem bei einem DPT 1 für ein AUS-Signal der Wert EIN gesendet wird und umgekehrt.
 
-### **Physilalische Adresse**
+### **Physikalische Adresse**
 
 Das Feld erscheint nur, wenn für "Wert für AUS senden" ein "Ja - 'Gerät zurücksetzen' senden" ausgewählt wurde.
 
@@ -1514,7 +1518,7 @@ So können bestimmte Töne oder RGB-Anzeigen als Alarm definiert werden. Alarme 
 
 ## **Formeln**
 
-Das Logikmodul enthält eine Implementierung zur verwendung von einfachen (bzw. elementaren) Formeln. Formeln können immer die Werte von einem oder zwei Eingängen eines Logikkanals verrechnen. Wird ein Ausgang so definiert, dass er den Wert einer Formel senden soll, wird die dort ausgewählte Formelfunktion aufgerufen, die Berechnung anhand der beiden Eingangswerte durchgeführt und das Ergebnis an den Ausgang gesendet.
+Das Logikmodul enthält eine Implementierung zur Verwendung von einfachen (bzw. elementaren) Formeln. Formeln können immer die Werte von einem oder zwei Eingängen eines Logikkanals verrechnen. Wird ein Ausgang so definiert, dass er den Wert einer Formel senden soll, wird die dort ausgewählte Formelfunktion aufgerufen, die Berechnung anhand der beiden Eingangswerte durchgeführt und das Ergebnis an den Ausgang gesendet.
 
 ### **Berechnungszeitpunkt**
 
@@ -1612,11 +1616,11 @@ Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive 
 
 ### **Benutzerfunktionen**
 
-Die eingentliche Stärke des Formelansatzes liegt sicherlich nicht in den implementierten Standardfunktionen, sonden in den 30 zur Verfügung stehenden Benutzerfunktionen.
+Die eigentliche Stärke des Formelansatzes liegt sicherlich nicht in den implementierten Standardfunktionen, sonden in den 30 zur Verfügung stehenden Benutzerfunktionen.
 
-Man kann direkt in der Firmware bis zu 30 eigene Funktionen definieren und die beliebigen Logikausgängen zuweisen. So kann man z.B. aus einer Entfernungsmessung, wohl wissend dass dies der Füllstand einer Zisterne ist, den Messwert direkt in Liter umrechnen, indem man im Coding der Firmware alle weiteren Parameter (Tankhöhe, Tankfläche usw.) in einer passenden Formel hinterlegt. Insofern dürften Benutzerfunktionen besonders im Zusammenhang mit dem Sensormodul genutzt weren.
+Man kann direkt in der Firmware bis zu 30 eigene Funktionen definieren und die beliebigen Logikausgängen zuweisen. So kann man z.B. aus einer Entfernungsmessung, wohl wissend dass dies der Füllstand einer Zisterne ist, den Messwert direkt in Liter umrechnen, indem man im Coding der Firmware alle weiteren Parameter (Tankhöhe, Tankfläche usw.) in einer passenden Formel hinterlegt. Insofern dürften Benutzerfunktionen besonders im Zusammenhang mit dem Sensormodul genutzt werden.
 
-Um eigene Benutzerfunktionen zu implementieren, muss man die gesamte Entwicklungsumgebung installiern und alle Programmdateien runterladen.
+Um eigene Benutzerfunktionen zu implementieren, muss man die gesamte Entwicklungsumgebung installieren und alle Programmdateien runterladen.
 
 ![Benutzerfunktion](Benutzerfunktion.png)
 
