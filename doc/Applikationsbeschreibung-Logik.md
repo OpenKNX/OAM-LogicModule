@@ -1153,7 +1153,7 @@ Ist ein "Nein" ausgewählt, wird ein AUS-Singal am Eingang des Funktionsmoduls i
 
 #### **Treppenlicht blinkt im Rythmus**
 
-Bei einer Eingabe einer Zahl größer 0 wird, solange das Treppenlicht eingeschaltet ist, in dem angegebenen Takt der Ausgang des Funktionsmoduls abwechselnd ein EIN- und ein AUS-Signal erzeugt. Ist der Takt z.B. 2 Sekunden, wird nach 2 Sekunden von EIN auf AUS gewechselt, nach wieder 2 Sekunden dann von AUS auf EIN und so fort. Sobald das Treppenlicht beendet ist, sei es durch den Ablauf der Treppenlichtzeit oder durch ein AUS-Signal von Außen, wird das blinken beendet und ein finales AUS-Signal gesendet.
+Bei einer Eingabe einer Zahl größer 0 wird, solange das Treppenlicht eingeschaltet ist, in dem angegebenen Takt der Ausgang des Funktionsmoduls abwechselnd ein EIN- und ein AUS-Signal erzeugt. Ist der Takt z.B. 2 Sekunden, wird nach 2 Sekunden von EIN auf AUS gewechselt, nach wieder 2 Sekunden dann von AUS auf EIN und so fort. Sobald das Treppenlicht beendet ist, sei es durch den Ablauf der Treppenlichtzeit oder durch ein AUS-Signal von Außen, wird das Blinken beendet und ein finales AUS-Signal gesendet.
 
 Bei der Eingabe einer 0 wird die Blinkfunktion deaktiviert.
 
@@ -1408,7 +1408,7 @@ Hier wird ein konstanter Wert erwartet, der zu dem Ausgewählten DPT für den Au
 
 Man kann dies z.B. auch zur Invertierung nutzen, indem bei einem DPT 1 für ein EIN-Signal der Wert AUS gesendet wird und umgekehrt.
 
-### **Physilalische Adresse**
+### **Physikalische Adresse**
 
 ![Gerät zurücksetzen](ResetDevice.PNG)
 
@@ -1699,7 +1699,7 @@ Anlog für "Feiertag morgen".
 
 Das Diagnoseobjekt dient primär zu Debug-Zwecken, kann aber auch vom Enduser genutzt werden, um bestimmte interne Zustände vom Logikmodul zu überprüfen. 
 
-Es funktioniert wie ein einfaches Terminal. Man sendet an das KO 7 ein Kommando (Groß-Kleinschreibung beachten) und erhält über das gleiche KO eine antwort. Im folgenden sind die Kommandos und die Antworten beschrieben.
+Es funktioniert wie ein einfaches Terminal. Man sendet an das KO 7 ein Kommando (Groß-Kleinschreibung beachten) und erhält über das gleiche KO eine Antwort. Im folgenden sind die Kommandos und die Antworten beschrieben.
 
 ### **Kommando 't' - interne Zeit**
 
@@ -1741,7 +1741,7 @@ ist. Die möglichen Werte a, b, c, d und q sind:
 
 Das Gerät hat ein Funktionsmodul DPT-Konverter eingebaut, dass parameterlos funktioniert (deswegen wird es auch generischer Konverter bezeichnet).
 
-Der DPT konverter konvertiert einen Von-DPT in einen Nach-DPT und wird implizt an Stellen aufgerufen, an den das notwendig ist, wenn also für Berechnungen oder Zuweisungen unterschiedliche DPT vorliegen.
+Der DPT Konverter konvertiert einen Von-DPT in einen Nach-DPT und wird implizt an Stellen aufgerufen, an den das notwendig ist, wenn also für Berechnungen oder Zuweisungen unterschiedliche DPT vorliegen.
 
 Derzeit passiert das...
 
@@ -1796,7 +1796,7 @@ Die Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften ze
 
 ### Ist ein Fenster zu lange offen, soll der Text "Auskühlalarm" als Meldung auf dem Glastaster erscheinen
 
-### Ist die Markise durch einen Alarm (Windalarm/Regenalarm) gesperrt, soll ein langes Piepen und ein rotes blinken bei manueller Bedienung auf den Alarm hinweisen
+### Ist die Markise durch einen Alarm (Windalarm/Regenalarm) gesperrt, soll ein langes Piepen und ein rotes Blinken bei manueller Bedienung auf den Alarm hinweisen
 
 ### Wird die Haustür geöffnet, soll ein dreifaches Piepen darauf hinweisen, dass noch irgendeine eine Terrassentür nicht verschlossen ist
 
