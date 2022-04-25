@@ -14,7 +14,7 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-23.04.2022: Firmware 0.5.0, Applikation 0.5 (Beta-Release)
+23.04.2022: Firmware 0.7.0, Applikation 0.7 (Beta-Release)
 
 * initiales Release als OpenKNX Logikmodul
 * Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logik) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
@@ -26,10 +26,11 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * ETS-Kanäle werden neu unterstützt
 * Es wird technisch überprüft, ob die ETS-Applikation mit der installierten Firmware übereinstimmt
 * **Wichtig:** Diese Version ist eine komplett neue Applikation und somit nicht kompatibel zu der früheren Version 3.8. Die ETS-Applikation muss komplett neu parametrisiert werden.
+* BUGFIX: Logikausgang war per Default "false" statt "initial". Damit wurde bei der Einstellung "nur bei Änderungen senden" so lange nichts gesendet, bis das erste Mal ein "true" festgestellt wird.
 
 xx.xx.2022: Firmware 1.0.0, Applikation 1.0
 
-* (intern) Kein EEPROM mehr nötig, KO-Werte werden beim Stromausfall im Flash gespeichert
+* (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
 
 <div style="page-break-after: always;"></div>
 

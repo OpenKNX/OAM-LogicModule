@@ -26,7 +26,7 @@ LogicChannel::LogicChannel(uint8_t iChannelNumber)
     pValidActiveIO = 0;
     pTriggerIO = 0;
     pCurrentIn = 0;
-    pCurrentOut = 0;
+    pCurrentOut = BIT_OUTPUT_INITIAL; // tri-state output, at the beginning we are undefined
 }
 
 LogicChannel::~LogicChannel()
@@ -969,7 +969,8 @@ void LogicChannel::processLogic()
     uint8_t lValidInputs = pValidActiveIO & BIT_INPUT_MASK;
     uint8_t lActiveInputs = (pValidActiveIO >> 4) & BIT_INPUT_MASK;
     uint8_t lCurrentInputs = pCurrentIn & lValidInputs;
-    bool lCurrentOuput = (pCurrentOut & BIT_OUTPUT_LOGIC);
+    bool lCurrentOutput = (pCurrentOut & BIT_OUTPUT_LOGIC);
+    bool lInitialOutput = (pCurrentOut & BIT_OUTPUT_INITIAL);
     bool lNewOutput = false;
     bool lValidOutput = false;
 #if LOGIC_TRACE
@@ -1102,7 +1103,7 @@ void LogicChannel::processLogic()
             lTrigger &= BIT_INPUT_MASK;
             if (lHandleFirstProcessing == 0)
                 pCurrentIn |= BIT_FIRST_PROCESSING;
-            if ((lTrigger == 0 && lNewOutput != lCurrentOuput) ||                         /* Just Changes  */
+            if ((lTrigger == 0 && (lNewOutput != lCurrentOutput || lInitialOutput)) ||     /* Just Changes  */
                 (lTrigger & pTriggerIO) > 0 ||                                            /* each telegram on specific input */
                 (lHandleFirstProcessing > 0 && (pCurrentIn & BIT_FIRST_PROCESSING) == 0)) /* first processing */
             {
@@ -1130,7 +1131,7 @@ void LogicChannel::processLogic()
                 lDebugValid = true;
                 if (debugFilter())
                 {
-                    if (lTrigger == 0 && lNewOutput == lCurrentOuput) { 
+                    if (lTrigger == 0 && lNewOutput == lCurrentOutput) { 
                         channelDebug("endedLogic: No execution, Logic %s, Value %i (Value not changed)\n", lDebugLogic, lNewOutput);
                     }
                     else if ((lTrigger & pTriggerIO) == 0) {
@@ -1479,7 +1480,8 @@ void LogicChannel::processOffDelay()
 void LogicChannel::startOutputFilter(bool iOutput)
 {
     uint8_t lAllow = (getByteParam(LOG_fOOutputFilter) & LOG_fOOutputFilterMask) >> LOG_fOOutputFilterShift;
-    bool lLastOutput = (pCurrentOut & BIT_OUTPUT_PREVIOUS) > 0;
+    bool lLastOutput = (pCurrentOut & BIT_OUTPUT_PREVIOUS);
+    bool lInitialOutput = (pCurrentOut & BIT_OUTPUT_INITIAL);
     bool lContinue = false;
     switch (lAllow)
     {
@@ -1487,20 +1489,20 @@ void LogicChannel::startOutputFilter(bool iOutput)
             lContinue = true;
             break;
         case VAL_AllowRepeat_On:
-            lContinue = (iOutput || iOutput != lLastOutput);
+            lContinue = (iOutput || iOutput != lLastOutput || lInitialOutput);
             break;
         case VAL_AllowRepeat_Off:
-            lContinue = (!iOutput || iOutput != lLastOutput);
+            lContinue = (!iOutput || iOutput != lLastOutput || lInitialOutput);
             break;
         default: // VAL_AlloRepeat_None
-            lContinue = (iOutput != lLastOutput);
+            lContinue = (iOutput != lLastOutput || lInitialOutput);
             break;
     }
     if (lContinue)
     {
         pCurrentPipeline &= ~(PIP_OUTPUT_FILTER_OFF | PIP_OUTPUT_FILTER_ON);
         pCurrentPipeline |= iOutput ? PIP_OUTPUT_FILTER_ON : PIP_OUTPUT_FILTER_OFF;
-        pCurrentOut &= ~BIT_OUTPUT_PREVIOUS;
+        pCurrentOut &= ~(BIT_OUTPUT_PREVIOUS | BIT_OUTPUT_INITIAL); // output is not initial anymore
         if (iOutput)
             pCurrentOut |= BIT_OUTPUT_PREVIOUS;
     }
