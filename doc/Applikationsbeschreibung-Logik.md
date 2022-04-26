@@ -27,6 +27,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * Es wird technisch überprüft, ob die ETS-Applikation mit der installierten Firmware übereinstimmt
 * **Wichtig:** Diese Version ist eine komplett neue Applikation und somit nicht kompatibel zu der früheren Version 3.8. Die ETS-Applikation muss komplett neu parametrisiert werden.
 * BUGFIX: Logikausgang war per Default "false" statt "initial". Damit wurde bei der Einstellung "nur bei Änderungen senden" so lange nichts gesendet, bis das erste Mal ein "true" festgestellt wird.
+* FEATURE: Ein Tor kann jetzt auch einen Impulseingang haben. Damit wird das Tor geöffnet und danach sofort wieder geschlossen. So kann man auf eine einfache Weise Wertänderungen getaktet weiterleiten.
 
 xx.xx.2022: Firmware 1.0.0, Applikation 1.0
 
@@ -480,27 +481,25 @@ Ein TOR mit einem undefinierten Dateneingang oder einem undefinierten Toreingang
 
 Die logische Verknüpfung wird erst dann einen Wert ermitteln, wenn an allen Eingängen gültige Werte vorliegen.
 
-### **Beim schließen vom Tor wird**
+## Tordefinition
 
-Das Auswahlfeld erscheint nur, wenn als Logik-Operation TOR gewählt wurde.
+Hier wird das Verhalten vom Tor vorgegeben.
 
-Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geschlossen wird (Toreingang geht auf AUS).
+![Tordefinition](Tordefinition.png)
 
-#### **nichts gesendet**
+### **Tor geht sofort wieder zu**
 
-Beim schließen vom Tor wird nichts gesendet.
+Ein Tor bleibt normalerweise offen, nachdem ein EIN-Telegramm am Toreingang empfangen wurde. Erst bei einem AUS-Telegramm am Toreingang geht das Tor wieder zu.
 
-#### **AUS gesendet**
+Wird "Tor geht sofort wieder zu" gewählt, geht das Tor beim Empfang eines EIN-Telegramms auf und danach sofort wieder zu. Es wird somit nicht auf ein AUS-Telegramm gewartet.
 
-Beim schließen vom Tor wird immer ein AUS-Signal gesendet.
+Man nennt einen solchen Eingang auch Impulseingang. Durch einen solchen Impulseingang kann man eine Taktung/Synchronisation der Werte erreichen, die am Eingang anliegen.
 
-#### **EIN gesendet**
+So kann z.B. ein Wert am Eingang, egal wie oft er sich ändert, nur jede Minute zum Ausgang durchgeschaltet werden. Oder ein Wert wird nur durchgelassen, wenn der Benutzer eine Taste betätigt.
 
-Beim schließen vom Tor wird immer ein EIN-Signal gesendet.
+Wenn man den Toreingang invertiert, kann man ein Tor realisieren, dass beim Empfang einer 0 kurz auf und sofort wieder zu geht.
 
-#### **Eingangswert gesendet**
-
-Beim schließen vom Tor wird der Eingangswert gesendet. Da dieser Wert ja faktisch schon mal gesendet worden ist (als das Tor noch offen war), ist das effektiv eine einmalige Wiederholung des letzten Wertes.
+> Abstrakt betrachtet entspricht ein Tor mit einem Impulseingang einem Tor mit einem normalen Eingang, vor den ein Treppenlicht geschaltet wurde, das sofort (z.B. nach 0.1 Sekunden) abläuft. Das Tor sendet dann nur beim öffnen, nichts beim schließen.
 
 ### **Beim öffnen vom Tor wird**
 
@@ -523,6 +522,28 @@ Beim öffnen vom Tor wird immer ein EIN-Signal gesendet.
 #### **Eingangswert gesendet**
 
 Beim öffnen vom Tor wird der Eingangswert gesendet. Damit kann man erreichen, dass das letzte Signal, das vom Tor blockiert worden ist, nach dem öffnen doch noch durchkommt.
+
+### **Beim schließen vom Tor wird**
+
+Das Auswahlfeld erscheint nur, wenn als Logik-Operation TOR gewählt wurde und das Tor nicht sofort nach dem Öffnen geschlossen wird.
+
+Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geschlossen wird (Toreingang geht auf AUS).
+
+#### **nichts gesendet**
+
+Beim schließen vom Tor wird nichts gesendet.
+
+#### **AUS gesendet**
+
+Beim schließen vom Tor wird immer ein AUS-Signal gesendet.
+
+#### **EIN gesendet**
+
+Beim schließen vom Tor wird immer ein EIN-Signal gesendet.
+
+#### **Eingangswert gesendet**
+
+Beim schließen vom Tor wird der Eingangswert gesendet. Da dieser Wert ja faktisch schon mal gesendet worden ist (als das Tor noch offen war), ist das effektiv eine einmalige Wiederholung des letzten Wertes.
 
 ## Logik-Trigger
 

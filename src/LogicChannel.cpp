@@ -1035,37 +1035,41 @@ void LogicChannel::processLogic()
                         lPreviousGate = pCurrentIn & BIT_PREVIOUS_GATE;
                         // set previous gate state for next roundtrip
                         pCurrentIn &= ~BIT_PREVIOUS_GATE;
-                        if (lGate)
+                        // in case gate is closed again immediately we do not store the open state for next roundtrip...
+                        bool lIsTriggeredGate = (getByteParam(LOG_fTGate) & LOG_fTGateMask);
+                        if (lGate && !lIsTriggeredGate)
                             pCurrentIn |= BIT_PREVIOUS_GATE;
+                        // ... and we delete the gate input
+                        if (lIsTriggeredGate)
+                            pCurrentIn &= ~(BIT_EXT_INPUT_2 | BIT_INT_INPUT_2);
                     }
                     uint8_t lGateState = 2 * lPreviousGate + lGate;
-                    uint8_t lGateTrigger = 0;
+                    uint8_t lOnGateTrigger = 0xFF;
                     switch (lGateState)
                     {
                         case VAL_Gate_Closed_Open: // was closed and opens now
-                            lGateTrigger = LOG_fTriggerGateOpen;
+                            lOnGateTrigger = (getByteParam(LOG_fTriggerGateOpen) & LOG_fTriggerGateOpenMask) >> LOG_fTriggerGateOpenShift;
                         case VAL_Gate_Open_Close: // was open and closes now
+                        {
+                            if (lOnGateTrigger == 0xFF)
+                                lOnGateTrigger = (getByteParam(LOG_fTriggerGateClose) & LOG_fTriggerGateCloseMask) >> LOG_fTriggerGateCloseShift;
+                            lValidOutput = true;
+                            switch (lOnGateTrigger)
                             {
-                                if (lGateTrigger == 0)
-                                    lGateTrigger = LOG_fTriggerGateClose;
-                                uint8_t lOnGateTrigger = getByteParam(lGateTrigger) & 3;
-                                lValidOutput = true;
-                                switch (lOnGateTrigger)
-                                {
-                                    case VAL_Gate_Send_Off:
-                                        lNewOutput = false;
-                                        break;
-                                    case VAL_Gate_Send_On:
-                                        lNewOutput = true;
-                                        break;
-                                    case VAL_Gate_Send_Input:
-                                        lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
-                                        break;
-                                    default: // same as VAL_Gate_Send_Nothing
-                                        lValidOutput = false;
-                                        break;
-                                }
+                                case VAL_Gate_Send_Off:
+                                    lNewOutput = false;
+                                    break;
+                                case VAL_Gate_Send_On:
+                                    lNewOutput = true;
+                                    break;
+                                case VAL_Gate_Send_Input:
+                                    lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
+                                    break;
+                                default: // same as VAL_Gate_Send_Nothing
+                                    lValidOutput = false;
+                                    break;
                             }
+                        }
                             break;
                         case VAL_Gate_Open_Open: // was open and stays open
                             lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
@@ -1788,47 +1792,56 @@ bool LogicChannel::checkDpt(uint8_t iIOIndex, uint8_t iDpt)
 
 bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
 {
+    bool lResult = false;
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    EepromManager *lEEPROM = sLogic->getEEPROM();
-    // first check, if EEPROM contains valid values
-    if (!lEEPROM->isValid())
-        return false;
-    // Now check, if the DPT for requested KO is valid
-    // DPT might have changed due to new programming after last save
-    uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
-    lEEPROM->prepareRead(lAddress, 1);
-    uint8_t lSavedDpt = Wire.read();
-    if (!checkDpt(iIOIndex, lSavedDpt))
-        return false;
-
-    // if the dpt is ok, we get the ko value
-    lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32 + mChannelId * 8 + (iIOIndex - 1) * 4;
-    GroupObject *lKo = getKo(iIOIndex);
-    lEEPROM->prepareRead(lAddress, lKo->valueSize());
-    int lIndex = 0;
-    while (Wire.available() && lIndex < 4)
-        lKo->valueRef()[lIndex++] = Wire.read();
-    return true;
-#else
-    return false;
+    if (boardWithEEPROM())
+    {
+        EepromManager *lEEPROM = sLogic->getEEPROM();
+        // first check, if EEPROM contains valid values
+        if (lEEPROM->isValid())
+            lResult = true;
+        if (lResult)
+        {
+            // Now check, if the DPT for requested KO is valid
+            // DPT might have changed due to new programming after last save
+            uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
+            lEEPROM->prepareRead(lAddress, 1);
+            uint8_t lSavedDpt = Wire.read();
+            lResult = checkDpt(iIOIndex, lSavedDpt));
+        }
+        // if the dpt is ok, we get the ko value
+        if (lResult)
+        {
+            lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32 + mChannelId * 8 + (iIOIndex - 1) * 4;
+            GroupObject *lKo = getKo(iIOIndex);
+            lEEPROM->prepareRead(lAddress, lKo->valueSize());
+            int lIndex = 0;
+            while (Wire.available() && lIndex < 4)
+                lKo->valueRef()[lIndex++] = Wire.read();
+        }
+    }
 #endif
+    return lResult;
 }
 
 void LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex)
 {
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    uint8_t lDpt = 0xFF;
-    if (isInputActive(iIOIndex))
+    if (boardWithEEPROM())
     {
-        // now get input default value
-        uint8_t lParInput = getByteParam(iIOIndex == 1 ? LOG_fE1Default : LOG_fE2Default);
-        if (lParInput & VAL_InputDefault_EEPROM)
+        uint8_t lDpt = 0xFF;
+        if (isInputActive(iIOIndex))
         {
-            // if the default is EEPROM, we get correct dpt
-            lDpt = getByteParam(iIOIndex == 1 ? LOG_fE1Dpt : LOG_fE2Dpt);
+            // now get input default value
+            uint8_t lParInput = getByteParam(iIOIndex == 1 ? LOG_fE1Default : LOG_fE2Default);
+            if (lParInput & VAL_InputDefault_EEPROM)
+            {
+                // if the default is EEPROM, we get correct dpt
+                lDpt = getByteParam(iIOIndex == 1 ? LOG_fE1Dpt : LOG_fE2Dpt);
+            }
         }
+        Wire.write(lDpt);
     }
-    Wire.write(lDpt);
 #endif
 }
 

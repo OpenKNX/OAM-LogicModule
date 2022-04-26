@@ -4,6 +4,12 @@
     <Manufacturer RefId="M-00FA">
       <ApplicationPrograms>
         <ApplicationProgram Id="M-00FA_A-0001-01-0000" ApplicationNumber="102" ApplicationVersion="10" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
+          <Static>
+            <ParameterRefs>
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003502" RefId="M-00FA_A-0001-01-0000_UP-%T%000035" Value="1" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003602" RefId="M-00FA_A-0001-01-0000_UP-%T%000036" />
+            </ParameterRefs>
+          </Static>
           <Dynamic>
             <ChannelIndependentBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="General" Text="Logik: Obere Parameter">
@@ -50,16 +56,23 @@
                     <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%000001_R-%T%00000101" />
                   </when>
                 </choose>
+                <!-- Initialize defaults for Hardware, if not changed anywhere, thiese defaults are hidden and not visible -->
+                <!-- Buzzer installed? -->
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501" />
+                <!-- RGB-LED installed? -->
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601" />
               </ParameterBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-2" Name="Hardware" Text="Logic: Hardware">
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Installierte Hardware" UIHint="Headline" />
                 <!-- Buzzer installed? -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501" />
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003502" />
                 <!-- RGB-LED installed? -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601" />
-                <!-- EEPROM installed -->
-                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701" />
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003602" />
+                <!-- move locally set values to global parameters -->
+                <!-- this is used for decoupling specific applications from global behaviour -->
+                <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-1000035_R-100003501" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-1000035_R-100003502" />
+                <Assign TargetParamRefRef="M-00FA_A-0001-01-0000_UP-1000036_R-100003601" SourceParamRefRef="M-00FA_A-0001-01-0000_UP-1000036_R-100003602" />
               </ParameterBlock>
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-3" Name="Diagnose" Text="Logik: Diagnose">
                 <!-- Expert screen: we allow definition of buzzer frequencies -->

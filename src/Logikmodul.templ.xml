@@ -17,7 +17,9 @@
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="3" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%004" Name="f%C%Calculate" ParameterType="M-00FA_A-0001-01-0000_PT-Calculate" Offset="0" BitOffset="6" Text="Logik auswerten" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%166" Name="f%C%Disable"   ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"  Offset="0" BitOffset="5" Text="Kanal deaktivieren (zu Testzwecken)" Value="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%277" Name="f%C%Alarm"     ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"  Offset="0" BitOffset="4" Text="Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%277" Name="f%C%Alarm" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="4" Text="Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%396" Name="f%C%TGate" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="3" Text="Tor geht sofort wieder zu" Value="0" />
+      <!-- 3 Bit frei -->
     </Union>
     <Union SizeInBit="8">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="4" BitOffset="0" />
@@ -28,24 +30,24 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%092" Name="f%C%TriggerI2"   ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"    Offset="0" BitOffset="4" Text="          Kanalausgang Y" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%167" Name="f%C%TriggerTime" ParameterType="M-00FA_A-0001-01-0000_PT-TriggerTime" Offset="0" BitOffset="0" Text="Logik sendet ihren Wert weiter" Value="15" />
     </Union>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%006" Name="f%C%TriggerGateClose" ParameterType="M-00FA_A-0001-01-0000_PT-GateTrigger" Text="Beim schließen vom Tor wird" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="5" BitOffset="0" />
-    </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%007" Name="f%C%TriggerGateOpen" ParameterType="M-00FA_A-0001-01-0000_PT-GateTrigger" Text="Beim öffnen vom Tor wird" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="6" BitOffset="0" />
-    </Parameter>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="7" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="5" BitOffset="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%006" Name="f%C%TriggerGateClose" ParameterType="M-00FA_A-0001-01-0000_PT-GateTrigger" Offset="0" BitOffset="0" Text="Beim schließen vom Tor wird" Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%007" Name="f%C%TriggerGateOpen"  ParameterType="M-00FA_A-0001-01-0000_PT-GateTrigger" Offset="0" BitOffset="2" Text="Beim öffnen vom Tor wird" Value="0" />
+      <!-- 4 Bit frei -->
+    </Union>
+    <Union SizeInBit="8">
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="6" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%008" Name="f%C%E1"               ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable"      Offset="0" BitOffset="4" Text="Eingang 1" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%093" Name="f%C%E1Convert"        ParameterType="M-00FA_A-0001-01-0000_PT-InputConv"        Offset="0" BitOffset="0" Text="Wert für Eingang 1 wird ermittelt durch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%369" Name="f%C%E1ConvertFloat"   ParameterType="M-00FA_A-0001-01-0000_PT-InputConvFloat"   Offset="0" BitOffset="0" Text="Wert für Eingang 1 wird ermittelt durch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%370" Name="f%C%E1ConvertSpecial" ParameterType="M-00FA_A-0001-01-0000_PT-InputConvSpecial" Offset="0" BitOffset="0" Text="Wert für Eingang 1 wird ermittelt durch" Value="4" />
     </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%009" Name="f%C%E1Dpt" ParameterType="M-00FA_A-0001-01-0000_PT-InputDpt" Text="DPT für Eingang 1" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="8" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="7" BitOffset="0" />
     </Parameter>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="9" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="8" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%026" Name="f%C%E1Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault"    Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%393" Name="f%C%E1DefaultExt"    ParameterType="M-00FA_A-0001-01-0000_PT-InputDefaultExt" Offset="0" BitOffset="6" Text="Eingang vorbelegen mit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%130" Name="f%C%E1DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
@@ -53,28 +55,24 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%272" Name="f%C%TYearDay"        ParameterType="M-00FA_A-0001-01-0000_PT-YearDay"         Offset="0" BitOffset="3" Text="Typ der Zeitschaltuhr" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%274" Name="f%C%TRestoreState"   ParameterType="M-00FA_A-0001-01-0000_PT-RestoreState"    Offset="0" BitOffset="1" Text="Beim Neustart letzte Schaltzeit nachholen" Value="0" />
     </Union>
-    <!-- <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%027" Name="f%C%E1Repeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="0" BitOffset="0" Text="Eingang 1 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0" />
-    </Union> -->
     <!-- Delay pattern-->
     <Union SizeInBit="16">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="10" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="9" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%383" Name="f%C%E1RepeatBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%384" Name="f%C%E1RepeatTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="11" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%028" Name="f%C%E2"               ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable"      Offset="0" BitOffset="4" Text="Eingang 2" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%094" Name="f%C%E2Convert"        ParameterType="M-00FA_A-0001-01-0000_PT-InputConv"        Offset="0" BitOffset="0" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%371" Name="f%C%E2ConvertFloat"   ParameterType="M-00FA_A-0001-01-0000_PT-InputConvFloat"   Offset="0" BitOffset="0" Text="Wert für Eingang 2 wird ermittelt durch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%372" Name="f%C%E2ConvertSpecial" ParameterType="M-00FA_A-0001-01-0000_PT-InputConvSpecial" Offset="0" BitOffset="0" Text="Wert für Eingang 2 wird ermittelt durch" Value="4" />
     </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%029" Name="f%C%E2Dpt" ParameterType="M-00FA_A-0001-01-0000_PT-InputDpt" Text="DPT für Eingang 2" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="13" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="12" BitOffset="0" />
     </Parameter>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="14" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="13" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%046" Name="f%C%E2Default"       ParameterType="M-00FA_A-0001-01-0000_PT-InputDefault"    Offset="0" BitOffset="6" Text="Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%394" Name="f%C%E2DefaultExt"    ParameterType="M-00FA_A-0001-01-0000_PT-InputDefaultExt" Offset="0" BitOffset="6" Text="Eingang vorbelegen mit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%131" Name="f%C%E2DefaultEEPROM" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"      Offset="0" BitOffset="5" Text="Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen?" Value="0" />
@@ -83,7 +81,7 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%276" Name="f%C%TVacation"       ParameterType="M-00FA_A-0001-01-0000_PT-Vacation"        Offset="0" BitOffset="1" Text="Urlaubsbehandlung" Value="0" />
     </Union>
     <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="15" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="14" BitOffset="0" />
       <!-- <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%047" Name="f%C%E2Repeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Offset="0" BitOffset="0" Text="Eingang 2 wird alle n Sekunden gelesen (0 = nicht zyklisch lesen)" SuffixText="Sekunden" Value="0" /> -->
       <!-- Delay pattern-->
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%385" Name="f%C%E2RepeatBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
@@ -100,7 +98,7 @@
     </Union>
     <!-- Parameter for input E1 and E2 -->
     <Union SizeInBit="128">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="19" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="18" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%115" Name="f%C%E1LowDelta"     ParameterType="M-00FA_A-0001-01-0000_PT-Delta"             Offset="0"  BitOffset="0" Text="Von-Wert" Value="-10" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%116" Name="f%C%E1HighDelta"    ParameterType="M-00FA_A-0001-01-0000_PT-Delta"             Offset="4"  BitOffset="0" Text="Bis-Wert" Value="10" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%373" Name="f%C%E1LowDeltaFloat"  ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt9"       Offset="0"  BitOffset="0" Text="Von-Wert" Value="-10" />
@@ -255,7 +253,7 @@
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%275" Name="f%C%TimerName" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung der Zeitschaltuhr" Value="" />
     <!-- Parameter for timer daily -->
     <Union SizeInBit="128">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="19" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="18" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%168" Name="f%C%Td1Value"     ParameterType="M-00FA_A-0001-01-0000_PT-OnOff"     Offset="0"  BitOffset="0" Text="Schaltwert" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%170" Name="f%C%Td1HourAbs"   ParameterType="M-00FA_A-0001-01-0000_PT-Hour"      Offset="0"  BitOffset="2" Text="Stunde" Value="31" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%172" Name="f%C%Td1HourRel"   ParameterType="M-00FA_A-0001-01-0000_PT-HourRel"   Offset="0"  BitOffset="2" Text="Sonnen auf-/untergang" Value="0" />
@@ -307,7 +305,7 @@
     </Union>
     <!-- Parameter for Timer Yearly -->
     <Union SizeInBit="64">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="27" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="26" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%232" Name="f%C%Ty1Weekday1"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"  Offset="0" BitOffset="0" Text="Mo" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%233" Name="f%C%Ty1Weekday2"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"  Offset="0" BitOffset="1" Text="Di" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%234" Name="f%C%Ty1Weekday3"  ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox"  Offset="0" BitOffset="2" Text="Mi" Value="0" />
@@ -350,88 +348,67 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%271" Name="f%C%Ty4Month"     ParameterType="M-00FA_A-0001-01-0000_PT-Month"     Offset="7" BitOffset="0" Text="Monat" Value="0" />
     </Union>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="34" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%048" Name="f%C%I1" ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable" Offset="0" BitOffset="0" Text="Kanalausgang X" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%050" Name="f%C%I2" ParameterType="M-00FA_A-0001-01-0000_PT-InputEnable" Offset="0" BitOffset="4" Text="Kanalausgang Y" Value="0" />
     </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%049" Name="f%C%I1Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang X als interner Eingang 1, X =" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="35" BitOffset="0" />
     </Parameter>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%051" Name="f%C%I2Function" ParameterType="M-00FA_A-0001-01-0000_PT-InputFunction" Text="Kanalausgang Y als interner Eingang 2, Y =" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="37" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="36" BitOffset="0" />
     </Parameter>
-    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%053" Name="f%C%OTimeBase" ParameterType="M-00FA_A-0001-01-0000_PT-TimeBase" Text="Zeitbasis für Treppenlicht" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
-    </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%054" Name="f%C%OTime" ParameterType="M-00FA_A-0001-01-0000_PT-TimeBasedTime" Text="Zeit für Treppenlicht" Value="10">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="43" BitOffset="0" />
-    </Parameter> -->
-    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%057" Name="f%C%OBlink" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="Treppenlicht blinkt im n/10 Sekunden Rythmus (0 = nicht blinken)" SuffixText="/10 Sekunden" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
-    </Parameter> -->
     <!-- Stair delay pattern-->
     <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="38" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="37" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%053" Name="f%C%OStairtimeBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%054" Name="f%C%OStairtimeTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="30" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%387" Name="f%C%OBlinkBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="3" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%388" Name="f%C%OBlinkTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="41" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%058" Name="f%C%ODelay"          ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"  Offset="0" BitOffset="0" Text="Ausgang schaltet zeitverzögert" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%117" Name="f%C%ODelayOnRepeat"  ParameterType="M-00FA_A-0001-01-0000_PT-OnOffRepeat" Offset="0" BitOffset="1" Text="Erneutes EIN führt zu" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%118" Name="f%C%ODelayOnReset"   ParameterType="M-00FA_A-0001-01-0000_PT-OnOffReset"  Offset="0" BitOffset="3" Text="Darauffolgendes AUS führt zu" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%119" Name="f%C%ODelayOffRepeat" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffRepeat" Offset="0" BitOffset="4" Text="Erneutes AUS führt zu" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%120" Name="f%C%ODelayOffReset"  ParameterType="M-00FA_A-0001-01-0000_PT-OnOffReset"  Offset="0" BitOffset="6" Text="Darauffolgendes EIN führt zu" Value="0" />
     </Union>
-    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%059" Name="f%C%ODelayOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EINschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" SuffixText="/10 Sekunden" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
-    </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%060" Name="f%C%ODelayOff" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="AUSschalten wird um n/10 Sekunden verzögert (0 = nicht verzögern)" SuffixText="/10 Sekunden" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="56" BitOffset="0" />
-    </Parameter> -->
     <!-- OnOff delay pattern-->
     <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="43" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="42" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%059" Name="f%C%ODelayOnBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="3" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%060" Name="f%C%ODelayOnTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%062" Name="f%C%ODelayOffBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="3" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%063" Name="f%C%ODelayOffTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="46" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%052" Name="f%C%OStair"        ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="0" Text="Ausgang hat eine Treppenlichtfunktion" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%055" Name="f%C%ORetrigger"    ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="1" Text="Treppenlicht kann verlängert werden" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%056" Name="f%C%OStairOff"     ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="2" Text="Treppenlicht kann ausgeschaltet werden" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%061" Name="f%C%ORepeat"       ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo"   Offset="0" BitOffset="3" Text="Ausgang wiederholt zyklisch" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%127" Name="f%C%OOutputFilter" ParameterType="M-00FA_A-0001-01-0000_PT-OutputFilter" Offset="0" BitOffset="4" Text="Wiederholungsfilter" Value="0" />
     </Union>
-    <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%062" Name="f%C%ORepeatOn" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="EIN-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" SuffixText="/10 Sekunden" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="61" BitOffset="0" />
-    </Parameter>
-    <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%063" Name="f%C%ORepeatOff" ParameterType="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Text="AUS-Telegramm wird alle n/10 Sekunden wiederholt (0 = nicht wiederholen)" SuffixText="/10 Sekunden" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="65" BitOffset="0" />
-    </Parameter> -->
     <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="48" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="47" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%389" Name="f%C%ORepeatOnBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="0" BitOffset="0" Text="Zeitbasis" Value="3" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%390" Name="f%C%ORepeatOnTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%391" Name="f%C%ORepeatOffBase" ParameterType="M-00FA_A-0001-01-0000_PT-DelayBase10" Offset="2" BitOffset="0" Text="Zeitbasis" Value="3" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%392" Name="f%C%ORepeatOffTime" ParameterType="M-00FA_A-0001-01-0000_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="0" />
     </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%064" Name="f%C%ODpt" ParameterType="M-00FA_A-0001-01-0000_PT-OutputDpt" Text="DPT für Ausgang" Value="0">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="51" BitOffset="0" />
     </Parameter>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="53" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="52" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%065" Name="f%C%OOn"       ParameterType="M-00FA_A-0001-01-0000_PT-OutputSend"       Offset="0" BitOffset="0" Text="Wert für EIN senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%134" Name="f%C%OOnBuzzer" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendBuzzer" Offset="0" BitOffset="0" Text="Wert für EIN senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%135" Name="f%C%OOnLed"    ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendLed"    Offset="0" BitOffset="0" Text="Wert für EIN senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%136" Name="f%C%OOnAll"    ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendAll"    Offset="0" BitOffset="0" Text="Wert für EIN senden?" Value="1" />
     </Union>
     <Union SizeInBit="112">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="54" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="53" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%140" Name="f%C%OOnTone"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueBuzzer"   Offset="0" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%066" Name="f%C%OOnDpt1"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt1"     Offset="0" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%067" Name="f%C%OOnDpt2"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt2Out"  Offset="0" BitOffset="0" Text="    Wert für EIN senden als" Value="1" />
@@ -450,14 +427,14 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%279" Name="f%C%OOnFunction" ParameterType="M-00FA_A-0001-01-0000_PT-ValueFunction" Offset="0" BitOffset="0" Text="    Wert für EIN ermitteln als" Value="1" />
     </Union>
     <Union SizeInBit="8">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="68" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="67" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%077" Name="f%C%OOff"       ParameterType="M-00FA_A-0001-01-0000_PT-OutputSend"       Offset="0" BitOffset="0" Text="Wert für AUS senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%137" Name="f%C%OOffBuzzer" ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendBuzzer" Offset="0" BitOffset="0" Text="Wert für AUS senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%138" Name="f%C%OOffLed"    ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendLed"    Offset="0" BitOffset="0" Text="Wert für AUS senden?" Value="1" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%139" Name="f%C%OOffAll"    ParameterType="M-00FA_A-0001-01-0000_PT-OutputSendAll"    Offset="0" BitOffset="0" Text="Wert für AUS senden?" Value="1" />
     </Union>
     <Union SizeInBit="112">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="69" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="68" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%141" Name="f%C%OOffTone"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueBuzzer"   Offset="0" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%078" Name="f%C%OOffDpt1"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt1"     Offset="0" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%079" Name="f%C%OOffDpt2"     ParameterType="M-00FA_A-0001-01-0000_PT-ValueDpt2Out"  Offset="0" BitOffset="0" Text="    Wert für AUS senden als" Value="0" />
@@ -476,7 +453,7 @@
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%280" Name="f%C%OOffFunction" ParameterType="M-00FA_A-0001-01-0000_PT-ValueFunction" Offset="0" BitOffset="0" Text="    Wert für AUS ermitteln als" Value="1" />
     </Union>
     <Union SizeInBit="32">
-      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="83" BitOffset="0" />
+      <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="82" BitOffset="0" />
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%377" Name="f%C%E1UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput" Offset="0" BitOffset="0" Text="Kommunikationsobjekt für Eingang 1" Value="0" />
       <!-- 3 Bit frei -->
       <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%378" Name="f%C%E1OtherKO"    ParameterType="M-00FA_A-0001-01-0000_PT-KONumber"   Offset="0" BitOffset="4" Text="    Nummer des Kommunikationsobjekts" Value="%K0%" />
@@ -517,8 +494,8 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%003_R-%T%%CCC%00301" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%003" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%004_R-%T%%CCC%00401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%004" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%005_R-%T%%CCC%00501" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%005" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%006_R-%T%%CCC%00601" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%006" />
-    <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%007_R-%T%%CCC%00701" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%007" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%006_R-%T%%CCC%00601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%006" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%007_R-%T%%CCC%00701" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%007" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%008_R-%T%%CCC%00801" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%008" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%009_R-%T%%CCC%00901" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%009" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%010_R-%T%%CCC%01001" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%010" />
@@ -940,6 +917,7 @@
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%393_R-%T%%CCC%39301" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%393" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%394_R-%T%%CCC%39401" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%394" />
     <ParameterRef Id="M-00FA_A-0001-01-0000_P-%T%%CCC%395_R-%T%%CCC%39501" RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%395" />
+    <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%396_R-%T%%CCC%39601" RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%396" />
   </ParameterRefs>
   <ComObjectTable>
     <ComObject Id="M-00FA_A-0001-01-0000_O-%T%%CCC%000" Name="KOf%C%E1" Text="Eingang 1" Number="%K0%" FunctionText="Logik %C%, Eingang 1" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled"  CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled"  ReadOnInitFlag="Disabled" />
@@ -1017,8 +995,15 @@
             <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%004_R-%T%%CCC%00401" />
           </when>
           <when test="4">
-            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%006_R-%T%%CCC%00601" />
-            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_P-%T%%CCC%007_R-%T%%CCC%00701" />
+            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
+            <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Tordefinition" UIHint="Headline" />
+            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%396_R-%T%%CCC%39601" />
+            <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%007_R-%T%%CCC%00701" />
+            <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%396_R-%T%%CCC%39601">
+              <when test="0">
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%006_R-%T%%CCC%00601" />
+              </when>
+            </choose>
           </when>
         </choose>
         <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%003_R-%T%%CCC%00301">
@@ -1213,7 +1198,7 @@
                           <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%093_R-%T%%CCC%09301">
                             <when test="0">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Das Wertintervall liefert EIN, wenn Eingang 1 zwischen Von-Wert und Bis-Wert liegt." />
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bie Von-Wert &lt;= Eingang 1 &lt;= Bis-Wert; AUS sonst" />
+                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Von-Wert &lt;= Eingang 1 &lt;= Bis-Wert; AUS sonst" />
                             </when>
                             <when test="1">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Das Differenzintervall liefert EIN, wenn (Eingang 1 - Eingang 2) zwischen Von-Wert und Bis-Wert liegt." />
@@ -1866,7 +1851,7 @@
                           <choose ParamRefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%094_R-%T%%CCC%09401">
                             <when test="0">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Das Wertintervall liefert EIN, wenn Eingang 2 zwischen Von-Wert und Bis-Wert liegt." />
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bie Von-Wert &lt;= Eingang 2 &lt;= Bis-Wert; AUS sonst" />
+                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Von-Wert &lt;= Eingang 2 &lt;= Bis-Wert; AUS sonst" />
                             </when>
                             <when test="1">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Das Differenzintervall liefert EIN, wenn (Eingang 2 - Eingang 1) zwischen Von-Wert und Bis-Wert liegt." />
