@@ -84,16 +84,6 @@ Das Logikmodul unterstützt auch die Ausgabe eines Lichtsignals mittels einer RG
 
 Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Lichtausgabe sperren kann. Damit kann man verhindern, dass z.B. nachts die LED leuchtet. Oder man schaltet die LED nur bei Präsenz ein und schont damit die Leuchtkraft der LED.
 
-#### **Zusätzliches EEPROM vorhanden?**
-
-Das Logikmodul kann die Werte von ausgewählten Kommunikationsobjekten speichern und nach einem Neustart wiederherstellen. Diese werden normalerweise im Flash-Speicher gespeichert, in dem auch die Firmware abgelegt wird.
-
-Der Nachteil vom Flash-Speicher ist, dass bei einem Firmware-Update möglicherweise der gesamte Flash-Speicher gelöscht wird und somit die gespeicherten KO-Werte verloren gehen.
-
-Sollte ein zusätzliches EEPROM vorhanden sein, werden die KO-Daten dort gespeichert und bleiben auch bei einem Firmware-Update erhalten.
-
-Durch einen Haken bei dieser Einstellung werden die Kommunikationsobjekte im EEPROM gespeichert.
-
 ## **Experteneinstellungen**
 
 ![Experteneinstellungen](Experteneinstellungen.png)
@@ -821,9 +811,10 @@ Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im ni
 
 Da nichtflüchtige Speicher nur eine relativ geringe Anzahl an Schreibzyklen zulassen, wird der Eingangswert nicht direkt nach dem Empfang im Speicher geschrieben, sondern erst beim Stromausfall, bei einem "Gerät zurücksetzen" über die ETS oder bei einer neuprogrammierung über die ETS. Wird die RESET-Taste direkt am Gerät gedrückt, wird der nichtflüchtige Speicher nicht mit dem Eingangswert beschrieben.
 
-> **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist Hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstütz wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
+> **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist Hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstützt wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
 
 > **Wichtig:** Es gibt 2 unterstützte Varianten von nichtflüchtigem Speicher: FLASH und EEPROM. Der FLASH-Speicher ist der gleiche, in dem die Firmware gespeichert wird und ist immer vorhanden. Standardmäßig wird in diesen Speicher gespeichert. Dies hat aber den Nachteil, dass bei einem Firmware-Update alle gespeicherten Werte verloren gehen. Falls die Werte im EEPROM gespeichert werden (Zusatzhardware), werden sie nicht durch ein Update der Firmware überschrieben.
+Ob ein EEPROM installiert ist, wird von der Firmware automatisch festgestellt. Falls ein EEPROM vorhanden ist, wird dieses für die Speicherung von Werten genutzt.
 
 ### **Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit**
 
