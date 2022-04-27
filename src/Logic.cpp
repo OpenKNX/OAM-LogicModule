@@ -186,82 +186,100 @@ void Logic::processReadRequests() {
 uint8_t *Logic::writeAllDptToEEPROM(uint8_t *iBuffer)
 {
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
+    if (boardWithEEPROM())
     {
-        println("writeAllDptToEEPROM called repeatedly within 10 seconds, skipped!");
-        return;
-    }
-    mLastWriteToEEPROM = millis();
+        if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
+        {
+            println("writeAllDptToEEPROM called repeatedly within 10 seconds, skipped!");
+            return;
+        }
+        else if (!knx.configured())
+        {
+            println("knx not configured, no KO data available");
+            return;
+        }
+        mLastWriteToEEPROM = millis();
 
-    // prepare initialization
-    uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32; // begin of DPT memory
-    // start writing all dpt. For inputs, which should not be saved, we write a dpt 0xFF
-    for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
-    {
-        mEEPROM->beginPage(lAddress);
-        mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1);
-        lAddress++;
-        mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2);
-        lAddress++;
-        if (lAddress % 16 == 0)
-            mEEPROM->endPage();
-    }
-    mEEPROM->endPage();
-#else
-    // in case, there is no EEPROM, we write to flash
-    if (iBuffer && knx.configured()) 
-    {
-        printDebug("Writing DPTs to Flash\n");
+        // prepare initialization
+        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32; // begin of DPT memory
+        // start writing all dpt. For inputs, which should not be saved, we write a dpt 0xFF
         for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
         {
-            iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1, iBuffer);
-            iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2, iBuffer);
+            mEEPROM->beginPage(lAddress);
+            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1);
+            lAddress++;
+            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2);
+            lAddress++;
+            if (lAddress % 16 == 0)
+                mEEPROM->endPage();
         }
-        printDebug("\n");
+        mEEPROM->endPage();
     }
 #endif
-    return iBuffer;
+    // in case, there is no EEPROM, we write to flash
+    if (!boardWithEEPROM())
+    {
+        if (iBuffer && knx.configured())
+        {
+            printDebug("Writing DPTs to Flash\n");
+            for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
+            {
+                iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1, iBuffer);
+                iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2, iBuffer);
+            }
+            printDebug("\n");
+        }
+        return iBuffer;
+    }
 }
 
 void Logic::writeAllInputsToEEPROM()
 {
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
+    if (boardWithEEPROM())
     {
-        println("writeAllInputsToEEPROM called repeatedly within 10 seconds, skipped!");
-        return;
+        if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
+        {
+            println("writeAllInputsToEEPROM called repeatedly within 10 seconds, skipped!");
+            return;
+        }
+        else if (!knx.configured())
+        {
+            println("knx not configured, no KO data available");
+            return;
+        }
+        mLastWriteToEEPROM = millis();
+
+        // prepare initialization
+        mEEPROM->beginWriteSession();
+
+        //Begin write of KO values
+        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32; // begin of KO value memory
+        // for (uint8_t i = 0; i < 10; i++)
+        for (uint8_t lChannel = 0; lChannel < mNumChannels; lChannel++)
+        {
+            mEEPROM->beginPage(lAddress);
+            GroupObject *lKo = LogicChannel::getKoForChannel(IO_Input1, lChannel);
+            mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
+            lAddress += 4;
+            lKo = LogicChannel::getKoForChannel(IO_Input2, lChannel);
+            mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
+            lAddress += 4;
+            if (lAddress % 16 == 0)
+                mEEPROM->endPage();
+        }
+        mEEPROM->endPage();
+
+        // as a last step we write magic number back
+        // this is also the ACK, that writing was successfull
+        mEEPROM->endWriteSession();
     }
-    mLastWriteToEEPROM = millis();
-
-    // prepare initialization
-    mEEPROM->beginWriteSession();
-
-    //Begin write of KO values
-    uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32; // begin of KO value memory
-    // for (uint8_t i = 0; i < 10; i++)
-    for (uint8_t lChannel = 0; lChannel < mNumChannels; lChannel++)
-    {
-        mEEPROM->beginPage(lAddress);
-        GroupObject *lKo = LogicChannel::getKoForChannel(IO_Input1, lChannel);
-        mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
-        lAddress += 4;
-        lKo = LogicChannel::getKoForChannel(IO_Input2, lChannel);
-        mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
-        lAddress += 4;
-        if (lAddress % 16 == 0)
-            mEEPROM->endPage();
-    }
-    mEEPROM->endPage();
-
-    // as a last step we write magic number back
-    // this is also the ACK, that writing was successfull
-    mEEPROM->endWriteSession();
 #endif
 }
 
 uint8_t *Logic::writeAllInputsToFlash(uint8_t *iBuffer)
 {
-    if (knx.configured())
+    if (knx.configured() && !boardWithEEPROM())
     {
         println("Logic: Writing KOs to Flash");
         for (uint8_t lChannel = 0; lChannel < mNumChannels; lChannel++)
@@ -280,10 +298,11 @@ uint8_t *Logic::writeAllInputsToFlash(uint8_t *iBuffer)
 void Logic::writeAllInputsToEEPROMFacade() {
     uint32_t lTime = millis();
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    writeAllInputsToEEPROM(); 
-#else
-    knx.writeMemory();
+    if (boardWithEEPROM())
+        writeAllInputsToEEPROM();
 #endif
+    if (!boardWithEEPROM())
+        knx.writeMemory();
     lTime = millis() - lTime;
     print("WriteAllInputsToStorage took: ");
     println(lTime);
@@ -598,6 +617,9 @@ void Logic::setup(bool iSaveSupported) {
 #endif
     if (knx.configured())
     {
+        // check for hidden parameters
+        printDebug("Setting: Buzzer available: %d\n", (bool)(knx.paramByte(LOG_BuzzerInstalled) & LOG_BuzzerInstalledMask));
+        printDebug("Setting: RGBLed available: %d\n", (bool)(knx.paramByte(LOG_LedInstalled) & LOG_LedInstalledMask));
         // setup channels, not possible in constructor, because knx is not configured there
         // get number of channels from knxprod
         mNumChannels = knx.paramByte(LOG_NumChannels);
@@ -619,10 +641,12 @@ void Logic::setup(bool iSaveSupported) {
 #endif
         // we set just a callback if it is not set from a potential caller
         if (GroupObject::classCallback() == 0) GroupObject::classCallback(Logic::onInputKoHandler);
-        if (mEEPROM->isValid()) {
-            printDebug("EEPROM contains valid KO inputs\n");
-        } else {
-            printDebug("EEPROM does NOT contain valid data\n");
+        if (boardWithEEPROM()) 
+        {
+            if (mEEPROM->isValid())
+                printDebug("EEPROM contains valid KO inputs\n");
+            else
+                printDebug("EEPROM does NOT contain valid data\n");
         }
         // we store some input values in case of restart or ets programming
         if (knx.beforeRestartCallback() == 0) knx.beforeRestartCallback(onBeforeRestartHandler);

@@ -11,7 +11,7 @@
         <!-- Each increase of AppliationVersion FORCES the Enduser to update according firmware, too -->
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
-        <op:version OpenKnxId="0xA0" ApplicationNumber="49" ApplicationVersion="21" ReplacesVersions="14 19 20" ApplicationRevision="0" />
+        <op:version OpenKnxId="0xA0" ApplicationNumber="48" ApplicationVersion="1" ReplacesVersions="0" ApplicationRevision="0" />
         <ApplicationProgram Id="M-00FA_A-0001-01-0000" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
@@ -30,7 +30,6 @@
             <ParameterRefs>
               <!-- General -->
               <op:include href="Logikmodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
-              <op:include href="Logikmodul.parts.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
               <op:include href="Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" type="template" prefix="LOG" />
             </ParameterRefs>
             <ComObjectTable>
@@ -60,10 +59,10 @@
                 <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="%MemorySize%" Verify="true" AppliesTo="full,par" />
               </LoadProcedure>
               <LoadProcedure MergeId="7">
-                <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
-                <LdCtrlLoadImageProp ObjIdx="2" PropId="27" />
-                <LdCtrlLoadImageProp ObjIdx="3" PropId="27" />
-                <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="2" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="3" PropId="27" />
+                  <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
               </LoadProcedure>
             </LoadProcedures>
             <Options />

@@ -21,12 +21,6 @@
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-NumChannels" Name="NumChannels">
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="%N%" maxInclusive="%N%" />
               </ParameterType>
-              <!-- <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelaySeconds" Name="DelaySeconds">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="86400" />
-              </ParameterType> -->
-              <!-- <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelayDeziSeconds" Name="DelayDeziSeconds">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="864000" />
-              </ParameterType> -->
               <!-- Delay pattern -->
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-DelayBase" Name="DelayBase">
                 <TypeRestriction Base="Value" SizeInBit="2">
@@ -109,7 +103,7 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-GateTrigger" Name="GateTrigger">
-                <TypeRestriction Base="Value" SizeInBit="8">
+                <TypeRestriction Base="Value" SizeInBit="2">
                   <Enumeration Text="nichts gesendet" Value="0" Id="M-00FA_A-0001-01-0000_PT-GateTrigger_EN-0" />
                   <Enumeration Text="AUS gesendet" Value="1" Id="M-00FA_A-0001-01-0000_PT-GateTrigger_EN-1" />
                   <Enumeration Text="EIN gesendet" Value="2" Id="M-00FA_A-0001-01-0000_PT-GateTrigger_EN-2" />
@@ -861,12 +855,6 @@
               <Parameter Id="M-00FA_A-0001-01-0000_P-%T%000001" Name="NumChannels" ParameterType="M-00FA_A-0001-01-0000_PT-NumChannels" Text="Anzahl verfügbarer Logikkanäle" Access="None" Value="%N%">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="0" BitOffset="0" />
               </Parameter>
-              <!-- <Parameter Id="M-00FA_A-0001-01-0000_P-%T%000002" Name="StartupDelay" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="Zeit bis das Gerät nach einem Neustart aktiv wird" SuffixText="Sekunden" Value="10">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="1" BitOffset="0" />
-              </Parameter>
-              <Parameter Id="M-00FA_A-0001-01-0000_P-%T%000003" Name="Heartbeat" ParameterType="M-00FA_A-0001-01-0000_PT-DelaySeconds" Text="In Betrieb senden alle" SuffixText="Sekunden" Value="300">
-                <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="5" BitOffset="0" />
-              </Parameter> -->
               <!-- StartDelay and Heartbeat (delay pattern) -->
               <Union SizeInBit="32">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="1" BitOffset="0" />
@@ -878,9 +866,8 @@
               <Union SizeInBit="16">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="5" BitOffset="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000034" Name="ReadTimeDate" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="0" Text="Uhrzeit und Datum nach einem Neustart vom Bus lesen" Value="1" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000035" Name="BuzzerInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="1" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000035" Name="BuzzerInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000036" Name="LedInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="2" Text="Optischer Signalgeber vorhanden (RGB-LED)?" Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000037" Name="EepromInstalled" ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="0" BitOffset="3" Text="Zusätzliches EEPROM vorhanden?" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000138" Name="VacationKo" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="5" Text="Urlaubsbehandlung aktivieren?" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000139" Name="HolidayKo" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="6" Text="Feiertage auf dem Bus verfügbar machen?" Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000140" Name="VacationRead" ParameterType="M-00FA_A-0001-01-0000_PT-OnOffYesNo" Offset="0" BitOffset="7" Text="Nach Neustart Urlaubsinfo lesen?" Value="0" />
@@ -947,10 +934,9 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000004_R-%T%00000401" RefId="M-00FA_A-0001-01-0000_UP-%T%000004" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000005_R-%T%00000501" RefId="M-00FA_A-0001-01-0000_UP-%T%000005" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000034_R-%T%00003401" RefId="M-00FA_A-0001-01-0000_UP-%T%000034" />
-              <!-- Parameter 5-8 are enabled on generic page of target application -->
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501" RefId="M-00FA_A-0001-01-0000_UP-%T%000035" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601" RefId="M-00FA_A-0001-01-0000_UP-%T%000036" />
-              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000037_R-%T%00003701" RefId="M-00FA_A-0001-01-0000_UP-%T%000037" />
+              <!-- Parameter 3501 - 3601 - are enabled on generic page of target application -->
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003501" RefId="M-00FA_A-0001-01-0000_UP-%T%000035" Access="None" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000036_R-%T%00003601" RefId="M-00FA_A-0001-01-0000_UP-%T%000036" Access="None" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000152_R-%T%00015201" RefId="M-00FA_A-0001-01-0000_UP-%T%000152" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000110_R-%T%00011001" RefId="M-00FA_A-0001-01-0000_UP-%T%000110" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000111_R-%T%00011101" RefId="M-00FA_A-0001-01-0000_UP-%T%000111" />

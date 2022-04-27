@@ -4,25 +4,37 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build PlatformIO",
+            "label": "Build SAMD",
             "type": "shell",
             "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
-                "build"
+                "build_SAMD"
             ],
             "group": "build",
             "problemMatcher": []
         },
         {
-            "label": "Upload JLINK",
+            "label": "Build RP2040",
             "type": "shell",
             "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
-                "uploadJLINK",
+                "build_RP2040"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Upload JLINK SAMD",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "upload_JLINK_SAMD",
                 "--target",
                 "upload"
             ],
@@ -30,13 +42,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Upload ATMEL",
+            "label": "Upload JLINK RP2040",
             "type": "shell",
             "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
-                "uploadATMEL",
+                "upload_JLINK_RP2040",
                 "--target",
                 "upload"
             ],
@@ -44,13 +56,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Upload USB",
+            "label": "Upload USB SAMD",
             "type": "shell",
             "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
             "args": [
                 "run",
                 "-e",
-                "uploadUSB",
+                "upload_USB_SAMD",
                 "--target",
                 "upload"
             ],
@@ -58,7 +70,21 @@
             "problemMatcher": []
         },
         {
-            "label": "OpenKNXproducer-Develop",
+            "label": "Upload USB RP2040",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "upload_USB_RP2040",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "OpenKNXproducer",
             "type": "shell",
             "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
             "args": [
@@ -70,15 +96,10 @@
             "group": "test"
         },
         {
-            "label": "OpenKNXproducer-Release",
+            "label": "Buid-Release",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
-            "args": [
-                "create",
-                "--Debug",
-                "--OutputFile=src/LogicModule.knxprod",
-                "src/Logikmodul-Release"
-            ],
+            "command": "scripts/Build-Release.ps1 ",
+            "args": [],
             "problemMatcher": [],
             "group": "test"
         }
