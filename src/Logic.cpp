@@ -191,12 +191,12 @@ uint8_t *Logic::writeAllDptToEEPROM(uint8_t *iBuffer)
         if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
         {
             println("writeAllDptToEEPROM called repeatedly within 10 seconds, skipped!");
-            return;
+            return iBuffer;
         }
         else if (!knx.configured())
         {
             println("knx not configured, no KO data available");
-            return;
+            return iBuffer;
         }
         mLastWriteToEEPROM = millis();
 
@@ -206,9 +206,9 @@ uint8_t *Logic::writeAllDptToEEPROM(uint8_t *iBuffer)
         for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
         {
             mEEPROM->beginPage(lAddress);
-            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1);
+            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1, iBuffer);
             lAddress++;
-            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2);
+            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2, iBuffer);
             lAddress++;
             if (lAddress % 16 == 0)
                 mEEPROM->endPage();
@@ -229,8 +229,8 @@ uint8_t *Logic::writeAllDptToEEPROM(uint8_t *iBuffer)
             }
             printDebug("\n");
         }
-        return iBuffer;
     }
+    return iBuffer;
 }
 
 void Logic::writeAllInputsToEEPROM()
