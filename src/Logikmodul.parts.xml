@@ -65,6 +65,8 @@
               <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-2" Name="Hardware" Text="Logic: Hardware">
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Installierte Hardware" UIHint="Headline" />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-11" Text="Im folgenden wird die verwendete bzw. installierte Hardware angegeben." />
+                <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-12" Text="Die hier getroffenen Angaben beeinflussen das Verhalten der Applikation und der Firmware und müssen zur vorhandenen Hardware passen!" />
                 <!-- Buzzer installed? -->
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000035_R-%T%00003502" />
                 <!-- RGB-LED installed? -->
