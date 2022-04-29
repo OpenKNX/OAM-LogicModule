@@ -30,6 +30,7 @@
             <ParameterRefs>
               <!-- General -->
               <op:include href="Logikmodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
+              <op:include href="Logikmodul.parts.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
               <op:include href="Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" type="template" prefix="LOG" />
             </ParameterRefs>
             <ComObjectTable>
@@ -59,10 +60,10 @@
                 <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="%MemorySize%" Verify="true" AppliesTo="full,par" />
               </LoadProcedure>
               <LoadProcedure MergeId="7">
-                  <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
-                  <LdCtrlLoadImageProp ObjIdx="2" PropId="27" />
-                  <LdCtrlLoadImageProp ObjIdx="3" PropId="27" />
-                  <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
+                <LdCtrlLoadImageProp ObjIdx="1" PropId="27" />
+                <LdCtrlLoadImageProp ObjIdx="2" PropId="27" />
+                <LdCtrlLoadImageProp ObjIdx="3" PropId="27" />
+                <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
               </LoadProcedure>
             </LoadProcedures>
             <Options />

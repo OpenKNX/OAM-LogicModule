@@ -1800,14 +1800,14 @@ bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
         // first check, if EEPROM contains valid values
         if (lEEPROM->isValid())
             lResult = true;
+        // Now check, if the DPT for requested KO is valid
+        // DPT might have changed due to new programming after last save
+        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
         if (lResult)
         {
-            // Now check, if the DPT for requested KO is valid
-            // DPT might have changed due to new programming after last save
-            uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
             lEEPROM->prepareRead(lAddress, 1);
             uint8_t lSavedDpt = Wire.read();
-            lResult = checkDpt(iIOIndex, lSavedDpt));
+            lResult = checkDpt(iIOIndex, lSavedDpt);
         }
         // if the dpt is ok, we get the ko value
         if (lResult)

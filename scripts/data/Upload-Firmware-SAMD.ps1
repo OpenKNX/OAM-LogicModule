@@ -1,6 +1,7 @@
+$firmwareName = $args[0]
 $toolsExist = Test-Path -PathType Leaf ~/bin/bossac.exe
 if (!$toolsExist) {
-    ./Build-knxprod.ps1
+    ../Build-knxprod.ps1
 }
 
 if ($toolsExist) {
@@ -12,8 +13,8 @@ if ($toolsExist) {
                 $isCom = $device.Name -match "COM(\d{1,3})"
                 if($isCom)
                 {
-                    Write-Host Gefunden $port
                     $port = $Matches[0]
+                    Write-Host Gefunden $port
                     break
                 }
             }
@@ -25,7 +26,7 @@ if ($toolsExist) {
             $serial.Open()
             $serial.Close()
             Start-Sleep -s 1
-            ~/bin/bossac --info --write --verify --reset --erase data/firmware.bin
+            ~/bin/bossac --info --write --verify --reset --erase data/$firmwareName
         } else {
             Write-Host Kein Port gefunden!
         }
