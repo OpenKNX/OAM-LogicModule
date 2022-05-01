@@ -3,7 +3,7 @@
 #include "Helper.h"
 #include <ctime>
 
-sDay Timer::cHolidays[29] = {{1, 1}, {6, 1}, {-52, EASTER}, {-48, EASTER}, {-47, EASTER}, {-46, EASTER}, {-3, EASTER}, {-2, EASTER}, {0, EASTER}, {1, EASTER}, {1, 5}, {39, EASTER}, {49, EASTER}, {50, EASTER}, {60, EASTER}, {8, 8}, {15, 8}, {3, 10}, {31, 10}, {1, 11}, {-32, ADVENT}, {-21, ADVENT}, {-14, ADVENT}, {-7, ADVENT}, {0, ADVENT}, {24, 12}, {25, 12}, {26, 12}, {31, 12}};
+sDay Timer::cHolidays[cHolidaysCount] = {{1, 1}, {6, 1}, {-52, EASTER}, {-48, EASTER}, {-47, EASTER}, {-46, EASTER}, {8, 3}, {-3, EASTER}, {-2, EASTER}, {0, EASTER}, {1, EASTER}, {1, 5}, {39, EASTER}, {49, EASTER}, {50, EASTER}, {60, EASTER}, {8, 8}, {15, 8}, {3, 10}, {31, 10}, {1, 11}, {-32, ADVENT}, {-21, ADVENT}, {-14, ADVENT}, {-7, ADVENT}, {0, ADVENT}, {24, 12}, {25, 12}, {26, 12}, {31, 12}};
 
 Timer::Timer()
 {
@@ -32,7 +32,7 @@ void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iU
     mUseSummertime = iUseSummertime;
     mTimezone = iTimezone;
     // we delete all unnecessary holidays from holiday data
-    for (uint8_t i = 0; i < 29; i++)
+    for (uint8_t i = 0; i < cHolidaysCount; i++)
     {
         if ((iHolidayBitmask & 0x80000000) == 0)
             cHolidays[i].month = REMOVED;
@@ -323,7 +323,7 @@ void Timer::calculateHolidays(bool iDebugOutput) {
     sDay lTomorrow = getDayByOffset(1, lToday);
     uint8_t lHolidayToday = 0;
     uint8_t lHolidayTomorrow = 0;
-    for (uint8_t i = 0; i < 29; i++)
+    for (uint8_t i = 0; i < cHolidaysCount; i++)
     {
         sDay lHoliday = {REMOVED, REMOVED};
         switch (cHolidays[i].month)
