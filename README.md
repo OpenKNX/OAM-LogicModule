@@ -1,7 +1,7 @@
 OpenKNX - LogicModule
 ===
 
-Impelemtation of an 99 channel knx logic module based on the [knx stack](https://github.com/thelsing/knx) from thelsing.
+Implementation of a knx logic module with up to 99 logic channels based on the [knx stack](https://github.com/thelsing/knx) from thelsing.
 
 It supports the SAMD and RP2040 version of the stack.
 
