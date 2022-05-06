@@ -232,8 +232,9 @@ class LogicChannel
     void writeValue(uint32_t iValue, uint8_t iDpt);
     void setRGBColor(uint16_t iParamIndex);
     void setBuzzer(uint16_t iParamIndex);
-    
+
     bool isInputActive(uint8_t iIOIndex);
+    bool isInputValid(uint8_t iIOIndex);
 
     void startStartup();
     void processStartup();

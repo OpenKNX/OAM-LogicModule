@@ -822,5 +822,5 @@
 #define LOG_KoKOfO 2
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 48
-#define MAIN_ApplicationVersion 8
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 22

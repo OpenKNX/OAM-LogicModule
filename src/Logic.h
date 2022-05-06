@@ -3,9 +3,6 @@
 #include "Timer.h"
 #include "TimerRestore.h"
 
-#ifndef USERDATA_SAVE_SIZE
-#define USERDATA_SAVE_SIZE 1004 // size for KOs stored in flash, max 100 channels
-#endif
 #define USERDATA_MAGIC_OFFSET 0 // start of magic word in flash
 #define USERDATA_DPT_OFFSET 4   // start of DPT storage in flash
 #define USERDATA_KO_OFFSET 204  // start of KO values in flash (2 KO per channel, 4 Byte per KO)

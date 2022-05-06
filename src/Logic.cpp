@@ -436,7 +436,7 @@ void Logic::processInterrupt(bool iForce)
         // while (Wire.available())
         //     Wire.read();
         // now we write everything to EEPROM
-        writeAllInputsToEEPROM();
+        writeAllInputsToEEPROMFacade();
         printDebug("Logic: SAVE-Interrupt processing duration %lu ms\n", millis() - mSaveInterruptTimestamp);
         mSaveInterruptTimestamp = 0;
     }

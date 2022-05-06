@@ -634,6 +634,11 @@ bool LogicChannel::isInputActive(uint8_t iIOIndex)
     return (lIsActive > 0);
 }
 
+bool LogicChannel::isInputValid(uint8_t iIOIndex)
+{
+    return (pValidActiveIO & iIOIndex);
+}
+
 // channel startup delay
 void LogicChannel::startStartup()
 {
@@ -1822,9 +1827,9 @@ bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
         }
     }
 #endif
-    if (boardWithEEPROM())
+    if (!boardWithEEPROM())
     {
-        // if no eeprom available, we read from flash
+        // if no EEPROM available, we read from flash
         const uint8_t *lFlashBuffer = sLogic->getFlash();
         // first check, if EEPROM contains valid values
         if (lFlashBuffer != nullptr)
@@ -1833,7 +1838,7 @@ bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
         // DPT might have changed due to new programming after last save
         uint16_t lAddress = USERDATA_DPT_OFFSET + mChannelId * 2 + iIOIndex - 1;
         if (lResult)
-            lResult = !checkDpt(iIOIndex, lFlashBuffer[lAddress]);
+            lResult = checkDpt(iIOIndex, lFlashBuffer[lAddress]);
         // if the dpt is ok, we get the ko value
         if (lResult)
         {
@@ -1849,7 +1854,7 @@ bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
 uint8_t *LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer)
 {
     uint8_t lDpt = 0xFF;
-    if (isInputActive(iIOIndex))
+    if (isInputActive(iIOIndex) && isInputValid(iIOIndex))
     {
         // now get input default value
         uint8_t lParInput = getByteParam(iIOIndex == 1 ? LOG_fE1Default : LOG_fE2Default);
@@ -1866,14 +1871,14 @@ uint8_t *LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer
 #endif
     if (!boardWithEEPROM())
     {
-        // in cacse there is no EEPROM, we store all values to flash
+        // in case there is no EEPROM, we store all values to flash
         // printDebug("%02X ", lDpt);
         *iBuffer++ = lDpt;
     }
     return iBuffer;
 }
 
-// retutns true, if any DPT from EEPROM does not fit to according input DPT.
+// returns true, if any DPT from EEPROM does not fit to according input DPT.
 // in such a case the DPTs have to be written to EEPROM again
 bool LogicChannel::prepareChannel()
 {
@@ -1911,7 +1916,7 @@ bool LogicChannel::prepareChannel()
             }
             // now set input default value
             uint8_t lParInput = getByteParam(LOG_fE1Default);
-            // shoud default be fetched from EEPROM
+            // should default be fetched from EEPROM
             if (lParInput & VAL_InputDefault_EEPROM)
             {
                 lInput1EEPROM = readOneInputFromEEPROM(IO_Input1);
