@@ -110,7 +110,7 @@
             "group": "test"
         },
         {
-            "label": "Buid-Release",
+            "label": "Build-Release",
             "type": "shell",
             "command": "scripts/Build-Release.ps1 ",
             "args": [],
