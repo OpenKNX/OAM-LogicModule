@@ -3,7 +3,11 @@
 #include "Timer.h"
 #include "TimerRestore.h"
 
-// Watchdog reset causees
+#define USERDATA_MAGIC_OFFSET 0 // start of magic word in flash
+#define USERDATA_DPT_OFFSET 4   // start of DPT storage in flash
+#define USERDATA_KO_OFFSET 204  // start of KO values in flash (2 KO per channel, 4 Byte per KO)
+
+// Watchdog reset causes
 #define WDT_RCAUSE_SYSTEM 6   // reset by system itself
 #define WDT_RCAUSE_WDT 5      // reset by watchdog
 #define WDT_RCAUSE_EXT 4      // reset by reset signal
@@ -35,12 +39,15 @@ class Logic
     static char *initDiagnose(GroupObject &iKo);
     static char *getDiagnoseBuffer();
     static void addLoopCallback(loopCallback iLoopCallback, void *iThis);
+    static const uint8_t *onLoadFromFlashHandler(const uint8_t *iBuffer);
+    static uint8_t *onSaveToFlashHandler(uint8_t *iBuffer);
 
     // instance
     void addKoLookup(uint16_t iKoIndex, uint8_t iChannelId, uint8_t iIOIndex);
     bool getKoLookup(uint16_t iKoIndex, sKoLookup **iKoLookup = nullptr);
 
     EepromManager *getEEPROM();
+    const uint8_t *getFlash();
     void writeAllInputsToEEPROMFacade();
     void processAllInternalInputs(LogicChannel *iChannel, bool iValue);
     void processReadRequests();
@@ -72,17 +79,22 @@ class Logic
     uint32_t mLastWriteToEEPROM = 0;
     bool mIsValidEEPROM = false;
     EepromManager *mEEPROM;
+    const uint8_t *mFlashBuffer = nullptr; // Pointer to stored flash content
 
     LogicChannel *getChannel(uint8_t iChannelId);
     uint8_t getChannelId(LogicChannel *iChannel);
     bool prepareChannels();
 
-    void writeAllDptToEEPROM();
+    uint8_t *writeAllDptToEEPROM(uint8_t *iBuffer);
     void writeAllInputsToEEPROM();
+    uint8_t *writeAllInputsToFlash(uint8_t *iBuffer);
+    const uint8_t *loadFromFlash(const uint8_t *iBuffer);
+    uint8_t *saveToFlash(uint8_t *iBuffer);
+    void writeBufferToFlash();
 
     void onSavePinInterruptHandler();
-    void beforeRestartHandler();
-    void beforeTableUnloadHandler(TableObject &iTableObject, LoadState &iNewState);
+    // void beforeRestartHandler();
+    // void beforeTableUnloadHandler(TableObject &iTableObject, LoadState &iNewState);
     void processDiagnoseCommand(GroupObject &iKo);
 
     void processTime();

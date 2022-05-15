@@ -26,7 +26,7 @@ LogicChannel::LogicChannel(uint8_t iChannelNumber)
     pValidActiveIO = 0;
     pTriggerIO = 0;
     pCurrentIn = 0;
-    pCurrentOut = 0;
+    pCurrentOut = BIT_OUTPUT_INITIAL; // tri-state output, at the beginning we are undefined
 }
 
 LogicChannel::~LogicChannel()
@@ -634,6 +634,11 @@ bool LogicChannel::isInputActive(uint8_t iIOIndex)
     return (lIsActive > 0);
 }
 
+bool LogicChannel::isInputValid(uint8_t iIOIndex)
+{
+    return (pValidActiveIO & iIOIndex);
+}
+
 // channel startup delay
 void LogicChannel::startStartup()
 {
@@ -969,7 +974,8 @@ void LogicChannel::processLogic()
     uint8_t lValidInputs = pValidActiveIO & BIT_INPUT_MASK;
     uint8_t lActiveInputs = (pValidActiveIO >> 4) & BIT_INPUT_MASK;
     uint8_t lCurrentInputs = pCurrentIn & lValidInputs;
-    bool lCurrentOuput = (pCurrentOut & BIT_OUTPUT_LOGIC);
+    bool lCurrentOutput = (pCurrentOut & BIT_OUTPUT_LOGIC);
+    bool lInitialOutput = (pCurrentOut & BIT_OUTPUT_INITIAL);
     bool lNewOutput = false;
     bool lValidOutput = false;
 #if LOGIC_TRACE
@@ -1034,37 +1040,41 @@ void LogicChannel::processLogic()
                         lPreviousGate = pCurrentIn & BIT_PREVIOUS_GATE;
                         // set previous gate state for next roundtrip
                         pCurrentIn &= ~BIT_PREVIOUS_GATE;
-                        if (lGate)
+                        // in case gate is closed again immediately we do not store the open state for next roundtrip...
+                        bool lIsTriggeredGate = (getByteParam(LOG_fTGate) & LOG_fTGateMask);
+                        if (lGate && !lIsTriggeredGate)
                             pCurrentIn |= BIT_PREVIOUS_GATE;
+                        // ... and we delete the gate input
+                        if (lIsTriggeredGate)
+                            pCurrentIn &= ~(BIT_EXT_INPUT_2 | BIT_INT_INPUT_2);
                     }
                     uint8_t lGateState = 2 * lPreviousGate + lGate;
-                    uint8_t lGateTrigger = 0;
+                    uint8_t lOnGateTrigger = 0xFF;
                     switch (lGateState)
                     {
                         case VAL_Gate_Closed_Open: // was closed and opens now
-                            lGateTrigger = LOG_fTriggerGateOpen;
+                            lOnGateTrigger = (getByteParam(LOG_fTriggerGateOpen) & LOG_fTriggerGateOpenMask) >> LOG_fTriggerGateOpenShift;
                         case VAL_Gate_Open_Close: // was open and closes now
+                        {
+                            if (lOnGateTrigger == 0xFF)
+                                lOnGateTrigger = (getByteParam(LOG_fTriggerGateClose) & LOG_fTriggerGateCloseMask) >> LOG_fTriggerGateCloseShift;
+                            lValidOutput = true;
+                            switch (lOnGateTrigger)
                             {
-                                if (lGateTrigger == 0)
-                                    lGateTrigger = LOG_fTriggerGateClose;
-                                uint8_t lOnGateTrigger = getByteParam(lGateTrigger) & 3;
-                                lValidOutput = true;
-                                switch (lOnGateTrigger)
-                                {
-                                    case VAL_Gate_Send_Off:
-                                        lNewOutput = false;
-                                        break;
-                                    case VAL_Gate_Send_On:
-                                        lNewOutput = true;
-                                        break;
-                                    case VAL_Gate_Send_Input:
-                                        lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
-                                        break;
-                                    default: // same as VAL_Gate_Send_Nothing
-                                        lValidOutput = false;
-                                        break;
-                                }
+                                case VAL_Gate_Send_Off:
+                                    lNewOutput = false;
+                                    break;
+                                case VAL_Gate_Send_On:
+                                    lNewOutput = true;
+                                    break;
+                                case VAL_Gate_Send_Input:
+                                    lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
+                                    break;
+                                default: // same as VAL_Gate_Send_Nothing
+                                    lValidOutput = false;
+                                    break;
                             }
+                        }
                             break;
                         case VAL_Gate_Open_Open: // was open and stays open
                             lNewOutput = (lCurrentInputs & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1));
@@ -1102,7 +1112,7 @@ void LogicChannel::processLogic()
             lTrigger &= BIT_INPUT_MASK;
             if (lHandleFirstProcessing == 0)
                 pCurrentIn |= BIT_FIRST_PROCESSING;
-            if ((lTrigger == 0 && lNewOutput != lCurrentOuput) ||                         /* Just Changes  */
+            if ((lTrigger == 0 && (lNewOutput != lCurrentOutput || lInitialOutput)) ||     /* Just Changes  */
                 (lTrigger & pTriggerIO) > 0 ||                                            /* each telegram on specific input */
                 (lHandleFirstProcessing > 0 && (pCurrentIn & BIT_FIRST_PROCESSING) == 0)) /* first processing */
             {
@@ -1130,7 +1140,7 @@ void LogicChannel::processLogic()
                 lDebugValid = true;
                 if (debugFilter())
                 {
-                    if (lTrigger == 0 && lNewOutput == lCurrentOuput) { 
+                    if (lTrigger == 0 && lNewOutput == lCurrentOutput) { 
                         channelDebug("endedLogic: No execution, Logic %s, Value %i (Value not changed)\n", lDebugLogic, lNewOutput);
                     }
                     else if ((lTrigger & pTriggerIO) == 0) {
@@ -1479,7 +1489,8 @@ void LogicChannel::processOffDelay()
 void LogicChannel::startOutputFilter(bool iOutput)
 {
     uint8_t lAllow = (getByteParam(LOG_fOOutputFilter) & LOG_fOOutputFilterMask) >> LOG_fOOutputFilterShift;
-    bool lLastOutput = (pCurrentOut & BIT_OUTPUT_PREVIOUS) > 0;
+    bool lLastOutput = (pCurrentOut & BIT_OUTPUT_PREVIOUS);
+    bool lInitialOutput = (pCurrentOut & BIT_OUTPUT_INITIAL);
     bool lContinue = false;
     switch (lAllow)
     {
@@ -1487,20 +1498,20 @@ void LogicChannel::startOutputFilter(bool iOutput)
             lContinue = true;
             break;
         case VAL_AllowRepeat_On:
-            lContinue = (iOutput || iOutput != lLastOutput);
+            lContinue = (iOutput || iOutput != lLastOutput || lInitialOutput);
             break;
         case VAL_AllowRepeat_Off:
-            lContinue = (!iOutput || iOutput != lLastOutput);
+            lContinue = (!iOutput || iOutput != lLastOutput || lInitialOutput);
             break;
         default: // VAL_AlloRepeat_None
-            lContinue = (iOutput != lLastOutput);
+            lContinue = (iOutput != lLastOutput || lInitialOutput);
             break;
     }
     if (lContinue)
     {
         pCurrentPipeline &= ~(PIP_OUTPUT_FILTER_OFF | PIP_OUTPUT_FILTER_ON);
         pCurrentPipeline |= iOutput ? PIP_OUTPUT_FILTER_ON : PIP_OUTPUT_FILTER_OFF;
-        pCurrentOut &= ~BIT_OUTPUT_PREVIOUS;
+        pCurrentOut &= ~(BIT_OUTPUT_PREVIOUS | BIT_OUTPUT_INITIAL); // output is not initial anymore
         if (iOutput)
             pCurrentOut |= BIT_OUTPUT_PREVIOUS;
     }
@@ -1786,37 +1797,64 @@ bool LogicChannel::checkDpt(uint8_t iIOIndex, uint8_t iDpt)
 
 bool LogicChannel::readOneInputFromEEPROM(uint8_t iIOIndex)
 {
+    bool lResult = false;
 #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    EepromManager *lEEPROM = sLogic->getEEPROM();
-    // first check, if EEPROM contains valid values
-    if (!lEEPROM->isValid())
-        return false;
-    // Now check, if the DPT for requested KO is valid
-    // DPT might have changed due to new programming after last save
-    uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
-    lEEPROM->prepareRead(lAddress, 1);
-    uint8_t lSavedDpt = Wire.read();
-    if (!checkDpt(iIOIndex, lSavedDpt))
-        return false;
 
-    // if the dpt is ok, we get the ko value
-    lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32 + mChannelId * 8 + (iIOIndex - 1) * 4;
-    GroupObject *lKo = getKo(iIOIndex);
-    lEEPROM->prepareRead(lAddress, lKo->valueSize());
-    int lIndex = 0;
-    while (Wire.available() && lIndex < 4)
-        lKo->valueRef()[lIndex++] = Wire.read();
-    return true;
-#else
-    return false;
+    if (boardWithEEPROM())
+    {
+        EepromManager *lEEPROM = sLogic->getEEPROM();
+        // first check, if EEPROM contains valid values
+        if (lEEPROM->isValid())
+            lResult = true;
+        // Now check, if the DPT for requested KO is valid
+        // DPT might have changed due to new programming after last save
+        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32 + mChannelId * 2 + iIOIndex - 1;
+        if (lResult)
+        {
+            lEEPROM->prepareRead(lAddress, 1);
+            uint8_t lSavedDpt = Wire.read();
+            lResult = checkDpt(iIOIndex, lSavedDpt);
+        }
+        // if the dpt is ok, we get the ko value
+        if (lResult)
+        {
+            lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32 + mChannelId * 8 + (iIOIndex - 1) * 4;
+            GroupObject *lKo = getKo(iIOIndex);
+            lEEPROM->prepareRead(lAddress, lKo->valueSize());
+            int lIndex = 0;
+            while (Wire.available() && lIndex < 4)
+                lKo->valueRef()[lIndex++] = Wire.read();
+        }
+    }
 #endif
+    if (!boardWithEEPROM())
+    {
+        // if no EEPROM available, we read from flash
+        const uint8_t *lFlashBuffer = sLogic->getFlash();
+        // first check, if EEPROM contains valid values
+        if (lFlashBuffer != nullptr)
+            lResult = true;
+        // Now check, if the DPT for requested KO is valid
+        // DPT might have changed due to new programming after last save
+        uint16_t lAddress = USERDATA_DPT_OFFSET + mChannelId * 2 + iIOIndex - 1;
+        if (lResult)
+            lResult = checkDpt(iIOIndex, lFlashBuffer[lAddress]);
+        // if the dpt is ok, we get the ko value
+        if (lResult)
+        {
+            lAddress = USERDATA_KO_OFFSET + mChannelId * 8 + (iIOIndex - 1) * 4;
+            GroupObject *lKo = getKo(iIOIndex);
+            for (uint8_t lIndex = 0; lIndex < lKo->valueSize(); lIndex++)
+                lKo->valueRef()[lIndex] = lFlashBuffer[lAddress + lIndex];
+        }
+    }
+    return lResult;
 }
 
-void LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex)
+uint8_t *LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer)
 {
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
     uint8_t lDpt = 0xFF;
-    if (isInputActive(iIOIndex))
+    if (isInputActive(iIOIndex) && isInputValid(iIOIndex))
     {
         // now get input default value
         uint8_t lParInput = getByteParam(iIOIndex == 1 ? LOG_fE1Default : LOG_fE2Default);
@@ -1826,11 +1864,21 @@ void LogicChannel::writeSingleDptToEEPROM(uint8_t iIOIndex)
             lDpt = getByteParam(iIOIndex == 1 ? LOG_fE1Dpt : LOG_fE2Dpt);
         }
     }
-    Wire.write(lDpt);
+
+#ifdef I2C_EEPROM_DEVICE_ADDRESSS
+    if (boardWithEEPROM())
+        Wire.write(lDpt);
 #endif
+    if (!boardWithEEPROM())
+    {
+        // in case there is no EEPROM, we store all values to flash
+        // printDebug("%02X ", lDpt);
+        *iBuffer++ = lDpt;
+    }
+    return iBuffer;
 }
 
-// retutns true, if any DPT from EEPROM does not fit to according input DPT.
+// returns true, if any DPT from EEPROM does not fit to according input DPT.
 // in such a case the DPTs have to be written to EEPROM again
 bool LogicChannel::prepareChannel()
 {
@@ -1868,7 +1916,7 @@ bool LogicChannel::prepareChannel()
             }
             // now set input default value
             uint8_t lParInput = getByteParam(LOG_fE1Default);
-            // shoud default be fetched from EEPROM
+            // should default be fetched from EEPROM
             if (lParInput & VAL_InputDefault_EEPROM)
             {
                 lInput1EEPROM = readOneInputFromEEPROM(IO_Input1);

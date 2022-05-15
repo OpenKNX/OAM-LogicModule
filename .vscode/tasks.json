@@ -84,6 +84,20 @@
             "problemMatcher": []
         },
         {
+            "label": "Upload ENDUSER",
+            "type": "shell",
+            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "args": [
+                "run",
+                "-e",
+                "upload_enduser",
+                "--target",
+                "upload"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
             "label": "OpenKNXproducer",
             "type": "shell",
             "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
@@ -96,7 +110,7 @@
             "group": "test"
         },
         {
-            "label": "Buid-Release",
+            "label": "Build-Release",
             "type": "shell",
             "command": "scripts/Build-Release.ps1 ",
             "args": [],

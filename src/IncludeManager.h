@@ -21,8 +21,12 @@
 #ifdef ENOCEANGATEWAY
 #pragma message "Building Logic for ENOCEANGATEWAY"
 #include "../../OAM-EnoceanGateway/src/EnoceanGateway.h"
-// #elif TEST
+#endif
+#ifdef GARDENCONTROL
+#pragma message "Building Logic for GARDENCONTROL"
+#include "../../BEM-GardenControl/src/GardenControl.h"
+#endif
+// #ifdef TEST
 // #include "../../knx-test/src/Test.h"
 // #pragma message "Building Logic for TEST"
-#endif
-
+// #endif
