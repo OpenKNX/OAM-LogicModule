@@ -34,7 +34,7 @@ LogicChannel::~LogicChannel()
 }
 
 /******************************
- * Debig helper
+ * Debug helper
  * ***************************/
 
 #if LOGIC_TRACE
@@ -200,7 +200,7 @@ GroupObject *LogicChannel::getKo(uint8_t iIOIndex)
     bool lUseExternal = lExternalAccess & 0x8000;    // LOG_fE1UseOtherKOMask; // mask is for both inputs identical
     if (lUseExternal)
     {
-        uint16_t lKoNumber = lExternalAccess & 0x3FFF; // mask ist for both inputs indentical
+        uint16_t lKoNumber = lExternalAccess & 0x3FFF; // mask ist for both inputs identical
         lKo = &knx.getGroupObject(lKoNumber);
     }
     if (lKo == nullptr)
@@ -389,7 +389,7 @@ int32_t LogicChannel::getParamForDelta(uint8_t iDpt, uint16_t iParamIndex)
 }
 
 // we get here numeric params by their DPT
-// DPT1,2,5,6,7,8,17,232 => straight forward int vaues
+// DPT1,2,5,6,7,8,17,232 => straight forward int values
 // DPT2,17 => straight forward byte values
 // DPT5001 => scale down to [0..100]
 // DPT9 => transport as 1/100, means take int(float * 100)
@@ -723,7 +723,7 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
     // 1. There is one single read on startup and this read was executed (is solved in processRepeatInputX())
     // 2. There is one single read on startup, the read was not yet executed (channel is not running) but
     //    nevertheless the telegram was received (i.E. through an other read of a running channel)
-    // 3. There is a continious read with condition "until telegram received"
+    // 3. There is a continuous read with condition "until telegram received"
     uint16_t lRepeatInputBit;
     uint32_t lRepeatTime;
     bool lJustOneTelegram;
@@ -830,7 +830,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
             // there might be 4 possible "Zwangsführung" values to check
             if (lUpperBound == 0)
                 lUpperBound = 4; // we start with 2
-            // scenes or zwngsführung have no intervals, but multiple single values
+            // scenes or Zwangsführung have no intervals, but multiple single values
             for (size_t lScene = 0; lScene < lUpperBound && lValueOut == 0; lScene++)
             {
                 uint8_t lValue = getByteParam(lParamLow + lScene);
@@ -880,7 +880,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_Hysterese:
-                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in hysterese inbervall
+                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
                 if (lValue1In <= getParamByDpt(lDpt, lParamLow + 0))
                     lValueOut = false;
                 if (lValue1In >= getParamByDpt(lDpt, lParamLow + 4))
@@ -893,7 +893,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_DeltaHysterese:
-                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in hysterese inbervall
+                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
                 if (lValue1In - lValue2In <= getParamForDelta(lDpt, lParamLow + 0))
                     lValueOut = false;
                 if (lValue1In - lValue2In >= getParamForDelta(lDpt, lParamLow + 4))
@@ -1010,7 +1010,7 @@ void LogicChannel::processLogic()
 #endif
                 break;
             case VAL_Logic_ExOr:
-                // EXOR handles invalid inputs as non existig
+                // EXOR handles invalid inputs as non existing
                 // count valid bits in input mask
                 for (size_t lBit = 1; lBit < BIT_INPUT_MASK; lBit <<= 1)
                     lOnes += (lCurrentInputs & lBit) > 0;
@@ -1181,7 +1181,7 @@ void LogicChannel::startStairlight(bool iOutput)
             bool lRetrigger = getByteParam(LOG_fORetrigger) & LOG_fORetriggerMask;
             if ((pCurrentPipeline & PIP_STAIRLIGHT) == 0 || lRetrigger)
             {
-                // stairlight is not running or may be retriggered
+                // stairlight is not running or may be re-triggered
                 // we init the stairlight timer
 #if LOGIC_TRACE
                 if (debugFilter()) 
@@ -1299,7 +1299,7 @@ void LogicChannel::processBlink()
     }
 }
 
-// delays the on signal by defined druation
+// delays the on signal by defined duration
 void LogicChannel::startOnDelay()
 {
     // if on delay is already running, there are options:
@@ -1334,7 +1334,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Sencond ON, turn on immediately\n");
+                    channelDebug("startOnDelay: Second ON, turn on immediately\n");
                 }
 #endif
                 break;
@@ -1343,7 +1343,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Sencond ON, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOn) / 10.0);
+                    channelDebug("startOnDelay: Second ON, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOn) / 10.0);
                 }
 #endif
                 break;
@@ -1351,7 +1351,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Sencond ON, simply continue, remaining %li\n", millis() - pOnDelay);
+                    channelDebug("startOnDelay: Second ON, simply continue, remaining %li\n", millis() - pOnDelay);
                 }
 #endif
                 break;
@@ -1393,7 +1393,7 @@ void LogicChannel::processOnDelay()
     }
 }
 
-// delays the off signal by defined druation
+// delays the off signal by defined duration
 void LogicChannel::startOffDelay()
 {
     // if off delay is already running, there are options:
@@ -1426,7 +1426,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Sencond OFF, turn off immediately\n");
+                    channelDebug("startOffDelay: Second OFF, turn off immediately\n");
                 }
 #endif
                 break;
@@ -1435,7 +1435,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Sencond OFF, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOff) / 10.0);
+                    channelDebug("startOffDelay: Second OFF, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOff) / 10.0);
                 }
 #endif
                 break;
@@ -1443,7 +1443,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Sencond OFF, simply continue, remaining %li\n", millis() - pOffDelay);
+                    channelDebug("startOffDelay: Second OFF, simply continue, remaining %li\n", millis() - pOffDelay);
                 }
 #endif
                 break;
@@ -1532,7 +1532,7 @@ void LogicChannel::processOutputFilter()
 // starts On-Off-Repeat
 void LogicChannel::startOnOffRepeat(bool iOutput)
 {
-    // with repeat, we first process the ouptut and then we repeat the signal
+    // with repeat, we first process the output and then we repeat the signal
     // if repeat is already active, we wait until next cycle
     if (iOutput)
     {
@@ -1968,7 +1968,7 @@ bool LogicChannel::prepareChannel()
                 pCurrentPipeline |= PIP_REPEAT_INPUT2;
             }
             uint8_t lParInput = getByteParam(LOG_fE2Default);
-            // shoud default be fetched from EEPROM
+            // should default be fetched from EEPROM
             if (lParInput & VAL_InputDefault_EEPROM)
             {
                 lInput2EEPROM = readOneInputFromEEPROM(IO_Input2);
@@ -2322,7 +2322,7 @@ bool LogicChannel::checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimer
 // implementing timer startup, especially rerun of missed timers (called timer restore state)
 void LogicChannel::startTimerRestoreState()
 {
-    // check if current logik channel is a timer channel
+    // check if current logic channel is a timer channel
     uint8_t lLogicFunction = (getByteParam(LOG_fDisable) & LOG_fDisableMask) ? 0 : getByteParam(LOG_fLogic);
     if (lLogicFunction == VAL_Logic_Timer)
     {
@@ -2406,7 +2406,7 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
                 int16_t lCurrentResult = -1;
 
                 // at this point we know, that this timer is valid for this day
-                // now we get the right swith time for that day
+                // now we get the right switch time for that day
                     
                 switch (lTimerFunction)
                 {

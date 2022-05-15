@@ -128,7 +128,9 @@ bool Logic::prepareChannels() {
     bool lResult = false;
     for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
     {
-        lResult = lResult || mChannel[lIndex]->prepareChannel();
+        // Important: lResult has to be the last argument in this OR, 
+        // otherwise prepareChannel might be not called
+        lResult = mChannel[lIndex]->prepareChannel() || lResult;
     }
     return lResult;
 }
@@ -173,8 +175,8 @@ void Logic::processReadRequests() {
 }
 // EEPROM handling
 // We assume at max 128 channels, each channel 2 inputs, each input max 4 bytes (value) and 1 byte (DPT) = 128 * 2 * (4 + 1) = 1280 bytes to write
-// So we use 40 Pages for data and one (first) page for aditional information (metadata).
-// The DPT list is written startig with page 1 (address 32 = 0x20). It is written at device startup and is not timing critical.
+// So we use 40 Pages for data and one (first) page for additional information (metadata).
+// The DPT list is written starting with page 1 (address 32 = 0x20). It is written at device startup and is not timing critical.
 // We have 256 Bytes in 16 x 16 byte blocks (8 pages), takes 16 * 5 ms = 80 ms, just at startup time and just if necessary.
 // Writing data itself is timing critical during power failure.
 // At first, magic word at address 12 = 0x0C is deleted (5 ms).
@@ -565,30 +567,6 @@ void Logic::onSavePinInterruptHandler() {
     mSaveInterruptCount += 1;
     mSaveInterruptTimestamp = millis();
 }
-
-// void Logic::beforeRestartHandler()
-// {
-//     printDebug("logic before Restart called\n");
-// #ifdef I2C_EEPROM_DEVICE_ADDRESSS
-//     writeAllInputsToEEPROMFacade();
-// #endif
-// }
-
-// void Logic::beforeTableUnloadHandler(TableObject & iTableObject, LoadState & iNewState)
-// {
-//     static uint32_t sLastCalled = 0;
-//     printDebug("Table changed called with state %d\n", iNewState);
-
-//     if (iNewState == 0)
-//     {
-//         printDebug("Table unload called\n");
-//         if (sLastCalled == 0 || delayCheck(sLastCalled, 10000))
-//         {
-//             writeAllInputsToEEPROMFacade();
-//             sLastCalled = millis();
-//         }
-//     }
-// }
 
 void Logic::debug() {
     printDebug("Logik-LOG_ChannelsFirmware (in Firmware): %d\n", LOG_ChannelsFirmware);
