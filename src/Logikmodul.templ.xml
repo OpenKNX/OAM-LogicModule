@@ -454,12 +454,10 @@
     </Union>
     <Union SizeInBit="32">
       <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="82" BitOffset="0" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%377" Name="f%C%E1UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput" Offset="0" BitOffset="0" Text="Kommunikationsobjekt für Eingang 1" Value="0" />
-      <!-- 3 Bit frei -->
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%378" Name="f%C%E1OtherKO"    ParameterType="M-00FA_A-0001-01-0000_PT-KONumber"   Offset="0" BitOffset="4" Text="    Nummer des Kommunikationsobjekts" Value="%K0%" />
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%379" Name="f%C%E2UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput" Offset="2" BitOffset="0" Text="Kommunikationsobjekt für Eingang 2" Value="0" />
-      <!-- 3 Bit frei -->
-      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%380" Name="f%C%E2OtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KONumber" Offset="2" BitOffset="4" Text="    Nummer des Kommunikationsobjekts" Value="%K1%" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%377" Name="f%C%E1UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput"  Offset="0" BitOffset="0" Text="Kommunikationsobjekt für Eingang 1"   Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%378" Name="f%C%E1OtherKO"    ParameterType="M-00FA_A-0001-01-0000_PT-KONumber" Offset="0" BitOffset="1" Text="    Nummer des Kommunikationsobjekts" Value="%K0%" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%379" Name="f%C%E2UseOtherKO" ParameterType="M-00FA_A-0001-01-0000_PT-KOInput"  Offset="2" BitOffset="0" Text="Kommunikationsobjekt für Eingang 2"   Value="0" />
+      <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%%CCC%380" Name="f%C%E2OtherKO"    ParameterType="M-00FA_A-0001-01-0000_PT-KONumber" Offset="2" BitOffset="1" Text="    Nummer des Kommunikationsobjekts" Value="%K1%" />
     </Union>
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%128" Name="f%C%NameInput1" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 1" Value="" />
     <Parameter Id="M-00FA_A-0001-01-0000_P-%T%%CCC%129" Name="f%C%NameInput2" ParameterType="M-00FA_A-0001-01-0000_PT-Text40Byte" Text="Beschreibung Eingang 2" Value="" />

@@ -19,8 +19,9 @@ struct sLoopCallbackParams {
     void *instance;
 };
 
-struct sKoLookup {
-    uint16_t koIndex;
+struct sKoLookup
+{
+    uint16_t koNumber;
     uint8_t channelIndex;
     uint8_t ioIndex;
 };
@@ -43,8 +44,8 @@ class Logic
     static uint8_t *onSaveToFlashHandler(uint8_t *iBuffer);
 
     // instance
-    void addKoLookup(uint16_t iKoIndex, uint8_t iChannelId, uint8_t iIOIndex);
-    bool getKoLookup(uint16_t iKoIndex, sKoLookup **iKoLookup = nullptr);
+    void addKoLookup(uint16_t iKoNumber, uint8_t iChannelId, uint8_t iIOIndex);
+    bool getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup = nullptr);
 
     EepromManager *getEEPROM();
     const uint8_t *getFlash();
@@ -73,7 +74,8 @@ class Logic
     uint16_t mSaveInterruptCount = 0;
 
     // we need a lookup for external KO
-    sKoLookup mKoLookup[LOG_ChannelsFirmware * 3]; // max 3*4*100 = 1200 Byte, too much?
+    static const uint16_t cCountKoLookups = LOG_ChannelsFirmware * 3;
+    sKoLookup mKoLookup[cCountKoLookups]; // max 3*4*100 = 1200 Byte, too much?
     uint16_t mNumKoLookups = 0;
 
     uint32_t mLastWriteToEEPROM = 0;

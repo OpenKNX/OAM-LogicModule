@@ -93,25 +93,26 @@ uint8_t Logic::getChannelId(LogicChannel *iChannel) {
     return lResult;
 }
 
-void Logic::addKoLookup(uint16_t iKoIndex, uint8_t iChannelId, uint8_t iIOIndex) 
+void Logic::addKoLookup(uint16_t iKoNumber, uint8_t iChannelId, uint8_t iIOIndex) 
 {
     // first implementation, in future we use sorted insert
-    mKoLookup[mNumKoLookups].koIndex = iKoIndex;
+    mKoLookup[mNumKoLookups].koNumber = iKoNumber;
     mKoLookup[mNumKoLookups].channelIndex = iChannelId;
     mKoLookup[mNumKoLookups].ioIndex = iIOIndex;
-    mNumKoLookups++;
+    if (mNumKoLookups < cCountKoLookups)
+        mNumKoLookups++;
 }
 
-bool Logic::getKoLookup(uint16_t iKoIndex, sKoLookup **iKoLookup) 
+bool Logic::getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup) 
 {
     sKoLookup *lIterator = *iKoLookup;
     if (*iKoLookup == 0)
         lIterator = &mKoLookup[0];
     else
         lIterator++;
-    while (lIterator->koIndex > 0)
+    while (lIterator->koNumber > 0)
     {
-        if (lIterator->koIndex == iKoIndex)
+        if (lIterator->koNumber == iKoNumber)
         {
             *iKoLookup = lIterator;
             return true;
