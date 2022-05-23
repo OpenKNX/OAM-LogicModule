@@ -50,6 +50,12 @@
                   <Enumeration Text="Ja" Value="1" Id="M-00FA_A-0001-01-0000_PT-OnOffYesNo_EN-1" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="M-00FA_A-0001-01-0000_PT-OnOffYesNoInverted" Name="OnOffYesNoInverted">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Nein" Value="1" Id="M-00FA_A-0001-01-0000_PT-OnOffYesNoInverted_EN-1" />
+                  <Enumeration Text="Ja" Value="0" Id="M-00FA_A-0001-01-0000_PT-OnOffYesNoInverted_EN-0" />
+                </TypeRestriction>
+              </ParameterType>
               <!-- buzzer frequencies in Hz -->
               <ParameterType Id="M-00FA_A-0001-01-0000_PT-BuzzerFrequency" Name="BuzzerFrequency">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="1500" maxInclusive="6000" />
