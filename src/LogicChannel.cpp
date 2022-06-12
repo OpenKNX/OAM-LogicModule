@@ -765,10 +765,13 @@ bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32
     bool lValueOut = false;
     uint8_t lValueSize = 1;
     uint8_t lNumValues = 1;
+    bool lValid = getByteParam(iParamValues + 7); // validity array
+
     switch (iDpt)
     {
         case VAL_DPT_2:
             lNumValues = 4;
+            lValid = 0xFF;
             break;
         case VAL_DPT_5:
         case VAL_DPT_5001:
@@ -782,14 +785,19 @@ bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32
             break;
         case VAL_DPT_17:
             lNumValues = 8;
+            lValid = 0xFF;
             break;
         default:
             break;
     }
-    for (size_t lIndex = 0; lIndex < lNumValues && !lValueOut; lIndex++)
+    for (uint8_t lIndex = 0, lShift = 0x80; lIndex < lNumValues && !lValueOut; lIndex++, lShift >>= 1)
     {
-        int32_t lValue = getParamByDpt(iDpt, iParamValues + lIndex * lValueSize);
-        lValueOut = (iValue == lValue);
+        if (lValid & lShift) 
+        {
+            // we check just valid values
+            int32_t lValue = getParamByDpt(iDpt, iParamValues + lIndex * lValueSize);
+            lValueOut = (iValue == lValue);
+        }
     }
     return lValueOut;
 }
