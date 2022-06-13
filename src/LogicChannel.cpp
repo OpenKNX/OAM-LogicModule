@@ -765,7 +765,7 @@ bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32
     bool lValueOut = false;
     uint8_t lValueSize = 1;
     uint8_t lNumValues = 1;
-    bool lValid = getByteParam(iParamValues + 7); // validity array
+    uint8_t lValid = getByteParam(iParamValues + 7); // validity array
 
     switch (iDpt)
     {
