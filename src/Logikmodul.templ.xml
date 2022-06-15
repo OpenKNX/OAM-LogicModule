@@ -1213,7 +1213,11 @@
                             <when test="4">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Einzelwerte liefern EIN, wenn Eingang 1 gleich einem der angegebenen Einzelwerte ist. Sie liefern AUS, wenn Eingang 1 keinem der angegebenen Werte gleicht." />
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Eingang 1 IN (Wert1, Wert2, ..., WertN); AUS sonst" />
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Es werden nur die Zeilen ausgewertet, die auch einen Haken gesetzt haben." />
+                              <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%009_R-%T%%CCC%00901">
+                                <when test="2 3 4 5 6">
+                                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Es werden nur die Zeilen ausgewertet, die auch einen Haken gesetzt haben." />
+                                </when>
+                              </choose>
                             </when>
                             <when test="5">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die konstante Belegung ist für Formeln gedacht. Das Eingangs-KO ist nicht aktiv, es wird der hier angegebene Wert für dieses KO angenommen. Der Wert für die Logik ist immer EIN." />
@@ -1257,8 +1261,8 @@
                                   <ComObjectRefRef RefId="M-00FA_A-0001-01-0000_O-%T%%CCC%000_R-%T%%CCC%00003" />
                                 </when>
                               </choose>
-                          </when>
-                          <when test="0">
+                            </when>
+                            <when test="0">
                               <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%011_R-%T%%CCC%01101" />
                               <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%%CCC%012_R-%T%%CCC%01201" />
                             </when>
@@ -1866,7 +1870,11 @@
                             <when test="4">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die Einzelwerte liefern EIN, wenn Eingang 2 gleich einem der angegebenen Einzelwerte ist. Sie liefern AUS, wenn Eingang 2 keinem der angegebenen Werte gleicht." />
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Formal: EIN bei Eingang 2 IN (Wert1, Wert2, ..., WertN); AUS sonst" />
-                              <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Es werden nur die Zeilen ausgewertet, die auch einen Haken gesetzt haben." />
+                              <choose ParamRefId="M-00FA_A-0001-01-0000_P-%T%%CCC%029_R-%T%%CCC%02901">
+                                <when test="2 3 4 5 6">
+                                  <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Es werden nur die Zeilen ausgewertet, die auch einen Haken gesetzt haben." />
+                                </when>
+                              </choose>
                             </when>
                             <when test="5">
                               <ParameterSeparator Id="M-00FA_A-0001-01-0000_PS-nnn" Text="Die konstante Belegung ist für Formeln gedacht. Das Eingangs-KO ist nicht aktiv, es wird der hier angegebene Wert für dieses KO angenommen. Der Wert für die Logik ist immer EIN." />
