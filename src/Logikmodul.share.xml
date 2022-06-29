@@ -915,15 +915,16 @@
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000127" Name="Reformationstag"    ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="3" Text="20. Reformationstag"           SuffixText="31. Oktober"         Value="0" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000128" Name="Allerheiligen"      ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="4" Text="21. Allerheiligen"             SuffixText="1. November"         Value="1" />
                 <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000129" Name="BussBettag"         ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="5" Text="22. Buß- und Bettag"           SuffixText="11 Tage vor 1. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000130" Name="Advent1"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="6" Text="23. Erster Advent"                 SuffixText="21 Tage vor 4. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000131" Name="Advent2"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="7" Text="24. Zweiter Advent"                 SuffixText="14 Tage vor 4. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000132" Name="Advent3"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="0" Text="25. Dritter Advent"                 SuffixText="7 Tage vor 4. Adv."  Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000133" Name="Advent4"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="1" Text="26. Vierter Advent"                 SuffixText="Sonntag vor Weihn."  Value="0" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000134" Name="Heiligabend"        ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="2" Text="27. Heiligabend"               SuffixText="24. Dezember"        Value="1" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000135" Name="Weihnachtstag1"     ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="3" Text="28. Erster Weihnachtstag"      SuffixText="25. Dezember"        Value="1" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000136" Name="Weihnachtstag2"     ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="4" Text="29. Zweiter Weihnachtstag"     SuffixText="26. Dezember"        Value="1" />
-                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000137" Name="Silvester"          ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="5" Text="30. Silvester"                 SuffixText="31. Dezember"        Value="1" />
-                <!-- Siehe Frauentag mit Offset 3, Bit 5 -->
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000154" Name="MariaEmpfaengnis"   ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="7" Text="23. Maria Empfängnis"          SuffixText="8. Dezember (AT)"    Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000130" Name="Advent1"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="6" Text="24. Erster Advent"             SuffixText="21 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000131" Name="Advent2"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="2" BitOffset="7" Text="25. Zweiter Advent"            SuffixText="14 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000132" Name="Advent3"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="0" Text="26. Dritter Advent"            SuffixText="7 Tage vor 4. Adv."  Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000133" Name="Advent4"            ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="1" Text="27. Vierter Advent"            SuffixText="Sonntag vor Weihn."  Value="0" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000134" Name="Heiligabend"        ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="2" Text="28. Heiligabend"               SuffixText="24. Dezember"        Value="1" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000135" Name="Weihnachtstag1"     ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="3" Text="29. Erster Weihnachtstag"      SuffixText="25. Dezember"        Value="1" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000136" Name="Weihnachtstag2"     ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="4" Text="30. Zweiter Weihnachtstag"     SuffixText="26. Dezember"        Value="1" />
+                <Parameter Id="M-00FA_A-0001-01-0000_UP-%T%000137" Name="Silvester"          ParameterType="M-00FA_A-0001-01-0000_PT-CheckBox" Offset="3" BitOffset="5" Text="31. Silvester"                 SuffixText="31. Dezember"        Value="1" />
+                <!-- Siehe Maria Empfängnis mit Offset 3, Bit 6 -->
               </Union>
               <Union SizeInBit="64">
                 <Memory CodeSegment="M-00FA_A-0001-01-0000_RS-04-00000" Offset="11" BitOffset="0" />
@@ -997,6 +998,7 @@
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000151_R-%T%00015101" RefId="M-00FA_A-0001-01-0000_UP-%T%000151" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000152_R-%T%00015201" RefId="M-00FA_A-0001-01-0000_UP-%T%000152" />
               <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000153_R-%T%00015301" RefId="M-00FA_A-0001-01-0000_UP-%T%000153" />
+              <ParameterRef Id="M-00FA_A-0001-01-0000_UP-%T%000154_R-%T%00015401" RefId="M-00FA_A-0001-01-0000_UP-%T%000154" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="M-00FA_A-0001-01-0000_O-%T%000001" Name="Heartbeat" Text="In Betrieb" Number="1" FunctionText="Zyklisch" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-2" />
@@ -1159,6 +1161,7 @@
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000127_R-%T%00012701" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000128_R-%T%00012801" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000129_R-%T%00012901" />
+                <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000154_R-%T%00015401" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000130_R-%T%00013001" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000131_R-%T%00013101" />
                 <ParameterRefRef RefId="M-00FA_A-0001-01-0000_UP-%T%000132_R-%T%00013201" />
