@@ -40,7 +40,7 @@ enum eTimeValid
 class Timer
 {
   protected:
-    static const uint8_t cHolidaysCount = 30;
+    static const uint8_t cHolidaysCount = 31;
     static sDay cHolidays[cHolidaysCount];
     struct tm mTimeHelper;
     // double mLongitude;

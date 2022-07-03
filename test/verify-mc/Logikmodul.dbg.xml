@@ -872,14 +872,15 @@
                 <Parameter Id="M-00FA_A-0065-11-0000_UP-27" Name="Reformationstag" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="2" Text="19. Reformationstag" SuffixText="31. Oktober" Value="0" />
                 <Parameter Id="M-00FA_A-0065-11-0000_UP-28" Name="Allerheiligen" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="3" Text="20. Allerheiligen" SuffixText="1. November" Value="1" />
                 <Parameter Id="M-00FA_A-0065-11-0000_UP-29" Name="BussBettag" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="4" Text="21. Buß- und Bettag" SuffixText="11 Tage vor 1. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-30" Name="Advent1" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="5" Text="22. Erster Advent" SuffixText="21 Tage vor 4. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-31" Name="Advent2" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="6" Text="23. Zweiter Advent" SuffixText="14 Tage vor 4. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-32" Name="Advent3" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="7" Text="24. Dritter Advent" SuffixText="7 Tage vor 4. Adv." Value="0" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-33" Name="Advent4" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="0" Text="25. Vierter Advent" SuffixText="Sonntag vor Weihn." Value="0" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-34" Name="Heiligabend" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="1" Text="26. Heiligabend" SuffixText="24. Dezember" Value="1" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-35" Name="Weihnachtstag1" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="2" Text="27. Erster Weihnachtstag" SuffixText="25. Dezember" Value="1" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-36" Name="Weihnachtstag2" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="3" Text="28. Zweiter Weihnachtstag" SuffixText="26. Dezember" Value="1" />
-                <Parameter Id="M-00FA_A-0065-11-0000_UP-37" Name="Silvester" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="4" Text="29. Silvester" SuffixText="31. Dezember" Value="1" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-52" Name="MariaEmpfaengnis" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="5" Text="22. Mariä Empfängnis" SuffixText="8. Dezember" Value="0" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-30" Name="Advent1" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="5" Text="23. Erster Advent" SuffixText="21 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-31" Name="Advent2" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="6" Text="24. Zweiter Advent" SuffixText="14 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-32" Name="Advent3" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="2" BitOffset="7" Text="25. Dritter Advent" SuffixText="7 Tage vor 4. Adv." Value="0" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-33" Name="Advent4" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="0" Text="26. Vierter Advent" SuffixText="Sonntag vor Weihn." Value="0" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-34" Name="Heiligabend" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="1" Text="27. Heiligabend" SuffixText="24. Dezember" Value="1" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-35" Name="Weihnachtstag1" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="2" Text="28. Erster Weihnachtstag" SuffixText="25. Dezember" Value="1" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-36" Name="Weihnachtstag2" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="3" Text="29. Zweiter Weihnachtstag" SuffixText="26. Dezember" Value="1" />
+                <Parameter Id="M-00FA_A-0065-11-0000_UP-37" Name="Silvester" ParameterType="M-00FA_A-0065-11-0000_PT-CheckBox" Offset="3" BitOffset="4" Text="30. Silvester" SuffixText="31. Dezember" Value="1" />
               </Union>
               <Union SizeInBit="64">
                 <Memory CodeSegment="M-00FA_A-0065-11-0000_RS-04-00000" Offset="15" BitOffset="0" />
@@ -1857,6 +1858,7 @@
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-27_R-271" RefId="M-00FA_A-0065-11-0000_UP-27" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-28_R-281" RefId="M-00FA_A-0065-11-0000_UP-28" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-29_R-291" RefId="M-00FA_A-0065-11-0000_UP-29" />
+              <ParameterRef Id="M-00FA_A-0065-11-0000_UP-52_R-301" RefId="M-00FA_A-0065-11-0000_UP-52" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-30_R-301" RefId="M-00FA_A-0065-11-0000_UP-30" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-31_R-311" RefId="M-00FA_A-0065-11-0000_UP-31" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-32_R-321" RefId="M-00FA_A-0065-11-0000_UP-32" />
@@ -1879,6 +1881,7 @@
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-49_R-491" RefId="M-00FA_A-0065-11-0000_UP-49" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-50_R-501" RefId="M-00FA_A-0065-11-0000_UP-50" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_UP-51_R-511" RefId="M-00FA_A-0065-11-0000_UP-51" />
+              <ParameterRef Id="M-00FA_A-0065-11-0000_UP-52_R-521" RefId="M-00FA_A-0065-11-0000_UP-52" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_P-1001_R-10011" RefId="M-00FA_A-0065-11-0000_P-1001" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_P-1002_R-10021" RefId="M-00FA_A-0065-11-0000_P-1002" />
               <ParameterRef Id="M-00FA_A-0065-11-0000_P-1003_R-10031" RefId="M-00FA_A-0065-11-0000_P-1003" />
@@ -3146,21 +3149,23 @@
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-28_R-281" />
                 <!-- ParameterRefRef BussBettag '21. Buß- und Bettag'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-29_R-291" />
-                <!-- ParameterRefRef Advent1 '22. Erster Advent'-->
+                  <!-- ParameterRefRef MariaEmpfaengnis '22. Maria Empfängnis (AT)'-->
+                <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-52_R-521" />
+                <!-- ParameterRefRef Advent1 '23. Erster Advent'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-30_R-301" />
-                <!-- ParameterRefRef Advent2 '23. Zweiter Advent'-->
+                <!-- ParameterRefRef Advent2 '24. Zweiter Advent'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-31_R-311" />
-                <!-- ParameterRefRef Advent3 '24. Dritter Advent'-->
+                <!-- ParameterRefRef Advent3 '25. Dritter Advent'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-32_R-321" />
-                <!-- ParameterRefRef Advent4 '25. Vierter Advent'-->
+                <!-- ParameterRefRef Advent4 '26. Vierter Advent'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-33_R-331" />
-                <!-- ParameterRefRef Heiligabend '26. Heiligabend'-->
+                <!-- ParameterRefRef Heiligabend '27. Heiligabend'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-34_R-341" />
-                <!-- ParameterRefRef Weihnachtstag1 '27. Erster Weihnachtstag'-->
+                <!-- ParameterRefRef Weihnachtstag1 '28. Erster Weihnachtstag'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-35_R-351" />
-                <!-- ParameterRefRef Weihnachtstag2 '28. Zweiter Weihnachtstag'-->
+                <!-- ParameterRefRef Weihnachtstag2 '29. Zweiter Weihnachtstag'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-36_R-361" />
-                <!-- ParameterRefRef Silvester '29. Silvester'-->
+                <!-- ParameterRefRef Silvester '30. Silvester'-->
                 <ParameterRefRef RefId="M-00FA_A-0065-11-0000_UP-37_R-371" />
               </ParameterBlock>
               <!-- ParameterBlock f1Name 'Beschreibung des Kanals'-->
