@@ -989,7 +989,7 @@
             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%050_R-%T%%CCC%05001" />
             <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
             <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikauswertung" UIHint="Headline" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingeänge werden so betrachtet, als ob sie nicht da wären." />
+            <ParameterSeparator Id="%AID%_PS-nnn" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingänge werden so betrachtet, als ob sie nicht da wären." />
             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%004_R-%T%%CCC%00401" />
           </when>
           <when test="4">
