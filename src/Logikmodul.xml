@@ -12,10 +12,10 @@
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
         <op:version OpenKnxId="0xA0" ApplicationNumber="49" ApplicationVersion="22" ReplacesVersions="14 19 20 21" ApplicationRevision="0" />
-        <ApplicationProgram Id="M-00FA_A-0001-01-0000" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
+        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
-              <RelativeSegment Id="M-00FA_A-0001-01-0000_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
+              <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
             <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1" />
             <ParameterTypes>
@@ -44,12 +44,12 @@
             <AddressTable MaxEntries="2047" />
             <AssociationTable MaxEntries="2047" />
             <Messages>
-              <Message Id="M-00FA_A-0001-01-0000_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
+              <Message Id="%AID%_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
             </Messages>
             <LoadProcedures>
               <LoadProcedure MergeId="1">
                 <LdCtrlCompareProp InlineData="%VersionCheck%" ObjIdx="0" PropId="78">
-                  <OnError Cause="CompareMismatch" MessageRef="M-00FA_A-0001-01-0000_M-1" />
+                  <OnError Cause="CompareMismatch" MessageRef="%AID%_M-1" />
                 </LdCtrlCompareProp>
               </LoadProcedure>
               <LoadProcedure MergeId="2">
@@ -70,13 +70,13 @@
           </Static>
           <Dynamic>
             <ChannelIndependentBlock>
-              <ParameterBlock Id="M-00FA_A-0001-01-0000_PB-1" Name="General" Text="Allgemeine Parameter">
+              <ParameterBlock Id="%AID%_PB-1" Name="General" Text="Allgemeine Parameter">
                 <op:include href="Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='General']/*" prefix="LOG" />
                 <op:include href="Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Hardware']/*" prefix="LOG" />
                 <op:include href="Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Diagnose']/*" prefix="LOG" />
               </ParameterBlock>
             </ChannelIndependentBlock>
-            <Channel Id="M-00FA_A-0001-01-0000_CH-1" Name="Logikkanaele" Number="1" Text="Logikkanäle">
+            <Channel Id="%AID%_CH-1" Name="Logikkanaele" Number="1" Text="Logikkanäle">
               <op:include href="Logikmodul.share.xml" xpath="//Dynamic/Channel/*" prefix="LOG" />
               <op:include href="Logikmodul.templ.xml" xpath="//Dynamic/*" type="template" prefix="LOG" />
             </Channel>
@@ -92,7 +92,7 @@
           </Products>
           <Hardware2Programs>
             <Hardware2Program Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
-              <ApplicationProgramRef RefId="M-00FA_A-0001-01-0000" />
+              <ApplicationProgramRef RefId="%AID%" />
               <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/110" />
             </Hardware2Program>
           </Hardware2Programs>
