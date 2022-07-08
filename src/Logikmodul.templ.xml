@@ -956,90 +956,90 @@
     <ComObjectRef Id="%AID%_O-%T%%CCC%001_R-%T%%CCC%00110" RefId="%AID%_O-%T%%CCC%001" Text="{{0:Eingang 2}}" ObjectSize="3 Bytes"  DatapointType="DPST-232-600" TextParameterRefId="%AID%_P-%T%%CCC%129_R-%T%%CCC%12901" />
   </ComObjectRefs>
   <Dynamic>
-    <Channel Id="%AID%_CH-L%C%" Name="f%C%Logic" Number="L%C%" Text="Logik %CC%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
-      <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Logic" Text="Logik %C%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
-        <!-- Any input active (hidden) -->
-        <ParameterRefRef RefId="%AID%_P-%T%%CCC%133_R-%T%%CCC%13301" />
-        <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanaldefinition" UIHint="Headline" />
-        <ParameterRefRef RefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101" />
-        <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%002_R-%T%%CCC%00201" /> -->
-        <!-- ChannelDelay Delay pattern -->
-        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ChannelDelayCycle" Inline="true" Layout="Grid">
-          <Columns>
-            <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
-            <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
-            <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
-          </Columns>
-          <Rows>
-            <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-          </Rows>
-          <ParameterSeparator Id="%AID%_PS-nnn" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" Cell="1,1" />
-          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%382_R-%T%%CCC%38201" Cell="1,2" />
-          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%381_R-%T%%CCC%38101" Cell="1,3" />
-        </ParameterBlock>
-        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%166_R-%T%%CCC%16601" />
-        <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-        <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikdefinition" UIHint="Headline" />
-        <ParameterRefRef RefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301" />
-        <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
-          <when test="1 2 3 4">
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801" />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801" />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%048_R-%T%%CCC%04801" />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%050_R-%T%%CCC%05001" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikauswertung" UIHint="Headline" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingänge werden so betrachtet, als ob sie nicht da wären." />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%004_R-%T%%CCC%00401" />
-          </when>
-          <when test="4">
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="Tordefinition" UIHint="Headline" />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601" />
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%007_R-%T%%CCC%00701" />
-            <choose ParamRefId="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601">
-              <when test="0">
-                <ParameterRefRef RefId="%AID%_UP-%T%%CCC%006_R-%T%%CCC%00601" />
-              </when>
-            </choose>
-          </when>
-        </choose>
-        <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
-          <when test="!=0">
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
-            <ParameterSeparator Id="%AID%_PS-nnn" Text="Logik-Trigger" UIHint="Headline" />
-          </when>
-          <when test="1 2 3 4">
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501" />
-            <choose ParamRefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501">
-              <when test="1 17">
-                <choose ParamRefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801">
-                  <when test="!=0">
-                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%089_R-%T%%CCC%08901" />
-                  </when>
-                </choose>
-                <choose ParamRefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801">
-                  <when test="!=0">
-                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%090_R-%T%%CCC%09001" />
-                  </when>
-                </choose>
-                <choose ParamRefId="%AID%_UP-%T%%CCC%048_R-%T%%CCC%04801">
-                  <when test="!=0">
-                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%091_R-%T%%CCC%09101" />
-                  </when>
-                </choose>
-                <choose ParamRefId="%AID%_UP-%T%%CCC%050_R-%T%%CCC%05001">
-                  <when test="!=0">
-                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%092_R-%T%%CCC%09201" />
-                  </when>
-                </choose>
-              </when>
-            </choose>
-          </when>
-          <when test="5">
-            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%167_R-%T%%CCC%16701" />
-          </when>
-        </choose>
+    <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Logic" Text="Logik %C%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
+      <!-- Any input active (hidden) -->
+      <ParameterRefRef RefId="%AID%_P-%T%%CCC%133_R-%T%%CCC%13301" />
+      <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanaldefinition" UIHint="Headline" />
+      <ParameterRefRef RefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101" />
+      <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%002_R-%T%%CCC%00201" /> -->
+      <!-- ChannelDelay Delay pattern -->
+      <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ChannelDelayCycle" Inline="true" Layout="Grid">
+        <Rows>
+          <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+        </Rows>
+        <Columns>
+          <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+          <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+          <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+        </Columns>
+        <ParameterSeparator Id="%AID%_PS-nnn" Text="Zeit bis der Kanal nach einem Neustart aktiv wird" Cell="1,1" />
+        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%382_R-%T%%CCC%38201" Cell="1,2" />
+        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%381_R-%T%%CCC%38101" Cell="1,3" />
+      </ParameterBlock>
+      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%166_R-%T%%CCC%16601" />
+      <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+      <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikdefinition" UIHint="Headline" />
+      <ParameterRefRef RefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301" />
+      <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
+        <when test="1 2 3 4">
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801" />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801" />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%048_R-%T%%CCC%04801" />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%050_R-%T%%CCC%05001" />
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikauswertung" UIHint="Headline" />
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="Hier kann man angeben, wie sich die Logikauswertung verhalten soll, wenn noch nicht alle Eingänge gültige Werte haben. Ungültige Eingänge werden so betrachtet, als ob sie nicht da wären." />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%004_R-%T%%CCC%00401" />
+        </when>
+        <when test="4">
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="Tordefinition" UIHint="Headline" />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601" />
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%007_R-%T%%CCC%00701" />
+          <choose ParamRefId="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601">
+            <when test="0">
+              <ParameterRefRef RefId="%AID%_UP-%T%%CCC%006_R-%T%%CCC%00601" />
+            </when>
+          </choose>
+        </when>
+      </choose>
+      <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
+        <when test="!=0">
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+          <ParameterSeparator Id="%AID%_PS-nnn" Text="Logik-Trigger" UIHint="Headline" />
+        </when>
+        <when test="1 2 3 4">
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501" />
+          <choose ParamRefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501">
+            <when test="1 17">
+              <choose ParamRefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801">
+                <when test="!=0">
+                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%089_R-%T%%CCC%08901" />
+                </when>
+              </choose>
+              <choose ParamRefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801">
+                <when test="!=0">
+                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%090_R-%T%%CCC%09001" />
+                </when>
+              </choose>
+              <choose ParamRefId="%AID%_UP-%T%%CCC%048_R-%T%%CCC%04801">
+                <when test="!=0">
+                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%091_R-%T%%CCC%09101" />
+                </when>
+              </choose>
+              <choose ParamRefId="%AID%_UP-%T%%CCC%050_R-%T%%CCC%05001">
+                <when test="!=0">
+                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%092_R-%T%%CCC%09201" />
+                </when>
+              </choose>
+            </when>
+          </choose>
+        </when>
+        <when test="5">
+          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%167_R-%T%%CCC%16701" />
+        </when>
+      </choose>
+      <Channel Id="%AID%_CH-L%CC%" Name="f%CC%Logic" Number="L%CC%" Text="Logik %CC%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
         <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
           <when test="1 2 3 4">
             <!-- Delta ext. 1 Input-->
@@ -1118,14 +1118,14 @@
                       <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
                       <!-- E1Repeat Delay pattern -->
                       <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                        <Rows>
+                          <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                        </Rows>
                         <Columns>
                           <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                           <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                           <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
                         </Columns>
-                        <Rows>
-                          <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                        </Rows>
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
@@ -1674,14 +1674,14 @@
                           <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
                           <!-- E1Repeat Delay pattern -->
                           <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                            <Rows>
+                              <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                            </Rows>
                             <Columns>
                               <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                               <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                               <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
                             </Columns>
-                            <Rows>
-                              <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                            </Rows>
                             <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
                             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
@@ -1774,14 +1774,14 @@
                       <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
                       <!-- E2Repeat Delay pattern -->
                       <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                        <Rows>
+                          <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                        </Rows>
                         <Columns>
                           <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                           <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                           <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
                         </Columns>
-                        <Rows>
-                          <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                        </Rows>
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
@@ -2335,14 +2335,14 @@
                           <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
                           <!-- E2Repeat Delay pattern -->
                           <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                            <Rows>
+                              <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                            </Rows>
                             <Columns>
                               <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                               <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                               <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
                             </Columns>
-                            <Rows>
-                              <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                            </Rows>
                             <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
                             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
                             <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
@@ -2751,14 +2751,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%053_R-%T%%CCC%05301" /> -->
                   <!-- Stairtime Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OStairtimeCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="Zeit für Treppenlicht" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%054_R-%T%%CCC%05401" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%053_R-%T%%CCC%05301" Cell="1,3" />
@@ -2768,14 +2768,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%057_R-%T%%CCC%05701" /> -->
                   <!-- Blink Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OBlinkCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="Treppenlicht blinkt im Rythmus&#10;(0 = nicht blinken)" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%388_R-%T%%CCC%38801" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%387_R-%T%%CCC%38701" Cell="1,3" />
@@ -2790,14 +2790,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%059_R-%T%%CCC%05901" /> -->
                   <!-- DelayOn Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ODelayOnCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="EINschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%060_R-%T%%CCC%06001" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%059_R-%T%%CCC%05901" Cell="1,3" />
@@ -2811,14 +2811,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%060_R-%T%%CCC%06001" /> -->
                   <!-- DelayOff Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ODelayOffCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="AUSschalten wird verzögert um&#10;(0 = nicht verzögern)" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%063_R-%T%%CCC%06301" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%062_R-%T%%CCC%06201" Cell="1,3" />
@@ -2843,14 +2843,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%062_R-%T%%CCC%06201" /> -->
                   <!-- RepeatOn Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ORepeatOnCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="EIN-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%390_R-%T%%CCC%39001" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%389_R-%T%%CCC%38901" Cell="1,3" />
@@ -2858,14 +2858,14 @@
                   <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%063_R-%T%%CCC%06301" /> -->
                   <!-- RepeatOff Delay pattern -->
                   <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%ORepeatOffCycle" Inline="true" Layout="Grid">
+                    <Rows>
+                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                    </Rows>
                     <Columns>
                       <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
                       <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
                       <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="25%" />
                     </Columns>
-                    <Rows>
-                      <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                    </Rows>
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="AUS-Telegramm wird wiederholt alle&#10;(0 = nicht wiederholen)" Cell="1,1" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%392_R-%T%%CCC%39201" Cell="1,2" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%391_R-%T%%CCC%39101" Cell="1,3" />
@@ -3228,7 +3228,7 @@
             </ParameterBlock>
           </when>
         </choose>
-      </ParameterBlock>
-    </Channel>
+      </Channel>
+    </ParameterBlock>
   </Dynamic>
 </KNX>
