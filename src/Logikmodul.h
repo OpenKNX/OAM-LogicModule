@@ -1,5 +1,4 @@
 #pragma once
-#include <knx.h>
 
 // Parameter with single occurance
 

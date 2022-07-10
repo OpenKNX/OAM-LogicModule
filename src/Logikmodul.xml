@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://knx.org/xml/project/14 ../../../knx.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" CreatedBy="KNX MT" ToolVersion="5.1.255.16695" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://knx.org/xml/project/20">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
   <ManufacturerData>
     <Manufacturer RefId="M-00FA">
       <Catalog>
         <CatalogSection Id="M-00FA_CS-OpenKNX" Name="OpenKNX" Number="OpenKNX" DefaultLanguage="de">
-          <CatalogItem Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000_CI-%OrderNumberEncoded%-1" Name="OpenKNX: Logikmodul-Dev" Number="1" ProductRefId="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_P-%OrderNumberEncoded%" Hardware2ProgramRefId="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000" DefaultLanguage="de" />
+          <CatalogItem Id="%CatalogItemId%" Name="OpenKNX: Logikmodul-Dev" Number="1" ProductRefId="%ProductId%" Hardware2ProgramRefId="%Hardware2ProgramId%" DefaultLanguage="de" />
         </CatalogSection>
       </Catalog>
       <ApplicationPrograms>
@@ -43,9 +44,6 @@
             </ComObjectRefs>
             <AddressTable MaxEntries="2047" />
             <AssociationTable MaxEntries="2047" />
-            <Messages>
-              <Message Id="%AID%_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
-            </Messages>
             <LoadProcedures>
               <LoadProcedure MergeId="1">
                 <LdCtrlCompareProp InlineData="%VersionCheck%" ObjIdx="0" PropId="78">
@@ -66,6 +64,9 @@
                 <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
               </LoadProcedure>
             </LoadProcedures>
+            <Messages>
+              <Message Id="%AID%_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
+            </Messages>
             <Options />
           </Static>
           <Dynamic>
@@ -78,22 +79,22 @@
             </ChannelIndependentBlock>
             <Channel Id="%AID%_CH-1" Name="Logikkanaele" Number="1" Text="Logikkanäle">
               <op:include href="Logikmodul.share.xml" xpath="//Dynamic/Channel/*" prefix="LOG" />
-              <op:include href="Logikmodul.templ.xml" xpath="//Dynamic/*" type="template" prefix="LOG" />
+              <op:include href="Logikmodul.templ.xml" xpath="//Dynamic/ChannelIndependentBlock/*" type="template" prefix="LOG" />
             </Channel>
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%" Name="OpenKNX-Logic" SerialNumber="0xA031" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <Hardware Id="%HardwareId%" Name="OpenKNX-Logic" SerialNumber="0xA031" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
-            <Product Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_P-%OrderNumberEncoded%" Text="OpenKNX: Logikmodul (dev)" OrderNumber="OpenKnxLogicDev" IsRailMounted="false" DefaultLanguage="de">
+            <Product Id="%ProductId%" Text="OpenKNX: Logikmodul (dev)" OrderNumber="OpenKnxLogicDev" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />
             </Product>
           </Products>
           <Hardware2Programs>
-            <Hardware2Program Id="M-00FA_H-%SerialNumberEncoded%-%HardwareVersionEncoded%_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
+            <Hardware2Program Id="%Hardware2ProgramId%" MediumTypes="MT-0 MT-5">
               <ApplicationProgramRef RefId="%AID%" />
-              <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/110" />
+              <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/11" />
             </Hardware2Program>
           </Hardware2Programs>
         </Hardware>

@@ -100,11 +100,14 @@
         {
             "label": "OpenKNXproducer",
             "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/src"
+            },
             "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
             "args": [
                 "create",
                 "--Debug",
-                "src/Logikmodul"
+                "Logikmodul"
             ],
             "problemMatcher": [],
             "group": "test"
