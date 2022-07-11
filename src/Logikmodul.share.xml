@@ -6,9 +6,6 @@
       <ApplicationPrograms>
         <ApplicationProgram Id="%AID%" ApplicationNumber="102" ApplicationVersion="10" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0">
           <Static>
-            <Code>
-              <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="0" LoadStateMachine="4" />
-            </Code>
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <ParameterType Id="%AID%_PT-Text40Byte" Name="Text40Byte">
@@ -1016,17 +1013,6 @@
               <ComObjectRef Id="%AID%_O-%T%000008_R-%T%00000801" RefId="%AID%_O-%T%000008" />
               <ComObjectRef Id="%AID%_O-%T%000009_R-%T%00000901" RefId="%AID%_O-%T%000009" />
             </ComObjectRefs>
-            <AddressTable MaxEntries="255" />
-            <AssociationTable MaxEntries="255" />
-            <LoadProcedures>
-              <LoadProcedure MergeId="2">
-                <LdCtrlRelSegment AppliesTo="full" LsmIdx="4" Size="0" Mode="0" Fill="0" />
-              </LoadProcedure>
-              <LoadProcedure MergeId="4">
-                <LdCtrlWriteRelMem ObjIdx="4" Offset="0" Size="0" Verify="true" />
-              </LoadProcedure>
-            </LoadProcedures>
-            <Options />
           </Static>
           <Dynamic>
             <Channel Name="Logik" Text="Logikfunktionen" Number="3" Id="%AID%_CH-3">
@@ -1168,21 +1154,6 @@
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
-      <Hardware>
-        <Hardware Id="M-00FA_H-WPKNX102-1" Name="WP-Logikmodul" SerialNumber="WPKNX102" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
-          <Products>
-            <Product Id="M-00FA_H-WPKNX102-1_P-SELFLOGIC" Text="Logikmodul" OrderNumber="SELFLOGIC" IsRailMounted="false" DefaultLanguage="de">
-              <RegistrationInfo RegistrationStatus="Registered" />
-            </Product>
-          </Products>
-          <Hardware2Programs>
-            <Hardware2Program Id="M-00FA_H-WPKNX102-1_HP-0001-01-0000" MediumTypes="MT-0 MT-5">
-              <ApplicationProgramRef RefId="%AID%" />
-              <RegistrationInfo RegistrationStatus="Registered" RegistrationNumber="0001/110" />
-            </Hardware2Program>
-          </Hardware2Programs>
-        </Hardware>
-      </Hardware>
     </Manufacturer>
   </ManufacturerData>
 </KNX>
