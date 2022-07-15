@@ -37,7 +37,7 @@ void setup()
     // pin or GPIO programming button is connected to. Default is 0
     knx.buttonPin(PROG_BUTTON_PIN);
     // Is the interrupt created in RISING or FALLING signal? Default is RISING
-    knx.buttonPinInterruptOn(PROG_BUTTON_PIN_INTERRUPT_ON);
+    // knx.buttonPinInterruptOn(PROG_BUTTON_PIN_INTERRUPT_ON);
 
 #ifdef USERDATA_SAVE_SIZE
     // utilize SaveRestore framework from knx-stack, this has to happen BEFORE knx.read()

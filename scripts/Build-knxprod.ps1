@@ -1,4 +1,4 @@
-$checkVersion = "1.1.0"
+$checkVersion = "1.5.8"
 $toolsExist = Test-Path -PathType Leaf ~/bin/OpenKNXproducer.exe
 if ($toolsExist) {
     $toolsExist = [System.Version]((~/bin/OpenKNXproducer version) -split ' ')[1] -ge [System.Version]$checkVersion
@@ -28,6 +28,6 @@ if (!$toolsExist) {
 }
 
 if ($toolsExist) {
-    ~/bin/OpenKNXproducer.exe knxprod --Output=./LogicModule.knxprod data/LogicModule.xml
+    ~/bin/OpenKNXproducer.exe knxprod --NoXsd --Output=./LogicModule.knxprod data/LogicModule.xml
     timeout /T 20 
 }

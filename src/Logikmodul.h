@@ -1,6 +1,6 @@
 #pragma once
 
-// Parameter with single occurance
+// Parameter with single occurrence
 
 #define LOG_NumChannels                0      // uint8_t
 #define LOG_StartupDelayBase           1      // 2 Bits, Bit 7-6
@@ -153,7 +153,7 @@
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
 
-#define LOG_ChannelCount 99
+#define LOG_ChannelCount 2
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 26
@@ -813,7 +813,7 @@
 #define     LOG_fE2UseOtherKOShift 7
 #define LOG_fE2OtherKO                84      // uint15_t
 
-// Communication objects per channel (multiple occurance)
+// Communication objects per channel (multiple occurrence)
 #define LOG_KoOffset 20
 #define LOG_KoBlockSize 3
 #define LOG_KoKOfE1 0
