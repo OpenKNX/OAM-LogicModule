@@ -287,11 +287,22 @@ void LogicChannel::knxRead(uint8_t iIOIndex)
 void LogicChannel::knxResetDevice(uint16_t iParamIndex)
 {
     uint16_t lAddress = getWordParam(iParamIndex);
+    uint16_t lLocalAddress = knx.individualAddress();
 #if LOGIC_TRACE
     uint8_t lHigh = lAddress >> 8;
     channelDebug("knxResetDevice with PA %d.%d.%d\n", lHigh >> 4, lHigh & 0xF, lAddress & 0xFF);
 #endif
-    knx.restart(lAddress);
+    if (lAddress == lLocalAddress) 
+    {
+        // here we have to do a local restart (restart own device), conceptually clear, but interfaces have to be checked
+        // if (_beforeRestart != 0)
+        //     _beforeRestart();
+        // // Flush the EEPROM before resetting
+        // _memory.writeMemory();
+        // _platform.restart();
+    }
+    else
+        knx.restart(lAddress);
 }
 
 // turn on/off RGBLed

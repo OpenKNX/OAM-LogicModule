@@ -1,3 +1,12 @@
+<!-- 
+cSpell:words knxprod EEPROM Ausgangstrigger Sonnenstandsbezogene Sonnenauf vollzumüllen Enocean Pieptönen platformio
+cSpell:words softwareseitig untergangszeit Urlaubsinfo Feiertagsinfo Konverterfunktionen Vergleicher Geokoordinaten
+cSpell:words Konstantenbelegung vorzubelegen Intervallvergleich Hysteresevergleich Uebersicht Logiktrigger priorität
+cSpell:words Szenenkonverter Szenennummern Zahlenbasierte Intervallgrenzen Hystereseschalter Ganzzahlbasierte
+cSpell:words erwartungskonform hardwareabhängig Rueckkopplung eingabebereit maliges AUSschaltverzögerung EINschaltverzögerung
+cSpell:words Triggersignal expample runterladen Wiregateway updatefähige Updatefunktion Auskühlalarm Zaehler tagestrigger
+-->
+
 # Applikationsbeschreibung Logik
 
 Die Applikation Logik erlaubt eine Parametrisierung von Logikkanälen mit der ETS.
@@ -212,7 +221,7 @@ Mit einem 'Ja' wird der Watchdog eingeschaltet.
 
 ### **Diagnose**
 
-Man kann mit dem Logikmodul ein Diagnoseobjekt (KO 7) einschalten. Dieses Diagnoseobjekt ist primär für Debugzwecke vorhanden, kann aber auch einem User bei einigen Fragen weiter helfen.
+Man kann mit dem Logikmodul ein Diagnoseobjekt (KO 7) einschalten. Dieses Diagnoseobjekt ist primär zum Debuggen vorhanden, kann aber auch einem User bei einigen Fragen weiter helfen.
 
 Die Grundidee vom Diagnoseobjekt: Man sendet mit der ETS Kommandos an das KO 7 und bekommt eine entsprechende Antwort. Derzeit sind nur wenige Kommandos für die Nutzung durch den Enduser geeignet, allerdings werden im Laufe der Zeit immer weitere Kommandos hinzukommen und werden im Kapitel Diagnoseobjekt beschrieben.
 
@@ -318,7 +327,7 @@ Beide Kommunikationsobjekte (5 und 6) werden immer kurz nach Mitternacht (aber n
 
 #### **Nach Neuberechnung Feiertagsinfo senden?**
 
-Erscheit nur, wenn "Feiertage auf dem Bus verfügbar machen?" auf "Ja" steht.
+Erscheint nur, wenn "Feiertage auf dem Bus verfügbar machen?" auf "Ja" steht.
 
 Hier kann angegeben werden, ob ein neuer Feiertag aktiv auf den Bus gesendet wird. Falls "Nein" eingestellt ist, wird der Feiertag trotzdem berechnet, muss aber mit einem Lese-Request aktiv vom KO gelesen werden.
 
@@ -392,11 +401,11 @@ Zeitschaltuhren beginnen mit ihrer Funktion erst, nachdem mindestens einmal übe
 
 Dem Startverhalten eines Logikkanals kommt eine besondere Bedeutung zu.
 
-Initial sind alle Eingänge und der Ausgang unbestimmt. Es wäre möglicherweise fatal, wenn beim Start jeder Logikkanal erstmal für seinen Ausgang ein AUS auf den Bus senden würde. Ebenso sollte eine UND-Verknüpfung mit 2 Eingängen, die auf Eingang 1 noch kein Signal empfangen hat und auf dem Eingang 2 eine 1 empfängt, nicht automatisch annehmen, dass Eingang 1 auf AUS steht und dadurch bedingt eine 0 auf den Ausgang senden.
+Initial sind alle Eingänge und der Ausgang unbestimmt. Es wäre möglicherweise fatal, wenn beim Start jeder Logikkanal erst mal für seinen Ausgang ein AUS auf den Bus senden würde. Ebenso sollte eine UND-Verknüpfung mit 2 Eingängen, die auf Eingang 1 noch kein Signal empfangen hat und auf dem Eingang 2 eine 1 empfängt, nicht automatisch annehmen, dass Eingang 1 auf AUS steht und dadurch bedingt eine 0 auf den Ausgang senden.
 
 Es muss einstellbar sein, wie ein Logikkanal mit "undefinierten" Zuständen umgeht. Im folgenden werden die Möglichkeiten für jeden Logikkanal erläutert.
 
-Jeder Eingang ist beim Start undefiniert und der Ausgang sendet ersteinmal nichts. Man kann für einen Eingang festlegen, wie er seinen Anfangswert bekommen soll.
+Jeder Eingang ist beim Start undefiniert und der Ausgang sendet erst einmal nichts. Man kann für einen Eingang festlegen, wie er seinen Anfangswert bekommen soll.
 
 Die einfachste Variante ist eine Konstantenbelegung: Ein Eingang kann den Wert AUS oder EIN annehmen und das kann man über Parameter festlegen. Anmerkung: Obwohl Eingänge durchaus verschiedene DPT unterstützen, ist die Vorbelegung nur mit den Werten AUS oder EIN möglich, also quasi als Ergebnis des Eingangskonverters.
 
@@ -492,7 +501,7 @@ Alle Eingänge werden über ein logisches UND verknüpft. Das Ergebnis der Verkn
 
 Alle Eingänge werden über ein logisches ODER verknüpft. Das Ergebnis der Verknüpfung ist EIN, sobald nur ein Eingang des Funktionsblock EIN ist. Das Ergebnis ist AUS, wenn alle Eingänge AUS sind.
 
-#### **EXCLUSIV-ODER**
+#### **EXKLUSIV-ODER**
 
 Alle Eingänge werden über ein logisches Exklusiv-ODER verknüpft. Das Ergebnis der Verknüpfung ist EIN, wenn eine ungerade Anzahl von Eingängen des Funktionsblock EIN sind. Das Ergebnis ist AUS, wenn eine gerade Anzahl von Eingängen EIN sind.
 
@@ -700,7 +709,7 @@ Ein Eingang des Logikobjekts wird durch ein Kommunikationsobjekt repräsentiert.
 
 #### **Neues KO erzeugen**
 
-Für den Eingng wird ein neues Kommunikationsobjekt erzeugt. Dieses KO ist somit komplett vom Logikmodul kontrolliert und verwaltet.
+Für den Eingang wird ein neues Kommunikationsobjekt erzeugt. Dieses KO ist somit komplett vom Logikmodul kontrolliert und verwaltet.
 
 #### **Bestehendes KO nutzen**
 
@@ -875,7 +884,7 @@ Alle DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.
 
 ![Einzelwerte](pics/Einzelwerte.png)
 
-Der Einzelwert-Konverter prüft, ob der Eingang einem der angegebenen Werte entspricht. Wenn ja, liefert der Eingang ein EIN-Signal an die Logik. Wenn er keinem der Werte entspricht, liefert er ein AUS-Signal. Geprüft wird jedesmal, wenn das Eingangs-KO einen Wert empfängt. Je nach DPT des Eingangs können unterschiedlich viele Werte geprüft werden:
+Der Einzelwert-Konverter prüft, ob der Eingang einem der angegebenen Werte entspricht. Wenn ja, liefert der Eingang ein EIN-Signal an die Logik. Wenn er keinem der Werte entspricht, liefert er ein AUS-Signal. Geprüft wird jedes mal, wenn das Eingangs-KO einen Wert empfängt. Je nach DPT des Eingangs können unterschiedlich viele Werte geprüft werden:
 
 DPT | Anzahl Werte
 :---:|---:
@@ -911,7 +920,7 @@ Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im ni
 
 Da nichtflüchtige Speicher nur eine relativ geringe Anzahl an Schreibzyklen zulassen, wird der Eingangswert nicht direkt nach dem Empfang im Speicher geschrieben, sondern erst beim Stromausfall, bei einem "Gerät zurücksetzen" über die ETS oder bei einer Neuprogrammierung über die ETS. Wird die RESET-Taste direkt am Gerät gedrückt, wird der nichtflüchtige Speicher nicht mit dem Eingangswert beschrieben.
 
-> **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist Hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstützt wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
+> **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstützt wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
 
 > **Wichtig:** Es gibt 2 unterstützte Varianten von nichtflüchtigem Speicher: FLASH und EEPROM. Der FLASH-Speicher ist der gleiche, in dem die Firmware gespeichert wird und ist immer vorhanden. Standardmäßig wird in diesen Speicher gespeichert. Dies hat aber den Nachteil, dass bei einem Firmware-Update alle gespeicherten Werte verloren gehen. Falls die Werte im EEPROM gespeichert werden (Zusatzhardware), werden sie nicht durch ein Update der Firmware überschrieben.
 Ob ein EEPROM installiert ist, wird von der Firmware automatisch festgestellt. Falls ein EEPROM vorhanden ist, wird dieses für die Speicherung von Werten genutzt.
@@ -1447,7 +1456,7 @@ Dieses Auswahlfeld legt den DPT für den Ausgang fest. Unterstützt werden:
 * DPT 17: Szenen Nummer (1-64)
 * DPT 232: RGB-Wert (3*8 Bit Rot-, Grün-, Blauwert)
 
-Je nach gewähltem DPT unterscheiden sich die folgenden Felder leicht. Es werden erstmal die parameter für alle DPT beschrieben und anschließend die DPT-spezifischen.
+Je nach gewähltem DPT unterscheiden sich die folgenden Felder leicht. Es werden erst mal die parameter für alle DPT beschrieben und anschließend die DPT-spezifischen.
 
 ### **Wert für EIN senden?**
 
@@ -1533,7 +1542,7 @@ Dies entspricht genau der Funktion "Gerät zurücksetzen" in der ETS.
 
 ### **LED-Farbe festlegen (Schwarz=aus)**
 
-![Led farbe festlegen](pics/LedColor.PNG)
+![Led Farbe festlegen](pics/LedColor.PNG)
 
 Das Feld erscheint nur, wenn für "Wert für EIN senden" ein "Ja - RGB-LED schalten" ausgewählt wurde.
 
@@ -1653,7 +1662,7 @@ In einem solchen Fall darf der Logische Anteil auch nur bei einer Wertänderung 
 
 Dazu wird wie zuvor eine ODER-Logik benutzt, die sendet aber nur bei dem gewünschten Eingang. Der Rest ist wie beim vorherigen Punkt.
 
-#### **Formel soll nur zu besimmten Zeitpunkten oder Ereignissen berechnet werden**
+#### **Formel soll nur zu bestimmten Zeitpunkten oder Ereignissen berechnet werden**
 
 Hier muss die Logik des Formelkanals so aufgebaut werden, dass sie nur sendet, wenn das externe Triggersignal eingeht.
 
@@ -1848,7 +1857,7 @@ ist. Die möglichen Werte a, b, c, d und q sind:
 
 * 0 für den logischen Wert AUS
 * 1 für den logischen Wert EIN
-* X für den Wert "undefiniert" bzw. "înaktiv"
+* X für den Wert "undefiniert" bzw. "inaktiv"
 
 ## **DPT Konverter**
 
@@ -1903,7 +1912,134 @@ Z<sub>B</sub> |Zwang (von Binär) | Ein AUS wird nach "normal aus" (00) konverti
 
 ## **Beispiele**
 
-Die Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften zeigen aber bereits jetzt eine Liste der möglichen Funktionen.
+### **Zeitschaltuhr soll jeden n-ten Tag schalten**
+
+Bei einer Zeitschaltuhr kann man aktuell jeden Tag was schalten lassen oder bestimmte Wochentage auswählen. Jeden n-ten Tag kann man derzeit nicht einstellen.
+
+Um jeden n-ten Tag zu schalten (im Beispiel jeden 3-ten Tag), kann man folgendes machen:
+
+- man macht eine Zeitschaltuhr mit Schaltzeiten für jeden Tag
+- hinter den Ausgang der Zeitschaltuhr hängt man ein Tor, dass nur jeden 3. Tag öffnet
+- Um das Tor jeden dritten Tag zu öffnen, braucht man
+    - einen Zähler
+    - den Zähler triggert man täglich (über eine weitere Zeitschaltuhr)
+    - Wenn der Zähler den Wert n (im Beispiel 3) erreicht, muss man ihn auf 0 zurücksetzen.
+
+Im folgenden wird ein funktionierendes Beispiel mit allen Eingaben gezeigt.
+
+#### **Zeitschaltuhr mit den passenden Schaltzeiten**
+
+Definition der Zeitschaltuhr mit den Schaltzeiten, die alle 3 Tage gesendet werden sollen.
+
+![Schaltzeit-Hauptseite](pics/bsp01a-schalten-alle-3-tage-schaltzeit.png)
+
+Hier wird nur beispielhaft eine Einschaltzeit um 10 Uhr und Ausschaltzeit um 12 Uhr definiert.
+
+![Schaltzeit-Zeiten](pics/bsp01a-schalten-alle-3-tage-schaltzeit-i.png)
+
+Der Ausgang für die Schaltzeit kann so definiert sein, dass keine Daten auf den Bus gesendet werden und alle Werte intern verbunden werden.
+
+![Schaltzeit-Ausgang](pics/bsp01a-schalten-alle-3-tage-schaltzeit-o.png)
+
+#### **Täglicher Trigger für den Zähler**
+
+Definition der Trigger-Zeitschaltuhr täglich um 00:01.
+
+![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png)
+
+Es wird nur eingeschaltet...
+
+![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png)
+
+Das Ausschaltsignal vom Trigger wird durch ein Treppenlicht von 3 Sekunden erzeugt. Auch dieser Ausgang sendet nichts auf den Bus, die Werte werden intern verknüpft.
+
+![Trigger-Ausgang](pics/bsp01b-schalten-alle-3-tage-tagestrigger-o.png)
+
+#### **Zähler**
+
+Hier werden 3 Eingänge über ein UND verknüpft. Ganz wichtig ist, dass nur der interne Kanalausgang X zur Auswertung der UND-Verknüpfung führt. 
+
+![Zaehler-Hauptseite](pics/bsp01c-schalten-alle-3-tage-addierer.png)
+
+Der erste Eingang ist das Zähler-Kommunikationsobjekt, das in unserem Beispiel bis 3 zählt, also die Werte 0, 1 und 2. Damit das UND funktioniert, muss der Wert von diesem Eingang immer EIN sein. Deswegen ist das Wertintervall von 0 bis 255, also alle möglichen Werte. Damit bei einer Neuprogrammierung bzw. Stromausfall der Zähler nicht wieder bei 0 anfängt, wird der Wert gespeichert und bei einem Neustart vorbelegt.
+
+![Zaehler-Eingang1](pics/bsp01c-schalten-alle-3-tage-addierer-e1.png)
+
+Der zweite Eingang ist konstant 1. Das ist der Wert, um den der Zähler erhöht wird. Eine Konstante hat immer den Wert EIN, somit ist das für das UND genügend.
+
+![Zaehler-Eingang2](pics/bsp01c-schalten-alle-3-tage-addierer-e2.png)
+
+Die interne Verknüpfung mit dem Kanalausgang vom Kanal 27 verbindet mit dem Ausgang vom Täglichen Trigger. Die gelb markierte Nummer muss den korrekten Kanal adressieren, falls das Beispiel nachgebaut wird.
+
+![Zaehler-Intern](pics/bsp01c-schalten-alle-3-tage-addierer-i.png)
+
+Die Addition wird nur vorgenommen, wenn das UND wahr wird. Da Eingang 1 und Eingang 2 immer wahr sind, wird das UND immer wahr, wenn der (interne) Triggereingang wahr wird (also jeden Tag um 00:01 Uhr).
+
+Der Ausgang sendet nur bei einer 1, dann immer einen Wert um 1 höher als der alte Wert. 
+
+![Zaehler-Ausgang](pics/bsp01c-schalten-alle-3-tage-addierer-o.png)
+
+> Achtung: Wenn auf der Hauptseite das Häkchen nicht nur bei *Kanalausgang X* und nirgendwo anders gesetzt ist, würde die Erhöhung um 1 sofort eine erneute Addition um 1 auslösen, die wiederum eine erneute Addition um 1 auslösen würde usw. Wir hätten hier aus Endlosschleife und eine hohe Buslast. 
+
+
+#### **Zähler zurücksetzen**
+
+Immer wenn der Zähler den Wert 3 erreicht, muss er wieder auf 0 gesetzt werden. Dieser Kanal ist nichts anderes als ein IF:
+
+> if Zähler >= 3 then Zähler = 0
+
+Auf der ersten Seite definiert eine Logik mit einem Eingang, üblicherweise ein ODER.
+
+![Reset-Hauptseite](pics/bsp01d-schalten-alle-3-tage-reset.png)
+
+Der Eingang spezifiziert das Wertintervall, in dem der Zähler zurückgesetzt werden soll. Falls man bis zu einem anderen Wert als 3 zählen will, muss man die gelbe 3 durch den Zielwert ersetzen.
+
+![Reset-Eingang1](pics/bsp01d-schalten-alle-3-tage-reset-e1.png)
+
+Der Ausgang sendet eine 0 an den Zähler. Sobald der Zähler einen Wert 3 bis 255 erreicht.
+
+![Reset-Ausgang](pics/bsp01d-schalten-alle-3-tage-reset-o.png)
+
+#### **Tor zum Durchschalten der Schaltzeiten jeden dritten Tag**
+
+Jetzt wird alles zusammen gebracht. Das Tor wird durch den Zähler geöffnet, sobald dieser den Wert 0 erreicht. Das Tor lässt dann den Wert der Zeitschaltuhr durch.
+
+Das Tor wird so definiert, dass ein Öffnen vom Tor immer den Eingangswert sendet. Da beim öffnen die Zeitschaltuhr wahrscheinlich noch AUS ist, würde um 00:01 Uhr alle 3 Tage immer ein AUS gesendet werden. Das kann gewollt sein, falls nicht, einfach das gelb markierte Feld auf "nichts gesendet" ändern.
+
+![Tor-Hauptseite](pics/bsp01e-schalten-alle-3-tage-tor.png)
+
+Der Zählerwert zum öffnen vom Tor wird über den externen Eingang 2 geschickt. So kann man gleich auf den Wert 0 prüfen. 
+
+![Tor-Eingang2](pics/bsp01e-schalten-alle-3-tage-tor-e2.png)
+
+Der aktuelle Schaltzustand der Zeitschaltuhr wird als Interner Eingang 1 mit dem Kanalausgang 26 verbunden. Auch die 26 (gelb markiert) muss bei einer Übernahme des Beispiels angepasst werden (Kanalnummer der Zeitschaltuhr mit den Schaltzeiten).
+
+![Tor-Intern](pics/bsp01e-schalten-alle-3-tage-tor-i.png)
+
+Der Ausgang vom Tor macht nichts besonderes. Er lässt alle Signale vom Tor-Dateneingang einfach durch.
+
+![Tor-Ausgang](pics/bsp01e-schalten-alle-3-tage-tor-o.png)
+
+#### **Gruppenadressen und deren Verknüpfungen**
+
+Es werden nur 2 GA gebraucht:
+
+- eine transportiert den Zählerwert (DPT 5.005)
+- eine für den Schaltwert alle 3 Tage
+
+![GA-Verknüpfungen](pics/bsp01f-schalten-alle-3-tage-ga.png)
+
+Der Zählwert wird von Logik 28 erhöht (inkrementiert) und muss natürlich mit dem eigenen Eingang verbunden werden, damit beim nächsten erhöhen der aktuelle Wert anliegt und erhöht werden kann. Deswegen die Verknüpfung von KO 531 und KO 533.
+
+Logik 29 soll den Zählwert zurücksetzen, wenn er 3 ist (das IF). Dazu muss der Wert an den Eingang von Logik 29 (zur Prüfung) und and den Ausgang (damit er auf 0 gesetzt werden kann). Deswegen sind KO 533 mit KO 534 und KO 536 verknüpft.
+
+Logik 30 soll das Tor immer öffnen, wenn der Zähler = 0 ist, deswegen muss der Zählwert auch an den Eingang von Logik 30 (zur Prüfung). Deswegen ist KO 533 auch mit KO 538 verknüpft.
+
+Der Ausgang von Logik 30 enthält die Schaltzeiten alle 3 Tage, deswegen ist hier die GA für den Schaltwert alle 3 Tage mit KO 539 verknüpft.
+
+## **Weitere Beispiele**
+
+Die folgenden Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften zeigen aber bereits jetzt eine Liste der möglichen Funktionen.
 
 ### 3 Lichtszenen sollen auch den PM sperren (der das nativ nicht unterstützt)
 
