@@ -22,6 +22,21 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+<!-- xx.xx.2022: Firmware 1.0.0, Applikation 1.0
+
+* (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
+
+31.08.2022: Firmware 0.8.0, Applikation 0.8 (Beta-Release)
+
+* Es gibt keine Änderungen an der Firmware oder ETS-Applikation, kein Update der Hardware oder der ETS nötig.
+* Die Applikationsbeschreibung wurde um ein Beispiel "Zeitschaltuhr schaltet alle 3 Tage" ergänzt.
+* Die Änderungshistorie wird jetzt in der umgekehrten Reihenfolge aufgeführt (vom neusten Eintrag als erstes bis hin zum ältesten als letztes). So werden die neusten Änderungen gleich zu Anfang präsentiert.
+* Alle Bilder, Grafiken und Bildschirmfotos in der Anleitung haben jetzt einen Rahmen, der diese vom Text etwas absetzt. Dies erhöht die Lesbarkeit. 
+
+01.05.2022: Firmware 0.8.0, Applikation 0.8 (Beta-Release)
+
+* Frauentag wurde in die Liste der Feiertage aufgenommen.
+
 23.04.2022: Firmware 0.7.0, Applikation 0.7 (Beta-Release)
 
 * initiales Release als OpenKNX LogicModule
@@ -36,14 +51,6 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * **Wichtig:** Diese Version ist eine komplett neue Applikation und somit nicht kompatibel zu der früheren Version 3.8. Die ETS-Applikation muss komplett neu parametrisiert werden.
 * BUGFIX: Logikausgang war per Default "false" statt "initial". Damit wurde bei der Einstellung "nur bei Änderungen senden" so lange nichts gesendet, bis das erste Mal ein "true" festgestellt wird.
 * FEATURE: Ein Tor kann jetzt auch einen Impulseingang haben. Damit wird das Tor geöffnet und danach sofort wieder geschlossen. So kann man auf eine einfache Weise Wertänderungen getaktet weiterleiten.
-
-01.05.2022: Firmware 0.8.0, Applikation 0.8 (Beta-Release)
-
-* Frauentag wurde in die Liste der Feiertage aufgenommen.
-
-xx.xx.2022: Firmware 1.0.0, Applikation 1.0
-
-* (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
 
 ## **Einleitung**
 
