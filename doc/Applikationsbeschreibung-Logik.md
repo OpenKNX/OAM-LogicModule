@@ -146,7 +146,7 @@ Senden von gespeicherten Werten nach einem Neustart<sup>*)</sup>
 
 ## **Allgemeine Parameter**
 
-![Allgemeine Parameter](pics/AllgemeineParameter.PNG)
+<kbd>![Allgemeine Parameter](pics/AllgemeineParameter.PNG)</kbd>
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
 
 Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Punkte vorhanden sein.
@@ -195,7 +195,7 @@ Gleichzeitig wird ein Kommunikationsobjekt freigeschaltet, mit dem man die Licht
 
 ## **Experteneinstellungen**
 
-![Experteneinstellungen](pics/Experteneinstellungen.png)
+<kbd>![Experteneinstellungen](pics/Experteneinstellungen.png)</kbd>
 
 Auf dieser Seite werden Einstellungen vorgenommen, die nicht so häufig gebraucht werden und die technisches Detailwissen erfordern
 
@@ -262,7 +262,7 @@ Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen
 
 ### **Zeit**
 
-![Zeitangaben](pics/Zeit.PNG)
+<kbd>![Zeitangaben](pics/Zeit.PNG)</kbd>
 
 Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, ob eine Sommerzeitumschaltung intern vorgenommen werden soll.
 
@@ -296,7 +296,7 @@ Empfehlung: Um solche "Sprung-" bzw. "Wiederholungseffekte" zu vermeiden, sollte
 
 ### **Urlaub**
 
-![Urlaubsangaben](pics/Urlaub.PNG)
+<kbd>![Urlaubsangaben](pics/Urlaub.PNG)</kbd>
 
 Zeitschaltuhren können Urlaubstage berücksichtigen, sofern diese Information vorliegt. Diese Information kann über ein Kommunikationsobjekt dem Modul mitgeteilt werden.
 
@@ -314,7 +314,7 @@ Hier kann angegeben werden, ob nach einem Neustart des Moduls die Information, o
 
 Für die Zeitschaltuhren wird vom Modul eine Berechnung der Feiertage vorgenommen, inklusive einiger regionaler Feiertage.
 
-![Feiertagsangaben](pics/Feiertage.PNG)
+<kbd>![Feiertagsangaben](pics/Feiertage.PNG)</kbd>
 
 #### **Feiertage auf dem Bus verfügbar machen?**
 
@@ -349,7 +349,7 @@ Zwischen die Eingänge und den Ausgang können verschiedene Funktionsblöcke ges
 
 Alle Funktionsblöcke kann man sich wie an einer Perlenschnur aufgereiht hintereinander vorstellen, das Ergebnis eines Funktionsblocks wird für den darauffolgenden Funktionsblock als Eingabe verwendet.
 
-![Übersicht](pics/Uebersicht.PNG)
+<kbd>![Übersicht](pics/Uebersicht.PNG)</kbd>
 
 Jeder Funktionsblock arbeitet rein binär, also nur mit den Werten 0 oder 1 (DPT 1). Damit auch andere DPT möglich sind, besitzen externe Eingänge Konverter-Funktionsblöcke, die von einem beliebigen DPT nach DPT 1 konvertieren. Derzeit sind Schwellwertschalter und Vergleicher als Konverterfunktionen implementiert. Interne Eingänge und die Zeitschaltuhr benötigen keinen Konverter, da sie rein binär funktionieren.
 
@@ -453,11 +453,11 @@ Da alle Kanäle identisch sind, wird hier nur ein Kanal repräsentativ beschrieb
 
 Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "unbenannt" lautet.
 
-![Baumansicht der Kanäle](pics/Kanalbaum.PNG)
+<kbd>![Baumansicht der Kanäle](pics/Kanalbaum.PNG)</kbd>
 
 Folgende Parameter kann man für einen Logikkanal angeben:
 
-![Logikseite](pics/Logikseite.PNG)
+<kbd>![Logikseite](pics/Logikseite.PNG)</kbd>
 
 ## Kanaldefinition
 
@@ -483,7 +483,7 @@ Dieser Logikkanal ist außer Funktion. Er kann vollständig definiert sein und k
 
 Hier werden die Einstellungen vorgenommen, die für die Logikausführung selbst wesentlich sind.
 
-![Logikdefinition](pics/Logikdefinition.png)
+<kbd>![Logikdefinition](pics/Logikdefinition.png)</kbd>
 
 ### **Logik-Operation**
 
@@ -562,7 +562,7 @@ Es erscheint eine eigene Seite für die Verknüpfung dieses Eingangs mit einem a
 
 Hier werden die Einstellungen vorgenommen, die für die Auswertung der Logik relevant sind.
 
-![Logikauswertung](pics/Logikauswertung.png)
+<kbd>![Logikauswertung](pics/Logikauswertung.png)</kbd>
 
 ### **Logik auswerten**
 
@@ -584,7 +584,7 @@ Die logische Verknüpfung wird erst dann einen Wert ermitteln, wenn an allen Ein
 
 Hier wird das Verhalten vom Tor vorgegeben.
 
-![Tordefinition](pics/Tordefinition.png)
+<kbd>![Tordefinition](pics/Tordefinition.png)</kbd>
 
 ### **Tor geht sofort wieder zu**
 
@@ -648,7 +648,7 @@ Beim schließen vom Tor wird der Eingangswert gesendet. Da dieser Wert ja faktis
 
 Bisher wurde detailliert beschrieben, wie das Logik-Funktionsmodul die Eingänge auswertet, es ist aber ebenso wichtig zu bestimmen, wann der ermittelte Ausgangswert der Logik an die folgenden Funktionsmodule weitergeschickt wird.
 
-![Logik-Trigger](pics/Logiktrigger.png)
+<kbd>![Logik-Trigger](pics/Logiktrigger.png)</kbd>
 
 ### **Logik sendet ihren Wert weiter**
 
@@ -676,7 +676,7 @@ Sobald ein neues Eingangstelegramm eintrifft, wird das Ergebnis der logischen Ve
 
 #### **bei folgenden Eingangstelegrammen**
 
-![Logik sendet](pics/LogikSendet.PNG)
+<kbd>![Logik sendet](pics/LogikSendet.PNG)</kbd>
 
 Es erscheint eine Liste mit allen aktiven Eingängen. Man kann die Eingänge ankreuzen, auf die die Logikauswertung reagieren soll. Nur wenn ein Telegramm von einem dieser Eingänge kommt, wird die Logikauswertung angestoßen und das Ergebnis ermittelt und an den nächsten Funktionsblock weitergeleitet.
 
@@ -689,7 +689,7 @@ Allerdings wird das erste Telegramm nach einem Neustart unterdrückt. Damit kann
 
 Sobald für einen Logikkanal ein externer Eingang aktiviert wurde, erscheint für jeden Eingang eine Seite.
 
-![Eingang](pics/Eingangseite.PNG)
+<kbd>![Eingang](pics/Eingangseite.PNG)</kbd>
 
 ## Definition Eingang 1
 
@@ -745,7 +745,7 @@ Dieses Auswahlfeld legt den DPT für den Eingang fest. Unterstützt werden:
 Ist der DPT anders als DPT 1, erscheint je nach DPT ein Konverter, mit dem man den gewünschten Eingangs-DPT nach DPT 1 wandeln kann. Die gesamte weitere Verarbeitung des Eingangssignals erfolgt binär, also auf Basis von DPT 1.
 
 > **Wichtig:** Wenn ein bestehendes Kommunikationsobjekt genutzt wird, muss der hier eingestellte DPT dem DPT des bestehenden KO entsprechen! Das kann nicht automatisch von der Applikation ermittelt werden. Wenn hier etwas falsch eingestellt wird und der falsche Eingangskonverter benutzt wird, kann der Logikkanal nicht korrekt funktionieren. Darauf wird in der Applikation durch die folgende Information hingewiesen:
-![Warnung bestehendes KO](pics/BestehendesKoWarnung.png)
+<kbd>![Warnung bestehendes KO](pics/BestehendesKoWarnung.png)</kbd>
 
 ### **DPT 1.xxx (Schalten)**
 
@@ -753,7 +753,7 @@ Für DPT 1 ist kein Konverter notwendig.
 
 ### **DPT 2.xxx (Zwangsführung)**
 
-![Zwangsführung](pics/Zwangsführung.PNG)
+<kbd>![Zwangsführung](pics/Zwangsführung.PNG)</kbd>
 
 Eine Zwangsführung kann aus genau 4 Werten bestehen. Im Konverter kann eingestellt werden, welche dieser Werte, falls er empfangen wird, zu einem EIN-Signal konvertiert wird. Logischerweise führen alle hier nicht aufgeführten Werte zu einem AUS-Signal.
 
@@ -783,7 +783,7 @@ Wird der Zwangsführungs-Wert "priorität EIN" empfangen (im KNX durch eine 11 r
 
 ### **DPT 17.001 (Szene)**
 
-![Szenenkonverter](pics/Szene.PNG)
+<kbd>![Szenenkonverter](pics/Szene.PNG)</kbd>
 
 Der Szenenkonverter kann bis zu 8 Szenennummern in eine EIN-Signal konvertieren. Alle anderen Szenennummern führen zu einem AUS-Signal. Sollten mehr Szenennummern benötigt werden, kann man mit einem weiteren Eingang oder einem weiteren Logikkanal jeweils 8 weitere Szenen einbeziehen.
 
@@ -801,7 +801,7 @@ Mit dem Auswahlfeld wird der passende Zahlenkonverter ausgewählt.
 
 #### **Wertintervall**
 
-![Wertintervall](pics/Wertintervall.PNG)
+<kbd>![Wertintervall](pics/Wertintervall.PNG)</kbd>
 
 Bei diesem Konverter legt man einen Von- und einen Bis-Wert fest. Wenn der Wert vom Eingang n innerhalb der Intervallgrenzen liegt (einschließlich der Grenzen selbst), wird er in ein EIN-Signal konvertiert, sonst in ein AUS-Signal.
 
@@ -815,7 +815,7 @@ In dem angezeigten Bildschirmausschnitt werden die Werte 0 bis 127 in ein AUS-Si
 
 #### **Differenzintervall**
 
-![Differenzintervall](pics/Differenzintervall.PNG)
+<kbd>![Differenzintervall](pics/Differenzintervall.PNG)</kbd>
 
 Bei diesem Konverter legt man - wie beim Wertintervall - einen Von- und einen Bis-Wert fest. Der Wert, der mit diesem Intervall verglichen wird, ist allerdings die Differenz von dem Eingang n und dem anderen Eingang des Logikkanals. Bei Eingang 1 wird also (Eingang 1 - Eingang 2) gerechnet, bei Eingang 2 aber (Eingang 2 - Eingang 1). Wenn der errechnete Wert innerhalb der Intervallgrenzen liegt (einschließlich der Grenzen selbst), wird das Eingangssignal in eine EIN-Signal konvertiert, sonst in ein AUS-Signal.
 
@@ -833,7 +833,7 @@ Ein Differenzintervall kann auch als Vergleicher genutzt werden, in dem Von- und
 
 #### **Hysterese**
 
-![Hysterese](pics/Hysterese.PNG)
+<kbd>![Hysterese](pics/Hysterese.PNG)</kbd>
 
 Bei diesem Konverter legt man einen Einschalt- und einen Ausschalt-Wert fest. Der Einschaltwert sollte immer größer als der Ausschaltwert sein. Sobald der Wert vom Eingang n den Einschaltwert erreicht oder überschreitet, wird ein EIN-Signal erzeugt. Erst wenn der Wert wieder den Ausschaltwert erreicht oder diesen unterschreitet, wird ein AUS-Signal erzeugt.
 
@@ -848,7 +848,7 @@ In dem angezeigten Bildschirmausschnitt könnte das ein Hystereseschalter für H
 
 #### **Differenzhysterese**
 
-![Differenzhysterese](pics/Differenzhysterese.PNG)
+<kbd>![Differenzhysterese](pics/Differenzhysterese.PNG)</kbd>
 
 Bei diesem Konverter legt man - wie bei der Hysterese - einen Einschalt- und einen Ausschalt-Wert fest. Der Wert, der mit den Grenzen verglichen wird, ist allerdings die Differenz von dem Eingang n und dem anderen Eingang des Logikkanals. Bei Eingang 1 wird also (Eingang 1 - Eingang 2) gerechnet, bei Eingang 2 aber (Eingang 2 - Eingang 1). Wenn der errechnete Wert den Einschaltwert erreicht oder überschreitet, wird ein EIN-Signal erzeugt. Erst wenn der errechnete Wert wieder den Ausschaltwert erreicht oder diesen unterschreitet, wird ein AUS-Signal erzeugt.
 
@@ -882,7 +882,7 @@ Alle DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.
 
 #### **Einzelwert-Konverter**
 
-![Einzelwerte](pics/Einzelwerte.png)
+<kbd>![Einzelwerte](pics/Einzelwerte.png)</kbd>
 
 Der Einzelwert-Konverter prüft, ob der Eingang einem der angegebenen Werte entspricht. Wenn ja, liefert der Eingang ein EIN-Signal an die Logik. Wenn er keinem der Werte entspricht, liefert er ein AUS-Signal. Geprüft wird jedes mal, wenn das Eingangs-KO einen Wert empfängt. Je nach DPT des Eingangs können unterschiedlich viele Werte geprüft werden:
 
@@ -902,7 +902,7 @@ In dem angezeigten Bildschirmausschnitt wird bei den Werten 17, 25 und 40 ein EI
 
 Alle Eingänge können auch mit einem Konstanten Wert vorbelegt werden. Dies geschieht DPT gerecht, also passend zum Eingangs-DPT. Konstanten können in Formeln verwendet werden oder direkt von Ausgängen genutzt werden. Wobei man sowieso jeden Ausgang einen konstanten Wert senden lassen kann, insofern macht es keinen Sinn, konstante Eingänge für Ausgänge zu definieren.
 
-![Konstante](pics/Konstante.png)
+<kbd>![Konstante](pics/Konstante.png)</kbd>
 
 Der Boolesche Wert einer Konstante ist immer EIN und kann in einer Logik normal genutzt werden. Natürlich ändert sich dieser Wert nie und kann auch keine Logik triggern.
 
@@ -912,7 +912,7 @@ Der Einsatz von Konstanten ist primär für Formeln gedacht. Wie die Konstanten 
 
 Die folgenden Einstellungen erlaubten ein dezidiertes Verhalten beim Neustart des Gerätes, wie im Kapitel "Logikkanäle -> Startverhalten" beschrieben.
 
-![Eingangswert vorbelegen](pics/EingangVorbelegen.png)
+<kbd>![Eingangswert vorbelegen](pics/EingangVorbelegen.png)</kbd>
 
 ### **Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen**
 
@@ -979,7 +979,7 @@ Wird für eine logische Operation "Kanalausgang X" oder "Kanalausgang Y" als "no
 
 Ausgänge von anderen Kanälen können dazu genutzt werden, große Logikblöcke zu bauen, ohne für jede Teillogik (jeden Logikkanal) eine eigene GA zur Verbindung von Eingang und Ausgang zu benötigen.
 
-![Interne Eingänge](pics/InternerEingang.PNG)
+<kbd>![Interne Eingänge](pics/InternerEingang.PNG)</kbd>
 Solange der Ausgang eines anderen Kanals nicht zugeordnet worden ist, wird der interne Eingang von der logischen Operation als undefiniert betrachtet.
 
 ## Definition Interner Eingang 1
@@ -997,7 +997,7 @@ Diese Feld erlaubt eine kurze Beschreibung, wozu dieser Eingang verwendet wird. 
 Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner Eingang genutzt werden soll. Solange der Eingang nicht verbunden ist (Wert im Eingabefeld ist 0) erscheint eine Warnmeldung, dass der Eingang inaktiv (undefiniert) ist.
 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
-![Warnung Rückkopplung](pics/Rueckkopplung.PNG)
+<kbd>![Warnung Rückkopplung](pics/Rueckkopplung.PNG)</kbd>
 
 ## Definition Interner Eingang 1
 
@@ -1014,7 +1014,7 @@ Diese Feld erlaubt eine kurze Beschreibung, wozu dieser Eingang verwendet wird. 
 Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner Eingang genutzt werden soll. Solange der Eingang nicht verbunden ist (Wert im Eingabefeld ist 0) erscheint eine Warnmeldung, dass der Eingang inaktiv (undefiniert) ist.
 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
-![Warnung Rückkopplung](pics/Rueckkopplung.PNG)
+<kbd>![Warnung Rückkopplung](pics/Rueckkopplung.PNG)</kbd>
 
 ## **Schaltzeiten: unbenannt**
 
@@ -1022,7 +1022,7 @@ Erscheint nur, wenn die Logik-Operation auf ZEITSCHALTUHR gestellt wurde.
 
 Auf dieser Seite können die Schaltpunkte für eine Zeitschaltuhr eingegeben werden. Die Einstellmöglichkeiten sind bei jedem Logikkanal gleich, so dass nur ein Kanal beschrieben wird.
 
-![Schaltuhr](pics/Schaltuhr.PNG)
+<kbd>![Schaltuhr](pics/Schaltuhr.PNG)</kbd>
 
 ## Definition Zeitschaltuhr
 
@@ -1107,7 +1107,7 @@ Schaltzeitpunkte werden in einer Tabelle definiert, eine Zeile per Schaltpunkt. 
 
 Im folgenden werden die Spalten der Tagesschaltuhr beschrieben.
 
-![Tagesschaltuhr](pics/Tagesschaltuhr.PNG)
+<kbd>![Tagesschaltuhr](pics/Tagesschaltuhr.PNG)</kbd>
 
 ### **Spalte: Zeitbezug**
 
@@ -1189,7 +1189,7 @@ Wird hier der Wert "jeder" ausgewählt, wird der Schaltpunkt an jedem Wochentag 
 
 Im folgenden werden die Spalten der Jahresschaltuhr beschrieben.
 
-![Jahresschaltuhr](pics/Jahresschaltuhr.PNG)
+<kbd>![Jahresschaltuhr](pics/Jahresschaltuhr.PNG)</kbd>
 
 Bei der Jahresschaltuhr sind fast alle Spalten der Tagesschaltuhr vorhanden. Im folgenden werden die zusätzlichen Spalten der Jahresschaltuhr beschrieben.
 
@@ -1235,7 +1235,7 @@ In der Grundeinstellung sind alle Funktionsblöcke deaktiviert und die Signale d
 
 Im folgenden Werden alle Funktionsblöcke, deren Einstellungen und deren Beeinflussungsmöglichkeiten beschrieben.
 
-![Ausgang](pics/Ausgang.PNG)
+<kbd>![Ausgang](pics/Ausgang.PNG)</kbd>
 
 ### **Beschreibung Ausgang**
 
@@ -1249,7 +1249,7 @@ Hier wird die Nummer des Kommunikationsobjektes für diesen Ausgang angezeigt. D
 
 ## Treppenlicht
 
-![Treppenlicht](pics/Treppenlicht.PNG)
+<kbd>![Treppenlicht](pics/Treppenlicht.PNG)</kbd>
 
 Mit den Einstellungen kann ein Treppenlicht mit Blinkfunktion konfiguriert werden. Ein Treppenlicht erzeugt, sobald es durch ein EIN-Signal getriggert wird, ein EIN-Signal, dass nach einer gewissen Zeit zu einem AUS-Signal wird. Man kann bestimmen, ob ein weiterer Trigger mit einem EIN-Signal dazu führt, dass die Treppenlichtzeit erneut anfängt und somit der Trigger das Treppenlicht verlängert. Ferner kann man festlegen, ob ein weiterer Trigger mit einem AUS-Signal das Treppenlicht ausschaltet oder nicht.
 
@@ -1283,7 +1283,7 @@ Der Bildschirmausschnitt oben zeigt ein Beispiel für ein 3-maliges Blinken in e
 
 ## Ein-/Ausschaltverzögerung
 
-![Verzögerung](pics/Verzögerung.PNG)
+<kbd>![Verzögerung](pics/Verzögerung.PNG)</kbd>
 
 Jedes EIN- oder AUS-Signal, dass bei diesem Funktionsblock ankommt, kann verzögert werden, mit unterschiedlichen Zeiten für die EINschalt- und AUSschaltverzögerung. Die kleinste Auflösung sind 1/10 Sekunden, um auch kurze Verzögerungen erreichen zu können.
 
@@ -1369,7 +1369,7 @@ Kommt während eine Verzögerung eines AUS-Signals aktiv ist ein EIN-Signal, wir
 
 ## Wiederholungsfilter
 
-![Wiederholungsfilter](pics/Wiederholungsfilter.PNG)
+<kbd>![Wiederholungsfilter](pics/Wiederholungsfilter.PNG)</kbd>
 
 Durch verschiedene Kombinationen von logischer Operation, Treppenlicht, Blinken, EIN- und AUSschaltverzögerung kann es passieren, dass mehrere EIN- oder AUS-Signale hintereinander gesendet werden und zu ungewollten Effekten auf dem KNX-Bus oder bei weiteren Logikkanälen führen.
 
@@ -1395,7 +1395,7 @@ Alle Wiederholungen von EIN- oder AUS-Signalen werden ignoriert, es wird immer n
 
 ## Zyklisch senden
 
-![Zyklisch](pics/ZyklischSenden.PNG)
+<kbd>![Zyklisch](pics/ZyklischSenden.PNG)</kbd>
 
 Nachdem durch den Wiederholungsfilter unbeabsichtigte Wiederholungen ausgefiltert wurden, werden in diesem Funktionsblock beabsichtigte Wiederholungen definiert.
 
@@ -1429,13 +1429,13 @@ Die Eingabe einer 0 deaktiviert eine Wiederholung.
 
 ## Interne Eingänge
 
-![Interne Eingänge](pics/InternerAusgang.png)
+<kbd>![Interne Eingänge](pics/InternerAusgang.png)</kbd>
 
 An dieser Stelle endet die binäre Verarbeitung. Alle hier ankommenden EIN- oder AUS-Signale werden, sofern verbunden, an die entsprechenden internen Eingänge weitergeleitet und triggern dort die entsprechenden logischen Operationen.
 
 ## Wert für Ausgang
 
-![Ausgangskonverter](pics/Ausgangskonverter.PNG)
+<kbd>![Ausgangskonverter](pics/Ausgangskonverter.PNG)</kbd>
 
 Das letzte Funktionsmodul auf dem Ausgangsbild ist ein Konverter, der das bis hierher ermittelte EIN- oder AUS-Signal in einen bestimmten DPT konvertiert und den resultierenden Wert in ein KO schreibt, damit es auf den KNX-Bus gesendet werden kann.
 
@@ -1460,7 +1460,7 @@ Je nach gewähltem DPT unterscheiden sich die folgenden Felder leicht. Es werden
 
 ### **Wert für EIN senden?**
 
-![WertEinDropdown](pics/WertEinSenden.PNG)
+<kbd>![WertEinDropdown](pics/WertEinSenden.PNG)</kbd>
 
 In dieser Auswahlbox wird festgelegt, ob und was für ein Wert bei einem EIN-Signal gesendet werden soll.
 
@@ -1506,7 +1506,7 @@ Falls der Buzzer gerade über das Kommunikationsobjekt 9 gesperrt ist, wird kein
 
 Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird ein Ton unabhängig von der Sperre ausgegeben.
 
-![Tonwiedergabe](pics/Tonwiedergabe.PNG)
+<kbd>![Tonwiedergabe](pics/Tonwiedergabe.PNG)</kbd>
 
 #### **Ja - RGB-LED schalten**
 
@@ -1522,7 +1522,7 @@ Falls dieser Kanal als Alarmkanal gekennzeichnet ist, wird die LED unabhängig v
 
 ### **Wert für EIN senden als**
 
-![Wert senden in Prozent](pics/WertSendenProzent.PNG)
+<kbd>![Wert senden in Prozent](pics/WertSendenProzent.PNG)</kbd>
 
 Das Feld erscheint nur, wenn für "Wert für EIN senden" ein "Ja - Wert vorgeben" ausgewählt wurde.
 
@@ -1532,7 +1532,7 @@ Man kann dies z.B. auch zur Invertierung nutzen, indem bei einem DPT 1 für ein 
 
 ### **Physikalische Adresse**
 
-![Gerät zurücksetzen](pics/ResetDevice.PNG)
+<kbd>![Gerät zurücksetzen](pics/ResetDevice.PNG)</kbd>
 
 Das Feld erscheint nur, wenn für "Wert für EIN senden" ein "Ja - 'Gerät zurücksetzen' senden" ausgewählt wurde.
 
@@ -1542,7 +1542,7 @@ Dies entspricht genau der Funktion "Gerät zurücksetzen" in der ETS.
 
 ### **LED-Farbe festlegen (Schwarz=aus)**
 
-![Led Farbe festlegen](pics/LedColor.PNG)
+<kbd>![Led Farbe festlegen](pics/LedColor.PNG)</kbd>
 
 Das Feld erscheint nur, wenn für "Wert für EIN senden" ein "Ja - RGB-LED schalten" ausgewählt wurde.
 
@@ -1680,7 +1680,7 @@ Wir benutzen eine UND-Logik und senden nur bei Wertänderungen. Die Eingangskonv
 
 Das Logikmodul enthält wenige bereits implementierte Standardformeln. In Zukunft können noch weitere Standardformeln hinzukommen.
 
-![Standardformeln](pics/Standardformeln.PNG)
+<kbd>![Standardformeln](pics/Standardformeln.PNG)</kbd>
 
 Man kann Eingänge auch auf einen konstanten Wert setzen, um anschließend mit diesem Wert zu rechnen. Will man z.B. nur 10% eines Wertes haben, kann man am Eingang 1 den entsprechenden Wert empfangen, den Eingang 2 konstant auf 10 setzen und dann Eingang 1 / Eingang 2 rechnen.
 
@@ -1744,7 +1744,7 @@ Man kann direkt in der Firmware bis zu 30 eigene Funktionen definieren und die b
 
 Um eigene Benutzerfunktionen zu implementieren, muss man die gesamte Entwicklungsumgebung installieren und alle Programmdateien runterladen.
 
-![Benutzerfunktion](pics/Benutzerfunktion.png)
+<kbd>![Benutzerfunktion](pics/Benutzerfunktion.png)</kbd>
 
 Alle Benutzerfunktionen werden gleichartig aufgerufen, im Folgenden wird nur eine behandelt.
 
@@ -1945,45 +1945,39 @@ Der Ausgang für die Schaltzeit kann so definiert sein, dass keine Daten auf den
 
 Definition der Trigger-Zeitschaltuhr täglich um 00:01.
 
-<!-- ![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png) -->
-
-<table><tr><td>
-  <img src="pics/bsp01b-schalten-alle-3-tage-tagestrigger.png"/>
-</td></tr></table>
+<kbd>![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png)</kbd>
 
 Es wird nur eingeschaltet...
 
-
-| ![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png) |
-|-|
+<kbd>![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png)</kbd>
 
 Das Ausschaltsignal vom Trigger wird durch ein Treppenlicht von 3 Sekunden erzeugt. Auch dieser Ausgang sendet nichts auf den Bus, die Werte werden intern verknüpft.
 
-![Trigger-Ausgang](pics/bsp01b-schalten-alle-3-tage-tagestrigger-o.png)
+<kbd>![Trigger-Ausgang](pics/bsp01b-schalten-alle-3-tage-tagestrigger-o.png)</kbd>
 
 #### **Zähler**
 
 Hier werden 3 Eingänge über ein UND verknüpft. Ganz wichtig ist, dass nur der interne Kanalausgang X zur Auswertung der UND-Verknüpfung führt. 
 
-![Zaehler-Hauptseite](pics/bsp01c-schalten-alle-3-tage-addierer.png)
+<kbd>![Zaehler-Hauptseite](pics/bsp01c-schalten-alle-3-tage-addierer.png)</kbd>
 
 Der erste Eingang ist das Zähler-Kommunikationsobjekt, das in unserem Beispiel bis 3 zählt, also die Werte 0, 1 und 2. Damit das UND funktioniert, muss der Wert von diesem Eingang immer EIN sein. Deswegen ist das Wertintervall von 0 bis 255, also alle möglichen Werte. Damit bei einer Neuprogrammierung bzw. Stromausfall der Zähler nicht wieder bei 0 anfängt, wird der Wert gespeichert und bei einem Neustart vorbelegt.
 
-![Zaehler-Eingang1](pics/bsp01c-schalten-alle-3-tage-addierer-e1.png)
+<kbd>![Zaehler-Eingang1](pics/bsp01c-schalten-alle-3-tage-addierer-e1.png)</kbd>
 
 Der zweite Eingang ist konstant 1. Das ist der Wert, um den der Zähler erhöht wird. Eine Konstante hat immer den Wert EIN, somit ist das für das UND genügend.
 
-![Zaehler-Eingang2](pics/bsp01c-schalten-alle-3-tage-addierer-e2.png)
+<kbd>![Zaehler-Eingang2](pics/bsp01c-schalten-alle-3-tage-addierer-e2.png)</kbd>
 
 Die interne Verknüpfung mit dem Kanalausgang vom Kanal 27 verbindet mit dem Ausgang vom Täglichen Trigger. Die gelb markierte Nummer muss den korrekten Kanal adressieren, falls das Beispiel nachgebaut wird.
 
-![Zaehler-Intern](pics/bsp01c-schalten-alle-3-tage-addierer-i.png)
+<kbd>![Zaehler-Intern](pics/bsp01c-schalten-alle-3-tage-addierer-i.png)</kbd>
 
 Die Addition wird nur vorgenommen, wenn das UND wahr wird. Da Eingang 1 und Eingang 2 immer wahr sind, wird das UND immer wahr, wenn der (interne) Triggereingang wahr wird (also jeden Tag um 00:01 Uhr).
 
 Der Ausgang sendet nur bei einer 1, dann immer einen Wert um 1 höher als der alte Wert. 
 
-![Zaehler-Ausgang](pics/bsp01c-schalten-alle-3-tage-addierer-o.png)
+<kbd>![Zaehler-Ausgang](pics/bsp01c-schalten-alle-3-tage-addierer-o.png)</kbd>
 
 > Achtung: Wenn auf der Hauptseite das Häkchen nicht nur bei *Kanalausgang X* und nirgendwo anders gesetzt ist, würde die Erhöhung um 1 sofort eine erneute Addition um 1 auslösen, die wiederum eine erneute Addition um 1 auslösen würde usw. Wir hätten hier aus Endlosschleife und eine hohe Buslast. 
 
@@ -1996,15 +1990,15 @@ Immer wenn der Zähler den Wert 3 erreicht, muss er wieder auf 0 gesetzt werden.
 
 Auf der ersten Seite definiert eine Logik mit einem Eingang, üblicherweise ein ODER.
 
-![Reset-Hauptseite](pics/bsp01d-schalten-alle-3-tage-reset.png)
+<kbd>![Reset-Hauptseite](pics/bsp01d-schalten-alle-3-tage-reset.png)</kbd>
 
 Der Eingang spezifiziert das Wertintervall, in dem der Zähler zurückgesetzt werden soll. Falls man bis zu einem anderen Wert als 3 zählen will, muss man die gelbe 3 durch den Zielwert ersetzen.
 
-![Reset-Eingang1](pics/bsp01d-schalten-alle-3-tage-reset-e1.png)
+<kbd>![Reset-Eingang1](pics/bsp01d-schalten-alle-3-tage-reset-e1.png)</kbd>
 
 Der Ausgang sendet eine 0 an den Zähler. Sobald der Zähler einen Wert 3 bis 255 erreicht.
 
-![Reset-Ausgang](pics/bsp01d-schalten-alle-3-tage-reset-o.png)
+<kbd>![Reset-Ausgang](pics/bsp01d-schalten-alle-3-tage-reset-o.png)</kbd>
 
 #### **Tor zum Durchschalten der Schaltzeiten jeden dritten Tag**
 
@@ -2012,19 +2006,19 @@ Jetzt wird alles zusammen gebracht. Das Tor wird durch den Zähler geöffnet, so
 
 Das Tor wird so definiert, dass ein Öffnen vom Tor immer den Eingangswert sendet. Da beim öffnen die Zeitschaltuhr wahrscheinlich noch AUS ist, würde um 00:01 Uhr alle 3 Tage immer ein AUS gesendet werden. Das kann gewollt sein, falls nicht, einfach das gelb markierte Feld auf "nichts gesendet" ändern.
 
-![Tor-Hauptseite](pics/bsp01e-schalten-alle-3-tage-tor.png)
+<kbd>![Tor-Hauptseite](pics/bsp01e-schalten-alle-3-tage-tor.png)</kbd>
 
 Der Zählerwert zum öffnen vom Tor wird über den externen Eingang 2 geschickt. So kann man gleich auf den Wert 0 prüfen. 
 
-![Tor-Eingang2](pics/bsp01e-schalten-alle-3-tage-tor-e2.png)
+<kbd>![Tor-Eingang2](pics/bsp01e-schalten-alle-3-tage-tor-e2.png)</kbd>
 
 Der aktuelle Schaltzustand der Zeitschaltuhr wird als Interner Eingang 1 mit dem Kanalausgang 26 verbunden. Auch die 26 (gelb markiert) muss bei einer Übernahme des Beispiels angepasst werden (Kanalnummer der Zeitschaltuhr mit den Schaltzeiten).
 
-![Tor-Intern](pics/bsp01e-schalten-alle-3-tage-tor-i.png)
+<kbd>![Tor-Intern](pics/bsp01e-schalten-alle-3-tage-tor-i.png)</kbd>
 
 Der Ausgang vom Tor macht nichts besonderes. Er lässt alle Signale vom Tor-Dateneingang einfach durch.
 
-![Tor-Ausgang](pics/bsp01e-schalten-alle-3-tage-tor-o.png)
+<kbd>![Tor-Ausgang](pics/bsp01e-schalten-alle-3-tage-tor-o.png)</kbd>
 
 #### **Gruppenadressen und deren Verknüpfungen**
 
@@ -2033,7 +2027,7 @@ Es werden nur 2 GA gebraucht:
 - eine transportiert den Zählerwert (DPT 5.005)
 - eine für den Schaltwert alle 3 Tage
 
-![GA-Verknüpfungen](pics/bsp01f-schalten-alle-3-tage-ga.png)
+<kbd>![GA-Verknüpfungen](pics/bsp01f-schalten-alle-3-tage-ga.png)</kbd>
 
 Der Zählwert wird von Logik 28 erhöht (inkrementiert) und muss natürlich mit dem eigenen Eingang verbunden werden, damit beim nächsten erhöhen der aktuelle Wert anliegt und erhöht werden kann. Deswegen die Verknüpfung von KO 531 und KO 533.
 
