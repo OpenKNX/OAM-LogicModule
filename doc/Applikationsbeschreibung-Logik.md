@@ -1931,25 +1931,31 @@ Im folgenden wird ein funktionierendes Beispiel mit allen Eingaben gezeigt.
 
 Definition der Zeitschaltuhr mit den Schaltzeiten, die alle 3 Tage gesendet werden sollen.
 
-![Schaltzeit-Hauptseite](pics/bsp01a-schalten-alle-3-tage-schaltzeit.png)
+<kbd>![Schaltzeit-Hauptseite](pics/bsp01a-schalten-alle-3-tage-schaltzeit.png)</kbd>
 
 Hier wird nur beispielhaft eine Einschaltzeit um 10 Uhr und Ausschaltzeit um 12 Uhr definiert.
 
-![Schaltzeit-Zeiten](pics/bsp01a-schalten-alle-3-tage-schaltzeit-i.png)
+<kbd>![Schaltzeit-Zeiten](pics/bsp01a-schalten-alle-3-tage-schaltzeit-i.png)</kbd>
 
 Der Ausgang für die Schaltzeit kann so definiert sein, dass keine Daten auf den Bus gesendet werden und alle Werte intern verbunden werden.
 
-![Schaltzeit-Ausgang](pics/bsp01a-schalten-alle-3-tage-schaltzeit-o.png)
+<kbd>![Schaltzeit-Ausgang](pics/bsp01a-schalten-alle-3-tage-schaltzeit-o.png)</kbd>
 
 #### **Täglicher Trigger für den Zähler**
 
 Definition der Trigger-Zeitschaltuhr täglich um 00:01.
 
-![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png)
+<!-- ![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png) -->
+
+<table><tr><td>
+  <img src="pics/bsp01b-schalten-alle-3-tage-tagestrigger.png"/>
+</td></tr></table>
 
 Es wird nur eingeschaltet...
 
-![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png)
+
+| ![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png) |
+|-|
 
 Das Ausschaltsignal vom Trigger wird durch ein Treppenlicht von 3 Sekunden erzeugt. Auch dieser Ausgang sendet nichts auf den Bus, die Werte werden intern verknüpft.
 
