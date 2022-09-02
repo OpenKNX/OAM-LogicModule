@@ -55,6 +55,6 @@ Screenshots unter Win10 erstellt man am einfachsten mit der Tastenkombination "S
 
 ## **Bilder einbinden**
 Gespeichert werden alle Bilder im Unterverzeichnis pics im doc-Ordner.
-Das Konstrukt `<kbd>![Bildunterschrift](pics/Dateiname.png)</kbd>` bindet das Bild dann ein. Das `<kbd>...</kbd>`  ist erzeugt dabei einen Rahmen um das Bild, um die Lesbarkeit zu verbessern. In der Vorschau wird dieser Rahmen noch nicht angezeigt. Das Wort in eckigen Klammern ist frei wählbar und sollte eine Bildunterschrift sein. Es erscheint bei manchen Browsern als Tooltip, wenn man mit der Maus über dem Bild ist. Gedacht ist es für Blindenunterstützung, der Text erscheint auch auf der Braille-Zeile. In den runden Klammern ist dann der **relative** Pfad zum Bild, in diesem Fall immer pics/, gefolgt vom Datainamen (case sensitive) mit der Endung .png. 
+Das Konstrukt `<kbd>![Bildunterschrift](pics/Dateiname.png)</kbd>` bindet das Bild dann ein. Das `<kbd>...</kbd>` erzeugt dabei einen Rahmen um das Bild, um die Lesbarkeit zu verbessern. In der Vorschau wird dieser Rahmen noch nicht angezeigt. Das Wort in eckigen Klammern ist frei wählbar und sollte eine Bildunterschrift sein. Es erscheint bei manchen Browsern als Tooltip, wenn man mit der Maus über dem Bild ist. Gedacht ist es für Blindenunterstützung, der Text erscheint auch auf der Braille-Zeile. In den runden Klammern ist dann der **relative** Pfad zum Bild, in diesem Fall immer pics/, gefolgt vom Datainamen (case sensitive) mit der Endung .png. 
 
 
