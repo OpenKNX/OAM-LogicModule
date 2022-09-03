@@ -47,7 +47,7 @@ Im Editor sieht man jetzt den Quelltext für die Dokumentation, das Format ist "
 Durch einen Klick auf das Symbol Preview im Editor <kbd>![Vorschau](pics/Vorschau.png)</kbd> (oben rechts), wird in einem weiteren Fenster eine ungefähre Vorschau auf die Ausgabe in github angezeigt.
 
 
-Um an einer Dokumentation erst einmal unabhängig zu arbeiten, ohne ggf. aus Versehen die bisherige Version zu verändern, ist es sinnvoll temporär einen neuen Branch (z.B."bernhard-doc") anzulegen und dort zu editieren. Nach einem Review wird dieser Branch mit der bestehenden Version zusammengeführt.
+Um an einer Dokumentation erst einmal unabhängig zu arbeiten, ohne ggf. aus Versehen die bisherige Version zu verändern, ist es sinnvoll temporär einen neuen Branch (z.B."Vorname-doc") anzulegen und dort zu editieren. Nach einem Review wird dieser Branch mit der bestehenden Version zusammengeführt.
 
 ## **Screenshots erzeugen**
 
