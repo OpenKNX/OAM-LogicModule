@@ -30,6 +30,7 @@ In den jeweiligen Projekten dient die Applikationsbeschreibung dazu, die Funktio
 * Sicherstellen, dass man im branch "main" ist
 * wenn nicht, dann durch einen Klick auf das Feld zum branch "main" wechseln
 * Abschließend noch ein "Git Pull" (wieder über das Untermenü der drei Punkte) ausführen
+* Falls ein eigener workingbranch definiert wurde (s.u.), dann in diesen branch wechseln
 
 <kbd>![Git](pics/Git-Pull-Fetch.png)</kbd>
 
