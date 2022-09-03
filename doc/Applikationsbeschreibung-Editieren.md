@@ -1,12 +1,3 @@
-<!-- 
-cSpell:words knxprod EEPROM Ausgangstrigger Sonnenstandsbezogene Sonnenauf vollzumüllen Enocean Pieptönen platformio
-cSpell:words softwareseitig untergangszeit Urlaubsinfo Feiertagsinfo Konverterfunktionen Vergleicher Geokoordinaten
-cSpell:words Konstantenbelegung vorzubelegen Intervallvergleich Hysteresevergleich Uebersicht Logiktrigger priorität
-cSpell:words Szenenkonverter Szenennummern Zahlenbasierte Intervallgrenzen Hystereseschalter Ganzzahlbasierte
-cSpell:words erwartungskonform hardwareabhängig Rueckkopplung eingabebereit maliges AUSschaltverzögerung EINschaltverzögerung
-cSpell:words Triggersignal expample runterladen Wiregateway updatefähige Updatefunktion Auskühlalarm Zaehler tagestrigger
--->
-
 # Editieren der Applikationsbeschreibung 
 
 Die nachfolgende Anleitung beschreibt die Schritte für das Bearbeiten der Applikationsbeschreibung eines Moduls. Dabei wird die Installation von Visual Studio Code (VSCode) und das Clonen eines Projektes für die Arbneitsschritte vorausgesetzt.
