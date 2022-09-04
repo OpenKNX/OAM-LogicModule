@@ -1,6 +1,6 @@
 # Editieren der Applikationsbeschreibung 
 
-Die nachfolgende Anleitung beschreibt die Schritte für das Bearbeiten der Applikationsbeschreibung eines Moduls. Dabei wird die Installation von Visual Studio Code (VSCode) und das Clonen eines Projektes für die Arbneitsschritte vorausgesetzt.
+Die nachfolgende Anleitung beschreibt die Schritte für das Bearbeiten der Applikationsbeschreibung eines Moduls. Dabei wird die Installation von Visual Studio Code (VSCode) und das Clonen eines Projektes für die Arbeitsschritte vorausgesetzt.
 
 ## Änderungshistorie
 
