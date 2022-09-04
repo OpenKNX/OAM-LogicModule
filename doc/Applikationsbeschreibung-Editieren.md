@@ -24,7 +24,7 @@ In den jeweiligen Projekten dient die Applikationsbeschreibung dazu, die Funktio
 * Sicherstellen, dass man im branch "main" ist
 * wenn nicht, dann durch einen Klick auf das Feld zum branch "main" wechseln
 * Abschließend noch ein "Git Pull" (wieder über das Untermenü der drei Punkte) ausführen
-* Falls ein eigener working branch definiert wurde (s.u.), dann in diesen branch wechseln
+* Danach einen neuen working branch erzeugen und in diesen branch wechseln
 
 <kbd>![Git](pics/Git-Pull-Fetch.png)</kbd>
 
@@ -38,7 +38,7 @@ auf Applikationsbeschreibung-Logik.md klicken
 
 ## **Text bearbeiten**
 
-Im Editor sieht man jetzt den Quelltext für die Dokumentation, das Format ist "markdown".
+Im Editor sieht man jetzt den Quelltext für die Dokumentation, das Format ist "Markdown".
 Durch einen Klick auf das Symbol Preview im Editor <kbd>![Vorschau](pics/Vorschau.png)</kbd> (oben rechts), wird in einem weiteren Fenster eine ungefähre Vorschau auf die Ausgabe in github angezeigt.
 
 
