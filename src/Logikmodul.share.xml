@@ -49,6 +49,18 @@
                   <Enumeration Text="Ja" Value="0" Id="%AID%_PT-OnOffYesNoInverted_EN-0" />
                 </TypeRestriction>
               </ParameterType>
+              <ParameterType Id="%AID%_PT-OffsetTemp" Name="OffsetTemp">
+                <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-DeltaAbsTemp" Name="DeltaAbsTemp">
+                <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="0" maxInclusive="500" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Smooth" Name="Smooth">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="1" maxInclusive="240" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-Percent" Name="Percent">
+                <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="0" maxInclusive="100" />
+              </ParameterType>
               <!-- buzzer frequencies in Hz -->
               <ParameterType Id="%AID%_PT-BuzzerFrequency" Name="BuzzerFrequency">
                 <TypeNumber SizeInBit="16" Type="unsignedInt" minInclusive="1500" maxInclusive="6000" />
