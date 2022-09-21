@@ -85,6 +85,7 @@
                   <Enumeration Text="EXCLUSIV-ODER" Value="3" Id="%AID%_PT-Logic_EN-3" />
                   <Enumeration Text="TOR" Value="4" Id="%AID%_PT-Logic_EN-4" />
                   <Enumeration Text="ZEITSCHALTUHR" Value="5" Id="%AID%_PT-Logic_EN-5" />
+                  <Enumeration Text="SCHALTER (RS-FLIP-FLOP)" Value="6" Id="%AID%_PT-Logic_EN-6" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="%AID%_PT-Calculate" Name="Calculate">

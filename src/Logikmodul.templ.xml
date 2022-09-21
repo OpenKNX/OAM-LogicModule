@@ -989,7 +989,7 @@
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Logikdefinition" UIHint="Headline" />
                 <ParameterRefRef RefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301" />
                 <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
-                  <when test="1 2 3 4">
+                  <when test="1 2 3 4 6">
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801" />
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%048_R-%T%%CCC%04801" />
@@ -1010,13 +1010,20 @@
                       </when>
                     </choose>
                   </when>
+                  <when test="6">
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Schalter (RS-Flip-Flop)" UIHint="Headline" />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Ein Schalter erlaubt es, mit einem EIN-Telegramm am Eingang 1 den Ausgang zu setzen (Einschalten) und mit einem EIN-Telegramm am Eingang 2 den Ausgang wieder zurückzusetzen (Ausschalten)." />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Alternativ kann der Kanalausgang X zum Setzen und Kanalausgang Y zum Zurücksetzen genutzt werden, auch Kombinationen mit Eingang 1 bzw. 2." />
+                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Da nur Telegramme ausgewertet werden, gibt es keine logische Verknüpfung zwischen 1 und X bzw. 2 und Y, jedes EIN-Telegramm wird ausgewertet. Wie bei 2 hörenden GA an einem KO." />
+                  </when>
                 </choose>
                 <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
                   <when test="!=0">
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                     <ParameterSeparator Id="%AID%_PS-nnn" Text="Logik-Trigger" UIHint="Headline" />
                   </when>
-                  <when test="1 2 3 4">
+                  <when test="1 2 3 4 6">
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501" />
                     <choose ParamRefId="%AID%_UP-%T%%CCC%005_R-%T%%CCC%00501">
                       <when test="1 17">
@@ -1049,7 +1056,7 @@
                 </choose>
                 <Channel Id="%AID%_CH-L%CC%" Name="f%CC%Logic" Number="L%CC%" Text="Logik %CC%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
                   <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
-                    <when test="1 2 3 4">
+                    <when test="1 2 3 4 6">
                       <!-- Delta ext. 1 Input-->
                       <choose ParamRefId="%AID%_UP-%T%%CCC%008_R-%T%%CCC%00801">
                         <when test="0">
@@ -1157,6 +1164,10 @@
                             <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
                               <when test="4">
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei TOR gilt: Dateneingang ist Eingang 1 (ODER Kanalausgang X)" UIHint="Information"/>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                              </when>
+                              <when test="6">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei SCHALTER gilt: EINgeschaltet wird mit Eingang 1 bzw. Kanalausgang X. Dabei wird das Einschalttelegramm ausgewertet, wie bei 2 hörenden GA auf einem KO." UIHint="Information"/>
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                               </when>
                             </choose>
@@ -1816,6 +1827,10 @@
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei TOR gilt: Toreingang ist Eingang 2 (ODER Kanalausgang Y)" UIHint="Information" />
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                               </when>
+                              <when test="6">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei SCHALTER gilt: AUSgeschaltet wird mit Eingang 2 bzw. Kanalausgang Y. Dabei wird das Einschalttelegramm ausgewertet, wie bei 2 hörenden GA auf einem KO." UIHint="Information"/>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                              </when>
                             </choose>
                             <choose ParamRefId="%AID%_UP-%T%%CCC%028_R-%T%%CCC%02801">
                               <when test="2" >
@@ -2376,6 +2391,10 @@
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei TOR gilt: Dateneingang ist Eingang 1 (ODER Kanalausgang X), Toreingang ist Eingang 2 (ODER Kanalausgang Y)" />
                                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                               </when>
+                              <when test="6">
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei SCHALTER gilt: EINgeschaltet wird mit Eingang 1 bzw. Kanalausgang X, AUSgeschaltet wird mit Eingang 2 bzw. Kanalausgang Y. Dabei wird das Einschalttelegramm ausgewertet, wie bei 2 hörenden GA auf einem KO." UIHint="Information"/>
+                                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                              </when>
                             </choose>
                             <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Interner Eingang 1" UIHint="Headline" />
                             <ParameterRefRef RefId="%AID%_P-%T%%CCC%162_R-%T%%CCC%16201" />
@@ -2416,6 +2435,10 @@
                                 <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
                                   <when test="4">
                                     <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei TOR gilt: Dateneingang ist Eingang 1 (ODER Kanalausgang X), Toreingang ist Eingang 2 (ODER Kanalausgang Y)" />
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
+                                  </when>
+                                  <when test="6">
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bei SCHALTER gilt: EINgeschaltet wird mit Eingang 1 bzw. Kanalausgang X, AUSgeschaltet wird mit Eingang 2 bzw. Kanalausgang Y. Dabei wird das Einschalttelegramm ausgewertet, wie bei 2 hörenden GA auf einem KO." UIHint="Information"/>
                                     <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                                   </when>
                                 </choose>

@@ -695,7 +695,7 @@ void LogicChannel::processInput(uint8_t iIOIndex)
     uint8_t lConverter = getByteParam(lOtherParamBase) >> LOG_fE1ConvertShift;
     if (lConverter & 1)
     {
-        // delta convertersion, we start convert for the other input
+        // delta conversion, we start convert for the other input
         startConvert(3 - iIOIndex);
     }
 }
@@ -1038,6 +1038,23 @@ void LogicChannel::processLogic()
                 lValidOutput = true;
 #if LOGIC_TRACE
                 lDebugLogic = "EXOR";
+#endif
+                break;
+            case VAL_Logic_Switch:
+                // Switch cannot handle invalid inputs but is based on telegrams (trigger in this class)
+                // An ON-trigger on input 1 turns OUTPUT to 1 (Set of FlipFlop) 
+                if ((BIT_EXT_INPUT_1 & pTriggerIO & lCurrentInputs) || (BIT_INT_INPUT_1 & pTriggerIO & lCurrentInputs)) 
+                {
+                    lNewOutput = true;
+                    lValidOutput = true;
+                }
+                else if ((BIT_EXT_INPUT_2 & pTriggerIO & lCurrentInputs) || (BIT_INT_INPUT_2 & pTriggerIO & lCurrentInputs))
+                {
+                    lNewOutput = false;
+                    lValidOutput = true;
+                }
+#if LOGIC_TRACE
+                lDebugLogic = "SWITCH";
 #endif
                 break;
             case VAL_Logic_Gate:

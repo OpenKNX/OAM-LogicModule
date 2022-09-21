@@ -153,7 +153,7 @@
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
 
-#define LOG_ChannelCount 2
+#define LOG_ChannelCount 99
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 26
@@ -822,5 +822,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 22
+#define MAIN_ApplicationVersion 23
 #define MAIN_OrderNumber "OpenKnxLogicDev"

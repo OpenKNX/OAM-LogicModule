@@ -38,6 +38,7 @@
 #define VAL_Logic_ExOr 3
 #define VAL_Logic_Gate 4
 #define VAL_Logic_Timer 5
+#define VAL_Logic_Switch 6
 
 // enum gate trigger values
 #define VAL_Gate_Send_Nothing 0
