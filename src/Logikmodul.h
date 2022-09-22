@@ -101,6 +101,9 @@
 #define LOG_DeutscheEinheit            9      // 1 Bit, Bit 5
 #define     LOG_DeutscheEinheitMask 0x20
 #define     LOG_DeutscheEinheitShift 5
+#define LOG_Nationalfeiertag          10      // 1 Bit, Bit 1
+#define     LOG_NationalfeiertagMask 0x02
+#define     LOG_NationalfeiertagShift 1
 #define LOG_Reformationstag            9      // 1 Bit, Bit 4
 #define     LOG_ReformationstagMask 0x10
 #define     LOG_ReformationstagShift 4
@@ -110,6 +113,9 @@
 #define LOG_BussBettag                 9      // 1 Bit, Bit 2
 #define     LOG_BussBettagMask 0x04
 #define     LOG_BussBettagShift 2
+#define LOG_MariaEmpfaengnis          10      // 1 Bit, Bit 0
+#define     LOG_MariaEmpfaengnisMask 0x01
+#define     LOG_MariaEmpfaengnisShift 0
 #define LOG_Advent1                    9      // 1 Bit, Bit 1
 #define     LOG_Advent1Mask 0x02
 #define     LOG_Advent1Shift 1
@@ -822,5 +828,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 23
+#define MAIN_ApplicationVersion 24
 #define MAIN_OrderNumber "OpenKnxLogicDev"

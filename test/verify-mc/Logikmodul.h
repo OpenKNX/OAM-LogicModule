@@ -132,6 +132,9 @@
 #define LOG_Silvester                 14      // 1 Bit, Bit 3
 #define     LOG_SilvesterMask 0x08
 #define     LOG_SilvesterShift 3
+#define LOG_MariaEmpfaengnis          14      // 1 Bit, Bit 2
+#define     LOG_MariaEmpfaengnisMask  0x04
+#define     LOG_MariaEmpfaengnisShift 2
 #define LOG_Latitude                  15      // float
 #define LOG_Longitude                 19      // float
 #define LOG_BuzzerSilent              23      // uint16_t
