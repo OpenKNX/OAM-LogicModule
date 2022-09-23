@@ -5,6 +5,7 @@ cSpell:words Konstantenbelegung vorzubelegen Intervallvergleich Hystereseverglei
 cSpell:words Szenenkonverter Szenennummern Zahlenbasierte Intervallgrenzen Hystereseschalter Ganzzahlbasierte
 cSpell:words erwartungskonform hardwareabhängig Rueckkopplung eingabebereit maliges AUSschaltverzögerung EINschaltverzögerung
 cSpell:words Triggersignal expample runterladen Wiregateway updatefähige Updatefunktion Auskühlalarm Zaehler tagestrigger
+cSpell:words mgeramb ambiente Ambientenbeleuchtung
 -->
 
 # Applikationsbeschreibung Logik
@@ -26,10 +27,20 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
+22.09.2022: Firmware 0.10.0, Applikation 0.10 (Beta-Release)
+
+* NEU: Logikfunktion "Schalter" hinzugefügt. Siehe neues Kapitel ["Schalter (RS-Flip-Flop)"](#schalter-rs-flipflop)
+* Neues Beispiel ["Einfacher Szenen-Controller"](#einfacher-szenen-controller) zugefügt.
+* NEU: Feiertag Nationalfeiertag (AT) zugefügt (danke an mgeramb für den Code) 
+* NEU: Feiertag Maria Empfängnis (AT) zugefügt (danke an mgeramb für den Code) 
+* FIX: Typo "Fronleichnam" korrigiert
+* FIX: Eingangskonverter für Einzelwerte funktioniert jetzt korrekt
+* FIX: Wenn man einen (oder mehrere) Logikkanäle ausgelassen hat, konnte es passieren, dass die Logiken hinter der Lücke nicht mehr ausgeführt wurden (z.B. Kanal 1, 2, 3, 5 => 5 wird nicht mehr berechnet)
+
 31.08.2022: Firmware 0.8.0, Applikation 0.8 (Beta-Release)
 
 * Es gibt keine Änderungen an der Firmware oder ETS-Applikation, kein Update der Hardware oder der ETS nötig.
-* Die Applikationsbeschreibung wurde um ein Beispiel "Zeitschaltuhr schaltet alle 3 Tage" ergänzt.
+* Die Applikationsbeschreibung wurde um ein Beispiel ["Zeitschaltuhr schaltet alle 3 Tage"](#zeitschaltuhr-soll-jeden-n-ten-tag-schalten) ergänzt.
 * Die Änderungshistorie wird jetzt in der umgekehrten Reihenfolge aufgeführt (vom neusten Eintrag als erstes bis hin zum ältesten als letztes). So werden die neusten Änderungen gleich zu Anfang präsentiert.
 * Alle Bilder, Grafiken und Bildschirmfotos in der Anleitung haben jetzt einen Rahmen, der diese vom Text etwas absetzt. Dies erhöht die Lesbarkeit. 
 
@@ -528,6 +539,14 @@ Da ein Logikkanal 4 Eingänge hat, ist bei einem Tor
 #### **ZEITSCHALTUHR**
 
 Dieser Logikkanal hat keine Eingänge, sondern repräsentiert eine Zeitschaltuhr. Der Ausgang wird somit durch entsprechende Zeitschaltpunkte geschaltet. Der Ausgang kann immer noch passende Funktionsmodule enthalten.
+
+#### **SCHALTER (RS-FLIP_FLOP)**
+
+Dieser Logikkanal hat den Eingang 1, der bei einem EIN-Signal den Ausgang EINschaltet. Der Eingang 2 schaltet bei einem EIN-Signal den Ausgang AUS. Ein AUS-Signal auf einem der beiden Eingänge bewirkt nichts. 
+
+Mit dem Schalter lassen sich viele Funktionen, die vorher nur mit 2 Kanälen zu lösen waren, jetzt mit nur einem Kanal lösen, was die Übersichtlichkeit der Logiken erhöht. 
+
+Der Schalter ermöglicht die Realisierung eines einfachen Szenen-Controllers (siehe Beispiele). Ferner können damit Hysterese-Logiken aufgebaut werden, bei denen die Ein- und Ausschaltbedingung aus 2 verschiedenen Quellen kommt (z.B. verschiedene DPT).
 
 ### **Eingang 1, Eingang 2**
 
@@ -1938,53 +1957,53 @@ Im folgenden wird ein funktionierendes Beispiel mit allen Eingaben gezeigt.
 
 Definition der Zeitschaltuhr mit den Schaltzeiten, die alle 3 Tage gesendet werden sollen.
 
-<kbd>![Schaltzeit-Hauptseite](pics/bsp01a-schalten-alle-3-tage-schaltzeit.png)</kbd>
+<kbd>![Schaltzeit-Hauptseite](examples/bsp01/bsp01a-schalten-alle-3-tage-schaltzeit.png)</kbd>
 
 Hier wird nur beispielhaft eine Einschaltzeit um 10 Uhr und Ausschaltzeit um 12 Uhr definiert.
 
-<kbd>![Schaltzeit-Zeiten](pics/bsp01a-schalten-alle-3-tage-schaltzeit-i.png)</kbd>
+<kbd>![Schaltzeit-Zeiten](examples/bsp01/bsp01a-schalten-alle-3-tage-schaltzeit-i.png)</kbd>
 
 Der Ausgang für die Schaltzeit kann so definiert sein, dass keine Daten auf den Bus gesendet werden und alle Werte intern verbunden werden.
 
-<kbd>![Schaltzeit-Ausgang](pics/bsp01a-schalten-alle-3-tage-schaltzeit-o.png)</kbd>
+<kbd>![Schaltzeit-Ausgang](examples/bsp01/bsp01a-schalten-alle-3-tage-schaltzeit-o.png)</kbd>
 
 #### **Täglicher Trigger für den Zähler**
 
 Definition der Trigger-Zeitschaltuhr täglich um 00:01.
 
-<kbd>![Trigger-Hauptseite](pics/bsp01b-schalten-alle-3-tage-tagestrigger.png)</kbd>
+<kbd>![Trigger-Hauptseite](examples/bsp01/bsp01b-schalten-alle-3-tage-tagestrigger.png)</kbd>
 
 Es wird nur eingeschaltet...
 
-<kbd>![Trigger-Zeiten](pics/bsp01b-schalten-alle-3-tage-tagestrigger-i.png)</kbd>
+<kbd>![Trigger-Zeiten](examples/bsp01/bsp01b-schalten-alle-3-tage-tagestrigger-i.png)</kbd>
 
 Das Ausschaltsignal vom Trigger wird durch ein Treppenlicht von 3 Sekunden erzeugt. Auch dieser Ausgang sendet nichts auf den Bus, die Werte werden intern verknüpft.
 
-<kbd>![Trigger-Ausgang](pics/bsp01b-schalten-alle-3-tage-tagestrigger-o.png)</kbd>
+<kbd>![Trigger-Ausgang](examples/bsp01/bsp01b-schalten-alle-3-tage-tagestrigger-o.png)</kbd>
 
 #### **Zähler**
 
 Hier werden 3 Eingänge über ein UND verknüpft. Ganz wichtig ist, dass nur der interne Kanalausgang X zur Auswertung der UND-Verknüpfung führt. 
 
-<kbd>![Zaehler-Hauptseite](pics/bsp01c-schalten-alle-3-tage-addierer.png)</kbd>
+<kbd>![Zaehler-Hauptseite](examples/bsp01/bsp01c-schalten-alle-3-tage-addierer.png)</kbd>
 
 Der erste Eingang ist das Zähler-Kommunikationsobjekt, das in unserem Beispiel bis 3 zählt, also die Werte 0, 1 und 2. Damit das UND funktioniert, muss der Wert von diesem Eingang immer EIN sein. Deswegen ist das Wertintervall von 0 bis 255, also alle möglichen Werte. Damit bei einer Neuprogrammierung bzw. Stromausfall der Zähler nicht wieder bei 0 anfängt, wird der Wert gespeichert und bei einem Neustart vorbelegt.
 
-<kbd>![Zaehler-Eingang1](pics/bsp01c-schalten-alle-3-tage-addierer-e1.png)</kbd>
+<kbd>![Zaehler-Eingang1](examples/bsp01/bsp01c-schalten-alle-3-tage-addierer-e1.png)</kbd>
 
 Der zweite Eingang ist konstant 1. Das ist der Wert, um den der Zähler erhöht wird. Eine Konstante hat immer den Wert EIN, somit ist das für das UND genügend.
 
-<kbd>![Zaehler-Eingang2](pics/bsp01c-schalten-alle-3-tage-addierer-e2.png)</kbd>
+<kbd>![Zaehler-Eingang2](examples/bsp01/bsp01c-schalten-alle-3-tage-addierer-e2.png)</kbd>
 
 Die interne Verknüpfung mit dem Kanalausgang vom Kanal 27 verbindet mit dem Ausgang vom Täglichen Trigger. Die gelb markierte Nummer muss den korrekten Kanal adressieren, falls das Beispiel nachgebaut wird.
 
-<kbd>![Zaehler-Intern](pics/bsp01c-schalten-alle-3-tage-addierer-i.png)</kbd>
+<kbd>![Zaehler-Intern](examples/bsp01/bsp01c-schalten-alle-3-tage-addierer-i.png)</kbd>
 
 Die Addition wird nur vorgenommen, wenn das UND wahr wird. Da Eingang 1 und Eingang 2 immer wahr sind, wird das UND immer wahr, wenn der (interne) Triggereingang wahr wird (also jeden Tag um 00:01 Uhr).
 
 Der Ausgang sendet nur bei einer 1, dann immer einen Wert um 1 höher als der alte Wert. 
 
-<kbd>![Zaehler-Ausgang](pics/bsp01c-schalten-alle-3-tage-addierer-o.png)</kbd>
+<kbd>![Zaehler-Ausgang](examples/bsp01/bsp01c-schalten-alle-3-tage-addierer-o.png)</kbd>
 
 > Achtung: Wenn auf der Hauptseite das Häkchen nicht nur bei *Kanalausgang X* und nirgendwo anders gesetzt ist, würde die Erhöhung um 1 sofort eine erneute Addition um 1 auslösen, die wiederum eine erneute Addition um 1 auslösen würde usw. Wir hätten hier aus Endlosschleife und eine hohe Buslast. 
 
@@ -1997,15 +2016,15 @@ Immer wenn der Zähler den Wert 3 erreicht, muss er wieder auf 0 gesetzt werden.
 
 Auf der ersten Seite definiert eine Logik mit einem Eingang, üblicherweise ein ODER.
 
-<kbd>![Reset-Hauptseite](pics/bsp01d-schalten-alle-3-tage-reset.png)</kbd>
+<kbd>![Reset-Hauptseite](examples/bsp01/bsp01d-schalten-alle-3-tage-reset.png)</kbd>
 
 Der Eingang spezifiziert das Wertintervall, in dem der Zähler zurückgesetzt werden soll. Falls man bis zu einem anderen Wert als 3 zählen will, muss man die gelbe 3 durch den Zielwert ersetzen.
 
-<kbd>![Reset-Eingang1](pics/bsp01d-schalten-alle-3-tage-reset-e1.png)</kbd>
+<kbd>![Reset-Eingang1](examples/bsp01/bsp01d-schalten-alle-3-tage-reset-e1.png)</kbd>
 
 Der Ausgang sendet eine 0 an den Zähler. Sobald der Zähler einen Wert 3 bis 255 erreicht.
 
-<kbd>![Reset-Ausgang](pics/bsp01d-schalten-alle-3-tage-reset-o.png)</kbd>
+<kbd>![Reset-Ausgang](examples/bsp01/bsp01d-schalten-alle-3-tage-reset-o.png)</kbd>
 
 #### **Tor zum Durchschalten der Schaltzeiten jeden dritten Tag**
 
@@ -2013,19 +2032,19 @@ Jetzt wird alles zusammen gebracht. Das Tor wird durch den Zähler geöffnet, so
 
 Das Tor wird so definiert, dass ein Öffnen vom Tor immer den Eingangswert sendet. Da beim öffnen die Zeitschaltuhr wahrscheinlich noch AUS ist, würde um 00:01 Uhr alle 3 Tage immer ein AUS gesendet werden. Das kann gewollt sein, falls nicht, einfach das gelb markierte Feld auf "nichts gesendet" ändern.
 
-<kbd>![Tor-Hauptseite](pics/bsp01e-schalten-alle-3-tage-tor.png)</kbd>
+<kbd>![Tor-Hauptseite](examples/bsp01/bsp01e-schalten-alle-3-tage-tor.png)</kbd>
 
 Der Zählerwert zum öffnen vom Tor wird über den externen Eingang 2 geschickt. So kann man gleich auf den Wert 0 prüfen. 
 
-<kbd>![Tor-Eingang2](pics/bsp01e-schalten-alle-3-tage-tor-e2.png)</kbd>
+<kbd>![Tor-Eingang2](examples/bsp01/bsp01e-schalten-alle-3-tage-tor-e2.png)</kbd>
 
 Der aktuelle Schaltzustand der Zeitschaltuhr wird als Interner Eingang 1 mit dem Kanalausgang 26 verbunden. Auch die 26 (gelb markiert) muss bei einer Übernahme des Beispiels angepasst werden (Kanalnummer der Zeitschaltuhr mit den Schaltzeiten).
 
-<kbd>![Tor-Intern](pics/bsp01e-schalten-alle-3-tage-tor-i.png)</kbd>
+<kbd>![Tor-Intern](examples/bsp01/bsp01e-schalten-alle-3-tage-tor-i.png)</kbd>
 
 Der Ausgang vom Tor macht nichts besonderes. Er lässt alle Signale vom Tor-Dateneingang einfach durch.
 
-<kbd>![Tor-Ausgang](pics/bsp01e-schalten-alle-3-tage-tor-o.png)</kbd>
+<kbd>![Tor-Ausgang](examples/bsp01/bsp01e-schalten-alle-3-tage-tor-o.png)</kbd>
 
 #### **Gruppenadressen und deren Verknüpfungen**
 
@@ -2034,7 +2053,7 @@ Es werden nur 2 GA gebraucht:
 - eine transportiert den Zählerwert (DPT 5.005)
 - eine für den Schaltwert alle 3 Tage
 
-<kbd>![GA-Verknüpfungen](pics/bsp01f-schalten-alle-3-tage-ga.png)</kbd>
+<kbd>![GA-Verknüpfungen](examples/bsp01/bsp01f-schalten-alle-3-tage-ga.png)</kbd>
 
 Der Zählwert wird von Logik 28 erhöht (inkrementiert) und muss natürlich mit dem eigenen Eingang verbunden werden, damit beim nächsten erhöhen der aktuelle Wert anliegt und erhöht werden kann. Deswegen die Verknüpfung von KO 531 und KO 533.
 
@@ -2044,11 +2063,67 @@ Logik 30 soll das Tor immer öffnen, wenn der Zähler = 0 ist, deswegen muss der
 
 Der Ausgang von Logik 30 enthält die Schaltzeiten alle 3 Tage, deswegen ist hier die GA für den Schaltwert alle 3 Tage mit KO 539 verknüpft.
 
+### **Einfacher Szenen-Controller**
+
+Für Geräte, die keine Szenen können oder für bestimmte Zustände nur ein Setzen über ein KO und nicht über eine Szene unterstützen, möchte man sich vielleicht kleine Logiken basteln, die auf eine Szene reagiert und entsprechend ein KO schaltet.
+
+Ebenso kann es nötig sein, über weitere Szenen das entsprechende KO wieder auszuschalten. Das Logikmodul bietet mit der Logikfunktion "Schalter", in Verbindung mit den Eingangskonvertern für "Einzelwerte", eine einfache Möglichkeit dies zu erreichen.
+
+Folgendes Szenario wird für dieses Beispiel angenommen: 
+
+Man hat für einen Raum Szenen definiert:
+
+* 10 - abwesend - alles Licht und Fernseher geht aus, Rollladen ist auf Automatik, PM ist entsperrt
+* 17 - fernsehen - Deckenlicht aus, Fernseher an, Rollladen geht zu, Ambientenbeleuchtung wird nicht tangiert, PM sperren
+* 22 - ambiente1 - Deckenlicht aus, Ambientenbeleuchtung mit irgendwelchen angenehmen Einstellungen an
+* 23 - ambiente2 - Deckenlicht aus, Ambientenbeleuchtung mit irgendwelchen anderen angenehmen Einstellungen an
+* 21 - ambiente0 - Ambientenbeleuchtung aus, PM entsperren
+* 18 - normal - Deckenlicht an, Fernseher aus, Rollladen auf Automatik, PM entsperren
+* 55 - lesen - Deckenlicht aus, Ambientenbeleuchtung auf Leselicht, PM sperren
+
+Rollladenaktor, Schaltaktor für den Fernseher und alle Lichtcontroller unterstützen Szenen, der PM aber nicht.
+
+Mit nur einem Logikkanal kann man den PM in das obige Szenario einbinden. 
+
+#### **Schalter-Logik für unterschiedliche Ein- und Ausschaltbedingungen**
+
+Hier wird die Schalter-Logik genutzt. Diese ist Trigger-Basiert und erlaubt es, Einschalt- bzw. Ausschalt-Signale über getrennte Eingänge bereitzustellen.
+
+<kbd>![Schalter-Hauptseite](examples/bsp02/bsp02a-szenen-controller.png)</kbd>
+
+Eingang 1 wird mit den Szenen belegt, die für ein Sperren des PM sorgen. Dafür wird der DPT17 (Szenen) gewählt mit einem Eingangskonverter, der Einzelwerte erlaubt.
+
+<kbd>![Sperr-Szenen](examples/bsp02/bsp02a-szenen-controller-e1.png)<kbd>
+
+Die Szene 17 und Szene 55 aus obigem Beispiel werden eingetragen.
+
+Eingang 2 wird mit den Szenen belegt, die für ein entsperren des PM sorgen. Auch hier wird DPT17 (Szenen) gewählt mit einem Einzelwert-Eingangskonverter.
+
+<kbd>![Entsperr-Szenen](examples/bsp02/bsp02a-szenen-controller-e2.png)</kbd>
+
+Die Szenen 10, 18 und 21 aus obigem Beispiel werden eingetragen. Wie man sieht, können bis zu 8 Szenen pro Eingangskonverter genutzt werden.
+
+Der Ausgang macht nichts besonderes, hier wird einfach nur ein DPT1 (Schalten) für die PM-Sperre ausgegeben. 
+
+<kbd>![Ausgang zum sperren](examples/bsp02/bsp02a-szenen-controller-a.png)</kbd>
+
+Als Erweiterung könnte man den Ausgang auch über ein Treppenlicht, eingestellt auf z.B. 4 Stunden, die PM-Sperre ausschalten lassen, falls man vergisst, die Szene "normal" zu wählen. Dies ist in dem Beispiel nicht enthalten.
+
+<kbd>![KO-Zuordnung](examples/bsp02/bsp02a-szenen-controller-ko.png)</kbd>
+
+Bei der KO-Zuordnung bekommen Eingang 1 und Eingang 2 die gleiche Szenen-GA zugewiesen, da ja die gleiche Szenen-Information für die Einschalt- wie auch für die Ausschalt-Bedingung zur Verfügung stehen muss. Der Ausgang wird mit dem Sperreingang des PM verbunden.
+
+#### **Funktionsbeschreibung**
+
+Wird über die GA 31/5/87 die Szene 17 (fernsehen) gesendet, sendet der Eingang 1 ein EIN-Signal an die Schalter-Logik. Diese schaltet den Ausgang auf EIN, wodurch auf der GA 31/5/88 ein EIN-Telegramm an den PM geschickt wird und diesen sperrt.
+
+Wenn als nächstes z.B. die Szene 23 (ambiente2) gesendet wird, passiert in der Logik gar nichts, da weder Eingang 1 noch Eingang 2 auf diese Szene reagieren. Der PM bleibt somit gesperrt.
+
+Fall die Szene 18 (normal) gesendet wird, sendet Eingang 2 ein EIN-Signal an die Schalter-Logik. Diese schaltet den Ausgang auf AUS, wodurch auf der GA 31/5/88 ein AUS-Telegramm an den PM geschickt wird und diesen entsperrt.
+
 ## **Weitere Beispiele**
 
 Die folgenden Beispiele müssen noch ausgearbeitet werden. Die gegebenen Überschriften zeigen aber bereits jetzt eine Liste der möglichen Funktionen.
-
-### 3 Lichtszenen sollen auch den PM sperren (der das nativ nicht unterstützt)
 
 ### Ist ein Fenster zu lange offen, soll der Text "Auskühlalarm" als Meldung auf dem Glastaster erscheinen
 

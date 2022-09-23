@@ -59,24 +59,29 @@ Move-Item "src/$releaseName.debug.xml" "release/data/$targetName.xml"
 # build firmware based on generated headerfile 
 
 # build generic RP2040 firmware (currently just for tests)
-../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_RP2040 firmware uf2
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_Sensormodul_RP2040 firmware-Sensormodul-RP2040 uf2
 if (!$?) { exit 1 }
 
 # build firmware for PiPico-BCU-Connector
-../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_PiPico_BCU_Connector firmware_PiPico_BCU_Connector uf2
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_PiPico_BCU_Connector firmware-PiPico-BCU-Connector uf2
 if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile for SAMD
-../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_SAMD_v31 firmware-v31 bin
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_Sensormodul_SAMD_v31 firmware-Sensormodul-v31 bin
 if (!$?) { exit 1 }
 
-../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_SAMD_v30 firmware-v30 bin
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_Sensormodul_SAMD_v30 firmware-Sensormodul-v30 bin
 if (!$?) { exit 1 }
 
 # add necessary scripts
 Copy-Item ../OGM-Common/setup-scripts/reusable/Readme-Release.txt release/
 Copy-Item ../OGM-Common/setup-scripts/reusable/Build-knxprod.ps1 release/
 Copy-Item scripts/Upload-Firmware*.ps1 release/
+
+# add optional files
+if (Test-Path -Path scripts/Readme-Hardware.html -PathType Leaf) {
+    Copy-Item scripts/Readme-Hardware.html release/
+}
 
 # cleanup
 Remove-Item "release/$targetName.knxprod"
