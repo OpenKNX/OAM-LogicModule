@@ -1,1 +1,1 @@
-./data/Upload-Firmware-RP2040.ps1 firmware.uf2
+./data/Upload-Firmware-Generic-RP2040.ps1 firmware.uf2

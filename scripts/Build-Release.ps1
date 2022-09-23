@@ -1,8 +1,34 @@
-# Release indication
+# This script is just a template and has to be copied and modified per project
+# This script should be called from .vscode/tasks.json with
+#
+#   scripts/Build-Release.ps1            - for Beta builds
+#   scripts/Build-Release.ps1 Release    - for Release builds
+#
+# {
+#     "label": "Build-Release",
+#     "type": "shell",
+#     "command": "scripts/Build-Release.ps1 Release",
+#     "args": [],
+#     "problemMatcher": [],
+#     "group": "test"
+# },
+# {
+#     "label": "Build-Beta",
+#     "type": "shell",
+#     "command": "scripts/Build-Release.ps1 ",
+#     "args": [],
+#     "problemMatcher": [],
+#     "group": "test"
+# }
+
+
+
+# set product names, allows mapping of (devel) name in Project to a more consistent name in release
+$sourceName="Logikmodul"  
+$targetName="LogicModule" 
+
+# Release indication, set according names for Release or Beta
 $releaseIndication = $args[0]
-# set product names
-$targetName="LogicModule"
-$sourceName="Logikmodul"
 if ($releaseIndication) {
     $releaseName="$sourceName-$releaseIndication"
     $appRelease=$releaseIndication
@@ -11,7 +37,7 @@ if ($releaseIndication) {
     $appRelease="Beta"
 }
 
-# check for working dir
+# check and cleanup working dir
 if (Test-Path -Path release) {
     # clean working dir
     Remove-Item -Recurse release\*
@@ -20,9 +46,9 @@ if (Test-Path -Path release) {
 }
 
 # create required directories
-Copy-Item -Recurse scripts/data release
+Copy-Item -Recurse ../OGM-Common/setup-scripts/reusable/data release
 
-# get xml for kxnprod
+# get xml for kxnprod, always first step which also generates headerfile for release
 ~/bin/OpenKNXproducer.exe create --Debug --Output="release/$targetName.knxprod" --HeaderFileName="src/$sourceName.h" "src/$releaseName.xml"
 if (!$?) {
     Write-Host "Error in knxprod, Release was not built!"
@@ -30,20 +56,26 @@ if (!$?) {
 }
 Move-Item "src/$releaseName.debug.xml" "release/data/$targetName.xml"
 
-# build firmware based on generated headerfile for PICO
-scripts/Build-Step.ps1 release_RP2040 firmware uf2
+# build firmware based on generated headerfile 
+
+# build generic RP2040 firmware (currently just for tests)
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_RP2040 firmware uf2
+if (!$?) { exit 1 }
+
+# build firmware for PiPico-BCU-Connector
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_PiPico_BCU_Connector firmware_PiPico_BCU_Connector uf2
 if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile for SAMD
-scripts/Build-Step.ps1 release_SAMD_v31 firmware-v31 bin
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_SAMD_v31 firmware-v31 bin
 if (!$?) { exit 1 }
 
-scripts/Build-Step.ps1 release_SAMD_v30 firmware-v30 bin
+../OGM-Common/setup-scripts/reusable/Build-Step.ps1 release_SAMD_v30 firmware-v30 bin
 if (!$?) { exit 1 }
 
 # add necessary scripts
-Copy-Item scripts/Readme-Release.txt release/
-Copy-Item scripts/Build-knxprod.ps1 release/
+Copy-Item ../OGM-Common/setup-scripts/reusable/Readme-Release.txt release/
+Copy-Item ../OGM-Common/setup-scripts/reusable/Build-knxprod.ps1 release/
 Copy-Item scripts/Upload-Firmware*.ps1 release/
 
 # cleanup
