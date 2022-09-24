@@ -74,6 +74,7 @@ Logikfunktionen mit bis zu 2 externen und 2 internen Eingängen
 * EXOR
 * TOR/Sperre
 * Zeitschaltuhr
+* Schalter
 
 Einstellbare Ausgangstrigger
 
