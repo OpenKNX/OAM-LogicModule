@@ -12,7 +12,7 @@
         <!-- Each increase of AppliationVersion FORCES the Enduser to update according firmware, too -->
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
-        <op:version OpenKnxId="0xA0" ApplicationNumber="48" ApplicationVersion="10" ReplacesVersions="8 9" ApplicationRevision="0" />
+        <op:version OpenKnxId="0xA0" ApplicationNumber="48" ApplicationVersion="11" ReplacesVersions="8 9" ApplicationRevision="0" />
         <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
@@ -85,7 +85,8 @@
         </ApplicationProgram>
       </ApplicationPrograms>
       <Hardware>
-        <Hardware Id="%HardwareId%" Name="OpenKNX-Logic" SerialNumber="0xA030" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
+        <!-- Do not change this serial number for upgrade reasons -->
+        <Hardware Id="%HardwareId%" Name="OpenKNX-Logic" SerialNumber="WPKNX101" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
             <Product Id="%ProductId%" Text="OpenKNX: Logikmodul" OrderNumber="OpenKnxLogic" IsRailMounted="false" DefaultLanguage="de">
               <RegistrationInfo RegistrationStatus="Registered" />

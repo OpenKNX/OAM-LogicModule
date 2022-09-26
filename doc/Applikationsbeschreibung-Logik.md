@@ -27,7 +27,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
-22.09.2022: Firmware 0.10.0, Applikation 0.10 (Beta-Release)
+26.09.2022: Firmware 0.11.0, Applikation 0.11 (Beta-Release)
 
 * NEU: Logikfunktion "Schalter" hinzugefügt. Siehe neues Kapitel ["Schalter (RS-Flip-Flop)"](#schalter-rs-flipflop)
 * Neues Beispiel ["Einfacher Szenen-Controller"](#einfacher-szenen-controller) zugefügt.
