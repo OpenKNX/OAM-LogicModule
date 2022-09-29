@@ -17,6 +17,8 @@
 #define VAL_DPT_10 11   // Time
 #define VAL_DPT_11 12   // Date
 #define VAL_DPT_12 13
+#define VAL_DPT_13 14   
+#define VAL_DPT_14 15   
 
 Dpt &getDPT(uint8_t iDptIndex);
 
