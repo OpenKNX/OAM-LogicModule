@@ -27,6 +27,17 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
+02.10.2022: Firmware 0.12.0, Applikation 0.12 (Beta-Release)
+
+* NEU: Interne Ausgänge (als Quelle für die X- und Y-Eingänge eines Logikkanals) können jetzt neben EIN- und AUS-Werten auch nur EIN- oder nur AUS-Werte weiterleiten. Siehe [Interne Eingänge](#interne-eingänge).
+* NEU: Zu den mathematischen Funktionen, die Ausgangswerte berechnen können, ist jetzt die Funktion **% (Modulo)**, also Rest-Division, hinzugekommen.
+* NEU: Neben den mathematischen Funktionen, die Ausgangswerte berechnen können, sind jetzt auch Bitoperationen hinzugekommen. Siehe [Standardformeln](#standardformeln). Es gibt jetzt
+    * **& (Bit-Und)**, 
+    * **| (Bit-Oder)**,
+    * **^ (Bit-Exklusiv-Oder)**, 
+    * **<< (Bit-Links-Verschiebung)**,
+    * **>> (Bit-Rechts-Verschiebung)**
+
 26.09.2022: Firmware 0.11.0, Applikation 0.11 (Beta-Release)
 
 * NEU: Logikfunktion "Schalter" hinzugefügt. Siehe neues Kapitel ["Schalter (RS-Flip-Flop)"](#schalter-rs-flipflop)
@@ -1001,7 +1012,6 @@ Dies erlaubt es, eine KNX-Anlage nach einem Neustart relativ schnell in einen Zu
 
 ## **Kanalausgänge verbinden**
 
-
 Wird für eine logische Operation "Kanalausgang X" oder "Kanalausgang Y" als "normal aktiv" oder "invertiert aktiv" freigeschaltet, erscheint diese Seite.
 
 Ausgänge von anderen Kanälen können dazu genutzt werden, große Logikblöcke zu bauen, ohne für jede Teillogik (jeden Logikkanal) eine eigene GA zur Verbindung von Eingang und Ausgang zu benötigen.
@@ -1460,6 +1470,8 @@ Die Eingabe einer 0 deaktiviert eine Wiederholung.
 
 An dieser Stelle endet die binäre Verarbeitung. Alle hier ankommenden EIN- oder AUS-Signale werden, sofern verbunden, an die entsprechenden internen Eingänge weitergeleitet und triggern dort die entsprechenden logischen Operationen.
 
+Mit den beiden Auswahlfeldern kann man bestimmen, ob nur das EIN-Signal, nur das AUS-Signal oder das EIN- und das AUS-Signal an die verbundenen internen Eingänge weitergeleitet werden.
+
 ## Wert für Ausgang
 
 <kbd>![Ausgangskonverter](pics/Ausgangskonverter.PNG)</kbd>
@@ -1717,13 +1729,13 @@ Es empfiehlt sich, die Ergebnisse einer Formel immer durch Tests zu überprüfen
 
 Will man in einer Formel das Ergebnis einer anderen Formel nutzen, so geht das über die Verwendung von bestehenden KO. So kann man verhindern, dass für Formelkaskaden Zwischenergebnisse auf den Bus geschickt werden müssen.
 
-#### **Ausgang = Eingang 1 + Eingang 2**
+#### **A = E1 + E2 (Summe)**
 
 Die Werte der beiden Eingänge werden summiert und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den Wert des aktiven Eingangs.
 
-#### **Ausgang = Eingang 1 - Eingang 2**
+#### **A = E1 - E2 (Differenz)**
 
 Der Wert von Eingang 2 wird vom Wert von Eingang 1 subtrahiert und als Ergebnis am Ausgang ausgegeben.
 
@@ -1731,13 +1743,13 @@ Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt den Wert des aktiven E
 
 Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den negativen Wert des aktiven Eingangs.
 
-#### **Ausgang = Eingang 1 * Eingang 2**
+#### **A = E1 * E2 (Produkt)**
 
 Die Werte der beiden Eingänge werden multipliziert und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0 als Ergebnis.
 
-#### **Ausgang = Eingang 1 / Eingang 2**
+#### **A = E1 / E2 (Quotient)**
 
 Der Wert von Eingang 1 wird durch den Wert von Eingang 2 dividiert und als Ergebnis am Ausgang ausgegeben.
 
@@ -1745,19 +1757,61 @@ Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt keinen Wert ausgegeben
 
 Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den  Wert 0 ausgegeben.
 
-#### **Ausgang = (Eingang 1 + Eingang 2) / 2**
+#### **A = (E1 + E2) / 2 (Durchschnitt)**
 
 Es wird der Durchschnitt der Werte der beiden Eingänge gebildet und als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den halben Wert des aktiven Eingangs.
 
-#### **Ausgang = Min(Eingang 1, Eingang 2)**
+#### **A = E1 % E2 (Modulo)**
+
+Es wird eine Division mit Rest vorgenommen und der Rest als Ergebnis am Ausgang ausgegeben. Das Ergebnis liegt somit immer zwischen 0 und (E2 - 1).
+
+Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt keinen Wert ausgegeben.
+
+Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den  Wert 0 ausgegeben.
+
+#### **A = E1 & E2 (Bit-Und)**
+
+Es wird bitweise UND-Verknüpft. Jedes Bit von E1 wird mit dem entsprechenden Bit von E2 über ein UND verknüpft. Das Ergebnis wird am Ausgang ausgegeben.
+
+Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den Wert 0 ausgegeben.
+
+#### **A = E1 | E2 (Bit-Oder)**
+
+Es wird bitweise ODER-Verknüpft. Jedes Bit von E1 wird mit dem entsprechenden Bit von E2 über ein ODER verknüpft. Das Ergebnis wird am Ausgang ausgegeben.
+
+Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den Wert des aktiven Eingangs ausgegeben.
+
+#### **A = E1 ^ E2 (Bit-Exklusiv-Oder)**
+
+Es wird bitweise EXOR-Verknüpft. Jedes Bit von E1 wird mit dem entsprechenden Bit von E2 über ein EXOR verknüpft. Das Ergebnis wird am Ausgang ausgegeben.
+
+Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt den Wert des aktiven Eingangs ausgegeben.
+
+#### **A = E1 << E2 (Bit-Links-Schieben)**
+
+Der Wert vom Eingang 1 wird bitweise nach links verschoben, um so viele Stellen wie der Wert vom Eingang 2. Das Ergebnis wird am Ausgang ausgegeben.
+
+Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt den Wert von Eingang 1 ausgegeben.
+
+Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den  Wert 0 ausgegeben.
+
+#### **A = E1 >> E2 (Bit-Rechts-Schieben)**
+
+Der Wert vom Eingang 1 wird bitweise nach rechts verschoben, um so viele Stellen wie der Wert vom Eingang 2. Das Ergebnis wird am Ausgang ausgegeben.
+
+Ist nur Eingang 1 aktiv, ist der andere 0 und man bekommt den Wert von Eingang 1 ausgegeben.
+
+Ist nur Eingang 2 aktiv, ist der andere 0 und man bekommt den  Wert 0 ausgegeben.
+
+#### **A = Min(E1, E2) (Minimum)**
 
 Die Werte der beiden Eingänge werden verglichen und der kleinere Wert wird als Ergebnis am Ausgang ausgegeben.
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive Eingang positiv ist. Falls der aktive Eingang negativ ist, bekommt man den Wert des aktiven Eingangs.
 
-#### **Ausgang = Max(Eingang 1, Eingang 2)**
+#### **A = Max(E1, E2) (Maximum)**
 
 Die Werte der beiden Eingänge werden verglichen und der größere Wert wird als Ergebnis am Ausgang ausgegeben.
 

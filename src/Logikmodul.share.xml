@@ -463,43 +463,49 @@
               </ParameterType>
               <ParameterType Id="%AID%_PT-ValueFunction" Name="ValueFunction">
                 <TypeRestriction Base="Value" SizeInBit="8">
-                  <Enumeration Text="Ausgang = Eingang 1 + Eingang 2" Value="1" Id="%AID%_PT-ValueFunction_EN-1" />
-                  <Enumeration Text="Ausgang = Eingang 1 - Eingang 2" Value="2" Id="%AID%_PT-ValueFunction_EN-2" />
-                  <Enumeration Text="Ausgang = Eingang 1 * Eingang 2" Value="3" Id="%AID%_PT-ValueFunction_EN-3" />
-                  <Enumeration Text="Ausgang = Eingang 1 / Eingang 2" Value="4" Id="%AID%_PT-ValueFunction_EN-4" />
-                  <Enumeration Text="Ausgang = (Eingang 1 + Eingang 2) / 2" Value="5" Id="%AID%_PT-ValueFunction_EN-5" />
-                  <Enumeration Text="Ausgang = Min(Eingang 1, Eingang 2)" Value="6" Id="%AID%_PT-ValueFunction_EN-6" />
-                  <Enumeration Text="Ausgang = Max(Eingang 1, Eingang 2)" Value="7" Id="%AID%_PT-ValueFunction_EN-7" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_01(E1, E2)" Value="201" Id="%AID%_PT-ValueFunction_EN-201" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_02(E1, E2)" Value="202" Id="%AID%_PT-ValueFunction_EN-202" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_03(E1, E2)" Value="203" Id="%AID%_PT-ValueFunction_EN-203" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_04(E1, E2)" Value="204" Id="%AID%_PT-ValueFunction_EN-204" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_05(E1, E2)" Value="205" Id="%AID%_PT-ValueFunction_EN-205" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_06(E1, E2)" Value="206" Id="%AID%_PT-ValueFunction_EN-206" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_07(E1, E2)" Value="207" Id="%AID%_PT-ValueFunction_EN-207" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_08(E1, E2)" Value="208" Id="%AID%_PT-ValueFunction_EN-208" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_09(E1, E2)" Value="209" Id="%AID%_PT-ValueFunction_EN-209" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_10(E1, E2)" Value="210" Id="%AID%_PT-ValueFunction_EN-210" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_11(E1, E2)" Value="211" Id="%AID%_PT-ValueFunction_EN-211" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_12(E1, E2)" Value="212" Id="%AID%_PT-ValueFunction_EN-212" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_13(E1, E2)" Value="213" Id="%AID%_PT-ValueFunction_EN-213" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_14(E1, E2)" Value="214" Id="%AID%_PT-ValueFunction_EN-214" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_15(E1, E2)" Value="215" Id="%AID%_PT-ValueFunction_EN-215" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_16(E1, E2)" Value="216" Id="%AID%_PT-ValueFunction_EN-216" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_17(E1, E2)" Value="217" Id="%AID%_PT-ValueFunction_EN-217" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_18(E1, E2)" Value="218" Id="%AID%_PT-ValueFunction_EN-218" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_19(E1, E2)" Value="219" Id="%AID%_PT-ValueFunction_EN-219" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_20(E1, E2)" Value="220" Id="%AID%_PT-ValueFunction_EN-220" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_21(E1, E2)" Value="221" Id="%AID%_PT-ValueFunction_EN-221" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_22(E1, E2)" Value="222" Id="%AID%_PT-ValueFunction_EN-222" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_23(E1, E2)" Value="223" Id="%AID%_PT-ValueFunction_EN-223" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_24(E1, E2)" Value="224" Id="%AID%_PT-ValueFunction_EN-224" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_25(E1, E2)" Value="225" Id="%AID%_PT-ValueFunction_EN-225" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_26(E1, E2)" Value="226" Id="%AID%_PT-ValueFunction_EN-226" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_27(E1, E2)" Value="227" Id="%AID%_PT-ValueFunction_EN-227" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_28(E1, E2)" Value="228" Id="%AID%_PT-ValueFunction_EN-228" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_29(E1, E2)" Value="229" Id="%AID%_PT-ValueFunction_EN-229" />
-                  <Enumeration Text="Ausgang = Benutzerfunktion_30(E1, E2)" Value="230" Id="%AID%_PT-ValueFunction_EN-230" />
+                  <Enumeration Text="A = E1 + E2 (Summe)" Value="1" Id="%AID%_PT-ValueFunction_EN-1" />
+                  <Enumeration Text="A = E1 - E2 (Differenz)" Value="2" Id="%AID%_PT-ValueFunction_EN-2" />
+                  <Enumeration Text="A = E1 * E2 (Produkt)" Value="3" Id="%AID%_PT-ValueFunction_EN-3" />
+                  <Enumeration Text="A = E1 / E2 (Quotient)" Value="4" Id="%AID%_PT-ValueFunction_EN-4" />
+                  <Enumeration Text="A = (E1 + E2) / 2 (Durchschnitt)" Value="5" Id="%AID%_PT-ValueFunction_EN-5" />
+                  <Enumeration Text="A = E1 % E2 (Modulo)" Value="8" Id="%AID%_PT-ValueFunction_EN-8" />
+                  <Enumeration Text="A = E1 &amp; E2 (Bit-Und)" Value="9" Id="%AID%_PT-ValueFunction_EN-9" />
+                  <Enumeration Text="A = E1 | E2 (Bit-Oder)" Value="10" Id="%AID%_PT-ValueFunction_EN-10" />
+                  <Enumeration Text="A = E1 ^ E2 (Bit-Exklusiv-Oder)" Value="11" Id="%AID%_PT-ValueFunction_EN-11" />
+                  <Enumeration Text="A = E1 &lt;&lt; E2 (Bit-Links-Schieben)" Value="12" Id="%AID%_PT-ValueFunction_EN-12" />
+                  <Enumeration Text="A = E1 &gt;&gt; E2 (Bit-Rechts-Schieben)" Value="13" Id="%AID%_PT-ValueFunction_EN-13" />
+                  <Enumeration Text="A = Min(E1, E2) (Minimum)" Value="6" Id="%AID%_PT-ValueFunction_EN-6" />
+                  <Enumeration Text="A = Max(E1, E2) (Maximum)" Value="7" Id="%AID%_PT-ValueFunction_EN-7" />
+                  <Enumeration Text="A = Benutzerfunktion_01(E1, E2)" Value="201" Id="%AID%_PT-ValueFunction_EN-201" />
+                  <Enumeration Text="A = Benutzerfunktion_02(E1, E2)" Value="202" Id="%AID%_PT-ValueFunction_EN-202" />
+                  <Enumeration Text="A = Benutzerfunktion_03(E1, E2)" Value="203" Id="%AID%_PT-ValueFunction_EN-203" />
+                  <Enumeration Text="A = Benutzerfunktion_04(E1, E2)" Value="204" Id="%AID%_PT-ValueFunction_EN-204" />
+                  <Enumeration Text="A = Benutzerfunktion_05(E1, E2)" Value="205" Id="%AID%_PT-ValueFunction_EN-205" />
+                  <Enumeration Text="A = Benutzerfunktion_06(E1, E2)" Value="206" Id="%AID%_PT-ValueFunction_EN-206" />
+                  <Enumeration Text="A = Benutzerfunktion_07(E1, E2)" Value="207" Id="%AID%_PT-ValueFunction_EN-207" />
+                  <Enumeration Text="A = Benutzerfunktion_08(E1, E2)" Value="208" Id="%AID%_PT-ValueFunction_EN-208" />
+                  <Enumeration Text="A = Benutzerfunktion_09(E1, E2)" Value="209" Id="%AID%_PT-ValueFunction_EN-209" />
+                  <Enumeration Text="A = Benutzerfunktion_10(E1, E2)" Value="210" Id="%AID%_PT-ValueFunction_EN-210" />
+                  <Enumeration Text="A = Benutzerfunktion_11(E1, E2)" Value="211" Id="%AID%_PT-ValueFunction_EN-211" />
+                  <Enumeration Text="A = Benutzerfunktion_12(E1, E2)" Value="212" Id="%AID%_PT-ValueFunction_EN-212" />
+                  <Enumeration Text="A = Benutzerfunktion_13(E1, E2)" Value="213" Id="%AID%_PT-ValueFunction_EN-213" />
+                  <Enumeration Text="A = Benutzerfunktion_14(E1, E2)" Value="214" Id="%AID%_PT-ValueFunction_EN-214" />
+                  <Enumeration Text="A = Benutzerfunktion_15(E1, E2)" Value="215" Id="%AID%_PT-ValueFunction_EN-215" />
+                  <Enumeration Text="A = Benutzerfunktion_16(E1, E2)" Value="216" Id="%AID%_PT-ValueFunction_EN-216" />
+                  <Enumeration Text="A = Benutzerfunktion_17(E1, E2)" Value="217" Id="%AID%_PT-ValueFunction_EN-217" />
+                  <Enumeration Text="A = Benutzerfunktion_18(E1, E2)" Value="218" Id="%AID%_PT-ValueFunction_EN-218" />
+                  <Enumeration Text="A = Benutzerfunktion_19(E1, E2)" Value="219" Id="%AID%_PT-ValueFunction_EN-219" />
+                  <Enumeration Text="A = Benutzerfunktion_20(E1, E2)" Value="220" Id="%AID%_PT-ValueFunction_EN-220" />
+                  <Enumeration Text="A = Benutzerfunktion_21(E1, E2)" Value="221" Id="%AID%_PT-ValueFunction_EN-221" />
+                  <Enumeration Text="A = Benutzerfunktion_22(E1, E2)" Value="222" Id="%AID%_PT-ValueFunction_EN-222" />
+                  <Enumeration Text="A = Benutzerfunktion_23(E1, E2)" Value="223" Id="%AID%_PT-ValueFunction_EN-223" />
+                  <Enumeration Text="A = Benutzerfunktion_24(E1, E2)" Value="224" Id="%AID%_PT-ValueFunction_EN-224" />
+                  <Enumeration Text="A = Benutzerfunktion_25(E1, E2)" Value="225" Id="%AID%_PT-ValueFunction_EN-225" />
+                  <Enumeration Text="A = Benutzerfunktion_26(E1, E2)" Value="226" Id="%AID%_PT-ValueFunction_EN-226" />
+                  <Enumeration Text="A = Benutzerfunktion_27(E1, E2)" Value="227" Id="%AID%_PT-ValueFunction_EN-227" />
+                  <Enumeration Text="A = Benutzerfunktion_28(E1, E2)" Value="228" Id="%AID%_PT-ValueFunction_EN-228" />
+                  <Enumeration Text="A = Benutzerfunktion_29(E1, E2)" Value="229" Id="%AID%_PT-ValueFunction_EN-229" />
+                  <Enumeration Text="A = Benutzerfunktion_30(E1, E2)" Value="230" Id="%AID%_PT-ValueFunction_EN-230" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="%AID%_PT-ValueDpt6" Name="ValueDpt6">

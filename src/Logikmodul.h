@@ -181,6 +181,12 @@
 #define LOG_fTGate                     3      // 1 Bit, Bit 4
 #define     LOG_fTGateMask 0x10
 #define     LOG_fTGateShift 4
+#define LOG_fOInternalOn               3      // 1 Bit, Bit 5
+#define     LOG_fOInternalOnMask 0x20
+#define     LOG_fOInternalOnShift 5
+#define LOG_fOInternalOff              3      // 1 Bit, Bit 6
+#define     LOG_fOInternalOffMask 0x40
+#define     LOG_fOInternalOffShift 6
 #define LOG_fTrigger                   4      // 8 Bits, Bit 7-0
 #define LOG_fTriggerE1                 4      // 1 Bit, Bit 0
 #define     LOG_fTriggerE1Mask 0x01
@@ -827,6 +833,6 @@
 #define LOG_KoKOfO 2
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 48
-#define MAIN_ApplicationVersion 11
-#define MAIN_OrderNumber "OpenKnxLogic"
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 28
+#define MAIN_OrderNumber "OpenKnxLogicDev"

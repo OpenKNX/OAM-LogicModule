@@ -1732,7 +1732,9 @@ bool LogicChannel::processDiagnoseCommand(char *cBuffer)
 // process the output itself
 void LogicChannel::processOutput(bool iValue)
 {
-    LogicChannel::sLogic->processAllInternalInputs(this, iValue);
+    bool lInternalInputs = ((iValue && (getByteParam(LOG_fOInternalOn) & LOG_fOInternalOnMask )) || (!iValue && (getByteParam(LOG_fOInternalOff) & LOG_fOInternalOffMask)));
+    if (lInternalInputs)
+        LogicChannel::sLogic->processAllInternalInputs(this, iValue);
 #if LOGIC_TRACE
     if (debugFilter())
     {

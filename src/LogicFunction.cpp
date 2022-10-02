@@ -37,6 +37,36 @@ float LogicFunction::nativeMaximum(uint8_t DptE1, float E1, uint8_t DptE2, float
     return (E1 > E2) ? E1 : E2;
 }
 
+float LogicFunction::nativeModulo(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 % (int32_t)E2;
+}
+
+float LogicFunction::nativeAnd(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 & (int32_t)E2;
+}
+
+float LogicFunction::nativeOr(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 | (int32_t)E2;
+}
+
+float LogicFunction::nativeXor(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 ^ (int32_t)E2;
+}
+
+float LogicFunction::nativeLShift(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 << (int32_t)E2;
+}
+
+float LogicFunction::nativeRShift(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    return (int32_t)E1 >> (int32_t)E2;
+}
+
 // do not touch after this point
 
 LogicFunction::LogicFunction(){};
@@ -50,7 +80,13 @@ float (*LogicFunction::nativeFunction[NUM_NATIVE_FUNCTIONS])(uint8_t, float, uin
     nativeDivide,
     nativeAverage,
     nativeMinimum,
-    nativeMaximum};
+    nativeMaximum,
+    nativeModulo,
+    nativeAnd,
+    nativeOr,
+    nativeXor,
+    nativeLShift,
+    nativeRShift};
 
 float (*LogicFunction::userFunction[30])(uint8_t, float, uint8_t, float, uint8_t *){
     userFunction01,

@@ -25,7 +25,9 @@
                 <Parameter Id="%AID%_UP-%T%%CCC%166" Name="f%C%Disable"   ParameterType="%AID%_PT-CheckBox"  Offset="0" BitOffset="5" Text="Kanal deaktivieren (zu Testzwecken)" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%277" Name="f%C%Alarm" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="4" Text="Alarmausgabe (Buzzer oder LED trotz Sperre schalten)?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%396" Name="f%C%TGate" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="3" Text="Tor geht sofort wieder zu" Value="0" />
-                <!-- 3 Bit frei -->
+                <Parameter Id="%AID%_UP-%T%%CCC%397" Name="f%C%OInternalOn" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="Wert EIN intern weiterleiten" Value="1" />
+                <Parameter Id="%AID%_UP-%T%%CCC%398" Name="f%C%OInternalOff" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="Wert AUS intern weiterleiten" Value="1" />
+                <!-- 1 Bit frei -->
               </Union>
               <Union SizeInBit="8">
                 <Memory CodeSegment="%AID%_RS-04-00000" Offset="4" BitOffset="0" />
@@ -922,6 +924,8 @@
               <ParameterRef Id="%AID%_UP-%T%%CCC%394_R-%T%%CCC%39401" RefId="%AID%_UP-%T%%CCC%394" />
               <ParameterRef Id="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" RefId="%AID%_P-%T%%CCC%395" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601" RefId="%AID%_UP-%T%%CCC%396" />
+              <ParameterRef Id="%AID%_UP-%T%%CCC%397_R-%T%%CCC%39701" RefId="%AID%_UP-%T%%CCC%397" />
+              <ParameterRef Id="%AID%_UP-%T%%CCC%398_R-%T%%CCC%39801" RefId="%AID%_UP-%T%%CCC%398" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="%AID%_O-%T%%CCC%000" Name="KOf%C%E1" Text="Eingang 1" Number="%K0%" FunctionText="Logik %C%, Eingang 1" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled"  CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled"  ReadOnInitFlag="Disabled" />
@@ -2905,7 +2909,10 @@
                         </choose>
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Interne Eingänge" UIHint="Headline" />
-                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Der bis hierher ermittelte Zustand steht als Ausgangswert des Kanals für andere Logikkanäle zur Verfügung" />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Der bis hierher ermittelte  Zustand steht als Ausgangswert des Kanals für andere Logikkanäle zur Verfügung." />
+                        <ParameterSeparator Id="%AID%_PS-nnn" Text="Es kann bestimmt werden, ob der EIN oder der AUS-Wert weitergeleitet werden." />
+                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%397_R-%T%%CCC%39701" />
+                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%398_R-%T%%CCC%39801" />
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Wert für Ausgang" UIHint="Headline" />
                         <ParameterRefRef RefId="%AID%_P-%T%%CCC%064_R-%T%%CCC%06401" />
