@@ -37,6 +37,8 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
     * **^ (Bit-Exklusiv-Oder)**, 
     * **<< (Bit-Links-Verschiebung)**,
     * **>> (Bit-Rechts-Verschiebung)**
+* FIX: Bei der Einstellung ["Nur bei geändertem Ergebnis, aber erstes Telegramm immer senden"](#nur-bei-geändertem-ergebnis-aber-erstes-telegramm-nicht-senden) wurde das zweite Telegramm auch gesendet, wenn es gleich zum unterdrückten war. Das ist jetzt korrigiert.
+* Die Zeitbasis für Zeitschaltuhren ist jetzt genauer, die Zeitschaltuhren driften jetzt weniger.
 
 26.09.2022: Firmware 0.11.0, Applikation 0.11 (Beta-Release)
 

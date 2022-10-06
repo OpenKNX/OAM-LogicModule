@@ -43,7 +43,7 @@ void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iU
 void Timer::loop() {
     if (delayCheck(mTimeDelay, 1000))
     {
-        mTimeDelay = millis();
+        mTimeDelay += 1000;
         mNow.tm_sec += 1;
         mktime(&mNow);
         if (mTimeValid == tmValid)

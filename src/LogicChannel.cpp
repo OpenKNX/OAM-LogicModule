@@ -1168,6 +1168,12 @@ void LogicChannel::processLogic()
                     // now we start stairlight processing
                     startStairlight(lNewOutput);
                 }
+                else
+                {
+                    // if first telegram is suppressed, we nevertheless
+                    // remove the initial marker. 
+                    pCurrentOut &= ~BIT_OUTPUT_INITIAL;
+                }
                 pCurrentIn |= BIT_FIRST_PROCESSING; //first processing was done
             }
 #if LOGIC_TRACE
