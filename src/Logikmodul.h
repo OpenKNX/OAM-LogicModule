@@ -833,6 +833,6 @@
 #define LOG_KoKOfO 2
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 28
-#define MAIN_OrderNumber "OpenKnxLogicDev"
+#define MAIN_ApplicationNumber 48
+#define MAIN_ApplicationVersion 12
+#define MAIN_OrderNumber "OpenKnxLogic"
