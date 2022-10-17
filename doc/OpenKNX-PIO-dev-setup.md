@@ -1,58 +1,14 @@
 # Installation of dev-Environment for LogicModule
 
-Tested on Windows 10 and Windows 11!
+Follow all steps described in OpenKNX-Wiki: [Installation of OpenKNX development environment for PlatformIO (PIO)](https://github.com/OpenKNX/OpenKNX/wiki/Installation-of-OpenKNX-development-environment-for-PlatformIO-(PIO))
 
-Download and install git from [https://git-scm.com/downloads](https://git-scm.com/downloads) with default options
-
-Download and install the newest release of OpenKNX-Tools from [https://github.com/OpenKNX/OpenKNXproducer/releases](https://github.com/OpenKNX/OpenKNXproducer/releases) according to installation instructions described in OpenKNX-Wiki [https://github.com/OpenKNX/OpenKNX/wiki/Installation-of-OpenKNX-tools](https://github.com/OpenKNX/OpenKNX/wiki/Installation-of-OpenKNX-tools)
-
-Download and install visual studio code from [https://code.visualstudio.com/download](https://code.visualstudio.com/download) (User installer, 64 bit)
-
-Start visual studio code
-
-Go to extensions (Ctrl-Shift-X)
-
-Enter "platformio" in search field
-
-Install "PlatformIO IDE" extension
-
-Wait until installation is finished, do the necessary reload window afterwards (may take some time)
-
-Click on the new PlatformIO-Icon on the left ![PIO-Icon](pics/PIO2.png)
-
-In "Quick Access", choose open
-
-In the new "PIO Home" tab, click on "New Project..."
-
-In the upcoming dialog, provide the name "Test", Board "Sparkfun SAMD21 Dev Breakout", Framework "Arduino" and Location "Use default location"
-
-Click "Finish" and wait until finished. Visuals Studio Code will open the newly created project afterwards. The new project is just used to create default envoronment and can be deleted afterwards.
-
-Click again the PlatformIO Icon ![PIO-Icon](pics/PIO2.png)
-
-Again "Quick Access" appears, click "Miscellaneous->PlatformIO Core CLI"
-
-A new terminal (within Visual Studio Code) appears, the path is home of the new test project. We don't need the test project, it was just used to create all necessary path for development.
-From now on we work in this terminal window:
-
-    cd .. 
-
-You should be now in a directory ending with ...\Documents\PlatformIO\Projects
-
-    mkdir OpenKNX
-    cd OpenKNX
-    git clone https://github.com/thelsing/knx.git
-    git clone https://github.com/OpenKNX/OGM-Common.git
-    git clone https://github.com/OpenKNX/OGM-SensorDevices.git
-    git clone https://github.com/OpenKNX/OAM-LogicModule.git
-    cd OAM-LogicModule
-    code LogicModule.code-workspace
-
-Now a new instance of Visual Studio Code is started. You can close the other (previous) instance.
+Do also all verification steps described in our Wiki, these steps download the LogicModule.
 
 ## Test if everything works
 
-The next steps test only if the installed environment works correctly.
+The next steps test only if the installed environment works correctly. 
+
+Go to the directory OAM-LogicModule. Open File LogicModule.code-workspace with VSCode. 
 
 ### Building of a knxprod
 
@@ -93,15 +49,15 @@ You are now free to modify Firmware or ETS-Application to your needs. For an exp
 For all tasks you have to prepare PIO to built for your hardware. For our LogicModule, the necessary information is
 
 * the PIN for Prog-LED,
-* is the LED on with a 1 or a 0 signal,
+* is the LED powered by an 1 or a 0 signal,
 * the PIN for the Prog-Button,
-* does the Prog-Button send a 0 or a 1 signal on press,
-* which are the UART-Pins for KNX communication
-* which is the Pin for the Buzzer (optional)
+* which are the UART-PINS for KNX communication
+* which is the PIN for the Buzzer (optional)
+* which is the PIN for power failure (SAVE-PIN, optional)
 
 There might be additional things necessary for firmware, which is using this LogicModule, this should be described in their dev setup document.
 
-Most occasional users will just use Hardware where our firmware already works. For this hardware there are existing board definitions in a file "HardwareDevices.h" contained in our OGM-SensorDevices project.
+Most occasional users will just use Hardware where our firmware already works. There is a File LogikmodulHardware.h where this hardware is listed. 
 
 Open platformio.ini-file located in OAM-LogicModule project. At the end of this file you will find a section
 
@@ -121,13 +77,13 @@ You have to pay attention on the following parts:
 
 * **extends** should be SAMD or RP2040, depending on the processor you use
 * **upload_protocol** should be sam-ba for SAMD and picotool for RP2040
-* **-D BOARD_xxxxxxxxx** should be a board from HardwareDevices.h, this depends indirectly also on the processor, the example here is BOARD_MASIFI_V2 for a SensorModule-Hardware v2.0 (SAMD-based) or BOARD_MASIFI_HFPM_DEVEL (RP2040-based), both from MASIFI.
+* **-D BOARD_xxxxxxxxx** should be a board from LogikmodulHardware.h, this depends indirectly also on the processor, the example here is BOARD_MASIFI_V2 for a SensorModule-Hardware v2.0 (SAMD-based) or BOARD_MASIFI_HFPM_DEVEL (RP2040-based), both from [https://www.smart-mf.de](https://www.smart-mf.de), or BOARD_SIRSYDOM_PIPICO_BCU_CONNECTOR (RP2040-based) described in more detail here [OpenKNX-Wiki](https://github.com/OpenKNX/OpenKNX/wiki/PiPico-BCU-Connector)
 
 If you have the right combination, which fits to your hardware, see "How to upload the firmware to your hardware".
 
 ### Define Board to run on other hardware
 
-In cases you want to run on arbitary hardware, you have to create a BOARD-define in "HardwareDevices.h" (in Project OGM-SensorDevices) and use this board in the above mentioned 
+In cases you want to run on arbitary hardware, you have to create a BOARD-define in "LogikmodulHardware.h" and use this board in the above mentioned 
 
     [env:enduser]
     ...

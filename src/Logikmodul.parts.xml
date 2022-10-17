@@ -59,9 +59,9 @@
                 </choose>
                 <!-- Initialize defaults for Hardware, if not changed anywhere, thiese defaults are hidden and not visible -->
                 <!-- Buzzer installed? -->
-                <ParameterRefRef RefId="%AID%_UP-%T%000035_R-%T%00003501" />
+                <!-- <ParameterRefRef RefId="%AID%_UP-%T%000035_R-%T%00003501" /> -->
                 <!-- RGB-LED installed? -->
-                <ParameterRefRef RefId="%AID%_UP-%T%000036_R-%T%00003601" />
+                <!-- <ParameterRefRef RefId="%AID%_UP-%T%000036_R-%T%00003601" /> -->
               </ParameterBlock>
               <ParameterBlock Id="%AID%_PB-2" Name="Hardware" Text="Logic: Hardware">
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
