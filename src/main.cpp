@@ -2,7 +2,7 @@
 #include <OpenKNX.h>
 #include <Logikmodul.h>
 #include <Logic.h>
-#include "HardwareDevices.h"
+#include "hardware.h"
 
 void appSetup(bool iSaveSupported);
 void appLoop();
