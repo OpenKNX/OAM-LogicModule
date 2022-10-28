@@ -24,11 +24,10 @@
 
 
 # set product names, allows mapping of (devel) name in Project to a more consistent name in release
-$sourceName="Logikmodul"  
-$targetName="LogicModule" 
+# $settings = scripts/OpenKNX-Build-Settings.ps1
 
 # execute generic pre-build steps
-../OGM-Common/build-scripts/Build-Release-Preprocess.ps1 $sourceName $targetName $args[0]
+../OGM-Common/setup-scripts/reusable/Build-Release-Preprocess.ps1 $args[0]
 if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile 
@@ -49,5 +48,5 @@ if (!$?) { exit 1 }
 if (!$?) { exit 1 }
 
 # execute generic post-build steps
-../OGM-Common/build-scripts/Build-Release-Postprocess.ps1 $sourceName $targetName $args[0]
+../OGM-Common/setup-scripts/reusable/Build-Release-Postprocess.ps1 $args[0]
 if (!$?) { exit 1 }

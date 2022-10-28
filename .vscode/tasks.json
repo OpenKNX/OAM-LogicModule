@@ -8,8 +8,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "build_SAMD"
             ],
             "group": "build",
@@ -20,8 +18,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "build_RP2040"
             ],
             "group": "build",
@@ -32,8 +28,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "upload_JLINK_SAMD",
                 "upload"
             ],
@@ -45,8 +39,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "upload_JLINK_RP2040",
                 "upload"
             ],
@@ -58,8 +50,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "upload_USB_SAMD",
                 "upload"
             ],
@@ -71,8 +61,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "upload_USB_RP2040",
                 "upload"
             ],
@@ -84,8 +72,6 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "Logikmodul.h",
-                "LogikmodulHardware.h",
                 "upload_enduser",
                 "upload"
             ],
@@ -98,7 +84,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/src"
             },
-            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
+            "command": "~/bin/OpenKNXproducer.exe",
             "args": [
                 "create",
                 "--Debug",
@@ -110,16 +96,19 @@
         {
             "label": "Build-Release",
             "type": "shell",
-            "command": "scripts/Build-Release.ps1 Release",
-            "args": [],
+            "command": "scripts/Build-Release.ps1", 
+            "args": [
+                "Release"
+            ],
             "problemMatcher": [],
             "group": "test"
         },
         {
             "label": "Build-Beta",
             "type": "shell",
-            "command": "scripts/Build-Release.ps1 ",
-            "args": [],
+            "command": "scripts/Build-Release.ps1",
+            "args": [
+            ],
             "problemMatcher": [],
             "group": "test"
         }
