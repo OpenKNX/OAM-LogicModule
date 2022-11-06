@@ -1235,7 +1235,7 @@ void LogicChannel::startStairlight(bool iOutput)
                     }
                 }
 #endif
-                pStairlightDelay = millis();
+                pStairlightDelay = delayTimerInit();
                 pCurrentPipeline |= PIP_STAIRLIGHT;
                 startBlink();
             }
@@ -1274,7 +1274,7 @@ void LogicChannel::startStairlight(bool iOutput)
 
 void LogicChannel::processStairlight()
 {
-    if (delayCheck(pStairlightDelay, getTimeDelayParam(LOG_fOStairtimeBase)))
+    if (pStairlightDelay == 0 || delayCheck(pStairlightDelay, getTimeDelayParam(LOG_fOStairtimeBase)))
     {
 #if LOGIC_TRACE
         if (debugFilter()) 
@@ -1354,7 +1354,7 @@ void LogicChannel::startOnDelay()
     if ((pCurrentPipeline & PIP_ON_DELAY) == 0)
     {
         // on delay is not running, we start it 
-        pOnDelay = millis();
+        pOnDelay = delayTimerInit();
         pCurrentPipeline |= PIP_ON_DELAY;
 #if LOGIC_TRACE
         if (debugFilter())
@@ -1381,7 +1381,7 @@ void LogicChannel::startOnDelay()
 #endif
                 break;
             case VAL_Delay_Extend:
-                pOnDelay = millis();
+                pOnDelay = delayTimerInit();
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -1420,7 +1420,7 @@ void LogicChannel::startOnDelay()
 void LogicChannel::processOnDelay()
 {
     uint32_t lOnDelay = getTimeDelayParam(LOG_fODelayOnBase);
-    if (delayCheck(pOnDelay, lOnDelay))
+    if (pOnDelay == 0 || delayCheck(pOnDelay, lOnDelay))
     {
 #if LOGIC_TRACE
         if (debugFilter())
@@ -1446,7 +1446,7 @@ void LogicChannel::startOffDelay()
     uint8_t lOffDelayRepeat = (lOffDelay & LOG_fODelayOffRepeatMask) >> LOG_fODelayOffRepeatShift;
     if ((pCurrentPipeline & PIP_OFF_DELAY) == 0)
     {
-        pOffDelay = millis();
+        pOffDelay = delayTimerInit();
         pCurrentPipeline |= PIP_OFF_DELAY;
 #if LOGIC_TRACE
         if (debugFilter())
@@ -1473,7 +1473,7 @@ void LogicChannel::startOffDelay()
 #endif
                 break;
             case VAL_Delay_Extend:
-                pOffDelay = millis();
+                pOffDelay = delayTimerInit();
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -1512,7 +1512,7 @@ void LogicChannel::startOffDelay()
 void LogicChannel::processOffDelay()
 {
     uint32_t lOffDelay = getTimeDelayParam(LOG_fODelayOffBase);
-    if (delayCheck(pOffDelay, lOffDelay))
+    if (pOffDelay == 0 || delayCheck(pOffDelay, lOffDelay))
     {
 #if LOGIC_TRACE
         if (debugFilter())

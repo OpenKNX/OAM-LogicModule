@@ -27,6 +27,12 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
+05.11.2022: Firmware 0.12.2, Applikation 0.12 (Beta-Release)
+
+* FIX: Treppenlicht konnte erst über KNX wieder abgeschaltet werden, sobald das Logikmodul länger lief als die eingestellte Treppenlichtzeit.
+* FIX: "Einschaltverzögerung -> beim 2. EIN sofort schalten" wurde auch erst geschaltet, wenn das Logikmodul länger lief als die eingestellte Verzögerungszeit.
+* FIX: "Ausschaltverzögerung -> beim 2. AUS sofort schalten" wurde auch erst geschaltet, wenn das Logikmodul länger lief als die eingestellte Verzögerungszeit.
+
 08.10.2022: Firmware 0.12.1, Applikation 0.12 (Beta-Release)
 
 * Formales Update, damit die Links auf die Dokumentation stimmen. Hier gab es einen Fehler im Release-Prozess.
