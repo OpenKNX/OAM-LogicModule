@@ -554,7 +554,7 @@ void LogicChannel::writeParameterValue(uint8_t iIOIndex)
     int32_t lValueOrig = getInputValue(iIOIndex);
     uint16_t lParamDpt = (iIOIndex == 1) ? LOG_fE1Dpt : LOG_fE2Dpt;
     uint8_t lInputDpt = getByteParam(lParamDpt);
-    int32_t lValue = (lInputDpt == VAL_DPT_9) ? lValueOrig / 10 : lValueOrig;
+    int32_t lValue = (lInputDpt == VAL_DPT_9) ? lValueOrig / 100 : lValueOrig;
     uint8_t lDpt = getByteParam(LOG_fODpt);
     lValue = (lDpt == VAL_DPT_9) ? lValueOrig : lValue;
     writeValue(lValue, lInputDpt);
