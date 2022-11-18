@@ -27,6 +27,12 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
+17.11.2022: Firmware 0.13, Applikaiton 0.13
+
+* FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
+* NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
+* NEU: Weitere Hardware verfügbar ([Siehe Unterstützte Hardware](#unterstützte-hardware))
+
 08.10.2022: Firmware 0.12.1, Applikation 0.12 (Beta-Release)
 
 * Formales Update, damit die Links auf die Dokumentation stimmen. Hier gab es einen Fehler im Release-Prozess.
@@ -1824,6 +1830,18 @@ Die Werte der beiden Eingänge werden verglichen und der größere Wert wird als
 
 Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive Eingang negativ ist. Falls der aktive Eingang positiv ist, bekommt man den Wert des aktiven Eingangs.
 
+#### **A = B2I(E1, E2) (Bool zu Int)**
+
+Die Werte der beiden Eingänge werden als 2 Bit betrachtet und zu einer Integer-Zahl gewandelt nach der Formel 2 * E1 + E2.
+Das erlaubt die Konvertierung von 2 Einzelbits zu einem Wert (im Wertebereich 0 bis 3) oder einer Szene 1 bis 4. Ein Nutzungsbeispiel wäre die Berechnung einer Tagesphase für den VPM aus 2 Einzelbits.
+
+Die Werte von E1 und E2 werden zuerst nach Boolean konvertiert. Dabei gilt: 
+
+    E gleich 0   --> false bzw. 0
+    E ungleich 0 --> true  bzw. 1
+
+Ist nur ein Eingang aktiv, ist der andere 0.
+
 ### **Benutzerfunktionen**
 
 Die eigentliche Stärke des Formelansatzes liegt sicherlich nicht in den implementierten Standardfunktionen, sondern in den 30 zur Verfügung stehenden Benutzerfunktionen.
@@ -2208,16 +2226,18 @@ Wie eine beliebige Applikation in der ETS aktualisiert werden kann, ist im OpenK
 
 Trotz intensiver Versuche, eine updatefähige Applikation zu erzeugen zeigt es sich, dass durch Erweiterungen, Benutzerwünsche und teilweises Unverständnis über die Updatefunktion der ETS es nicht möglich ist, immer ein Update ohne manuellen Eingriff anzubieten.
 
-## **Hardware**
+## **Unterstützte Hardware**
 
-Dieses Kapital beschreibt die von dieser Firmware unterstützte Hardware
-(noch nicht ausgearbeitet)
+Die Software für dieses Release wurde auf folgender Hardware getestet und läuft damit "out-of-the-box":
 
-Buzzer
+* **Smart-MF Sensormodul** [www.smart-mf.de](https://www.smart-mf.de), als Logikmodul mit der Option, über eine Zwischenplatine einen Buzzer und/oder einen RGB-LED-Signalgeber zu erhalten
+* **PiPico-BCU-Connector** [OpenKNX-Wiki](https://github.com/OpenKNX/OpenKNX/wiki/PiPico-BCU-Connector), als Logikmodul
+* **1TE-RP2040-Smart-MF** [www.smart-mf.de](https://www.smart-mf.de), auf allen Varianten als Logikmodul lauffähig
+* **OpenKNX-UP1-System** [OpenKNX-Wiki](https://github.com/OpenKNX/OpenKNX/wiki/OpenKNX-UP1), auf allen Varianten als Logikmodul lauffähig
 
-RGB-LED
+Andere Hardware kann genutzt werden, jedoch muss das Projekt dann neu compiliert werden. Alle notwendigen Teile für ein Aufsetzen der Build-Umgebung inclusive aller notwendigen Projekte finden sich im [OpenKNX-Projekt](https://github.com/OpenKNX)
 
-----
+Interessierte sollten auch die Beiträge im [OpenKNX-Forum](https://knx-user-forum.de/forum/projektforen/openknx) studieren.
 
 ## **Übersicht der vorhandenen Kommunikationsobjekte**
 

@@ -67,13 +67,22 @@ float LogicFunction::nativeRShift(uint8_t DptE1, float E1, uint8_t DptE2, float 
     return (int32_t)E1 >> (int32_t)E2;
 }
 
+float LogicFunction::nativeBool2Int(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+{
+    // we assume E1, E2 are boolean
+    // if not, standard conversion applies
+    return (bool)E1 * 2 + (bool)E2;
+}
+
+
 // do not touch after this point
 
 LogicFunction::LogicFunction(){};
 
 LogicFunction::~LogicFunction(){};
 
-float (*LogicFunction::nativeFunction[NUM_NATIVE_FUNCTIONS])(uint8_t, float, uint8_t, float, uint8_t *){
+float (*LogicFunction::nativeFunction[NUM_NATIVE_FUNCTIONS])(uint8_t, float, uint8_t, float, uint8_t *)
+{
     nativeAdd,
     nativeSubtract,
     nativeMultiply,
@@ -86,7 +95,9 @@ float (*LogicFunction::nativeFunction[NUM_NATIVE_FUNCTIONS])(uint8_t, float, uin
     nativeOr,
     nativeXor,
     nativeLShift,
-    nativeRShift};
+    nativeRShift,
+    nativeBool2Int,
+    };
 
 float (*LogicFunction::userFunction[30])(uint8_t, float, uint8_t, float, uint8_t *){
     userFunction01,

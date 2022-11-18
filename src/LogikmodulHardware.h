@@ -51,6 +51,7 @@
 #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_MASIFI_V2
 #define PROG_LED_PIN 13
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -69,6 +70,7 @@
 #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_MASIFI_V3
 #define PROG_LED_PIN 13
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -87,6 +89,7 @@
 #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_MASIFI_V31
 #define PROG_LED_PIN 13
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -105,6 +108,7 @@
 #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_MASIFI_AUSSEN_V13
 #define PROG_LED_PIN 13
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -122,6 +126,7 @@
 #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 // Sensormodul auf RP2040 Basis
 #ifdef BOARD_MASIFI_PICO
 #define PROG_LED_PIN 12
@@ -145,6 +150,7 @@
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_SIRSYDOM_PIPICO_BCU_CONNECTOR
 #define PROG_LED_PIN 21
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -167,6 +173,29 @@
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 // #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
+#ifdef BOARD_SMARTMF_1TE_RP2040
+#define PROG_LED_PIN 1
+#define PROG_LED_PIN_ACTIVE_ON HIGH
+#define PROG_BUTTON_PIN 0
+#define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
+#define SAVE_INTERRUPT_PIN 29
+#define KNX_UART_RX_PIN 17
+#define KNX_UART_TX_PIN 16
+#endif
+
+#ifdef BOARD_OPENKNX_REG1_BASE
+#define PROG_LED_PIN 2
+#define PROG_LED_PIN_ACTIVE_ON HIGH
+#define PROG_BUTTON_PIN 7
+#define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
+#define SAVE_INTERRUPT_PIN 6
+#define INFO_LED_PIN 3
+#define INFO_LED_PIN_ACTIVE_ON HIGH
+#define KNX_UART_RX_PIN 1
+#define KNX_UART_TX_PIN 0
+#endif
+
 // HF-Firmware-Test auf RP2040-Sensormodul Basis (reiner Test)
 #ifdef BOARD_MASIFI_PICO_SEN_PM_TEST
 #define PROG_LED_PIN 12
@@ -201,6 +230,7 @@
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #endif
+
 #ifdef BOARD_MASIFI_HFPM_DEVEL
 #define PROG_LED_PIN 16
 #define PROG_LED_PIN_ACTIVE_ON HIGH
@@ -230,6 +260,7 @@
 // Buzzer
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #endif
+
 #ifdef BOARD_MASIFI_HFPM_DEVEL2
 #define PROG_LED_PIN 18
 #define PROG_LED_PIN_ACTIVE_ON HIGH
