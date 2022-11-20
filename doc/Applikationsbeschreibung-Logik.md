@@ -27,7 +27,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
 
-17.11.2022: Firmware 0.13, Applikaiton 0.13
+20.11.2022: Firmware 0.13.1, Applikaiton 0.13
 
 * FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
 * NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
@@ -1832,7 +1832,7 @@ Ist nur ein Eingang aktiv, ist der andere 0 und man bekommt 0, falls der aktive 
 
 #### **A = B2I(E1, E2) (Bool zu Int)**
 
-Die Werte der beiden Eingänge werden als 2 Bit betrachtet und zu einer Integer-Zahl gewandelt nach der Formel 2 * E1 + E2.
+Die Werte der beiden Eingänge werden als 2 Bit betrachtet und zu einer Integer-Zahl gewandelt nach der Formel 2 * E2 + E1 (E2 entspricht dem höherwertigeren, E1 dem niederwertigerem Bit).
 Das erlaubt die Konvertierung von 2 Einzelbits zu einem Wert (im Wertebereich 0 bis 3) oder einer Szene 1 bis 4. Ein Nutzungsbeispiel wäre die Berechnung einer Tagesphase für den VPM aus 2 Einzelbits.
 
 Die Werte von E1 und E2 werden zuerst nach Boolean konvertiert. Dabei gilt: 

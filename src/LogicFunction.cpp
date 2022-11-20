@@ -71,7 +71,7 @@ float LogicFunction::nativeBool2Int(uint8_t DptE1, float E1, uint8_t DptE2, floa
 {
     // we assume E1, E2 are boolean
     // if not, standard conversion applies
-    return (bool)E1 * 2 + (bool)E2;
+    return (bool)E2 * 2 + (bool)E1;
 }
 
 
