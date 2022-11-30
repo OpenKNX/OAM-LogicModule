@@ -2,6 +2,7 @@
 $currentDir = Get-Location
 Set-Location ..
 $subprojects = Get-ChildItem -File lib
+$projectDir = Get-Location
 Set-Location ..
 foreach ($subproject in $subprojects) {
     $cloned = 0
@@ -17,9 +18,9 @@ foreach ($subproject in $subprojects) {
     }
     if ($cloned)
     {
-        Remove-Item OAM-PresenceModule/lib/$subproject
+        Remove-Item $projectDir/lib/$subproject
         # this has to be a cmd-shell to work in developer mode
-        cmd /c "mklink /D OAM-PresenceModule\lib\$subproject ..\..\$subproject"
+        cmd /c "mklink /D $projectDir\lib\$subproject ..\..\$subproject"
     }
 }
 if ($subprojects.Count -le 1) {
