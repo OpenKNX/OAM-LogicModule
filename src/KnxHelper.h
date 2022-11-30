@@ -31,3 +31,13 @@ Dpt &getDPT(uint8_t iDptIndex);
 #define VAL_TIMEBASE_MASK 0xC000
 
 uint32_t getDelayPattern(uint16_t iParamIndex, bool iAsSeconds = false);
+
+union uValue
+{
+  int32_t intValue;
+  float floatValue;
+};
+
+bool uValueLessThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+bool uValueGreaterThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+uValue uValueSubtract(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);

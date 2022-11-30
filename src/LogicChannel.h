@@ -224,13 +224,13 @@ class LogicChannel
     void knxWriteString(uint8_t iIOIndex, char* iValue);
     void knxRead(uint8_t iIOIndex);
     void knxResetDevice(uint16_t iParamIndex);
-    int32_t getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
-    int32_t getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
-    int32_t getInputValue(uint8_t iIOIndex);
+    uValue getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
+    uValue getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
+    uValue getInputValue(uint8_t iIOIndex);
     void writeConstantValue(uint16_t iParamIndex);
     void writeParameterValue(uint8_t iIOIndex);
     void writeFunctionValue(uint16_t iParamIndex);
-    void writeValue(uint32_t iValue, uint8_t iDpt);
+    void writeValue(uValue iValue, uint8_t iDpt);
     void setRGBColor(uint16_t iParamIndex);
     void setBuzzer(uint16_t iParamIndex);
 

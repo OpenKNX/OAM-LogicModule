@@ -132,25 +132,28 @@ float (*LogicFunction::userFunction[30])(uint8_t, float, uint8_t, float, uint8_t
     userFunction30};
 
 // dispatcher
-uint32_t LogicFunction::callFunction(uint8_t iId, uint8_t iDptE1, uint32_t iE1, uint8_t iDptE2, uint32_t iE2, uint8_t *cDptOut)
+uValue LogicFunction::callFunction(uint8_t iId, uint8_t iDptE1, uValue iE1, uint8_t iDptE2, uValue iE2, uint8_t *cDptOut)
 {
-    // DPT9 is transported as int with factor 100, we transform here the base
-    float lE1 = (float)iE1;
-    float lE2 = (float)iE2;
-    if (iDptE1 == VAL_DPT_9)
-        lE1 /= 100.0;
-    if (iDptE2 == VAL_DPT_9)
-        lE2 /= 100.0;
-    float lResult = 0.0;
+    uValue lResult = {};
+    float lE1 = iDptE1 == VAL_DPT_9 ? iE1.floatValue : (float)iE1.intValue;
+    float lE2 = iDptE2 == VAL_DPT_9 ? iE2.floatValue : (float)iE2.intValue;
+    float lResultf = 0;
     if (iId > 0 && iId <= NUM_NATIVE_FUNCTIONS)
     {
-        lResult = nativeFunction[iId - 1](iDptE1, iE1, iDptE2, iE2, cDptOut);
+        lResultf = nativeFunction[iId - 1](iDptE1, lE1, iDptE2, lE2, cDptOut);
     }
     else if (iId > 200 && iId <= 230)
     {
-        lResult = userFunction[iId - 201](iDptE1, iE1, iDptE2, iE2, cDptOut);
+        lResultf = userFunction[iId - 201](iDptE1, lE1, iDptE2, lE2, cDptOut);
     }
-    // if (*cDptOut == VAL_DPT_9)
-    //     lResult *= 100.0;
-    return (uint32_t)lResult;
+
+    if (*cDptOut == VAL_DPT_9)
+    {
+        lResult.floatValue = lResultf;
+    }
+    else
+    {
+        lResult.intValue = lResultf;
+    }
+    return lResult;
 }

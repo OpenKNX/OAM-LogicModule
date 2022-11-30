@@ -1,6 +1,7 @@
 #pragma once
 
 #include <inttypes.h>
+#include <KnxHelper.h>
 
 #define NUM_NATIVE_FUNCTIONS 14
 
@@ -62,5 +63,5 @@ class LogicFunction
     static float userFunction30(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);
 
   public:
-    static uint32_t callFunction(uint8_t iId, uint8_t iDptE1, uint32_t iE1, uint8_t iDptE2, uint32_t iE2, uint8_t *cDptOut);
+    static uValue callFunction(uint8_t iId, uint8_t iDptE1, uValue iE1, uint8_t iDptE2, uValue iE2, uint8_t *cDptOut);
 };
