@@ -877,8 +877,8 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
         switch (lConvert)
         {
             case VAL_InputConvert_Interval:
-                lValueOut = uValueGreaterThenOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt) &&
-                            uValueLessThenOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt);
+                lValueOut = uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt) &&
+                            uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -889,8 +889,8 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
             case VAL_InputConvert_DeltaInterval:
                 lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                lValueOut = uValueGreaterThenOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
-                            uValueLessThenOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
+                lValueOut = uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
+                            uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -900,9 +900,9 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 break;
             case VAL_InputConvert_Hysterese:
                 lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
-                if (uValueLessThenOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt))
+                if (uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt))
                     lValueOut = false;
-                if (uValueGreaterThenOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt))
+                if (uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt))
                     lValueOut = true;
 #if LOGIC_TRACE
                 if (debugFilter())
@@ -915,9 +915,9 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
                 lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (uValueLessThenOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt))
+                if (uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt))
                     lValueOut = false;
-                if (uValueGreaterThenOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt))
+                if (uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt))
                     lValueOut = true;
 #if LOGIC_TRACE
                 if (debugFilter())

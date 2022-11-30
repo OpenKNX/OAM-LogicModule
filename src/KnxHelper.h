@@ -38,6 +38,6 @@ union uValue
   float floatValue;
 };
 
-bool uValueLessThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
-bool uValueGreaterThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+bool uValueLessThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+bool uValueGreaterThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
 uValue uValueSubtract(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);

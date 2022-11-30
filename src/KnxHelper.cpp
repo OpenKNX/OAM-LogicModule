@@ -47,7 +47,7 @@ uint32_t getDelayPattern(uint16_t iParamIndex, bool iAsSeconds /* = false */) {
     }
 }
 
-bool uValueLessThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight)
+bool uValueLessThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight)
 {
   if (iDptLeft == VAL_DPT_9 && iDptRight == VAL_DPT_9)
   {
@@ -67,7 +67,7 @@ bool uValueLessThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8
   }
 };
 
-bool uValueGreaterThenOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight)
+bool uValueGreaterThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight)
 {
   if (iDptLeft == VAL_DPT_9 && iDptRight == VAL_DPT_9)
   {
