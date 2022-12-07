@@ -382,18 +382,18 @@ void LogicChannel::setBuzzer(uint16_t iParamIndex)
 
 // we get an dpt dependant parameter value for different
 // input evaluation
-uValue LogicChannel::getParamForDelta(uint8_t iDpt, uint16_t iParamIndex)
+LogicValue LogicChannel::getParamForDelta(uint8_t iDpt, uint16_t iParamIndex)
 {
-    uValue lValue = { .intValue = 0 };
     if (iDpt == VAL_DPT_9)
     {
-        lValue.floatValue = getFloatParam(iParamIndex);
+        LogicValue lValue = getFloatParam(iParamIndex);
+        return lValue;
     }
     else
     {
-        lValue.intValue = (int32_t)getIntParam(iParamIndex);
+        LogicValue lValue = (int32_t)getIntParam(iParamIndex);
+        return lValue;
     }
-    return lValue;
 }
 
 // we get here numeric params by their DPT
@@ -401,90 +401,101 @@ uValue LogicChannel::getParamForDelta(uint8_t iDpt, uint16_t iParamIndex)
 // DPT2,17 => straight forward byte values
 // DPT5001 => scale down to [0..100]
 // DPT9 => transport as float
-uValue LogicChannel::getParamByDpt(uint8_t iDpt, uint16_t iParamIndex)
+LogicValue LogicChannel::getParamByDpt(uint8_t iDpt, uint16_t iParamIndex)
 {
-    uValue lValue = { .intValue = 0 };
     switch (iDpt)
     {
-        case VAL_DPT_1:
-            lValue.intValue = getByteParam(iParamIndex) != 0;
-            break;
+        case VAL_DPT_1: {
+            LogicValue lValue = getByteParam(iParamIndex) != 0;
+            return lValue;
+        }
         case VAL_DPT_2:
         case VAL_DPT_5:
         case VAL_DPT_17:
-        case VAL_DPT_5001:
-            lValue.intValue = getByteParam(iParamIndex);
-            break;
-        case VAL_DPT_6:
-            lValue.intValue = getSByteParam(iParamIndex);
-            break;
-        case VAL_DPT_7:
-            lValue.intValue = getWordParam(iParamIndex);
-            break;
-        case VAL_DPT_8:
-            lValue.intValue = getSWordParam(iParamIndex);
-            break;
-        case VAL_DPT_232:
-            lValue.intValue = getIntParam(iParamIndex);
-            break;
-        case VAL_DPT_9:
-            lValue.floatValue = getFloatParam(iParamIndex);
-            break;
-        default:
-            lValue.intValue = getIntParam(iParamIndex);
-            break;
+        case VAL_DPT_5001: {
+            LogicValue lValue = getByteParam(iParamIndex);
+            return lValue;
+        }
+        case VAL_DPT_6: {
+            LogicValue lValue = getSByteParam(iParamIndex);
+            return lValue;
+        }
+        case VAL_DPT_7: {
+            LogicValue lValue = getWordParam(iParamIndex);
+            return lValue;
+        }
+        case VAL_DPT_8: {
+            LogicValue lValue = getSWordParam(iParamIndex);
+            return lValue;
+        }
+        case VAL_DPT_232: {
+            LogicValue lValue = getIntParam(iParamIndex);
+            return lValue;
+        }
+        case VAL_DPT_9: {
+            LogicValue lValue = getFloatParam(iParamIndex);
+            return lValue;
+        }
+        default: {
+            LogicValue lValue = getIntParam(iParamIndex);
+            return lValue;
+        }
     }
-    return lValue;
 }
 
 // on input level, we have just numeric values, so all DPT are converted to int:
 // DPT1,2,5,6,7,8,17,232 => straight forward
 // DPT5001 => scale down to [0..100]
 // DPT9 => transport as float
-uValue LogicChannel::getInputValue(uint8_t iIOIndex)
+LogicValue LogicChannel::getInputValue(uint8_t iIOIndex)
 {
-    uValue lValue = { .intValue = 0 };
     // check for constant
     uint16_t lParamIndex = (iIOIndex == 1) ? LOG_fE1Convert : LOG_fE2Convert;
     uint8_t lConvert = (getByteParam(lParamIndex) & LOG_fE1ConvertMask) >> LOG_fE1ConvertShift;
     lParamIndex = (iIOIndex == 1) ? LOG_fE1Dpt : LOG_fE2Dpt;
     uint8_t lDpt = getByteParam(lParamIndex);
-    if (lConvert == VAL_InputConvert_Constant) {
+    if (lConvert == VAL_InputConvert_Constant)
+    {
         // input value is a constant stored in param memory
         uint16_t lParamIndex = (iIOIndex == 1) ? LOG_fE1LowDelta : LOG_fE2LowDelta;
-        lValue = getParamByDpt(lDpt, lParamIndex);
-    } else {
+        LogicValue lValue = getParamByDpt(lDpt, lParamIndex);
+        return lValue;
+    }
+    else
+    {
         GroupObject *lKo = getKo(iIOIndex);
         // based on dpt, we read the correct c type.
         switch (lDpt)
         {
-            case VAL_DPT_2:
-                lValue.intValue = lKo->valueRef()[0];
-                break;
-            case VAL_DPT_6:
-                lValue.intValue = (int8_t)lKo->value(getDPT(VAL_DPT_6));
-                break;
-            case VAL_DPT_8:
-                lValue.intValue = (int16_t)lKo->value(getDPT(VAL_DPT_8));
-                break;
-
+            case VAL_DPT_2: {
+                LogicValue lValue = lKo->valueRef()[0];
+                return lValue;
+            }
+            case VAL_DPT_6: {
+                LogicValue lValue = (int8_t)lKo->value(getDPT(VAL_DPT_6));
+                return lValue;
+            }
+            case VAL_DPT_8: {
+                LogicValue lValue = (int16_t)lKo->value(getDPT(VAL_DPT_8));
+                return lValue;
+            }
             // case VAL_DPT_7:
-            //     lValue = lKo->valueRef()[0] + 256 * lKo->valueRef()[1];
+            //     LogicValue lValue = lKo->valueRef()[0] + 256 * lKo->valueRef()[1];
             //     break;
             // case VAL_DPT_232:
             //     lValue =
             //         lKo->valueRef()[0] + 256 * lKo->valueRef()[1] + 65536 * lKo->valueRef()[2];
             //     break;
-            case VAL_DPT_9:
-                lValue.floatValue = (float)lKo->value(getDPT(VAL_DPT_9));
-                break;
-            // case VAL_DPT_17:
-            default:
-                lValue.intValue = (int32_t)lKo->value(getDPT(lDpt));
-                break;
+            case VAL_DPT_9: {
+                LogicValue lValue = (float)lKo->value(getDPT(VAL_DPT_9));
+                return lValue;
+            } // case VAL_DPT_17:
+            default: {
+                LogicValue lValue = (int32_t)lKo->value(getDPT(lDpt));
+                return lValue;
+            }
         }
     }
-    return lValue;
 }
 
 void LogicChannel::writeConstantValue(uint16_t iParamIndex)
@@ -548,7 +559,7 @@ void LogicChannel::writeConstantValue(uint16_t iParamIndex)
 
 void LogicChannel::writeParameterValue(uint8_t iIOIndex)
 {
-    uValue lValue = getInputValue(iIOIndex);
+    LogicValue lValue = getInputValue(iIOIndex);
     uint16_t lParamDpt = (iIOIndex == 1) ? LOG_fE1Dpt : LOG_fE2Dpt;
     uint8_t lInputDpt = getByteParam(lParamDpt);
     writeValue(lValue, lInputDpt);
@@ -557,16 +568,16 @@ void LogicChannel::writeParameterValue(uint8_t iIOIndex)
 void LogicChannel::writeFunctionValue(uint16_t iParamIndex)
 {
     uint8_t lFunction = getByteParam(iParamIndex);
-    uValue lE1 = getInputValue(BIT_EXT_INPUT_1);
-    uValue lE2 = getInputValue(BIT_EXT_INPUT_2);
+    LogicValue lE1 = getInputValue(BIT_EXT_INPUT_1);
+    LogicValue lE2 = getInputValue(BIT_EXT_INPUT_2);
     uint8_t lDptE1 = getByteParam(LOG_fE1Dpt);
     uint8_t lDptE2 = getByteParam(LOG_fE2Dpt);
     uint8_t lDptOut = getByteParam(LOG_fODpt);
-    uValue lValue = LogicFunction::callFunction(lFunction, lDptE1, lE1, lDptE2, lE2, &lDptOut);
+    LogicValue lValue = LogicFunction::callFunction(lFunction, lDptE1, lE1, lDptE2, lE2, &lDptOut);
     writeValue(lValue, lDptOut);
 }
 
-void LogicChannel::writeValue(uValue iValue, uint8_t iDpt)
+void LogicChannel::writeValue(LogicValue iValue, uint8_t iDpt)
 {
     uint8_t lDpt = getByteParam(LOG_fODpt);
     bool lValueBool;
@@ -577,19 +588,19 @@ void LogicChannel::writeValue(uValue iValue, uint8_t iDpt)
     switch (lDpt)
     {
         case VAL_DPT_1:
-            lValueBool = iValue.intValue != 0;
+            lValueBool = iValue;
             knxWriteBool(IO_Output, lValueBool);
             break;
         case VAL_DPT_2:
-            lValueByte = abs(iValue.intValue);
+            lValueByte = abs((int8_t)iValue);
             lValueByte &= 3;
             knxWriteRawInt(IO_Output, lValueByte);
             break;
         case VAL_DPT_5:
         case VAL_DPT_5001:
-            iValue.intValue = abs(iValue.intValue);
+            iValue = (uint8_t)abs((int8_t)iValue);
         case VAL_DPT_6:
-            lValueByte = iValue.intValue;
+            lValueByte = iValue;
             knxWriteInt(IO_Output, lValueByte);
             break;
             // lValueByte = lValue;
@@ -599,13 +610,13 @@ void LogicChannel::writeValue(uValue iValue, uint8_t iDpt)
             // knxWrite(0, lValueByte);
             // break;
         case VAL_DPT_7:
-            iValue.intValue = abs(iValue.intValue);
+            iValue = (uint16_t)abs((int16_t)iValue);
         case VAL_DPT_8:
-            lValueWord = iValue.intValue;
+            lValueWord = iValue;
             knxWriteInt(IO_Output, lValueWord);
             break;
         case VAL_DPT_9:
-            lValueFloat = iValue.floatValue;
+            lValueFloat = iValue;
             knxWriteFloat(IO_Output, lValueFloat);
             break;
         case VAL_DPT_16:
@@ -613,12 +624,12 @@ void LogicChannel::writeValue(uValue iValue, uint8_t iDpt)
             knxWriteString(IO_Output, lValueStr);
             break;
         case VAL_DPT_17:
-            lValueByte = abs(iValue.intValue);
+            lValueByte = abs((int8_t)iValue);
             lValueByte &= 0x3F;
             knxWriteInt(IO_Output, lValueByte);
             break;
         case VAL_DPT_232:
-            knxWriteInt(IO_Output, iValue.intValue);
+            knxWriteInt(IO_Output, iValue);
             break;
         default:
             break;
@@ -800,8 +811,8 @@ bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32
         if (lValid & lShift) 
         {
             // we check just valid values
-            uValue lValue = getParamByDpt(iDpt, iParamValues + lIndex * lValueSize);
-            lValueOut = (iValue == lValue.intValue);
+            LogicValue lValue = (uint32_t)getParamByDpt(iDpt, iParamValues + lIndex * lValueSize);
+            lValueOut = (iValue == (uint32_t)lValue);
         }
     }
     return lValueOut;
@@ -814,9 +825,9 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
     uint8_t lConvert = getByteParam(lParamBase) >> LOG_fE1ConvertShift;
     bool lValueOut = 0;
     // get input value
-    uValue lValue1In = getInputValue(iIOIndex);
-    uValue lValue2In = { .intValue = 0 };
-    uValue lDiff = { .intValue = 0 };
+    LogicValue lValue1In = getInputValue(iIOIndex);
+    LogicValue lValue2In = 0L;
+    LogicValue lDiff = 0L;
     uint8_t lDptValue2 = 0;
     uint8_t lDptResult = 0;
     if ((lConvert < VAL_InputConvert_Values) && (lConvert & 1))
@@ -831,7 +842,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
     switch (lDpt)
     {
         case VAL_DPT_1:
-            lValueOut = lValue1In.intValue;
+            lValueOut = lValue1In;
 #if LOGIC_TRACE
             if (debugFilter())
             {
@@ -842,7 +853,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
         case VAL_DPT_17:
             // there might be 8 possible scenes to check
             lUpperBound = 8; // we start with 2
-            lValue1In.intValue += 1;
+            lValue1In = (uint8_t)((uint8_t)lValue1In + 1);
         case VAL_DPT_2:
             // there might be 4 possible "Zwangsführung" values to check
             if (lUpperBound == 0)
@@ -851,7 +862,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
             for (size_t lScene = 0; lScene < lUpperBound && lValueOut == 0; lScene++)
             {
                 uint8_t lValue = getByteParam(lParamLow + lScene);
-                lValueOut = ((uint8_t)lValue1In.intValue == lValue);
+                lValueOut = ((uint8_t)lValue1In == lValue);
             }
             break;
 #if LOGIC_TRACE
@@ -877,8 +888,9 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
         switch (lConvert)
         {
             case VAL_InputConvert_Interval:
-                lValueOut = uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt) &&
-                            uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt);
+                lValueOut = (lValue1In >= getParamByDpt(lDpt, lParamLow + 0)) && (lValue1In <= getParamByDpt(lDpt, lParamLow + 4));
+                // lValueOut = uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt) &&
+                //             uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -887,10 +899,12 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_DeltaInterval:
-                lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
+                lDiff = lValue1In - lValue2In;
+                // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                lValueOut = uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
-                            uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
+                lValueOut = (lDiff >= getParamByDpt(lDpt, lParamLow + 0)) && (lDiff <= getParamByDpt(lDpt, lParamLow + 4));
+                // lValueOut = uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
+                //             uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -899,11 +913,15 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_Hysterese:
-                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
-                if (uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt))
+                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese interval
+                if (lValue1In <= getParamByDpt(lDpt, lParamLow + 0))
                     lValueOut = false;
-                if (uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt))
+                if (lValue1In >= getParamByDpt(lDpt, lParamLow + 4))
                     lValueOut = true;
+                // if (uValueLessThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 0), lDpt, lDpt))
+                //     lValueOut = false;
+                // if (uValueGreaterThanOrEquals(lValue1In, getParamByDpt(lDpt, lParamLow + 4), lDpt, lDpt))
+                //     lValueOut = true;
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -912,13 +930,18 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_DeltaHysterese:
-                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese intervall
-                lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
+                lValueOut = pCurrentIn & iIOIndex; // retrieve old result, will be send if current value is in Hysterese interval
+                lDiff = lValue1In - lValue2In;
+                // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt))
+                if (lValue1In <= getParamByDpt(lDpt, lParamLow + 0))
                     lValueOut = false;
-                if (uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt))
+                if (lValue1In >= getParamByDpt(lDpt, lParamLow + 4))
                     lValueOut = true;
+                // if (uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt))
+                //     lValueOut = false;
+                // if (uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt))
+                //     lValueOut = true;
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
@@ -927,7 +950,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #endif
                 break;
             case VAL_InputConvert_Values:
-                lValueOut = checkConvertValues(lParamLow, lDpt, lValue1In.intValue);
+                lValueOut = checkConvertValues(lParamLow, lDpt, lValue1In);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {

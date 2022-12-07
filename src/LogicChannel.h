@@ -6,6 +6,7 @@
 #include <Wire.h>
 #include "Timer.h"
 #include "TimerRestore.h"
+#include "LogicValue.h"
 #include "KnxHelper.h"
 #include "EepromManager.h"
 #include "knxprod.h"
@@ -224,13 +225,13 @@ class LogicChannel
     void knxWriteString(uint8_t iIOIndex, char* iValue);
     void knxRead(uint8_t iIOIndex);
     void knxResetDevice(uint16_t iParamIndex);
-    uValue getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
-    uValue getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
-    uValue getInputValue(uint8_t iIOIndex);
+    LogicValue getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
+    LogicValue getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
+    LogicValue getInputValue(uint8_t iIOIndex);
     void writeConstantValue(uint16_t iParamIndex);
     void writeParameterValue(uint8_t iIOIndex);
     void writeFunctionValue(uint16_t iParamIndex);
-    void writeValue(uValue iValue, uint8_t iDpt);
+    void writeValue(LogicValue iValue, uint8_t iDpt);
     void setRGBColor(uint16_t iParamIndex);
     void setBuzzer(uint16_t iParamIndex);
 

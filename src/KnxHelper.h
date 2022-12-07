@@ -32,12 +32,12 @@ Dpt &getDPT(uint8_t iDptIndex);
 
 uint32_t getDelayPattern(uint16_t iParamIndex, bool iAsSeconds = false);
 
-union uValue
-{
-  int32_t intValue;
-  float floatValue;
-};
+// union uValue
+// {
+//   int32_t intValue;
+//   float floatValue;
+// };
 
-bool uValueLessThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
-bool uValueGreaterThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
-uValue uValueSubtract(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+// bool uValueLessThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+// bool uValueGreaterThanOrEquals(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);
+// uValue uValueSubtract(uValue iLeft, uValue iRight, uint8_t iDptLeft, uint8_t iDptRight);

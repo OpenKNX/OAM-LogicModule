@@ -1,5 +1,6 @@
 #include "KnxHelper.h"
 #include "LogicFunction.h"
+// #include "LogicValue.h"
 
 // native functions, implemented as a simple example how to use user functions
 float LogicFunction::nativeAdd(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
@@ -132,11 +133,11 @@ float (*LogicFunction::userFunction[30])(uint8_t, float, uint8_t, float, uint8_t
     userFunction30};
 
 // dispatcher
-uValue LogicFunction::callFunction(uint8_t iId, uint8_t iDptE1, uValue iE1, uint8_t iDptE2, uValue iE2, uint8_t *cDptOut)
+LogicValue LogicFunction::callFunction(uint8_t iId, uint8_t iDptE1, LogicValue iE1, uint8_t iDptE2, LogicValue iE2, uint8_t *cDptOut)
 {
-    uValue lResult = {};
-    float lE1 = iDptE1 == VAL_DPT_9 ? iE1.floatValue : (float)iE1.intValue;
-    float lE2 = iDptE2 == VAL_DPT_9 ? iE2.floatValue : (float)iE2.intValue;
+    // LogicValue lResult = {};
+    float lE1 = iE1;
+    float lE2 = iE2;
     float lResultf = 0;
     if (iId > 0 && iId <= NUM_NATIVE_FUNCTIONS)
     {
@@ -149,11 +150,12 @@ uValue LogicFunction::callFunction(uint8_t iId, uint8_t iDptE1, uValue iE1, uint
 
     if (*cDptOut == VAL_DPT_9)
     {
-        lResult.floatValue = lResultf;
+        LogicValue lResult = lResultf;
+        return lResult;
     }
     else
     {
-        lResult.intValue = lResultf;
+        LogicValue lResult = (uint64_t)lResultf;
+        return lResult;
     }
-    return lResult;
 }
