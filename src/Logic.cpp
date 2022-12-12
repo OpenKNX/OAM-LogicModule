@@ -68,6 +68,29 @@ const uint8_t *Logic::onLoadFromFlashHandler(const uint8_t *iBuffer)
     return LogicChannel::sLogic->saveToFlash(iBuffer);
 }
 
+// implement IFlashUserData
+const uint8_t *Logic::restore(const uint8_t *iBuffer)
+{
+    return LogicChannel::sLogic->loadFromFlash(iBuffer);
+}
+
+uint8_t *Logic::save(uint8_t *iBuffer)
+{
+    return LogicChannel::sLogic->saveToFlash(iBuffer); 
+}
+
+uint16_t Logic::saveSize() 
+{
+    return USERDATA_SAVE_SIZE;
+}
+
+const char* Logic::name()
+{
+    return "Logic";
+}
+
+// end of IFlashUserData
+
 Logic::Logic()
 {
     LogicChannel::sLogic = this;

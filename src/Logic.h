@@ -2,6 +2,7 @@
 #include "LogicChannel.h"
 #include "Timer.h"
 #include "TimerRestore.h"
+#include "IFlashUserData.h"
 
 #define USERDATA_MAGIC_OFFSET 0 // start of magic word in flash
 #define USERDATA_DPT_OFFSET 4   // start of DPT storage in flash
@@ -26,7 +27,7 @@ struct sKoLookup
     uint8_t ioIndex;
 };
 
-class Logic
+class Logic : public IFlashUserData
 {
   public:
     Logic();
@@ -93,6 +94,12 @@ class Logic
     const uint8_t *loadFromFlash(const uint8_t *iBuffer);
     uint8_t *saveToFlash(uint8_t *iBuffer);
     void writeBufferToFlash();
+    // IFlashUserData
+    const uint8_t *restore(const uint8_t *iBuffer) override;
+    uint8_t *save(uint8_t *iBuffer) override;
+    uint16_t saveSize() override;
+    // IFlashUserData* next() override; no overridden, no next available
+    const char* name() override;
 
     void onSavePinInterruptHandler();
     // void beforeRestartHandler();
