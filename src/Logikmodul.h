@@ -834,5 +834,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 50
-#define MAIN_ApplicationVersion 35
+#define MAIN_ApplicationVersion 37
 #define MAIN_OrderNumber "OpenKnxLogicDev"

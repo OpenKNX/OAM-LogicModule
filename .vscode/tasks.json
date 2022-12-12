@@ -6,10 +6,8 @@
         {
             "label": "Build SAMD",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "build_SAMD"
             ],
             "group": "build",
@@ -18,10 +16,8 @@
         {
             "label": "Build RP2040",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "build_RP2040"
             ],
             "group": "build",
@@ -30,12 +26,9 @@
         {
             "label": "Upload JLINK SAMD",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "upload_JLINK_SAMD",
-                "--target",
                 "upload"
             ],
             "group": "build",
@@ -44,12 +37,9 @@
         {
             "label": "Upload JLINK RP2040",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "upload_JLINK_RP2040",
-                "--target",
                 "upload"
             ],
             "group": "build",
@@ -58,12 +48,9 @@
         {
             "label": "Upload USB SAMD",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "upload_USB_SAMD",
-                "--target",
                 "upload"
             ],
             "group": "build",
@@ -72,12 +59,9 @@
         {
             "label": "Upload USB RP2040",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "upload_USB_RP2040",
-                "--target",
                 "upload"
             ],
             "group": "build",
@@ -86,12 +70,9 @@
         {
             "label": "Upload ENDUSER",
             "type": "shell",
-            "command": "${env:USERPROFILE}\\.platformio\\penv\\Scripts\\pio.exe",
+            "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "run",
-                "-e",
                 "upload_enduser",
-                "--target",
                 "upload"
             ],
             "group": "build",
@@ -103,7 +84,7 @@
             "options": {
                 "cwd": "${workspaceFolder}/src"
             },
-            "command": "${env:USERPROFILE}\\bin\\OpenKNXproducer.exe",
+            "command": "~/bin/OpenKNXproducer.exe",
             "args": [
                 "create",
                 "--Debug",
@@ -115,16 +96,19 @@
         {
             "label": "Build-Release",
             "type": "shell",
-            "command": "scripts/Build-Release.ps1 Release",
-            "args": [],
+            "command": "scripts/Build-Release.ps1", 
+            "args": [
+                "Release"
+            ],
             "problemMatcher": [],
             "group": "test"
         },
         {
             "label": "Build-Beta",
             "type": "shell",
-            "command": "scripts/Build-Release.ps1 ",
-            "args": [],
+            "command": "scripts/Build-Release.ps1",
+            "args": [
+            ],
             "problemMatcher": [],
             "group": "test"
         }

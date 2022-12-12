@@ -2,7 +2,7 @@
 
 #include <inttypes.h>
 
-#define NUM_NATIVE_FUNCTIONS 13
+#define NUM_NATIVE_FUNCTIONS 14
 
 class LogicFunction
 {
@@ -27,6 +27,7 @@ class LogicFunction
     static float nativeXor(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);
     static float nativeLShift(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);
     static float nativeRShift(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);
+    static float nativeBool2Int(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);
 
     // user functions (empty, implemented by user)
     static float userFunction01(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut);

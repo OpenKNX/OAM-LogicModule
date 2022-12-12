@@ -580,6 +580,9 @@ void Logic::debug() {
     // we start an i2c read i.e. for EEPROM
     // prepareReadEEPROM(4711, 20);
     // delay(10000);
+#ifdef ARDUINO_ARCH_RP2040
+    printDebug("Free Heap: %i\n", rp2040.getFreeHeap());
+#endif
 }
 
 void Logic::setup(bool iSaveSupported) {
