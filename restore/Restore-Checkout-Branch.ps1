@@ -10,7 +10,7 @@ foreach ($subproject in $subprojects) {
         Write-Host ""
         Write-Host "Subproject $($attr[2])" -ForegroundColor Yellow
         Set-Location $attr[2]
-        git fetch -all
+        git fetch --all
         if (!$?) { exit 1 }
         git checkout $attr[1]
         if (!$?) { exit 1 }
