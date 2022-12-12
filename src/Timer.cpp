@@ -46,9 +46,6 @@ void Timer::loop() {
         mTimeDelay += 1000;
         mNow.tm_sec += 1;
         mktime(&mNow);
-#ifdef ARDUINO_ARCH_RP2040
-        printDebug("Free Heap: %i\n", rp2040.getFreeHeap());
-#endif
         if (mTimeValid == tmValid)
         {
             if (mMinuteTick != mNow.tm_min)
