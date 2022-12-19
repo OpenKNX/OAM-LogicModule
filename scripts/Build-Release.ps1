@@ -32,10 +32,6 @@ if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile 
 
-# build generic RP2040 firmware (currently just for tests)
-lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_RP2040 firmware-Sensormodul-RP2040 uf2
-if (!$?) { exit 1 }
-
 # build firmware for PiPico-BCU-Connector
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_PiPico_BCU_Connector firmware-PiPico-BCU-Connector uf2
 if (!$?) { exit 1 }
@@ -48,11 +44,15 @@ if (!$?) { exit 1 }
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OpenKNX_REG1_Base firmware-OpenKNX-REG1-Base uf2
 if (!$?) { exit 1 }
 
-# build firmware based on generated headerfile for SAMD
-lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_SAMD_v31 firmware-Sensormodul-v31 bin
+# build firmware for RP2040 sensormodule 
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v40_RP2040 firmware-Sensormodul-v40-RP2040 uf2
 if (!$?) { exit 1 }
 
-lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_SAMD_v30 firmware-Sensormodul-v30 bin
+# build firmware based on generated headerfile for SAMD
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v31_SAMD firmware-Sensormodul-v31-SAMD bin
+if (!$?) { exit 1 }
+
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v30_SAMD firmware-Sensormodul-v30-SAMD bin
 if (!$?) { exit 1 }
 
 # execute generic post-build steps
