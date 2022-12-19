@@ -23,11 +23,16 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-<!-- xx.xx.2022: Firmware 1.0.0, Applikation 1.0
+18.12.2022: Firmware 1.0, Applikation 1.0
 
-* (intern) Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert -->
+* NEU: Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
+* NEU: Das Logikmodul kann jetzt auch ein "Gerät zurücksetzen" an sich selbst senden (also mit der eigenen PA).
+* NEU: Technisch ist es notwendig, dass die **minimale** Zeit, bis das Gerät nach einem Neustart aktiv wird, auf 1 Sekunde erhöht wird (früher 0). Die 0 wurde in der Vergangenheit sowieso nicht erreicht, lag aber bei < 500 ms. 
+* NEU: Im Flash gespeicherte KO (Eingänge) können ihre Werte nicht nur über einen Ausgang, sondern auch sendend bereitstellen
+* FIX: DPT9 in Formeln wird jetzt korrekt berechnet, bisher konnte es passieren, dass der Wert um Faktor 10 oder gar 100 zu groß wurde.
+* FIX: Binärfunktionen (Bit-AND, Bit-OR, ...) rechnen jetzt korrekt. Bisher konnte es durch eine interne Wandlung zu einer Fliesskommazahl zu Rundungsproblemen und damit zu Bitverschiebungen kommen und dadurch zu falschen Ergebnissen.
 
-20.11.2022: Firmware 0.13.1, Applikaiton 0.13
+20.11.2022: Firmware 0.13.1, Applikation 0.13
 
 * FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
 * NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
@@ -967,14 +972,18 @@ Die folgenden Einstellungen erlaubten ein dezidiertes Verhalten beim Neustart de
 
 ### **Eingangswert speichern und beim nächsten Neustart als Vorbelegung nutzen**
 
-Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im nichtflüchtigen Speicher abgelegt wird und nach einem Neustart wieder gelesen wird. Der dann gelesene Wert wird als Vorbelegung für den Eingang genommen, falls nötig über den Eingangskonverter in einen DPT 1 konvertiert und dann die logische Operation getriggert.
+Mit "Ja" legt man fest, dass der zuletzt an diesem Eingang empfangene Wert im nichtflüchtigen Speicher abgelegt wird und nach einem Neustart wieder gelesen wird. Der dann gelesene Wert wird als Vorbelegung für den Eingang genommen, falls nötig über den Eingangskonverter in einen DPT 1 konvertiert und dann die logische Operation getriggert. Ist der Eingang als interner Eingang über sein KO mit weiteren Eingängen verbunden (egal ob das KO im Logikmodul oder einem anderen Modul liegt, das das Logikmodul verwendet), empfangen auch alle verknüpften Eingänge den aus dem nichtflüchtigen Speicher geladenen Wert.
+
+Normalerweise triggert der neu geladene Wert die zugeordnete Logikfunktion und kann über den zugehörigen Ausgang auf den Bus gesendet werden. Man kann allerdings den Wert auch direkt vom Eingang auf den Bus senden lassen:
+
+* Über eine aktive Leseanforderung: Hierzu muss das L-Flag am zugehörigen Eingang gesetzt werden
+* Aktives Senden gleich nach einem Neustart: Hierzu muss das Ü-Flag am zugehörigen Eingang gesetzt werden
+
+> **Achtung:** Da das Lesen vom nichtflüchtigen Speicher direkt nach einem Neustart geschieht und alle Initialisierungen sofort laufen, werden beim Setzen des Ü-Flag am Eingang jegliche gelesenen Werte sofort gesendet und nicht erst, nachdem die Zeit abgelaufen ist, bis der Kanal aktiv wird. Das ist der Grund, warum das Ü-Flag nicht standardmäßig gesetzt ist. Würden alle 99 möglichen Kanäle bei einem Neustart ihre Werte von nichtflüchtigen Speicher lesen und sofort senden, würden die resultierenden 99 Telegramme sofort den Bus überlasten und einige davon verloren gehen. Um solche Situationen zu vermeiden, sollte man einen aus dem nichtflüchtigen Speicher gelesenen Wert über den Ausgang auf den Bus senden, dieser Wert wird dann erst gesendet, nachdem der entsprechende Kanal aktiv ist. 
 
 Da nichtflüchtige Speicher nur eine relativ geringe Anzahl an Schreibzyklen zulassen, wird der Eingangswert nicht direkt nach dem Empfang im Speicher geschrieben, sondern erst beim Stromausfall, bei einem "Gerät zurücksetzen" über die ETS oder bei einer Neuprogrammierung über die ETS. Wird die RESET-Taste direkt am Gerät gedrückt, wird der nichtflüchtige Speicher nicht mit dem Eingangswert beschrieben.
 
 > **Wichtig:** Das speichern der Werte in den nichtflüchtigen Speicher bei Stromausfall ist hardwareabhängig und wird nicht von jeder Hardware unterstützt. Auch in einem solchen Fall kann die Funktion sinnvoll sein, z.B. bie einem Neustart nach einer ETS-Programmierung, deswegen wird die Funktion immer angeboten. Ob ein Speichern beim Stromausfall unterstützt wird, steht (hoffentlich) in der Anleitung zum Hardware-Gerät, dass das Logikmodul verwendet.
-
-> **Wichtig:** Es gibt 2 unterstützte Varianten von nichtflüchtigem Speicher: FLASH und EEPROM. Der FLASH-Speicher ist der gleiche, in dem die Firmware gespeichert wird und ist immer vorhanden. Standardmäßig wird in diesen Speicher gespeichert. Dies hat aber den Nachteil, dass bei einem Firmware-Update alle gespeicherten Werte verloren gehen. Falls die Werte im EEPROM gespeichert werden (Zusatzhardware), werden sie nicht durch ein Update der Firmware überschrieben.
-Ob ein EEPROM installiert ist, wird von der Firmware automatisch festgestellt. Falls ein EEPROM vorhanden ist, wird dieses für die Speicherung von Werten genutzt.
 
 ### **Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit**
 

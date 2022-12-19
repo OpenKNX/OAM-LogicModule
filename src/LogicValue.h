@@ -51,10 +51,16 @@ class LogicValue
     LogicValue& operator+=(const int32_t value);
     LogicValue& operator+=(const float value);
 
+    bool operator>(LogicValue const& value);
+    bool operator<(LogicValue const& value);
     bool operator>=(LogicValue const& value);
     bool operator<=(LogicValue const& value);
 
+    LogicValue operator+(LogicValue const& value);
     LogicValue operator-(LogicValue const& value);
+    LogicValue operator*(LogicValue const& value);
+    LogicValue operator/(LogicValue const& value);
+
     LogicValue operator-(const int32_t value);
     LogicValue operator-(const float value);
 

@@ -395,6 +395,20 @@ LogicValue& LogicValue::operator+=(const float value)
     return *this;
 }
 
+LogicValue LogicValue::operator+(LogicValue const& value)
+{
+    if (_type == DoubleType || value._type == DoubleType) 
+    {
+        LogicValue lValue = doubleValue() + value.doubleValue();
+        return lValue;
+    } 
+    else
+    {
+        LogicValue lValue = longValue() + value.longValue();
+        return lValue;
+    } 
+}
+
 LogicValue LogicValue::operator-(LogicValue const& value)
 {
     if (_type == DoubleType || value._type == DoubleType) 
@@ -408,6 +422,37 @@ LogicValue LogicValue::operator-(LogicValue const& value)
         return lValue;
     } 
 }
+
+LogicValue LogicValue::operator*(LogicValue const& value)
+{
+    if (_type == DoubleType || value._type == DoubleType) 
+    {
+        LogicValue lValue = doubleValue() * value.doubleValue();
+        return lValue;
+    } 
+    else
+    {
+        LogicValue lValue = longValue() * value.longValue();
+        return lValue;
+    } 
+}
+
+LogicValue LogicValue::operator/(LogicValue const& value)
+{
+    if (_type == DoubleType || value._type == DoubleType) 
+    {
+        LogicValue lValue = doubleValue() / value.doubleValue();
+        return lValue;
+    } 
+    else
+    {
+        LogicValue lValue = longValue() / value.longValue();
+        return lValue;
+    } 
+}
+
+
+
 
 LogicValue LogicValue::operator-(const int32_t value)
 {
@@ -433,7 +478,7 @@ LogicValue LogicValue::operator-(const int32_t value)
             setInternal(doubleValue() - value);
             return lValue;
     }
-    return this;
+    return lValue;
 }
 
 LogicValue LogicValue::operator-(const float value)
@@ -460,7 +505,23 @@ LogicValue LogicValue::operator-(const float value)
             setInternal(doubleValue() - value);
             return lValue;
     }
-    return this;
+    return lValue;
+}
+
+bool LogicValue::operator>(LogicValue const& value)
+{
+    if (_type == DoubleType || value._type == DoubleType)
+        return (doubleValue() >= value.doubleValue());
+    else
+        return (longValue() >= value.longValue());
+}
+
+bool LogicValue::operator<(LogicValue const& value)
+{
+    if (_type == DoubleType || value._type == DoubleType)
+        return (doubleValue() <= value.doubleValue());
+    else
+        return (longValue() <= value.longValue());
 }
 
 bool LogicValue::operator>=(LogicValue const& value)
@@ -469,67 +530,6 @@ bool LogicValue::operator>=(LogicValue const& value)
         return (doubleValue() >= value.doubleValue());
     else
         return (longValue() >= value.longValue());
-    // switch (_type)
-    // {
-    //     case UCharType:
-    //     case UShortType:
-    //     case UIntType:
-    //     case ULongType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (ulongValue() >= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (ulongValue() >= (int64_t)value);
-    //             case DoubleType:
-    //                 return (ulongValue() >= (double)value);
-    //         }
-    //         return false;
-    //     case CharType:
-    //     case ShortType:
-    //     case IntType:
-    //     case LongType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (longValue() >= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (longValue() >= (int64_t)value);
-    //             case DoubleType:
-    //                 return (longValue() >= (double)value);
-    //         }
-    //         return false;
-    //     case DoubleType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (doubleValue() >= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (doubleValue() >= (int64_t)value);
-    //             case DoubleType:
-    //                 return (doubleValue() >= (double)value);
-    //         }
-    //         return false;
-    // }
-    // return false;
 }
 
 bool LogicValue::operator<=(LogicValue const& value)
@@ -538,67 +538,6 @@ bool LogicValue::operator<=(LogicValue const& value)
         return (doubleValue() <= value.doubleValue());
     else
         return (longValue() <= value.longValue());
-    // switch (_type)
-    // {
-    //     case UCharType:
-    //     case UShortType:
-    //     case UIntType:
-    //     case ULongType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (ulongValue() <= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (ulongValue() <= (int64_t)value);
-    //             case DoubleType:
-    //                 return (ulongValue() <= (double)value);
-    //         }
-    //         return false;
-    //     case CharType:
-    //     case ShortType:
-    //     case IntType:
-    //     case LongType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (longValue() <= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (longValue() <= (int64_t)value);
-    //             case DoubleType:
-    //                 return (longValue() <= (double)value);
-    //         }
-    //         return false;
-    //     case DoubleType:
-    //         switch (value._type)
-    //         {
-    //             case UCharType:
-    //             case UShortType:
-    //             case UIntType:
-    //             case ULongType:
-    //                 return (doubleValue() <= (uint64_t)value);
-    //             case CharType:
-    //             case ShortType:
-    //             case IntType:
-    //             case LongType:
-    //                 return (doubleValue() <= (int64_t)value);
-    //             case DoubleType:
-    //                 return (doubleValue() <= (double)value);
-    //         }
-    //         return fasle;
-    // }
-    // return false;
 }
 
 bool LogicValue::boolValue() const
@@ -713,7 +652,7 @@ uint64_t LogicValue::ulongValue() const
         case LongType:
             return (uint64_t)_value.longValue;
         case DoubleType:
-            return (uint64_t)_value.doubleValue;
+            return (uint64_t)(_value.doubleValue + 0.5);
         case StringType:
             // return (uint64_t)strtoul(_value.stringValue, NULL, 0);
             return 0;
@@ -810,7 +749,7 @@ int64_t LogicValue::longValue() const
         case IntType:
             return (int64_t)_value.intValue;
         case DoubleType:
-            return (int64_t)_value.doubleValue;
+            return (int64_t)(_value.doubleValue + 0.5);
         case StringType:
             // return strtol(_value.stringValue, NULL, 0);
             return 0;

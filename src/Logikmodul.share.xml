@@ -33,6 +33,9 @@
               <ParameterType Id="%AID%_PT-DelayTime" Name="DelayTime">
                 <TypeNumber SizeInBit="14" Type="unsignedInt" minInclusive="0" maxInclusive="16000" />
               </ParameterType>
+              <ParameterType Id="%AID%_PT-DelayTimeMin1" Name="DelayTimeMin1">
+                <TypeNumber SizeInBit="14" Type="unsignedInt" minInclusive="1" maxInclusive="16000" />
+              </ParameterType>
               <!-- end of delay pattern -->
               <ParameterType Id="%AID%_PT-CheckBox" Name="CheckBox">
                 <TypeNumber SizeInBit="1" Type="unsignedInt" minInclusive="0" maxInclusive="1" UIHint="CheckBox" />
@@ -886,7 +889,7 @@
               <Union SizeInBit="32">
                 <Memory CodeSegment="%AID%_RS-04-00000" Offset="1" BitOffset="0" />
                 <Parameter Id="%AID%_UP-%T%000002" Name="StartupDelayBase" ParameterType="%AID%_PT-DelayBase" Offset="0" BitOffset="0" Text="Zeitbasis" Value="0" />
-                <Parameter Id="%AID%_UP-%T%000003" Name="StartupDelayTime" ParameterType="%AID%_PT-DelayTime" Offset="0" BitOffset="2" Text="Zeit" Value="1" />
+                <Parameter Id="%AID%_UP-%T%000003" Name="StartupDelayTime" ParameterType="%AID%_PT-DelayTimeMin1" Offset="0" BitOffset="2" Text="Zeit" Value="1" />
                 <Parameter Id="%AID%_UP-%T%000004" Name="HeartbeatDelayBase" ParameterType="%AID%_PT-DelayBase" Offset="2" BitOffset="0" Text="Zeitbasis" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000005" Name="HeartbeatDelayTime" ParameterType="%AID%_PT-DelayTime" Offset="2" BitOffset="2" Text="Zeit" Value="300" />
               </Union>

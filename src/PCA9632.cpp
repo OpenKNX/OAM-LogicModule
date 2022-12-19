@@ -26,7 +26,7 @@
  */
 
 
-#include "pca9632.h"
+#include "PCA9632.h"
 
 #define PCA9632_MODE1_VALUE   0b00000001 //(ALLCALL)
 #define PCA9632_MODE2_VALUE   0b00000001 //(DIMMING, NONINVERT, CHANGE ON STOP,OpenDrain)

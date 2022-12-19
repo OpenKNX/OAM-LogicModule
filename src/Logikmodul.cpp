@@ -1,6 +1,7 @@
-#ifdef LOGICMODULE
+// #ifdef LOGICMODULE
 #include "Helper.h"
 #include "Logic.h"
+#include "oknx.h"
 
 struct sRuntimeInfo
 {
@@ -33,7 +34,7 @@ void ProcessReadRequests() {
     }
 }
 
-// true solgange der Start des gesamten Moduls verzögert werden soll
+// true solange der Start des gesamten Moduls verzögert werden soll
 bool startupDelay()
 {
     return !delayCheck(gRuntimeData.startupDelay, getDelayPattern(LOG_StartupDelayBase));
@@ -73,6 +74,7 @@ void appSetup(bool iSaveSupported)
         gRuntimeData.startupDelay = millis();
         gRuntimeData.heartbeatDelay = 0;
         gLogic.setup(iSaveSupported);
+        openknx.flashUserData()->readFlash();
     }
 }
-#endif
+// #endif
