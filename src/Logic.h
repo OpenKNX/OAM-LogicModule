@@ -84,7 +84,9 @@ class Logic : public IFlashUserData
     const uint8_t *restore(const uint8_t *iBuffer) override;
     uint8_t *save(uint8_t *iBuffer) override;
     uint16_t saveSize() override;
-    // IFlashUserData* next() override; should not be overridden except you know what you do
+    // IFlashUserData* next() override; //should not be overridden except you know what you do
+    // bool powerOff() override; //no hardware to turn off
+    bool powerOn() override; // we return true as handled to avoid a reboot.
     const char* name() override;
     // end of IFlashUserData
 

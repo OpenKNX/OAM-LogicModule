@@ -47,6 +47,11 @@ uint16_t Logic::saveSize()
     return 1004; // just the size for logic
 }
 
+bool Logic::powerOn()
+{
+    return true;
+}
+
 const char* Logic::name()
 {
     return "LogicModule";
@@ -455,7 +460,7 @@ void Logic::setup(bool iSaveSupported) {
         // we set just a callback if it is not set from a potential caller
         if (GroupObject::classCallback() == 0) GroupObject::classCallback(Logic::onInputKoHandler);
         // we store some input values in case of restart or ets programming
-        if (iSaveSupported && (openknx.flashUserData()->first() == 0)) openknx.flashUserData()->first(this);
+        if (iSaveSupported) openknx.flashUserData()->first(this);
 
         // prepareChannels();
         float lLat = LogicChannel::getFloat(knx.paramData(LOG_Latitude));
@@ -565,7 +570,7 @@ void Logic::sendHoliday() {
 void Logic::loopSubmodules() {
     static uint8_t sCount = 0;
     uint8_t lCount = sCount / 2;
-    knx.loop();
+    openknx.loop();
     // we call submodules half as often as knx.loop();
     if (lCount * 2 == sCount && lCount < sNumLoopCallbacks && knx.configured())
     {
