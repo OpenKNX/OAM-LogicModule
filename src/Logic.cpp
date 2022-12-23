@@ -1,3 +1,4 @@
+#include "oknx.h"
 #include "Logic.h"
 #include "Helper.h"
 #include "Timer.h"
@@ -23,34 +24,6 @@ void Logic::onInputKoHandler(GroupObject &iKo) {
     LogicChannel::sLogic->processInputKo(iKo);
 }
 
-void Logic::onBeforeRestartHandler()
-{
-    printDebug("logic before Restart called\n");
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    LogicChannel::sLogic->writeAllInputsToEEPROMFacade();
-#endif
-}
-
-void Logic::onBeforeTablesUnloadHandler()
-{
-    static uint32_t sLastCalled = 0;
-    printDebug("beforeTablesUnload called\n");
-
-    if (sLastCalled == 0 || delayCheck(sLastCalled, 10000))
-    {
-        LogicChannel::sLogic->writeAllInputsToEEPROMFacade();
-        sLastCalled = millis();
-    } else {
-        printDebug("--> not written to EEPROM, called again within 10 Seconds!!!\n");
-        
-    }
-}
-
-void Logic::onSafePinInterruptHandler()
-{
-    LogicChannel::sLogic->mSaveInterruptTimestamp = millis();
-}
-
 void Logic::addLoopCallback(loopCallback iLoopCallback, void *iThis) {
     sLoopCallbackParams lParams;
     lParams.callback = iLoopCallback;
@@ -58,15 +31,33 @@ void Logic::addLoopCallback(loopCallback iLoopCallback, void *iThis) {
     Logic::sLoopCallbacks[sNumLoopCallbacks++] = lParams;
 }
 
-const uint8_t *Logic::onLoadFromFlashHandler(const uint8_t *iBuffer)
+// implement IFlashUserData
+const uint8_t *Logic::restore(const uint8_t *iBuffer)
 {
     return LogicChannel::sLogic->loadFromFlash(iBuffer);
 }
 
- uint8_t *Logic::onSaveToFlashHandler(uint8_t *iBuffer)
+uint8_t *Logic::save(uint8_t *iBuffer)
 {
-    return LogicChannel::sLogic->saveToFlash(iBuffer);
+    return LogicChannel::sLogic->saveToFlash(iBuffer); 
 }
+
+uint16_t Logic::saveSize() 
+{
+    return 1004; // just the size for logic
+}
+
+bool Logic::powerOn()
+{
+    return true;
+}
+
+const char* Logic::name()
+{
+    return "LogicModule";
+}
+
+// end of IFlashUserData
 
 Logic::Logic()
 {
@@ -127,6 +118,7 @@ bool Logic::getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup)
 
 bool Logic::prepareChannels() {
     bool lResult = false;
+    printDebug("prepareChannels called...\n");
     for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
     {
         // Important: lResult has to be the last argument in this OR, 
@@ -149,16 +141,19 @@ void Logic::processAllInternalInputs(LogicChannel *iChannel, bool iValue)
 }
 
 void Logic::processReadRequests() {
-    static bool sCalled = false;
+    static bool sLogicProcessReadRequestsCalled = false;
     static uint32_t sDelay = 19000;
 
     // the following code should be called only once after initial startup delay 
-    if (!sCalled) {
+    if (!sLogicProcessReadRequestsCalled) {
         if (knx.paramByte(LOG_VacationRead) & LOG_VacationReadMask)
         {
             knx.getGroupObject(LOG_KoVacation).requestObjectRead();
         }
-        sCalled = true;
+        // we put this here, because all other places are too early, knx stack is not up to date to send according init values
+        // got from flash storage
+        prepareChannels();
+        sLogicProcessReadRequestsCalled = true;
     }
     // date and time are red from bus every minute until a response is received
     if ((knx.paramByte(LOG_ReadTimeDate) & LOG_ReadTimeDateMask))
@@ -174,115 +169,26 @@ void Logic::processReadRequests() {
         }
     }
 }
-// EEPROM handling
-// We assume at max 128 channels, each channel 2 inputs, each input max 4 bytes (value) and 1 byte (DPT) = 128 * 2 * (4 + 1) = 1280 bytes to write
-// So we use 40 Pages for data and one (first) page for additional information (metadata).
-// The DPT list is written starting with page 1 (address 32 = 0x20). It is written at device startup and is not timing critical.
-// We have 256 Bytes in 16 x 16 byte blocks (8 pages), takes 16 * 5 ms = 80 ms, just at startup time and just if necessary.
-// Writing data itself is timing critical during power failure.
-// At first, magic word at address 12 = 0x0C is deleted (5 ms).
-// The data itself is written in 16 byte blocks, each 5 ms means 1024 / 16 * 5 ms = 64 * 5 ms = 320 ms write time, starting at page 9, address 160 = 0xA0.
-// Finally, we write magic word at Address 12 again as an ack, that all data was successfully written (5 ms)
-// The resulting write time is at max 5 + 320 + 5 = 370 ms
-// Bytes of the first page (page 0) might be used differently in future
-// For inputs, which are not set as "store in memory", we write a dpt 0xFF
-uint8_t *Logic::writeAllDptToEEPROM(uint8_t *iBuffer)
-{
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    if (boardWithEEPROM())
-    {
-        if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
-        {
-            println("writeAllDptToEEPROM called repeatedly within 10 seconds, skipped!");
-            return iBuffer;
-        }
-        else if (!knx.configured())
-        {
-            println("knx not configured, no KO data available");
-            return iBuffer;
-        }
-        mLastWriteToEEPROM = millis();
 
-        // prepare initialization
-        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 1) * 32; // begin of DPT memory
-        // start writing all dpt. For inputs, which should not be saved, we write a dpt 0xFF
+// For inputs, which are not set as "store in memory", we write a dpt 0xFF
+uint8_t *Logic::writeAllDptToFlash(uint8_t *iBuffer)
+{
+    if (iBuffer && knx.configured())
+    {
+        printDebug("Writing DPTs to Flash\n");
         for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
         {
-            mEEPROM->beginPage(lAddress);
-            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1, iBuffer);
-            lAddress++;
-            mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2, iBuffer);
-            lAddress++;
-            if (lAddress % 16 == 0)
-                mEEPROM->endPage();
+            iBuffer = mChannel[lIndex]->writeSingleDptToFlash(IO_Input1, iBuffer);
+            iBuffer = mChannel[lIndex]->writeSingleDptToFlash(IO_Input2, iBuffer);
         }
-        mEEPROM->endPage();
-    }
-#endif
-    // in case, there is no EEPROM, we write to flash
-    if (!boardWithEEPROM())
-    {
-        if (iBuffer && knx.configured())
-        {
-            printDebug("Writing DPTs to Flash\n");
-            for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
-            {
-                iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input1, iBuffer);
-                iBuffer = mChannel[lIndex]->writeSingleDptToEEPROM(IO_Input2, iBuffer);
-            }
-            printDebug("\n");
-        }
+        printDebug("\n");
     }
     return iBuffer;
 }
 
-void Logic::writeAllInputsToEEPROM()
-{
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    if (boardWithEEPROM())
-    {
-        if (mLastWriteToEEPROM > 0 && delayCheck(mLastWriteToEEPROM, 10000))
-        {
-            println("writeAllInputsToEEPROM called repeatedly within 10 seconds, skipped!");
-            return;
-        }
-        else if (!knx.configured())
-        {
-            println("knx not configured, no KO data available");
-            return;
-        }
-        mLastWriteToEEPROM = millis();
-
-        // prepare initialization
-        mEEPROM->beginWriteSession();
-
-        //Begin write of KO values
-        uint16_t lAddress = (SAVE_BUFFER_START_PAGE + 9) * 32; // begin of KO value memory
-        // for (uint8_t i = 0; i < 10; i++)
-        for (uint8_t lChannel = 0; lChannel < mNumChannels; lChannel++)
-        {
-            mEEPROM->beginPage(lAddress);
-            GroupObject *lKo = LogicChannel::getKoForChannel(IO_Input1, lChannel);
-            mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
-            lAddress += 4;
-            lKo = LogicChannel::getKoForChannel(IO_Input2, lChannel);
-            mEEPROM->write4Bytes(lKo->valueRef(), lKo->valueSize());
-            lAddress += 4;
-            if (lAddress % 16 == 0)
-                mEEPROM->endPage();
-        }
-        mEEPROM->endPage();
-
-        // as a last step we write magic number back
-        // this is also the ACK, that writing was successfull
-        mEEPROM->endWriteSession();
-    }
-#endif
-}
-
 uint8_t *Logic::writeAllInputsToFlash(uint8_t *iBuffer)
 {
-    if (knx.configured() && !boardWithEEPROM())
+    if (knx.configured())
     {
         println("Logic: Writing KOs to Flash");
         for (uint8_t lChannel = 0; lChannel < mNumChannels; lChannel++)
@@ -296,19 +202,6 @@ uint8_t *Logic::writeAllInputsToFlash(uint8_t *iBuffer)
         }
     }
     return iBuffer;
-}
-
-void Logic::writeAllInputsToEEPROMFacade() {
-    uint32_t lTime = millis();
-#ifdef I2C_EEPROM_DEVICE_ADDRESSS
-    if (boardWithEEPROM())
-        writeAllInputsToEEPROM();
-#endif
-    if (!boardWithEEPROM())
-        knx.writeMemory();
-    lTime = millis() - lTime;
-    print("WriteAllInputsToStorage took: ");
-    println(lTime);
 }
 
 const uint8_t *Logic::loadFromFlash(const uint8_t *iBuffer)
@@ -328,7 +221,7 @@ const uint8_t *Logic::loadFromFlash(const uint8_t *iBuffer)
     {
         println("No valid data in buffer");
     }
-    return iBuffer + USERDATA_SAVE_SIZE;
+    return iBuffer + saveSize();
 }
 
 uint8_t *Logic::saveToFlash(uint8_t *iBuffer)
@@ -348,42 +241,19 @@ uint8_t *Logic::saveToFlash(uint8_t *iBuffer)
         //     - each KO has 4 bytes
         //     - each channel has 2 Inputs
         //     - so we have 8 bytes per channel, 800 byte at all
-        writeAllDptToEEPROM(iBuffer + USERDATA_DPT_OFFSET);
+        writeAllDptToFlash(iBuffer + USERDATA_DPT_OFFSET);
         writeAllInputsToFlash(iBuffer + USERDATA_KO_OFFSET);
     }
     else if (mFlashBuffer != nullptr)
     {
         println("Logic: Restore old KOs to Flash");
         // in case knx is not configured but there are old values, we copy them back to buffer
-        for (size_t i = 0; i < USERDATA_SAVE_SIZE; i++)
+        for (size_t i = 0; i < saveSize(); i++)
             iBuffer[i] = mFlashBuffer[i];
         
     }
-    return iBuffer + USERDATA_SAVE_SIZE; // we always return a fixed size!
+    return iBuffer + saveSize(); // we always return a fixed size!
 }
-
-// void Logic::writeBufferToFlash() 
-// {
-//     // first try: We use the last erase block in userFlash without check if it is available
-//     size_t lPagesPerRow = knx.platform().flashEraseBlockSize();
-//     size_t lPageSize = knx.platform().flashPageSize();
-//     size_t lRowSize = lPagesPerRow * lPageSize;
-//     if (lRowSize > sizeof(mFlashBuffer)) 
-//     {  // should be valid for SAMD and RP2040
-//         // find last Row in flash
-//         size_t lLastRow = knx.platform().userFlashSizeEraseBlocks() - 1;
-//         // before we write, we compare the relevant memory part. If equal, we don't write
-//         uint8_t *lFlashAddress = knx.platform().flashWritePage();
-//         for (size_t i = 0; i < 900; i++)
-//         {
-            
-//         }
-        
-//     }
-//     knx.platform().userFlashSizeEraseBlocks()
-//     uint8_t *lFlashStart = knx.platform().userFlashStart() - lEraseBlockSize;
-//     knx.platform().flashErase(5);
-// }
 
 // on input level, all dpt > 1 values are converted to bool by the according converter
 void Logic::processInputKo(GroupObject &iKo)
@@ -429,22 +299,6 @@ void Logic::processInputKo(GroupObject &iKo)
     }
 }
 
-void Logic::processInterrupt(bool iForce)
-{
-    if (mSaveInterruptTimestamp > 0 || iForce)
-    {
-        if (!iForce) printDebug("Logic: SAVE-Interrupt processing started after %lu ms\n", millis() - mSaveInterruptTimestamp);
-        mSaveInterruptTimestamp = millis();
-        // If Interrupt happens during i2c read we try to finish last read first
-        // while (Wire.available())
-        //     Wire.read();
-        // now we write everything to EEPROM
-        writeAllInputsToEEPROMFacade();
-        printDebug("Logic: SAVE-Interrupt processing duration %lu ms\n", millis() - mSaveInterruptTimestamp);
-        mSaveInterruptTimestamp = 0;
-    }
-}
-
 char *Logic::initDiagnose(GroupObject &iKo) {
     memcpy(sDiagnoseBuffer, iKo.valueRef(), 14);
     return sDiagnoseBuffer;
@@ -458,12 +312,6 @@ bool Logic::processDiagnoseCommand() {
     bool lResult = false;
     //diagnose is interactive and reacts on commands
     switch (sDiagnoseBuffer[0]) {
-        case 's': {
-            // Command s: Number of save-Interupts (= false-save)
-            snprintf(sDiagnoseBuffer, 15, "SAVE %5d", mSaveInterruptCount);
-            lResult = true;
-            break;
-        }
         case 'l': {
             // Command l<nn>: Logic inputs and output of last execution
             // find channel and dispatch
@@ -564,22 +412,12 @@ void Logic::outputDiagnose(GroupObject &iKo) {
     printDebug("Diagnose: %s\n", sDiagnoseBuffer);
 }
 
-void Logic::onSavePinInterruptHandler() {
-    mSaveInterruptCount += 1;
-    mSaveInterruptTimestamp = millis();
-}
-
 void Logic::debug() {
     printDebug("Logik-LOG_ChannelsFirmware (in Firmware): %d\n", LOG_ChannelsFirmware);
     printDebug("Logik-gNumChannels (in knxprod):  %d\n", mNumChannels);
 
     // printDebug("Aktuelle Zeit: %s", sTimer.getTimeAsc());
     sTimer.debug();
-    // sTimer.debugHolidays();
-    // Test i2c failure
-    // we start an i2c read i.e. for EEPROM
-    // prepareReadEEPROM(4711, 20);
-    // delay(10000);
 #ifdef ARDUINO_ARCH_RP2040
     printDebug("Free Heap: %i\n", rp2040.getFreeHeap());
 #endif
@@ -615,32 +453,16 @@ void Logic::setup(bool iSaveSupported) {
         {
             mChannel[lIndex] = new LogicChannel(lIndex);
         }
-        // this should be changed if we ever use multiple instances of logic
-        mEEPROM = new EepromManager(SAVE_BUFFER_START_PAGE, SAVE_BUFFER_NUM_PAGES, sMagicWord);
         // setup buzzer
 #ifdef BUZZER_PIN
         pinMode(BUZZER_PIN, OUTPUT);
 #endif
         // we set just a callback if it is not set from a potential caller
         if (GroupObject::classCallback() == 0) GroupObject::classCallback(Logic::onInputKoHandler);
-        if (boardWithEEPROM()) 
-        {
-            if (mEEPROM->isValid())
-                printDebug("EEPROM contains valid KO inputs\n");
-            else
-                printDebug("EEPROM does NOT contain valid data\n");
-        }
         // we store some input values in case of restart or ets programming
-        if (knx.beforeRestartCallback() == 0) knx.beforeRestartCallback(onBeforeRestartHandler);
-        if (TableObject::beforeTablesUnloadCallback() == 0) TableObject::beforeTablesUnloadCallback(onBeforeTablesUnloadHandler);
-        // set interrupt for poweroff handling
-#ifdef SAVE_INTERRUPT_PIN
-        if (iSaveSupported) {
-            attachInterrupt(digitalPinToInterrupt(SAVE_INTERRUPT_PIN), onSafePinInterruptHandler, FALLING);
-        }
-#endif
-        if (prepareChannels())
-            writeAllDptToEEPROM(nullptr);
+        if (iSaveSupported) openknx.flashUserData()->first(this);
+
+        // prepareChannels();
         float lLat = LogicChannel::getFloat(knx.paramData(LOG_Latitude));
         float lLon = LogicChannel::getFloat(knx.paramData(LOG_Longitude));
         // sTimer.setup(8.639751, 49.310209, 1, true, 0xFFFFFFFF);
@@ -668,7 +490,6 @@ void Logic::loop()
     }
 #endif
 
-    processInterrupt();
     sTimer.loop(); // clock and timer async methods
     loopSubmodules();
 
@@ -687,11 +508,6 @@ void Logic::loop()
         loopSubmodules();
     }
     processTimerRestore();
-}
-
-EepromManager *Logic::getEEPROM()
-{
-    return mEEPROM;
 }
 
 const uint8_t *Logic::getFlash() 
@@ -754,7 +570,7 @@ void Logic::sendHoliday() {
 void Logic::loopSubmodules() {
     static uint8_t sCount = 0;
     uint8_t lCount = sCount / 2;
-    knx.loop();
+    openknx.loop();
     // we call submodules half as often as knx.loop();
     if (lCount * 2 == sCount && lCount < sNumLoopCallbacks && knx.configured())
     {

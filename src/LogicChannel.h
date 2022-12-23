@@ -1,11 +1,12 @@
 #pragma once
-#include <knx_facade.h>
+#include <oknx.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <Wire.h>
 #include "Timer.h"
 #include "TimerRestore.h"
+#include "LogicValue.h"
 #include "KnxHelper.h"
 #include "EepromManager.h"
 #include "knxprod.h"
@@ -221,16 +222,16 @@ class LogicChannel
     void knxWriteInt(uint8_t iIOIndex, int32_t iValue);
     void knxWriteRawInt(uint8_t iIOIndex, int32_t iValue);
     void knxWriteFloat(uint8_t iIOIndex, float iValue);
-    void knxWriteString(uint8_t iIOIndex, char* iValue);
+    void knxWriteString(uint8_t iIOIndex, const char* iValue);
     void knxRead(uint8_t iIOIndex);
     void knxResetDevice(uint16_t iParamIndex);
-    int32_t getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
-    int32_t getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
-    int32_t getInputValue(uint8_t iIOIndex);
+    LogicValue getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
+    LogicValue getParamByDpt(uint8_t iDpt, uint16_t iParamIndex);
+    LogicValue getInputValue(uint8_t iIOIndex, uint8_t *eDpt);
     void writeConstantValue(uint16_t iParamIndex);
     void writeParameterValue(uint8_t iIOIndex);
     void writeFunctionValue(uint16_t iParamIndex);
-    void writeValue(uint32_t iValue, uint8_t iDpt);
+    void writeValue(LogicValue iValue, uint8_t iDpt);
     void setRGBColor(uint16_t iParamIndex);
     void setBuzzer(uint16_t iParamIndex);
 
@@ -262,7 +263,7 @@ class LogicChannel
 
     void processOutput(bool iValue);
 
-    bool readOneInputFromEEPROM(uint8_t iIOIndex);
+    bool readOneInputFromFlash(uint8_t iIOIndex);
 
     // Start of Timer implementation
     void processTimerInput();
@@ -336,7 +337,7 @@ class LogicChannel
     void startTimerInput();
     void startTimerRestoreState();
     void stopTimerRestoreState();
-    uint8_t *writeSingleDptToEEPROM(uint8_t iIOIndex, uint8_t *iBuffer);
+    uint8_t *writeSingleDptToFlash(uint8_t iIOIndex, uint8_t *iBuffer);
 
     bool prepareChannel();
     void loop();
