@@ -23,7 +23,7 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-18.12.2022: Firmware 1.0, Applikation 1.0
+23.12.2022: Firmware 1.0.3, Applikation 1.0
 
 * NEU: Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
 * NEU: Das Logikmodul kann jetzt auch ein "Gerät zurücksetzen" an sich selbst senden (also mit der eigenen PA).
