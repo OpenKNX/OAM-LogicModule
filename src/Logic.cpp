@@ -155,7 +155,7 @@ void Logic::processReadRequests() {
         prepareChannels();
         sLogicProcessReadRequestsCalled = true;
     }
-    // date and time are red from bus every minute until a response is received
+    // date and time are red from bus every 30 seconds until a response is received
     if ((knx.paramByte(LOG_ReadTimeDate) & LOG_ReadTimeDateMask))
     {
         eTimeValid lValid = sTimer.isTimerValid();
