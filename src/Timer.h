@@ -111,6 +111,7 @@ class Timer
     void clearMinuteChanged(); //has to be cleared externally
     void setTimeFromBus(tm *iTime);
     void setDateFromBus(tm *iDate);
+    void setDateTimeFromBus(tm *iDate);
     uint8_t holidayToday();
     uint8_t holidayTomorrow();
     bool holidayChanged();

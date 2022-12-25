@@ -122,6 +122,12 @@ void Timer::setDateFromBus(tm *iDate) {
     mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
 }
 
+void Timer::setDateTimeFromBus(tm *iDateTime) {
+    // TODO DPT19: check optimizations
+    setTimeFromBus(iDateTime);
+    setDateFromBus(iDateTime);
+}
+
 bool Timer::minuteChanged() {
     return mMinuteChanged && mTimeValid == tmValid;
 }
