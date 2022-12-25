@@ -131,6 +131,10 @@
 // #define I2C_1WIRE_DEVICE_ADDRESSS 0x18  // Address of DS2484 1-Wire-Busmaster chip
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
+#define HW_ANALOG_ID 26 
+#define HW_REVISION_ID1 10
+#define HW_REVISION_ID2 11
+#define HW_REVISION_ID3 12
 #endif
 
 // Sensormodul-Breakout-Board
@@ -151,9 +155,9 @@
 // #define I2C_1WIRE_DEVICE_ADDRESSS 0x18  // Address of DS2484 1-Wire-Busmaster chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
 #define HW_ANALOG_ID 26 
-#define WH_REVISION_ID1 10
-#define WH_REVISION_ID2 11
-#define WH_REVISION_ID3 12
+#define HW_REVISION_ID1 10
+#define HW_REVISION_ID2 11
+#define HW_REVISION_ID3 12
 #endif
 
 #ifdef BOARD_MASIFI_AUSSEN_V13
