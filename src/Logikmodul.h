@@ -20,6 +20,11 @@
 #define LOG_LedInstalled               5      // 1 Bit, Bit 5
 #define     LOG_LedInstalledMask 0x20
 #define     LOG_LedInstalledShift 5
+// TODO DPT19: This a first draft only, check using this bit for configuration!
+#define LOG_CombinedTimeDate               5      // 1 Bit, Bit 4
+#define     LOG_CombinedTimeDateMask 0x10
+#define     LOG_CombinedTimeDateShift 4
+// TODO DPT19: see above ^^^
 #define LOG_VacationKo                 5      // 1 Bit, Bit 2
 #define     LOG_VacationKoMask 0x04
 #define     LOG_VacationKoShift 2

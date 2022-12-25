@@ -162,10 +162,16 @@ void Logic::processReadRequests() {
         if (delayCheck(sDelay, 30000) && lValid != tmValid)
         {
             sDelay = millis();
-            if (lValid != tmMinutesValid)
-                knx.getGroupObject(LOG_KoTime).requestObjectRead();
-            if (lValid != tmDateValid)
-                knx.getGroupObject(LOG_KoDate).requestObjectRead();
+            if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+                // combined date and time
+                knx.getGroupObject(LOG_KoDateTime).requestObjectRead();
+            } else {
+                // date and time from separate KOs
+                if (lValid != tmMinutesValid)
+                    knx.getGroupObject(LOG_KoTime).requestObjectRead();
+                if (lValid != tmDateValid)
+                    knx.getGroupObject(LOG_KoDate).requestObjectRead();
+            }
         }
     }
 }
@@ -265,12 +271,18 @@ void Logic::processInputKo(GroupObject &iKo)
         LogicChannel *lChannel = mChannel[lKoLookup->channelIndex];
         lChannel->processInput(lKoLookup->ioIndex);
     }
-    if (iKo.asap() == LOG_KoTime) {
+    // TODO DPT19: can we read params here, or could this be a (timing-)probleme?
+    // Note: KO-Numbers are no longer disjoint, as LOG_KoDateTime could reuses LOG_KoTime
+    if (iKo.asap() == LOG_KoTime && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
         sTimer.setTimeFromBus(&lTmp);
-    } else if (iKo.asap() == LOG_KoDate) {
+    } else if (iKo.asap() == LOG_KoDate && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
+    } else if (iKo.asap() == LOG_KoDateTime && knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+        // TODO DPT19: check using as first branch, when expected the default
+        struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
+        sTimer.setDateTimeFromBus(&lTmp);
     } else if (iKo.asap() == LOG_Diagnose) {
         processDiagnoseCommand(iKo);
     }
