@@ -164,7 +164,7 @@ void Logic::processReadRequests() {
             sDelay = millis();
             if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
                 // combined date and time
-                knx.getGroupObject(LOG_KoDateTime).requestObjectRead();
+                knx.getGroupObject(LOG_KoTime).requestObjectRead();
             } else {
                 // date and time from separate KOs
                 if (lValid != tmMinutesValid)
@@ -279,7 +279,7 @@ void Logic::processInputKo(GroupObject &iKo)
     } else if (iKo.asap() == LOG_KoDate && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
-    } else if (iKo.asap() == LOG_KoDateTime && knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+    } else if (iKo.asap() == LOG_KoTime && knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
         // TODO DPT19: check using as first branch, when expected the default
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
         sTimer.setDateTimeFromBus(&lTmp);
