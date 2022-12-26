@@ -271,18 +271,17 @@ void Logic::processInputKo(GroupObject &iKo)
         LogicChannel *lChannel = mChannel[lKoLookup->channelIndex];
         lChannel->processInput(lKoLookup->ioIndex);
     }
-    // TODO DPT19: can we read params here, or could this be a (timing-)probleme?
-    // Note: KO-Numbers are no longer disjoint, as LOG_KoDateTime could reuses LOG_KoTime
-    if (iKo.asap() == LOG_KoTime && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
-        struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
-        sTimer.setTimeFromBus(&lTmp);
+    if (iKo.asap() == LOG_KoTime) {
+        if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+            struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
+            sTimer.setDateTimeFromBus(&lTmp);
+        } else {
+            struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
+            sTimer.setTimeFromBus(&lTmp);
+        }
     } else if (iKo.asap() == LOG_KoDate && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
-    } else if (iKo.asap() == LOG_KoTime && knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
-        // TODO DPT19: check using as first branch, when expected the default
-        struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
-        sTimer.setDateTimeFromBus(&lTmp);
     } else if (iKo.asap() == LOG_Diagnose) {
         processDiagnoseCommand(iKo);
     }
