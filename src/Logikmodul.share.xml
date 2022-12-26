@@ -52,6 +52,13 @@
                   <Enumeration Text="Ja" Value="0" Id="%AID%_PT-OnOffYesNoInverted_EN-0" />
                 </TypeRestriction>
               </ParameterType>
+              <!-- selection of seperated or combined com-object for time and date -->
+              <ParameterType Id="%AID%_PT-TimeKoType" Name="TimeKoType">
+                <TypeRestriction Base="Value" SizeInBit="1">
+                  <Enumeration Text="Zwei getrennte KO Uhrzeit und Datum" Value="0" Id="%AID%_PT-TimeKoType_EN-0" />
+                  <Enumeration Text="Ein kombiniertes KO Uhrzeit/Datum" Value="1" Id="%AID%_PT-TimeKoType_EN-1" />
+                </TypeRestriction>
+              </ParameterType>              
               <ParameterType Id="%AID%_PT-OffsetTemp" Name="OffsetTemp">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-100" maxInclusive="100" />
               </ParameterType>
@@ -898,6 +905,7 @@
                 <Parameter Id="%AID%_UP-%T%000034" Name="ReadTimeDate" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="0" Text="Uhrzeit und Datum nach einem Neustart vom Bus lesen" Value="1" />
                 <Parameter Id="%AID%_UP-%T%000035" Name="BuzzerInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000036" Name="LedInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="Optischer Signalgeber vorhanden (RGB-LED)?" Value="0" />
+                <Parameter Id="%AID%_UP-%T%000156" Name="CombinedTimeDate" ParameterType="%AID%_PT-TimeKoType" Offset="0" BitOffset="3" Text="Uhrzeit und Datum empfangen über" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000138" Name="VacationKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="5" Text="Urlaubsbehandlung aktivieren?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000139" Name="HolidayKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="6" Text="Feiertage auf dem Bus verfügbar machen?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000140" Name="VacationRead" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="7" Text="Nach Neustart Urlaubsinfo lesen?" Value="0" />
@@ -968,6 +976,7 @@
               <ParameterRef Id="%AID%_UP-%T%000003_R-%T%00000301" RefId="%AID%_UP-%T%000003" />
               <ParameterRef Id="%AID%_UP-%T%000004_R-%T%00000401" RefId="%AID%_UP-%T%000004" />
               <ParameterRef Id="%AID%_UP-%T%000005_R-%T%00000501" RefId="%AID%_UP-%T%000005" />
+              <ParameterRef Id="%AID%_UP-%T%000156_R-%T%00015601" RefId="%AID%_UP-%T%000156" />
               <ParameterRef Id="%AID%_UP-%T%000034_R-%T%00003401" RefId="%AID%_UP-%T%000034" />
               <!-- Parameter 3501 - 3601 - are enabled on generic page of target application -->
               <ParameterRef Id="%AID%_UP-%T%000035_R-%T%00003501" RefId="%AID%_UP-%T%000035" Access="None" />
@@ -1021,7 +1030,7 @@
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="%AID%_O-%T%000001" Name="Heartbeat" Text="In Betrieb" Number="1" FunctionText="Zyklisch" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-2" />
-              <ComObject Id="%AID%_O-%T%000002" Name="Time" Text="Uhrzeit" Number="2" FunctionText="Eingang" ObjectSize="3 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-10-1" />
+              <ComObject Id="%AID%_O-%T%000002" Name="Time" Text="Uhrzeit/Datum" Number="2" FunctionText="Eingang" ObjectSize="8 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-19-1" />
               <ComObject Id="%AID%_O-%T%000003" Name="Date" Text="Datum" Number="3" FunctionText="Eingang" ObjectSize="3 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-11-1" />
               <ComObject Id="%AID%_O-%T%000004" Name="Vacation" Text="Urlaub" Number="4" FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
               <ComObject Id="%AID%_O-%T%000005" Name="Holiday1" Text="Welcher Feiertag ist heute?" Number="5" FunctionText="Ausgang" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />
@@ -1032,7 +1041,11 @@
             </ComObjectTable>
             <ComObjectRefs>
               <ComObjectRef Id="%AID%_O-%T%000001_R-%T%00000101" RefId="%AID%_O-%T%000001" />
-              <ComObjectRef Id="%AID%_O-%T%000002_R-%T%00000201" RefId="%AID%_O-%T%000002" />
+              <!-- Time -->
+              <ComObjectRef Id="%AID%_O-%T%000002_R-%T%00000201" RefId="%AID%_O-%T%000002" Text="Uhrzeit" ObjectSize="3 Bytes" DatapointType="DPST-10-1" />
+              <!-- DateTime -->
+              <ComObjectRef Id="%AID%_O-%T%000002_R-%T%00000202" RefId="%AID%_O-%T%000002" />
+              <!-- Date -->
               <ComObjectRef Id="%AID%_O-%T%000003_R-%T%00000301" RefId="%AID%_O-%T%000003" />
               <ComObjectRef Id="%AID%_O-%T%000004_R-%T%00000401" RefId="%AID%_O-%T%000004" />
               <ComObjectRef Id="%AID%_O-%T%000005_R-%T%00000501" RefId="%AID%_O-%T%000005" />
