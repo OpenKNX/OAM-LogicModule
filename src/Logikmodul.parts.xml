@@ -57,7 +57,7 @@
                     <ComObjectRefRef RefId="%AID%_O-%T%000001_R-%T%00000101" />
                   </when>
                 </choose>
-                <!-- Initialize defaults for Hardware, if not changed anywhere, thiese defaults are hidden and not visible -->
+                <!-- Initialize defaults for Hardware, if not changed anywhere, these defaults are hidden and not visible -->
                 <!-- Buzzer installed? -->
                 <ParameterRefRef RefId="%AID%_UP-%T%000035_R-%T%00003501" />
                 <!-- RGB-LED installed? -->
