@@ -151,6 +151,7 @@
 
 #define LOG_KoHeartbeat 1
 #define LOG_KoTime 2
+#define LOG_KoDateTime 2    // TODO check possible reuse of KO
 #define LOG_KoDate 3
 #define LOG_KoVacation 4
 #define LOG_KoHoliday1 5
