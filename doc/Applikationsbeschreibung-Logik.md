@@ -23,6 +23,10 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+27.12.2022: Firmware 1.1, Applikation 1.1
+
+* NEU: Es werden auch die DPT 12, 13 und 14 (4-Byte-Werte) sowohl am Ein- wie am Ausgang unterstützt.
+
 23.12.2022: Firmware 1.0.3, Applikation 1.0
 
 * NEU: Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
@@ -121,7 +125,7 @@ Einstellbare Ausgangstrigger
 
 Mehrere Kanäle können zu größeren Logikblöcken zusammengefasst werden
 
-Eingänge unterstützen DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 17
+Eingänge unterstützen DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 17
 
 Ausgänge unterstützen zusätzlich den DPT 16
 
@@ -406,6 +410,8 @@ Zwischen die Eingänge und den Ausgang können verschiedene Funktionsblöcke ges
 Alle Funktionsblöcke kann man sich wie an einer Perlenschnur aufgereiht hintereinander vorstellen, das Ergebnis eines Funktionsblocks wird für den darauffolgenden Funktionsblock als Eingabe verwendet.
 
 <kbd>![Übersicht](pics/Uebersicht.PNG)</kbd>
+
+**) Derzeit implementiert: DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 16, 17, 232; DPT 16 nicht als Eingang (Abweichend zum Bild)
 
 Jeder Funktionsblock arbeitet rein binär, also nur mit den Werten 0 oder 1 (DPT 1). Damit auch andere DPT möglich sind, besitzen externe Eingänge Konverter-Funktionsblöcke, die von einem beliebigen DPT nach DPT 1 konvertieren. Derzeit sind Schwellwertschalter und Vergleicher als Konverterfunktionen implementiert. Interne Eingänge und die Zeitschaltuhr benötigen keinen Konverter, da sie rein binär funktionieren.
 
@@ -800,11 +806,14 @@ Dieses Auswahlfeld legt den DPT für den Eingang fest. Unterstützt werden:
 * DPT 5: vorzeichenlose Zahl (0 bis 255)
 * DPT 5.001: Prozentzahl (0 bis 100)
 * DPT 6: vorzeichenbehaftete Zahl (-128 bis 127)
-* DPT 7: vorzeichenlose Zahl (0 bis 65535)
-* DPT 8: vorzeichenbehaftete Zahl (-32768 bis 32767)
-* DPT 9: Gleitkommawert (-670760,96 bis 670760,96)
+* DPT 7: vorzeichenlose Zahl (0 bis 65.535)
+* DPT 8: vorzeichenbehaftete Zahl (-32.768 bis 32.767)
+* DPT 9: Gleitkommawert (-670.760,96 bis 670.760,96)
+* DPT 12: vorzeichenlose Zahl (0 bis 4294967296)
+* DPT 13: vorzeichenbehaftete Zahl (-2.147.483.648 bis 2.147.483.647)
+* DPT 14: Gleitkommawert (-1.000.000.000.000 bis 1.000.000.000.000)
 * DPT 17: Szenen Nummer (1-64)
-* DPT 232: RGB-Wert (0-16777216)
+* DPT 232: RGB-Wert (0-16.777.216)
 
 Ist der DPT anders als DPT 1, erscheint je nach DPT ein Konverter, mit dem man den gewünschten Eingangs-DPT nach DPT 1 wandeln kann. Die gesamte weitere Verarbeitung des Eingangssignals erfolgt binär, also auf Basis von DPT 1.
 
@@ -857,7 +866,7 @@ In dem Bildschirmausschnitt ist der Konverter so konfiguriert, dass aus Szene 6,
 
 ### **Zahlenbasierte DPT**
 
-Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern  in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind alle gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx, 12.xxx, 13.xxx, 14.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern  in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind alle gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
 
 #### **Wert für Eingang n bestimmen durch**
 
@@ -942,7 +951,7 @@ Wird ein Differenzeingang genutzt, sollte dieser nicht auch noch als "normal akt
 
 ### **Ganzzahlbasierte DPT**
 
-Alle DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx), können mittels eines weiteren Einzelwert-Konverters in ein binäres Signal umgewandelt werden. Er ist gleich für alle DPT, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+Einige DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx), können mittels eines weiteren Einzelwert-Konverters in ein binäres Signal umgewandelt werden. Er ist gleich für alle DPT, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
 
 #### **Einzelwert-Konverter**
 
@@ -962,6 +971,8 @@ Der Einzelwert-Konverter erspart einige ODER-Verknüpfungen und spart so Logikka
 
 In dem angezeigten Bildschirmausschnitt wird bei den Werten 17, 25 und 40 ein EIN-Signal erzeugt, bei allen anderen Werten ein AUS-Signal.
 
+> Anmerkung: Aufgrund der intern verwendeten Speicherstruktur können für die DPT 12.xxx und DPT 13.xxx keine Einzelwert-Konverter verwendet werden.
+
 #### **Konstanten**
 
 Alle Eingänge können auch mit einem Konstanten Wert vorbelegt werden. Dies geschieht DPT gerecht, also passend zum Eingangs-DPT. Konstanten können in Formeln verwendet werden oder direkt von Ausgängen genutzt werden. Wobei man sowieso jeden Ausgang einen konstanten Wert senden lassen kann, insofern macht es keinen Sinn, konstante Eingänge für Ausgänge zu definieren.
@@ -975,6 +986,8 @@ Der Einsatz von Konstanten ist primär für Formeln gedacht. Wie die Konstanten 
 ## Eingangswert vorbelegen
 
 Die folgenden Einstellungen erlaubten ein dezidiertes Verhalten beim Neustart des Gerätes, wie im Kapitel "Logikkanäle -> Startverhalten" beschrieben.
+
+Eingangswerte kann man nur vorbelegen, wenn sie nicht konstant sind.
 
 <kbd>![Eingangswert vorbelegen](pics/EingangVorbelegen.png)</kbd>
 
@@ -1518,9 +1531,12 @@ Dieses Auswahlfeld legt den DPT für den Ausgang fest. Unterstützt werden:
 * DPT 5: vorzeichenlose Zahl (0 bis 255)
 * DPT 5.001: Prozentzahl (0 bis 100)
 * DPT 6: vorzeichenbehaftete Zahl (-128 bis 127)
-* DPT 7: vorzeichenlose Zahl (0 bis 65535)
-* DPT 8: vorzeichenbehaftete Zahl (-32768 bis 32767)
-* DPT 9: Gleitkommawert (-670760,96 bis 670760,96)
+* DPT 7: vorzeichenlose Zahl (0 bis 65.535)
+* DPT 8: vorzeichenbehaftete Zahl (-32.768 bis 32.767)
+* DPT 9: Gleitkommawert (-670.760,96 bis 670.760,96)
+* DPT 12: vorzeichenlose Zahl (0 bis 4294967296)
+* DPT 13: vorzeichenbehaftete Zahl (-2.147.483.648 bis 2.147.483.647)
+* DPT 14: Gleitkommawert (-1.000.000.000.000 bis 1.000.000.000.000)
 * DPT 16: Text (bis 14 Byte)
 * DPT 17: Szenen Nummer (1-64)
 * DPT 232: RGB-Wert (3*8 Bit Rot-, Grün-, Blauwert)
@@ -1890,9 +1906,9 @@ stehen bereits 30 Benutzerfunktionen bereit, die nur noch mit dem notwendigen Co
 
     // user functions, may be implemented by Enduser
     // for DPT-Check you can use constants beginning with VAL_DPT_*
-    float LogicFunction::userFunction01(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+    LogicValue LogicFunction::userFunction01(uint8_t DptE1, LogicValue E1, uint8_t DptE2, LogicValue E2, uint8_t *DptOut)
     {
-        return E1; // just an expample, result is first parameter value
+        return E1; // just an example, result is first parameter value
     }
 
 In der Beispielimplementierung für die Benutzerfunktion_01 wird der Wert vom Eingang 1 zurückgegeben.
@@ -2010,6 +2026,8 @@ DPT | 1 | 2 | 5 | 5.001 | 6 | 7 | 8 | 9 | 16 | 17 | 232
 9 | B | Z | G<sub>VW</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>VW</sub> | G<sub>W</sub> | I | T | S  | G
 17 | B | Z | G | G | G | G | G | G | T | I | G
 232 | B | Z | G<sub>VW</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>W</sub> | T | S  | I
+
+> Achtung: Die obige Tabelle kann nur zur Orientierung dienen. In Laufe der Zeit hat sich einiges an der Behandlung der DPT im Logikmodul geändert. Das führt implizit zu Änderungen der Konvertierungen zwischen den DPT. Die Tabelle wird nochmal komplett überarbeitet werden, nachdem ein finaler Stand der zu verarbeitenden DPT im Logikmodul erreicht ist.
 
 Die Einträge an den Schnittpunkten haben folgende Bedeutung:
 
@@ -2276,7 +2294,7 @@ n | Eingang 1 | *) | Eingang 1 für einen Logikkanal
 n+1 | Eingang 2 | *) | Eingang 2 für einen Logikkanal
 n+2 | Ausgang | **) | Ausgang eines Logikkanals
 
-*) Eingangs-DPT ist 1, 2, 5, 5.001, 6, 7, 8, 9, 17, 232
+*) Eingangs-DPT ist 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 17, 232
 
 **) Ausgangs-DPT ist Eingangs-DPT ergänzt um DPT 16.
 

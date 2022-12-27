@@ -305,6 +305,8 @@
 #define LOG_fE1HighDelta              22      // int32_t
 #define LOG_fE1LowDeltaFloat          18      // float
 #define LOG_fE1HighDeltaFloat         22      // float
+#define LOG_fE1LowDeltaDouble         18      // float
+#define LOG_fE1HighDeltaDouble        22      // float
 #define LOG_fE1Low0Valid              25      // 1 Bit, Bit 7
 #define     LOG_fE1Low0ValidMask 0x80
 #define     LOG_fE1Low0ValidShift 7
@@ -379,6 +381,15 @@
 #define LOG_fE1LowDpt9                18      // float
 #define LOG_fE1HighDpt9               22      // float
 #define LOG_fE1LowDpt9Fix             18      // float
+#define LOG_fE1LowDpt12               18      // uint32_t
+#define LOG_fE1HighDpt12              22      // uint32_t
+#define LOG_fE1LowDpt12Fix            18      // uint32_t
+#define LOG_fE1LowDpt13               18      // int32_t
+#define LOG_fE1HighDpt13              22      // int32_t
+#define LOG_fE1LowDpt13Fix            18      // int32_t
+#define LOG_fE1LowDpt14               18      // float
+#define LOG_fE1HighDpt14              22      // float
+#define LOG_fE1LowDpt14Fix            18      // float
 #define LOG_fE1Low0Dpt17              18      // 8 Bits, Bit 7-0
 #define LOG_fE1Low1Dpt17              19      // 8 Bits, Bit 7-0
 #define LOG_fE1Low2Dpt17              20      // 8 Bits, Bit 7-0
@@ -395,6 +406,8 @@
 #define LOG_fE2HighDelta              30      // int32_t
 #define LOG_fE2LowDeltaFloat          26      // float
 #define LOG_fE2HighDeltaFloat         30      // float
+#define LOG_fE2LowDeltaDouble         26      // float
+#define LOG_fE2HighDeltaDouble        30      // float
 #define LOG_fE2Low0Valid              33      // 1 Bit, Bit 7
 #define     LOG_fE2Low0ValidMask 0x80
 #define     LOG_fE2Low0ValidShift 7
@@ -469,6 +482,15 @@
 #define LOG_fE2LowDpt9                26      // float
 #define LOG_fE2HighDpt9               30      // float
 #define LOG_fE2LowDpt9Fix             26      // float
+#define LOG_fE2LowDpt12               26      // uint32_t
+#define LOG_fE2HighDpt12              30      // uint32_t
+#define LOG_fE2LowDpt12Fix            26      // uint32_t
+#define LOG_fE2LowDpt13               26      // int32_t
+#define LOG_fE2HighDpt13              30      // int32_t
+#define LOG_fE2LowDpt13Fix            26      // int32_t
+#define LOG_fE2LowDpt14               26      // float
+#define LOG_fE2HighDpt14              30      // float
+#define LOG_fE2LowDpt14Fix            26      // float
 #define LOG_fE2Low0Dpt17              26      // 8 Bits, Bit 7-0
 #define LOG_fE2Low1Dpt17              27      // 8 Bits, Bit 7-0
 #define LOG_fE2Low2Dpt17              28      // 8 Bits, Bit 7-0
@@ -781,6 +803,9 @@
 #define LOG_fOOnDpt7                  53      // uint16_t
 #define LOG_fOOnDpt8                  53      // int16_t
 #define LOG_fOOnDpt9                  53      // float
+#define LOG_fOOnDpt12                 53      // uint32_t
+#define LOG_fOOnDpt13                 53      // int32_t
+#define LOG_fOOnDpt14                 53      // float
 #define LOG_fOOnDpt16                 53      // char*, 14 Byte
 #define LOG_fOOnDpt17                 53      // 8 Bits, Bit 7-0
 #define LOG_fOOnRGB                   53      // color, uint, 3 Byte
@@ -805,6 +830,9 @@
 #define LOG_fOOffDpt7                 68      // uint16_t
 #define LOG_fOOffDpt8                 68      // int16_t
 #define LOG_fOOffDpt9                 68      // float
+#define LOG_fOOffDpt12                68      // uint32_t
+#define LOG_fOOffDpt13                68      // int32_t
+#define LOG_fOOffDpt14                68      // float
 #define LOG_fOOffDpt16                68      // char*, 14 Byte
 #define LOG_fOOffDpt17                68      // 8 Bits, Bit 7-0
 #define LOG_fOOffRGB                  68      // color, uint, 3 Byte
@@ -833,6 +861,6 @@
 #define LOG_KoKOfO 2
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 48
-#define MAIN_ApplicationVersion 16
-#define MAIN_OrderNumber "OpenKnxLogic"
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 33
+#define MAIN_OrderNumber "OpenKnxLogicDev"
