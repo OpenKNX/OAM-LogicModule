@@ -826,7 +826,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 {
     uint16_t lParamBase = (iIOIndex == 1) ? LOG_fE1 : LOG_fE2;
     uint16_t lParamLow = (iIOIndex == 1) ? LOG_fE1LowDelta : LOG_fE2LowDelta;
-    uint8_t lConvert = getByteParam(lParamBase) >> LOG_fE1ConvertShift;
+    uint8_t lConvert = (getByteParam(lParamBase) & LOG_fE1ConvertMask) >> LOG_fE1ConvertShift;
     bool lValueOut = 0;
     // get input value
     uint8_t lDpt;
@@ -839,6 +839,10 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
     {
         // in case of delta conversion get the other input value
         lValue2In = getInputValue(3 - iIOIndex, &lDptValue2);
+    } 
+    else if (lConvert == VAL_InputConvert_Constant)
+    {
+        pValidActiveIO |= iIOIndex;
     }
     uint8_t lUpperBound = 0;
     bool lDoDefault = false;
