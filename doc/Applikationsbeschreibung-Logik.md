@@ -23,6 +23,10 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+27.12.2022: Firmware 1.0.5, Applikation 1.0
+
+* FIX: Eingänge, die als Konstanten fungieren (für Formeln), werden wieder als "gültig" angesehen (war neuer Bug zu 1.0 release)
+
 23.12.2022: Firmware 1.0.3, Applikation 1.0
 
 * NEU: Kein EEPROM mehr nötig, KO-Werte werden im Flash gespeichert
