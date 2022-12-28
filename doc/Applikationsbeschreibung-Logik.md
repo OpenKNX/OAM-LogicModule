@@ -26,6 +26,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 27.12.2022: Firmware 1.1, Applikation 1.1
 
 * NEU: Es werden auch die DPT 12, 13 und 14 (4-Byte-Werte) sowohl am Ein- wie am Ausgang unterstützt.
+* FIX: Konstante Eingänge werden wieder als Gültig betrachtet (war ein neuer Bug in 1.0).
 
 23.12.2022: Firmware 1.0.3, Applikation 1.0
 
