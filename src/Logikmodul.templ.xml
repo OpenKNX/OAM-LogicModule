@@ -1049,7 +1049,7 @@
           </Static>
           <Dynamic>
             <ChannelIndependentBlock>
-              <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Logic" Text="Logik %C%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
+              <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Logic" Text="Logik %C%: {{0: ...}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
                 <!-- Any input active (hidden) -->
                 <ParameterRefRef RefId="%AID%_P-%T%%CCC%133_R-%T%%CCC%13301" />
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Kanaldefinition" UIHint="Headline" />
@@ -1139,7 +1139,7 @@
                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%167_R-%T%%CCC%16701" />
                   </when>
                 </choose>
-                <Channel Id="%AID%_CH-L%CC%" Name="f%CC%Logic" Number="L%CC%" Text="Logik %CC%: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
+                <Channel Id="%AID%_CH-L%CC%" Name="f%CC%Logic" Number="L%CC%" Text="Logik %CC%: {{0: ...}}" TextParameterRefId="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101">
                   <choose ParamRefId="%AID%_P-%T%%CCC%003_R-%T%%CCC%00301">
                     <when test="1 2 3 4 6">
                       <!-- Delta ext. 1 Input-->
@@ -2750,7 +2750,7 @@
                     </when>
                     <!-- Timer -->
                     <when test="5">
-                      <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Timer" Text="Schaltzeiten: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%275_R-%T%%CCC%27501">
+                      <ParameterBlock Id="%AID%_PB-%C%17" Name="f%C%Timer" Text="Schaltzeiten: {{0: ...}}" TextParameterRefId="%AID%_P-%T%%CCC%275_R-%T%%CCC%27501">
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Zeitschaltuhr" UIHint="Headline" />
                         <ParameterRefRef RefId="%AID%_P-%T%%CCC%275_R-%T%%CCC%27501" />
                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%272_R-%T%%CCC%27201" />
@@ -3057,7 +3057,7 @@
                     </when>
                     <!-- Output -->
                     <when test="!=0">
-                      <ParameterBlock Id="%AID%_PB-%C%18" Name="f%C%Output" Text="Ausgang: {{0:unbenannt}}" TextParameterRefId="%AID%_P-%T%%CCC%132_R-%T%%CCC%13201">
+                      <ParameterBlock Id="%AID%_PB-%C%18" Name="f%C%Output" Text="Ausgang: {{0: ...}}" TextParameterRefId="%AID%_P-%T%%CCC%132_R-%T%%CCC%13201">
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Ausgang" UIHint="Headline" />
                         <ParameterRefRef RefId="%AID%_P-%T%%CCC%132_R-%T%%CCC%13201" />
                         <ParameterRefRef RefId="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" />
