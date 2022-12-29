@@ -175,6 +175,9 @@
                   <Enumeration Text="DPT 7.xxx (2-Byte-Wert)" Value="5" Id="%AID%_PT-InputDpt_EN-5" />
                   <Enumeration Text="DPT 8.xxx (2-Byte-Wert-Vorzeichen)" Value="6" Id="%AID%_PT-InputDpt_EN-6" />
                   <Enumeration Text="DPT 9.xxx (2-Byte-Fließkomma)" Value="7" Id="%AID%_PT-InputDpt_EN-7" />
+                  <Enumeration Text="DPT 12.xxx (4-Byte-Wert)" Value="13" Id="%AID%_PT-InputDpt_EN-13" />
+                  <Enumeration Text="DPT 13.xxx (4-Byte-Wert-Vorzeichen)" Value="14" Id="%AID%_PT-InputDpt_EN-14" />
+                  <Enumeration Text="DPT 14.xxx (4-Byte-Fließkomma)" Value="15" Id="%AID%_PT-InputDpt_EN-15" />
                   <Enumeration Text="DPT 17.001 (Szene)" Value="9" Id="%AID%_PT-InputDpt_EN-9" />
                   <Enumeration Text="DPT 232.xxx (3-Byte-Wert)" Value="10" Id="%AID%_PT-InputDpt_EN-10" />
                 </TypeRestriction>
@@ -189,6 +192,9 @@
                   <Enumeration Text="DPT 7.xxx (2-Byte-Wert)" Value="5" Id="%AID%_PT-OutputDpt_EN-5" />
                   <Enumeration Text="DPT 8.xxx (2-Byte-Wert-Vorzeichen)" Value="6" Id="%AID%_PT-OutputDpt_EN-6" />
                   <Enumeration Text="DPT 9.xxx (2-Byte-Fließkomma)" Value="7" Id="%AID%_PT-OutputDpt_EN-7" />
+                  <Enumeration Text="DPT 12.xxx (4-Byte-Wert)" Value="13" Id="%AID%_PT-OutputDpt_EN-13" />
+                  <Enumeration Text="DPT 13.xxx (4-Byte-Wert-Vorzeichen)" Value="14" Id="%AID%_PT-OutputDpt_EN-14" />
+                  <Enumeration Text="DPT 14.xxx (4-Byte-Fließkomma)" Value="15" Id="%AID%_PT-OutputDpt_EN-15" />
                   <Enumeration Text="DPT 16.001 (14-Byte-Text)" Value="8" Id="%AID%_PT-OutputDpt_EN-8" />
                   <Enumeration Text="DPT 17.001 (Szene)" Value="9" Id="%AID%_PT-OutputDpt_EN-9" />
                   <Enumeration Text="DPT 232.xxx (3-Byte-Wert)" Value="10" Id="%AID%_PT-OutputDpt_EN-10" />
@@ -531,6 +537,15 @@
               <ParameterType Id="%AID%_PT-ValueDpt9" Name="ValueDpt9">
                 <TypeFloat Encoding="IEEE-754 Single" minInclusive="-671088" maxInclusive="670760" />
               </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt12" Name="ValueDpt12">
+                <TypeNumber SizeInBit="32" Type="unsignedInt" minInclusive="0" maxInclusive="4294967296" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt13" Name="ValueDpt13">
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-2147483648" maxInclusive="2147483647" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-ValueDpt14" Name="ValueDpt14">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="-1000000000000" maxInclusive="1000000000000" />
+              </ParameterType>
               <ParameterType Id="%AID%_PT-ValueRGB" Name="ValueRGB">
                 <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="0" maxInclusive="16777216" />
               </ParameterType>
@@ -538,7 +553,7 @@
                 <TypeColor Space="RGB" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-Delta" Name="Delta">
-                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-16777217" maxInclusive="16777216" />
+                <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-2147483648" maxInclusive="2147483647" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-PALine" Name="PALine">
                 <TypeNumber SizeInBit="4" Type="unsignedInt" minInclusive="0" maxInclusive="15" />
@@ -1150,7 +1165,7 @@
                 </choose>
                 <ParameterSeparator Id="%AID%_PS-52" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="%AID%_PS-53" Text="Feiertage" UIHint="Headline" />
-                <ParameterSeparator Id="%AID%_PS-54" Text="Das Gerät kann die berechneten Feiertage auch auf den Bus senden. Über das KO 5 wird mitgeteilt, ob 'Heute' ein Feiertag ist, über KO 6 ob 'Morgen' ein Feiertag ist." />
+                <ParameterSeparator Id="%AID%_PS-54" Text="Das Gerät kann die berechneten Feiertage auch auf den Bus senden. Über das KO 5 wird mitgeteilt, welcher Feiertag 'Heute' ist, über KO 6 welcher Feiertag 'Morgen' ist. 0 bedeutet 'kein Feiertag'." />
                 <ParameterRefRef RefId="%AID%_UP-%T%000139_R-%T%00013901" />
                 <choose ParamRefId="%AID%_UP-%T%000139_R-%T%00013901">
                   <when test="1">

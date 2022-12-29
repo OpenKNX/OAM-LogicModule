@@ -25,7 +25,7 @@ LogicValue LogicFunction::nativeDivide(uint8_t DptE1, LogicValue E1, uint8_t Dpt
 
 LogicValue LogicFunction::nativeAverage(uint8_t DptE1, LogicValue E1, uint8_t DptE2, LogicValue E2, uint8_t *DptOut)
 {
-    return (double)(E1 + E2) / 2;
+    return (float)(E1 + E2) / 2;
 }
 
 LogicValue LogicFunction::nativeMinimum(uint8_t DptE1, LogicValue E1, uint8_t DptE2, LogicValue E2, uint8_t *DptOut)
