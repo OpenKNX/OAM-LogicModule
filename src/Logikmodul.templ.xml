@@ -1158,7 +1158,7 @@
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37802" />
-                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das gesamte Gerät aufhängen!" UIHint="Information" />
                                   </when>
                                 </choose>
                                 <!-- E1 dpt -->
@@ -1279,7 +1279,7 @@
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37802" />
-                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das gesamte Gerät aufhängen!" UIHint="Information" />
                                   </when>
                                 </choose>
                                 <!-- E1 dpt -->
@@ -1920,7 +1920,7 @@
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38002" />
-                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das gesamte Gerät aufhängen!" UIHint="Information" />
                                   </when>
                                 </choose>
                                 <!-- E2 dpt -->
@@ -2042,7 +2042,7 @@
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38002" />
-                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das geamte Gerät aufhängen!" UIHint="Information" />
+                                    <ParameterSeparator Id="%AID%_PS-nnn" Text="Bestehendes KO: In der folgenden DPT-Dropdown muss unbedingt der DPT ausgewählt werden, den das Bestehende KO trägt! Das kann in der Appliation nicht ermittelt werden. Bei Falscheingaben könnte sich das gesamte Gerät aufhängen!" UIHint="Information" />
                                   </when>
                                 </choose>
                                 <!-- E2 dpt -->

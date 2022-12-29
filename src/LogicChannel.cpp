@@ -2116,42 +2116,39 @@ void LogicChannel::loop()
     // do no further processing until channel passed its startup time
     if (pCurrentPipeline & PIP_RUNNING)
     {
-        // we revert the processing order for pipeline events
-        // this reduces the chance to have a long running
-        // sequence of functions because of according pipeline settings
-        // On/Off repeat pipeline
-        if (pCurrentPipeline & (PIP_ON_REPEAT | PIP_OFF_REPEAT))
-            processOnOffRepeat();
-        // Output Filter pipeline
-        if (pCurrentPipeline & (PIP_OUTPUT_FILTER_ON | PIP_OUTPUT_FILTER_OFF))
-            processOutputFilter();
-        // Off delay pipeline
-        if (pCurrentPipeline & PIP_OFF_DELAY)
-            processOffDelay();
-        // On delay pipeline
-        if (pCurrentPipeline & PIP_ON_DELAY)
-            processOnDelay();
+        if (pCurrentPipeline & PIP_TIMER_INPUT)
+            processTimerInput();
+        // repeat input pipeline
+        if (pCurrentPipeline & PIP_REPEAT_INPUT1)
+            processRepeatInput1();
+        if (pCurrentPipeline & PIP_REPEAT_INPUT2)
+            processRepeatInput2();
+        // convert input pipeline
+        if (pCurrentPipeline & PIP_CONVERT_INPUT1)
+            processConvertInput(IO_Input1);
+        if (pCurrentPipeline & PIP_CONVERT_INPUT2)
+            processConvertInput(IO_Input2);
+        // Logic execution pipeline
+        if (pCurrentPipeline & PIP_LOGIC_EXECUTE)
+            processLogic();
         // stairlight pipeline
         if (pCurrentPipeline & PIP_STAIRLIGHT)
             processStairlight();
         // blink pipeline (has to be "after" stairlight)
         if (pCurrentPipeline & PIP_BLINK)
             processBlink();
-        // Logic execution pipeline
-        if (pCurrentPipeline & PIP_LOGIC_EXECUTE)
-            processLogic();
-        // convert input pipeline
-        if (pCurrentPipeline & PIP_CONVERT_INPUT1)
-            processConvertInput(IO_Input1);
-        if (pCurrentPipeline & PIP_CONVERT_INPUT2)
-            processConvertInput(IO_Input2);
-        // repeat input pipeline
-        if (pCurrentPipeline & PIP_REPEAT_INPUT1)
-            processRepeatInput1();
-        if (pCurrentPipeline & PIP_REPEAT_INPUT2)
-            processRepeatInput2();
-        if (pCurrentPipeline & PIP_TIMER_INPUT)
-            processTimerInput();
+        // Off delay pipeline
+        if (pCurrentPipeline & PIP_OFF_DELAY)
+            processOffDelay();
+        // On delay pipeline
+        if (pCurrentPipeline & PIP_ON_DELAY)
+            processOnDelay();
+        // Output Filter pipeline
+        if (pCurrentPipeline & (PIP_OUTPUT_FILTER_ON | PIP_OUTPUT_FILTER_OFF))
+            processOutputFilter();
+        // On/Off repeat pipeline
+        if (pCurrentPipeline & (PIP_ON_REPEAT | PIP_OFF_REPEAT))
+            processOnOffRepeat();
     }
 }
 

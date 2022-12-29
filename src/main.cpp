@@ -1,6 +1,6 @@
 // #ifdef LOGICMODULE
 #include <oknx.h>
-#include <Logikmodul.h>
+// #include <Logikmodul.h>
 #include <Logic.h>
 #include "hardware.h"
 

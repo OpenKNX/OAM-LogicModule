@@ -10,25 +10,25 @@ class LogicValue
     LogicValue(uint8_t value);
     LogicValue(uint16_t value);
     LogicValue(uint32_t value);
-    LogicValue(uint64_t value);
+    // LogicValue(uint64_t value);
     LogicValue(int8_t value);
     LogicValue(int16_t value);
     LogicValue(int32_t value);
-    LogicValue(int64_t value);
-    LogicValue(double value);
-    LogicValue(const char* value);
+    // LogicValue(int64_t value);
+    // LogicValue(double value);
     LogicValue(float value);
+    LogicValue(const char* value);
 
     operator bool() const;
     operator uint8_t() const;
     operator uint16_t() const;
     operator uint32_t() const;
-    operator uint64_t() const;
+    // operator uint64_t() const;
     operator int8_t() const;
     operator int16_t() const;
     operator int32_t() const;
-    operator int64_t() const;
-    operator double() const;
+    // operator int64_t() const;
+    // operator double() const;
     operator float() const;
     operator const char*() const;
 
@@ -36,12 +36,12 @@ class LogicValue
     LogicValue& operator=(const uint8_t value);
     LogicValue& operator=(const uint16_t value);
     LogicValue& operator=(const uint32_t value);
-    LogicValue& operator=(const uint64_t value);
+    // LogicValue& operator=(const uint64_t value);
     LogicValue& operator=(const int8_t value);
     LogicValue& operator=(const int16_t value);
     LogicValue& operator=(const int32_t value);
-    LogicValue& operator=(const int64_t value);
-    LogicValue& operator=(const double value);
+    // LogicValue& operator=(const int64_t value);
+    // LogicValue& operator=(const double value);
     LogicValue& operator=(const float value);
     LogicValue& operator=(const char* value);
 
@@ -69,17 +69,18 @@ class LogicValue
     uint8_t ucharValue() const;
     uint16_t ushortValue() const;
     uint32_t uintValue() const;
-    uint64_t ulongValue() const;
+    // uint64_t ulongValue() const;
     int8_t charValue() const;
     int16_t shortValue() const;
     int32_t intValue() const;
-    int64_t longValue() const;
-    double doubleValue() const;
+    // int64_t longValue() const;
+    // double doubleValue() const;
+    float floatValue() const;
     const char* stringValue() const;
 
-    void setInternal(const uint64_t value);
-    void setInternal(const int64_t value);
-    void setInternal(const double value);
+    void setInternal(const uint32_t value);
+    void setInternal(const int32_t value);
+    void setInternal(const float value);
     void setInternal(const char* value);
 
     union Value
@@ -88,12 +89,13 @@ class LogicValue
         uint8_t ucharValue;
         uint16_t ushortValue;
         uint32_t uintValue;
-        uint64_t ulongValue;
+        // uint64_t ulongValue;
         int8_t charValue;
         int16_t shortValue;
         int32_t intValue;
-        int64_t longValue;
-        double doubleValue;
+        // int64_t longValue;
+        // double doubleValue;
+        float floatValue;
         const char* stringValue;
     };
     enum ValueType
@@ -102,12 +104,13 @@ class LogicValue
         UCharType,
         UShortType,
         UIntType,
-        ULongType,
+        // ULongType,
         CharType,
         ShortType,
         IntType,
-        LongType,
-        DoubleType,
+        // LongType,
+        // DoubleType,
+        FloatType,
         StringType,
     };
 
