@@ -618,7 +618,7 @@ void LogicChannel::writeValue(LogicValue iValue, uint8_t iDpt)
             break;
         case VAL_DPT_5:
         case VAL_DPT_5001:
-            knxWriteRawInt(IO_Output, (uint8_t)iValue);
+            knxWriteInt(IO_Output, (uint8_t)iValue);
             break;
         case VAL_DPT_6:
             knxWriteInt(IO_Output, (int8_t)iValue);

@@ -23,6 +23,9 @@
 #define LOG_CombinedTimeDate           5      // 1 Bit, Bit 4
 #define     LOG_CombinedTimeDateMask 0x10
 #define     LOG_CombinedTimeDateShift 4
+#define LOG_UseSummertime              5      // 1 Bit, Bit 3
+#define     LOG_UseSummertimeMask 0x08
+#define     LOG_UseSummertimeShift 3
 #define LOG_VacationKo                 5      // 1 Bit, Bit 2
 #define     LOG_VacationKoMask 0x04
 #define     LOG_VacationKoShift 2
@@ -35,12 +38,6 @@
 #define LOG_HolidaySend                6      // 1 Bit, Bit 7
 #define     LOG_HolidaySendMask 0x80
 #define     LOG_HolidaySendShift 7
-#define LOG_Timezone                   6      // 2 Bits, Bit 6-5
-#define     LOG_TimezoneMask 0x60
-#define     LOG_TimezoneShift 5
-#define LOG_UseSummertime              6      // 1 Bit, Bit 4
-#define     LOG_UseSummertimeMask 0x10
-#define     LOG_UseSummertimeShift 4
 #define LOG_Diagnose                   6      // 1 Bit, Bit 3
 #define     LOG_DiagnoseMask 0x08
 #define     LOG_DiagnoseShift 3
@@ -151,6 +148,15 @@
 #define LOG_LedMapping                25      // 3 Bits, Bit 7-5
 #define     LOG_LedMappingMask 0xE0
 #define     LOG_LedMappingShift 5
+#define LOG_Timezone                  25      // 5 Bits, Bit 4-0
+#define     LOG_TimezoneMask 0x1F
+#define     LOG_TimezoneShift 0
+#define LOG_TimezoneSign              25      // 1 Bit, Bit 4
+#define     LOG_TimezoneSignMask 0x10
+#define     LOG_TimezoneSignShift 4
+#define LOG_TimezoneValue             25      // 4 Bits, Bit 3-0
+#define     LOG_TimezoneValueMask 0x0F
+#define     LOG_TimezoneValueShift 0
 
 #define LOG_KoHeartbeat 1
 #define LOG_KoTime 2
@@ -161,6 +167,7 @@
 #define LOG_KoDiagnose 7
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
+#define LOG_KoIsSummertime 10
 
 #define LOG_ChannelCount 99
 
@@ -865,5 +872,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 33
+#define MAIN_ApplicationVersion 35
 #define MAIN_OrderNumber "OpenKnxLogicDev"

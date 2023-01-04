@@ -876,12 +876,37 @@
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="%AID%_PT-Timezone" Name="Timezone">
-                <TypeRestriction Base="Value" SizeInBit="2">
+                <TypeRestriction Base="Value" SizeInBit="5">
+                  <Enumeration Text="-12" Value="28" Id="%AID%_PT-Timezone_EN-28" />
+                  <Enumeration Text="-11" Value="27" Id="%AID%_PT-Timezone_EN-27" />
+                  <Enumeration Text="-10" Value="26" Id="%AID%_PT-Timezone_EN-26" />
+                  <Enumeration Text="-9" Value="25" Id="%AID%_PT-Timezone_EN-25" />
+                  <Enumeration Text="-8" Value="24" Id="%AID%_PT-Timezone_EN-24" />
+                  <Enumeration Text="-7" Value="23" Id="%AID%_PT-Timezone_EN-23" />
+                  <Enumeration Text="-6" Value="22" Id="%AID%_PT-Timezone_EN-22" />
+                  <Enumeration Text="-5" Value="21" Id="%AID%_PT-Timezone_EN-21" />
+                  <Enumeration Text="-4" Value="20" Id="%AID%_PT-Timezone_EN-20" />
+                  <Enumeration Text="-3" Value="19" Id="%AID%_PT-Timezone_EN-19" />
+                  <Enumeration Text="-2" Value="18" Id="%AID%_PT-Timezone_EN-18" />
+                  <Enumeration Text="-1" Value="17" Id="%AID%_PT-Timezone_EN-17" />
                   <Enumeration Text="London (+0 Stunden)" Value="0" Id="%AID%_PT-Timezone_EN-0" />
                   <Enumeration Text="Berlin (+1 Stunde)" Value="1" Id="%AID%_PT-Timezone_EN-1" />
                   <Enumeration Text="Athen (+2)" Value="2" Id="%AID%_PT-Timezone_EN-2" />
                   <Enumeration Text="Moskau (+3)" Value="3" Id="%AID%_PT-Timezone_EN-3" />
+                  <Enumeration Text="+4" Value="4" Id="%AID%_PT-Timezone_EN-4" />
+                  <Enumeration Text="+5" Value="5" Id="%AID%_PT-Timezone_EN-5" />
+                  <Enumeration Text="+6" Value="6" Id="%AID%_PT-Timezone_EN-6" />
+                  <Enumeration Text="+7" Value="7" Id="%AID%_PT-Timezone_EN-7" />
+                  <Enumeration Text="+8" Value="8" Id="%AID%_PT-Timezone_EN-8" />
+                  <Enumeration Text="+9" Value="9" Id="%AID%_PT-Timezone_EN-9" />
+                  <Enumeration Text="+10" Value="10" Id="%AID%_PT-Timezone_EN-10" />
+                  <Enumeration Text="+11" Value="11" Id="%AID%_PT-Timezone_EN-11" />
+                  <Enumeration Text="+12" Value="12" Id="%AID%_PT-Timezone_EN-12" />
                 </TypeRestriction>
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-TimezoneValue" Name="TimezoneValue">
+                <!-- Timezone value are the 4 lowest bits from timezone -->
+                <TypeNumber SizeInBit="4" Type="unsignedInt" minInclusive="0" maxInclusive="15" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-KONumber" Name="KONumber">
                 <!-- We assume, there will be never more than 32767 KO, currently we set the limit to 9999 -->
@@ -921,14 +946,15 @@
                 <Parameter Id="%AID%_UP-%T%000035" Name="BuzzerInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="1" Text="Akustischer Signalgeber vorhanden (Buzzer)?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000036" Name="LedInstalled" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="2" Text="Optischer Signalgeber vorhanden (RGB-LED)?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000156" Name="CombinedTimeDate" ParameterType="%AID%_PT-TimeKoType" Offset="0" BitOffset="3" Text="Uhrzeit und Datum empfangen über" Value="0" />
+                <Parameter Id="%AID%_UP-%T%000145" Name="UseSummertime" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="4" Text="Sommerzeit intern berechnen?&#10;(nur für Deutschland möglich)" Value="1" />
                 <Parameter Id="%AID%_UP-%T%000138" Name="VacationKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="5" Text="Urlaubsbehandlung aktivieren?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000139" Name="HolidayKo" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="6" Text="Feiertage auf dem Bus verfügbar machen?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000140" Name="VacationRead" ParameterType="%AID%_PT-OnOffYesNo" Offset="0" BitOffset="7" Text="Nach Neustart Urlaubsinfo lesen?" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000141" Name="HolidaySend" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="0" Text="Nach Neuberechnung Feiertagsinfo senden?" Value="0" />
-                <Parameter Id="%AID%_UP-%T%000144" Name="Timezone" ParameterType="%AID%_PT-Timezone" Offset="1" BitOffset="1" Text="Zeitzone" Value="1" />
-                <Parameter Id="%AID%_UP-%T%000145" Name="UseSummertime" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="3" Text="Sommerzeit berücksichtigen" Value="1" />
+                <!-- 4 Bit free -->
                 <Parameter Id="%AID%_UP-%T%000146" Name="Diagnose" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="4" Text="Diagnoseobjekt anzeigen" Value="0" />
                 <Parameter Id="%AID%_UP-%T%000147" Name="Watchdog" ParameterType="%AID%_PT-OnOffYesNo" Offset="1" BitOffset="5" Text="Watchdog aktivieren" Value="0" />
+                <!-- 2 Bit free -->
               </Union>
               <Union SizeInBit="32">
                 <Memory CodeSegment="%AID%_RS-04-00000" Offset="7" BitOffset="0" />
@@ -979,9 +1005,11 @@
                 <Parameter Id="%AID%_UP-%T%000150" Name="BuzzerLoud"   ParameterType="%AID%_PT-BuzzerFrequency" Offset="4" BitOffset="0" Text="Frequenz für Buzzer (laut)"   SuffixText="Hz" Value="2400" />
               </Union>
               <Union SizeInBit="8">
-                <!-- 5 Bit frei -->
                 <Memory CodeSegment="%AID%_RS-04-00000" Offset="25" BitOffset="0" />
                 <Parameter Id="%AID%_UP-%T%000151" Name="LedMapping" ParameterType="%AID%_PT-RGBMapping" Offset="0" BitOffset="0" Text="Lötpad A / B / C entspicht" Value="1" />
+                <Parameter Id="%AID%_UP-%T%000144" Name="Timezone" ParameterType="%AID%_PT-Timezone" Offset="0" BitOffset="3" Text="Zeitzone" Value="1" />
+                <Parameter Id="%AID%_UP-%T%000157" Name="TimezoneSign" ParameterType="%AID%_PT-CheckBox" Offset="0" BitOffset="3" Text="Zeitzone-Vorzeichen" Value="0" />
+                <Parameter Id="%AID%_UP-%T%000158" Name="TimezoneValue" ParameterType="%AID%_PT-TimezoneValue" Offset="0" BitOffset="4" Text="Zeitzone-Wert" Value="0" />
               </Union>
             </Parameters>
             <ParameterRefs>
@@ -991,7 +1019,6 @@
               <ParameterRef Id="%AID%_UP-%T%000003_R-%T%00000301" RefId="%AID%_UP-%T%000003" />
               <ParameterRef Id="%AID%_UP-%T%000004_R-%T%00000401" RefId="%AID%_UP-%T%000004" />
               <ParameterRef Id="%AID%_UP-%T%000005_R-%T%00000501" RefId="%AID%_UP-%T%000005" />
-              <ParameterRef Id="%AID%_UP-%T%000156_R-%T%00015601" RefId="%AID%_UP-%T%000156" />
               <ParameterRef Id="%AID%_UP-%T%000034_R-%T%00003401" RefId="%AID%_UP-%T%000034" />
               <!-- Parameter 3501 - 3601 - are enabled on generic page of target application -->
               <ParameterRef Id="%AID%_UP-%T%000035_R-%T%00003501" RefId="%AID%_UP-%T%000035" Access="None" />
@@ -1042,6 +1069,9 @@
               <ParameterRef Id="%AID%_UP-%T%000153_R-%T%00015301" RefId="%AID%_UP-%T%000153" />
               <ParameterRef Id="%AID%_UP-%T%000154_R-%T%00015401" RefId="%AID%_UP-%T%000154" />
               <ParameterRef Id="%AID%_UP-%T%000155_R-%T%00015501" RefId="%AID%_UP-%T%000155" />
+              <ParameterRef Id="%AID%_UP-%T%000156_R-%T%00015601" RefId="%AID%_UP-%T%000156" />
+              <ParameterRef Id="%AID%_UP-%T%000157_R-%T%00015701" RefId="%AID%_UP-%T%000157" />
+              <ParameterRef Id="%AID%_UP-%T%000158_R-%T%00015801" RefId="%AID%_UP-%T%000158" />
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="%AID%_O-%T%000001" Name="Heartbeat" Text="In Betrieb" Number="1" FunctionText="Zyklisch" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-2" />
@@ -1053,6 +1083,7 @@
               <ComObject Id="%AID%_O-%T%000007" Name="Diagnose" Text="Diagnose" Number="7" FunctionText="Diagnoseobjekt" ObjectSize="14 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-16-1" />
               <ComObject Id="%AID%_O-%T%000008" Name="LedLock" Text="LED sperren" Number="8" FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
               <ComObject Id="%AID%_O-%T%000009" Name="BuzzerLock" Text="Buzzer sperren" Number="9" FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
+              <ComObject Id="%AID%_O-%T%000010" Name="IsSummertime" Text="Sommerzeit aktiv" Number="10" FunctionText="Eingang" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Disabled" UpdateFlag="Enabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
             </ComObjectTable>
             <ComObjectRefs>
               <ComObjectRef Id="%AID%_O-%T%000001_R-%T%00000101" RefId="%AID%_O-%T%000001" />
@@ -1068,6 +1099,7 @@
               <ComObjectRef Id="%AID%_O-%T%000007_R-%T%00000701" RefId="%AID%_O-%T%000007" />
               <ComObjectRef Id="%AID%_O-%T%000008_R-%T%00000801" RefId="%AID%_O-%T%000008" />
               <ComObjectRef Id="%AID%_O-%T%000009_R-%T%00000901" RefId="%AID%_O-%T%000009" />
+              <ComObjectRef Id="%AID%_O-%T%000010_R-%T%00001001" RefId="%AID%_O-%T%000010" />
             </ComObjectRefs>
           </Static>
           <Dynamic>
@@ -1147,12 +1179,26 @@
               </ParameterBlock>
               <ParameterBlock Id="%AID%_PB-nnn" Name="Holidays" Text="Urlaub/Feiertage">
                 <ParameterSeparator Id="%AID%_PS-49" Text="Zeit" UIHint="Headline" />
-                <ParameterSeparator Id="%AID%_PS-47" Text="Damit der Sonnenauf- und Untergang korrekt berechnet werden kann, muss man genaue Geokoordinaten des Standorts angeben. Standardwert ist Frankfurt/Main." />
+                <ParameterSeparator Id="%AID%_PS-47" Text="Damit der Sonnenauf- und Untergang korrekt berechnet werden kann, muss man genaue Geokoordinaten des Standorts angeben. Standardwert ist Frankfurt/Main. Ferner wird die Zeitzone des Ortes benötigt und die Information, ob gerade die Sommerzeit aktiv ist." />
                 <ParameterRefRef RefId="%AID%_UP-%T%000142_R-%T%00014201" />
                 <ParameterRefRef RefId="%AID%_UP-%T%000143_R-%T%00014301" />
-                <ParameterSeparator Id="%AID%_PS-46" Text="Ferner wird die Zeitzone des Ortes benötigt und ob die Zeit auf dem Bus auch die Sommerzeit berücksichtigt." />
                 <ParameterRefRef RefId="%AID%_UP-%T%000144_R-%T%00014401" />
-                <ParameterRefRef RefId="%AID%_UP-%T%000145_R-%T%00014501" />
+                <choose ParamRefId="%AID%_UP-%T%000144_R-%T%00014401">
+                  <when test="!=1">
+                    <!-- Summertime active? -->
+                    <ComObjectRefRef RefId="%AID%_O-%T%000010_R-%T%00001001" />
+                  </when>
+                  <when test="1">
+                    <ParameterSeparator Id="%AID%_PS-46" Text="Die Information 'Sommerzeit aktiv' kann für Deutschland intern vom Logikmodul berechnet werden. Für alle anderen Länder/Zeitzonen kann die Sommerzeit über das KO 'Sommerzeit aktiv' dem Logikmodul mitgehteilt werden." />
+                    <ParameterRefRef RefId="%AID%_UP-%T%000145_R-%T%00014501" />
+                    <choose ParamRefId="%AID%_UP-%T%000145_R-%T%00014501">
+                      <when test="0">
+                        <!-- Summertime active? -->
+                        <ComObjectRefRef RefId="%AID%_O-%T%000010_R-%T%00001001" />
+                      </when>
+                    </choose>
+                  </when>
+                </choose>
                 <ParameterSeparator Id="%AID%_PS-48" Text="" UIHint="HorizontalRuler" />
                 <ParameterSeparator Id="%AID%_PS-50" Text="Urlaub" UIHint="Headline" />
                 <ParameterSeparator Id="%AID%_PS-51" Text="Zeitschaltuhren können auch Urlaubszeiten berücksichtigen. Damit das funktioniert, muss eine Urlaubszeit über das KO 4 dem Gerät mitgeteilt werden." />

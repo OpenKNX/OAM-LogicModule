@@ -19,8 +19,8 @@
 
 struct sTime
 {
-    uint8_t minute;
-    uint8_t hour;
+    int8_t minute;
+    int8_t hour;
 };
 
 struct sDay
@@ -48,6 +48,7 @@ class Timer
     // int8_t mTimezone;
     bool mUseSummertime;
     bool mIsSummertime;
+    bool mSummertimeFromKo = false;
     eTimeValid mTimeValid = tmInvalid;
     uint32_t mTimeDelay = 0;
     bool mMinuteChanged = false;
@@ -117,6 +118,7 @@ class Timer
     bool holidayChanged();
     void clearHolidayChanged();
     eTimeValid isTimerValid();
+    void summertimeFromKo(bool iValue);
 };
 
 /* A macro to compute the number of days elapsed since 2000 Jan 0.0 */

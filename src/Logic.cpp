@@ -162,6 +162,7 @@ void Logic::processReadRequests() {
         if (delayCheck(sDelay, 30000) && lValid != tmValid)
         {
             sDelay = millis();
+            knx.getGroupObject(LOG_KoIsSummertime).requestObjectRead();
             if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
                 // combined date and time
                 knx.getGroupObject(LOG_KoTime).requestObjectRead();
@@ -172,6 +173,12 @@ void Logic::processReadRequests() {
                 if (lValid != tmDateValid)
                     knx.getGroupObject(LOG_KoDate).requestObjectRead();
             }
+        }
+        // if date and/or time is known, we read also summertime information
+        if (sDelay > 0 && lValid == tmValid)
+        {
+            sDelay = 0;
+            knx.getGroupObject(LOG_KoIsSummertime).requestObjectRead();
         }
     }
 }
@@ -272,17 +279,19 @@ void Logic::processInputKo(GroupObject &iKo)
         lChannel->processInput(lKoLookup->ioIndex);
     }
     if (iKo.asap() == LOG_KoTime) {
-        if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+        if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
             struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
             sTimer.setDateTimeFromBus(&lTmp);
         } else {
             struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
             sTimer.setTimeFromBus(&lTmp);
         }
-    } else if (iKo.asap() == LOG_KoDate && !knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+    } else if (iKo.asap() == LOG_KoDate) {
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
-    } else if (iKo.asap() == LOG_Diagnose) {
+    } else if (iKo.asap() == LOG_KoIsSummertime) {
+        sTimer.summertimeFromKo(iKo.value(getDPT(VAL_DPT_1)));
+    } else if (iKo.asap() == LOG_KoDiagnose) {
         processDiagnoseCommand(iKo);
     }
 #ifdef BUZZER_PIN
@@ -477,7 +486,9 @@ void Logic::setup(bool iSaveSupported) {
         float lLat = LogicChannel::getFloat(knx.paramData(LOG_Latitude));
         float lLon = LogicChannel::getFloat(knx.paramData(LOG_Longitude));
         // sTimer.setup(8.639751, 49.310209, 1, true, 0xFFFFFFFF);
-        uint8_t lTimezone = (knx.paramByte(LOG_Timezone) & LOG_TimezoneMask) >> LOG_TimezoneShift;
+        bool lTimezoneSign = (knx.paramByte(LOG_TimezoneSign) & LOG_TimezoneSignMask) >> LOG_TimezoneSignShift;
+        int8_t lTimezone = (knx.paramByte(LOG_TimezoneValue) & LOG_TimezoneValueMask) >> LOG_TimezoneValueShift;
+        lTimezone = lTimezone * (lTimezoneSign ? -1 : 1);
         bool lUseSummertime = (knx.paramByte(LOG_UseSummertime) & LOG_UseSummertimeMask);
         sTimer.setup(lLon, lLat, lTimezone, lUseSummertime, knx.paramInt(LOG_Neujahr));
         // for TimerRestore we prepare all Timer channels
@@ -570,7 +581,7 @@ void Logic::sendHoliday() {
         knx.getGroupObject(LOG_KoHoliday1).valueNoSend(sTimer.holidayToday(), getDPT(VAL_DPT_5));
         knx.getGroupObject(LOG_KoHoliday2).valueNoSend(sTimer.holidayTomorrow(), getDPT(VAL_DPT_5));
         sTimer.clearHolidayChanged();
-        if (knx.paramByte(LOG_HolidaySend & LOG_HolidaySendMask)) {
+        if (knx.paramByte(LOG_HolidaySend) & LOG_HolidaySendMask) {
             // and send it, if requested by application setting
             knx.getGroupObject(LOG_KoHoliday1).objectWritten();
             knx.getGroupObject(LOG_KoHoliday2).objectWritten();

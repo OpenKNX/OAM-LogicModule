@@ -23,6 +23,16 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+30.12.2022: Firmware 1.2, Applikation 1.2
+
+* NEU: Datum und Zeit kann jetzt auch über DPT 19 (Datum/Zeit kombiniert) an das Logikmodul übertragen werden.
+* NEU: Es werden alle Zeitzonen für die Berechnung des Sonnenauf- und -untergangs unterstützt.
+* FIX: Die Berechnung vom Sonnenauf- und -untergang ist jetzt korrekt (danke an @dhb2002)
+* NEU: Neues Kommunikationsobjekt, mit dem man dem Logikmodul mitteilen kann, dass jetzt Sommerzeit aktiv ist (für Länder außerhalb Deutschlands notwendig).
+* FIX: Das Logikmodul (standalone) hat keine Leseanfragen für Zeit/Datum wiederholt, wenn die erste Leseanfrage nicht beantwortet wurde.
+* FIX: Das senden von Feiertagen auf den Bus wurde nicht durchgeführt (auch wenn in der Applikation eingestellt). Sie konnten aber schon immer per Read-Request gelesen werden (danke an Cornelius für den Fix).
+* FIX: Formelergebnisse, die als DPT 5.001 versendet werden sollten, waren falsch (neuer Bug in 1.1).
+
 27.12.2022: Firmware 1.1, Applikation 1.1
 
 * NEU: Es werden auch die DPT 12, 13 und 14 (4-Byte-Werte) sowohl am Ein- wie am Ausgang unterstützt.
@@ -42,7 +52,6 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
 * NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
 * NEU: Weitere Hardware verfügbar ([Siehe Unterstützte Hardware](#unterstützte-hardware))
-
 
 08.11.2022: Firmware 0.12.3, Applikation 0.12 (Beta-Release)
 
@@ -200,10 +209,7 @@ Ein Toreingang kann auch ein Impulseingang sein (reagiert nur auf 1, wobei Tor g
 
 Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt<sup>*)</sup>
 
-Senden von gespeicherten Werten nach einem Neustart<sup>*)</sup>
-
-<sup>*)</sup> **Wichtig:** Erst ab release 1.0 verfügbar
-
+Senden von gespeicherten Werten nach einem Neustart
 
 ## **Allgemeine Parameter**
 
@@ -228,9 +234,21 @@ Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hi
 
 Sollte hier eine 0 angegeben werden, wird kein "In Betrieb"-Signal gesendet und das KO 1 steht nicht zur Verfügung.
 
+### **Uhrzeit und Datum empfangen über**
+
+Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Dabei kann man wählen, ob man Uhrzeit über ein Kommunikationsobjekt und das Datum über ein anders empfangen will oder beides, Uhrzeit und Datum, über ein kombiniertes Kommunikationsobjekt.
+
+#### **Zwei getrennte KO Uhrzeit und Datum**
+
+Wählt man diesen Punkt, wird je ein Kommunikationsobjekt für Uhrzeit (DPT 10) und Datum (DPT 11) bereitgestellt. Der KNX-Zeitgeber im System muss die Uhrzeit und das Datum für die beiden Kommunikationsobjekte liefern können.
+
+#### **Ein kombiniertes KO Uhrzeit/Datum**
+
+Wählt man diesen Punkt, wir ein kombiniertes Kommunikationsobjekt für Uhrzeit/Datum (DPT 19) bereitgestellt. Der KNX-Zeitgeber im System muss die kombinierte Uhrzeit/Datum entsprechend liefern können.
+
 ### **Uhrzeit und Datum nach einem Neustart vom Bus lesen**
 
-Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
+Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
 
 Wenn dieser Parameter gesetzt ist, wird die Uhrzeit und das Datum alle 20-30 Sekunden über ein Lesetelegramm vom Bus gelesen, bis eine entsprechende Antwort kommt. Falls keine Uhr im KNX-System vorhanden ist oder die Uhr nicht auf Leseanfragen antworten kann, sollte dieser Parameter auf "Nein" gesetzt werden.
 
@@ -325,11 +343,15 @@ Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen
 
 <kbd>![Zeitangaben](pics/Zeit.PNG)</kbd>
 
-Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, ob eine Sommerzeitumschaltung intern vorgenommen werden soll.
+Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, gerade die Sommerzeit aktiv ist.
 
 Die Geo-Koordinaten können bei Google Maps nachgeschaut werden, indem man mit der rechten Maustaste auf das Objekt klickt und die unten erscheinenden Koordinaten benutzt.
 
 Die Standard-Koordinaten stehen für Frankfurt am Main, Innenstadt.
+
+Ob gerade die Sommerzeit aktiv ist, muss dem Logikmodul über ein eigenes Kommunikationsobjekt mitgeteilt werden. Diese Information wird benötigt, da für die Berechnung der Zeiten von Sonnenauf- und -untergang immer UTC berechnet werden muss. Da das Modul keine Möglichkeit hat, von sich aus zu erkennen, ob die empfangene Zeit eine Sommer- oder Winterzeit ist, muss dies über das Sommerzeit-Kommunikationsobjekt angegeben werden.
+
+> Ausnahme: Für Deutschland kann die Sommerzeit auch lokal vom Logikmodul berechnet werden.
 
 #### **Breitengrad**
 
@@ -341,19 +363,11 @@ In dem Feld wird der Längengrad des Standortes eingegeben.
 
 #### **Zeitzone**
 
-Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt. Es werden nur Zeitzonen für Europa angeboten.
+Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt.
 
-#### **Sommerzeit berücksichtigen**
+#### **Sommerzeit intern berechnen?**
 
-Mit einem "Ja" wird angegeben, dass die Umschaltung der Sommerzeit nicht vom Modul vorgenommen werden soll, sondern über den Bus auf dem KO 2 (Zeit) übertragen wird. Ein "Nein" führt zur internen Berechnung der Sommerzeit, das Modul geht davon aus, dass die Zeit auf dem Bus nicht die Sommerzeitverschiebung mitmacht (eher unüblich).
-
-Wichtig: Für alle Schaltvorgänge wird die Uhrzeit vom Bus genommen, diese sollte somit in Lokalzeit vorliegen und idealerweise auch die Sommerzeitverschiebung beinhalten. Die Angaben für Zeitzone und Sommerzeit werden benötigt, um die Berechnung der Sonnenauf- und -untergangszeit anzupassen, da diese normalerweise immer in UTC erfolgen.
-
-Wichtig: Sprünge in der von außen (über den Bus) vorgegebenen Zeit können vom Modul nicht erkannt und in irgendeiner Form berücksichtigt werden. Sollten also Modulzeit und Buszeit auseinanderlaufen (indem z.B. die Buszeit nur einmal pro Woche auf dem Bus ausgegeben wird), könnte es passieren, dass die Modulzeit z.B. um 10 Minuten zurückgesetzt wird. Schaltvorgänge, die in dieser Zeit erfolgt sind, werden dann erneut ausgeführt. Falls um 10 Minuten nach vorne gesprungen wird, werden die Zeiten übersprungen und nicht ausgeführt.
-
-Das eben gesagte macht sich besonders bei der Sommerzeitumstellung bemerkbar, da dabei gewollt um eine Stunde gesprungen wird!
-
-Empfehlung: Um solche "Sprung-" bzw. "Wiederholungseffekte" zu vermeiden, sollte man mindestens einmal pro Tag die Uhrzeit auf dem Bus ausgeben und an den Tagen der Sommerzeitumschaltung zwischen 2 und 3 Uhr morgens keine Schaltzeiten definieren.
+Für Deutschland kann das Logikmodul die Sommerzeit intern berechnen. Wird hier ein 'Ja' gewählt, wird anhand des Kalenderdatums berechnet, ob aktuell die Sommerzeit aktiv ist. Wird hier ein 'Nein' gewählt, wird das Kommunikationsobjekt "Sommerzeit aktiv" eingeblendet (wie auch bei allen anderen Zeitzonen). Über dieses Kommunikationsobjekt kann dem Logikmodul dann die Sommerzeit mitgeteilt werden.
 
 ### **Urlaub**
 
