@@ -88,7 +88,6 @@ void Timer::calculateSunriseSunset()
     sunRiseSet(getYear(), getMonth(), getDay(),
                mLongitude, mLatitude, -35.0 / 60.0, 1, &rise, &set);
             //    mLongitude, mLatitude, -50.0 / 60.0, 1, &rise, &set);
-    double lTmp;
     mSunrise.hour = (int)floor(rise);
     mSunrise.minute = (int)(60 * (rise - floor(rise)));
     mSunrise.hour += mTimezone + ((mIsSummertime) ? 1 : 0);
