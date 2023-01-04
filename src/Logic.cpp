@@ -281,6 +281,13 @@ void Logic::processInputKo(GroupObject &iKo)
     if (iKo.asap() == LOG_KoTime) {
         if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
             KNXValue value = ""; // TODO DPT19 check alternative
+
+            // Ignore when
+            // * not valid DPT19 telegram (mostly -> false)
+            // * Flag F (Fault) is set ([48]->false)
+            // * Flag NY (No Year) is set ([51]->false)
+            // * Flag ND (No Date) is set ([52]->false)
+            // * Flag NT (Fault) is set ([54]-> TODO false) TODO
             if (iKo.tryValue(value, getDPT(VAL_DPT_19))) {
                 struct tm lTmp = value;
                 sTimer.setDateTimeFromBus(&lTmp);
