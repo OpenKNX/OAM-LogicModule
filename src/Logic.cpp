@@ -370,7 +370,12 @@ bool Logic::processDiagnoseCommand() {
             // Command l<nn>: Logic inputs and output of last execution
             // find channel and dispatch
             uint8_t lIndex = (sDiagnoseBuffer[1] - '0') * 10 + sDiagnoseBuffer[2] - '0' - 1;
-            lResult = mChannel[lIndex]->processDiagnoseCommand(sDiagnoseBuffer);
+            if (lIndex < LOG_ChannelCount) {
+                lResult = mChannel[lIndex]->processDiagnoseCommand(sDiagnoseBuffer);
+            } else {
+                // ignore invalid channel
+                lResult = false;
+            }
             break;
         }
         case 't': {
