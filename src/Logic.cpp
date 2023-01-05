@@ -280,17 +280,35 @@ void Logic::processInputKo(GroupObject &iKo)
     }
     if (iKo.asap() == LOG_KoTime) {
         if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
-            KNXValue value = ""; // TODO DPT19 check alternative
+            KNXValue value = "";
 
-            // Ignore when
-            // * not valid DPT19 telegram (mostly -> false)
-            // * Flag F (Fault) is set ([48]->false)
-            // * Flag NY (No Year) is set ([51]->false)
-            // * Flag ND (No Date) is set ([52]->false)
-            // * Flag NT (Fault) is set ([54]-> TODO false) TODO
+            // first ensure we have a valid data-time content
+            // (including the correct length)
             if (iKo.tryValue(value, getDPT(VAL_DPT_19))) {
-                struct tm lTmp = value;
-                sTimer.setDateTimeFromBus(&lTmp);
+
+                // use raw value, as current version of knx do not provide access to all fields
+                // TODO DPT19: check integration of extended DPT19 access into knx or OpenKNX-Commons
+                // size is ensured to be 8 Byte
+                uint8_t *raw = iKo.valueRef();
+
+                const bool flagFault = raw[6] & 0x80;
+                // ignore working day (WD, NWD): raw[6] & 0x40, raw[6] & 0x20
+                const bool flagNoYear = raw[6] & 0x10;
+                const bool flagNoDate = raw[6] & 0x08;
+                // ignore NDOW: raw[6] & 0x04
+                const bool flagNoTime = raw[6] & 0x02;
+                const bool flagSuti = raw[6] & 0x01;
+                // ignore quality of clock (CLQ): raw[7] & 0x80
+                // ignore synchronisation source reliablity (SRC): raw[7] & 0x40
+
+                // only use telegrams with full date and time
+                if (!flagFault && !flagNoYear && !flagNoDate && !flagNoTime) {
+                    struct tm lTmp = value;
+                    sTimer.setDateTimeFromBus(&lTmp);
+
+                    // TODO use content of flagSuti
+                }
+
             }
         } else {
             struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
