@@ -502,6 +502,8 @@ void Logic::setup(bool iSaveSupported) {
 
 void Logic::loop()
 {
+    // static uint32_t sLogicLoopTime;
+
     if (!knx.configured())
         return;
 #ifdef WATCHDOG
@@ -512,9 +514,14 @@ void Logic::loop()
     }
 #endif
 
+    // sLogicLoopTime = millis();
     sTimer.loop(); // clock and timer async methods
+    // printDebug("sTimer.loop() takes: %i\n", millis() - sLogicLoopTime);
+    // sLogicLoopTime = millis();
     loopSubmodules();
+    // printDebug("loopSubmodules() takes: %i\n", millis() - sLogicLoopTime);
 
+    // sLogicLoopTime = millis();
     // we loop on all channels and execute pipeline
     for (uint8_t lIndex = 0; lIndex < mNumChannels && knx.configured(); lIndex++)
     {
@@ -522,14 +529,20 @@ void Logic::loop()
         if (sTimer.minuteChanged())
             lChannel->startTimerInput();
         lChannel->loop();
-        loopSubmodules();
+        // loopSubmodules(); // this leads to performance critical loop duration!!!
     }
+    // printDebug("channelLoop() takes: %i\n", millis() - sLogicLoopTime);
     if (sTimer.minuteChanged() && knx.configured()) {
+        // sLogicLoopTime = millis();
         sendHoliday();
         sTimer.clearMinuteChanged();
         loopSubmodules();
+        // printDebug("HolidayLoop() takes: %i\n", millis() - sLogicLoopTime);
     }
+    // sLogicLoopTime = millis();
     processTimerRestore();
+    // printDebug("TimerRestore() takes: %i\n", millis() - sLogicLoopTime);
+
 }
 
 const uint8_t *Logic::getFlash() 
