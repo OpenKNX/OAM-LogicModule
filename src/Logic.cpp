@@ -391,7 +391,7 @@ bool Logic::processDiagnoseCommand() {
             sTime *lSunrise = sTimer.getSunInfo(SUN_SUNRISE);
             sTime *lSunset = sTimer.getSunInfo(SUN_SUNSET);
             // this if prevents stupid warnings
-            if (lSunrise->hour < 24 && lSunrise->minute < 60 && lSunset->hour < 24 && lSunset->minute < 60)
+            if (lSunrise->hour >= 0 && lSunrise->hour < 24 && lSunrise->minute >= 0 && lSunrise->minute < 60 && lSunset->hour >= 0 && lSunset->hour < 24 && lSunset->minute >= 0 && lSunset->minute < 60)
                 snprintf(sDiagnoseBuffer, 15, "R%02d:%02d S%02d:%02d", lSunrise->hour, lSunrise->minute, lSunset->hour, lSunset->minute);
             lResult = true;
             break;
