@@ -163,7 +163,7 @@ void Logic::processReadRequests() {
         {
             sDelay = millis();
             knx.getGroupObject(LOG_KoIsSummertime).requestObjectRead();
-            if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+            if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
                 // combined date and time
                 knx.getGroupObject(LOG_KoTime).requestObjectRead();
             } else {
