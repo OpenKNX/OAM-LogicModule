@@ -291,6 +291,7 @@ void Logic::processInputKo(GroupObject &iKo)
                 // size is ensured to be 8 Byte
                 uint8_t *raw = iKo.valueRef();
 
+                /*
                 const bool flagFault = raw[6] & 0x80;
                 // ignore working day (WD, NWD): raw[6] & 0x40, raw[6] & 0x20
                 const bool flagNoYear = raw[6] & 0x10;
@@ -300,13 +301,19 @@ void Logic::processInputKo(GroupObject &iKo)
                 const bool flagSuti = raw[6] & 0x01;
                 // ignore quality of clock (CLQ): raw[7] & 0x80
                 // ignore synchronisation source reliablity (SRC): raw[7] & 0x40
+                */
 
-                // only use telegrams with full date and time
-                if (!flagFault && !flagNoYear && !flagNoDate && !flagNoTime) {
+                // ignore inputs with:
+                // * F - fault
+                // * NY - missing year
+                // * ND - missing date
+                // * NT - missing time
+                if (!(raw[6] & 0b10011010)) {
                     struct tm lTmp = value;
                     sTimer.setDateTimeFromBus(&lTmp);
 
-                    // TODO use content of flagSuti
+                    const bool flagSuti = raw[6] & 0x01;
+                    // TODO summertime state
                 }
 
             }
