@@ -280,8 +280,11 @@ void Logic::processInputKo(GroupObject &iKo)
     }
     if (iKo.asap() == LOG_KoTime) {
         if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
-            struct tm lTmp = iKo.value(getDPT(VAL_DPT_19));
-            sTimer.setDateTimeFromBus(&lTmp);
+            KNXValue value = ""; // TODO DPT19 check alternative
+            if (iKo.tryValue(value, getDPT(VAL_DPT_19))) {
+                struct tm lTmp = value;
+                sTimer.setDateTimeFromBus(&lTmp);
+            }
         } else {
             struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
             sTimer.setTimeFromBus(&lTmp);
