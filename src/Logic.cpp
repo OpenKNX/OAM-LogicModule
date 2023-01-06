@@ -321,8 +321,12 @@ void Logic::processInputKo(GroupObject &iKo)
             sTimer.setTimeFromBus(&lTmp);
         }
     } else if (iKo.asap() == LOG_KoDate) {
-        struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
-        sTimer.setDateFromBus(&lTmp);
+        KNXValue value = "";
+        // ensure we have a valid date content
+        if (iKo.tryValue(value, getDPT(VAL_DPT_11))) {
+            struct tm lTmp = value;
+            sTimer.setDateFromBus(&lTmp);
+        }
     } else if (iKo.asap() == LOG_KoIsSummertime) {
         sTimer.summertimeFromKo(iKo.value(getDPT(VAL_DPT_1)));
     } else if (iKo.asap() == LOG_KoDiagnose) {
