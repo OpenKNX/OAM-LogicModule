@@ -48,7 +48,6 @@ class Timer
     // int8_t mTimezone;
     bool mUseSummertime;
     bool mIsSummertime;
-    bool mSummertimeFromKo = false;
     eTimeValid mTimeValid = tmInvalid;
     uint32_t mTimeDelay = 0;
     bool mMinuteChanged = false;
@@ -118,7 +117,7 @@ class Timer
     bool holidayChanged();
     void clearHolidayChanged();
     eTimeValid isTimerValid();
-    void summertimeFromKo(bool iValue);
+    void setIsSummertime(bool iValue);
 };
 
 /* A macro to compute the number of days elapsed since 2000 Jan 0.0 */
@@ -146,3 +145,4 @@ class Timer
 #define asind(x) (RADEG * asin(x))
 #define acosd(x) (RADEG * acos(x))
 #define atan2d(y, x) (RADEG * atan2(y, x))
+e atan2d(y, x) (RADEG * atan2(y, x))

@@ -324,7 +324,7 @@ void Logic::processInputKo(GroupObject &iKo)
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
     } else if (iKo.asap() == LOG_KoIsSummertime) {
-        sTimer.summertimeFromKo(iKo.value(getDPT(VAL_DPT_1)));
+        sTimer.setIsSummertime(iKo.value(getDPT(VAL_DPT_1)));
     } else if (iKo.asap() == LOG_KoDiagnose) {
         processDiagnoseCommand(iKo);
     }

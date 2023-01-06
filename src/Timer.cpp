@@ -259,10 +259,13 @@ eTimeValid Timer::isTimerValid()
     return mTimeValid;
 }
 
-void Timer::summertimeFromKo(bool iValue)
+void Timer::setIsSummertime(bool iValue)
 {
-    mSummertimeFromKo = iValue;
-    mIsSummertime = iValue;
+    if (iValue != mIsSummertime)
+    {
+        calculateSunriseSunset();
+        mIsSummertime = iValue;
+    }
 }
 
 uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth)
@@ -278,7 +281,7 @@ uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth)
 void Timer::calculateSummertime()
 {
     // first we do easy win
-    mIsSummertime = false;
+    bool lIsSummertime = false;
     if (mUseSummertime)
     {
         if (getMonth() == 3)
@@ -288,11 +291,11 @@ void Timer::calculateSummertime()
             if (lLastSunday == mNow.tm_mday)
             {
                 // we have to take time into account
-                mIsSummertime = (mNow.tm_hour > 3);
+                lIsSummertime = (mNow.tm_hour > 3);
             }
             else
             {
-                mIsSummertime = (lLastSunday < mNow.tm_mday);
+                lIsSummertime = (lLastSunday < mNow.tm_mday);
             }
         }
         else if (getMonth() == 10)
@@ -309,21 +312,18 @@ void Timer::calculateSummertime()
                 // is called only once at 03:01. Currently just used
                 // for sunrise/sunset calculation, so calling
                 // time is no problem.
-                mIsSummertime = (mNow.tm_hour < 3);
+                lIsSummertime = (mNow.tm_hour < 3);
             }
             else
             {
-                mIsSummertime = (lLastSunday > mNow.tm_mday);
+                lIsSummertime = (lLastSunday > mNow.tm_mday);
             }
         }
         else
         {
-            mIsSummertime = (getMonth() > 3 && getMonth() < 10);
+            lIsSummertime = (getMonth() > 3 && getMonth() < 10);
         }
-    }
-    else
-    {
-        mIsSummertime = mSummertimeFromKo;
+        setIsSummertime(lIsSummertime);
     }
 }
 
