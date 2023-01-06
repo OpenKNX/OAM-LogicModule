@@ -554,11 +554,11 @@ Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinfluss
 * Zeitschaltuhr-Funktionen
 * tbc
 
-## **Logik n: unbenannt**
+## **Logik n: ...**
 
 Da alle Kanäle identisch sind, wird hier nur ein Kanal repräsentativ beschrieben. Das gesagte kann für alle Kanäle eingestellt werden.
 
-Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "unbenannt" lautet.
+Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "..." lautet.
 
 <kbd>![Baumansicht der Kanäle](pics/Kanalbaum.PNG)</kbd>
 
