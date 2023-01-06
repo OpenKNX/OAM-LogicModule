@@ -317,8 +317,12 @@ void Logic::processInputKo(GroupObject &iKo)
 
             }
         } else {
-            struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
-            sTimer.setTimeFromBus(&lTmp);
+            KNXValue value = "";
+            // ensure we have a valid time content
+            if (iKo.tryValue(value, getDPT(VAL_DPT_10))) {
+                struct tm lTmp = value;
+                sTimer.setTimeFromBus(&lTmp);
+            }   
         }
     } else if (iKo.asap() == LOG_KoDate) {
         KNXValue value = "";
