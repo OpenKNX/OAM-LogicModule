@@ -162,8 +162,7 @@ void Logic::processReadRequests() {
         if (delayCheck(sDelay, 30000) && lValid != tmValid)
         {
             sDelay = millis();
-            knx.getGroupObject(LOG_KoIsSummertime).requestObjectRead();
-            if (knx.paramBit(LOG_CombinedTimeDate, LOG_CombinedTimeDateShift)) {
+            if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
                 // combined date and time
                 knx.getGroupObject(LOG_KoTime).requestObjectRead();
             } else {
@@ -290,7 +289,7 @@ void Logic::processInputKo(GroupObject &iKo)
         struct tm lTmp = iKo.value(getDPT(VAL_DPT_11));
         sTimer.setDateFromBus(&lTmp);
     } else if (iKo.asap() == LOG_KoIsSummertime) {
-        sTimer.summertimeFromKo(iKo.value(getDPT(VAL_DPT_1)));
+        sTimer.setIsSummertime(iKo.value(getDPT(VAL_DPT_1)));
     } else if (iKo.asap() == LOG_KoDiagnose) {
         processDiagnoseCommand(iKo);
     }
