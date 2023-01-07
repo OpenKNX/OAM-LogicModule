@@ -23,9 +23,11 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-06.01.2023: Firmware 1.3, Applikation 1.3
+07.01.2023: Firmware 1.3, Applikation 1.3
 
-
+* FIX: Ungültige Datum- und Zeit-Telegramme werden ignoriert und stellen die Zeit nicht mehr auf unsinnige Werte
+* FIX: Ein Datum mit einem Jahr vor 2022 wird ignoriert, das hilft, wenn beim System-Neustart erst mal veraltete Datum-Telegramme verschickt werden
+* NEU: Sommerzeit kann nicht nur über ein KO gesetzt oder intern berechnet werden (gilt nur für Deutschland), sondern auch aus einem DPT19-Telegramm ermittelt werden, sofern der KNX-Zeitgeber das unterstützt.
 
 30.12.2022: Firmware 1.2, Applikation 1.2
 
@@ -347,15 +349,16 @@ Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen
 
 <kbd>![Zeitangaben](pics/Zeit.PNG)</kbd>
 
-Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, gerade die Sommerzeit aktiv ist.
+Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, ob gerade die Sommerzeit aktiv ist.
 
 Die Geo-Koordinaten können bei Google Maps nachgeschaut werden, indem man mit der rechten Maustaste auf das Objekt klickt und die unten erscheinenden Koordinaten benutzt.
 
 Die Standard-Koordinaten stehen für Frankfurt am Main, Innenstadt.
 
-Ob gerade die Sommerzeit aktiv ist, muss dem Logikmodul über ein eigenes Kommunikationsobjekt mitgeteilt werden. Diese Information wird benötigt, da für die Berechnung der Zeiten von Sonnenauf- und -untergang immer UTC berechnet werden muss. Da das Modul keine Möglichkeit hat, von sich aus zu erkennen, ob die empfangene Zeit eine Sommer- oder Winterzeit ist, muss dies über das Sommerzeit-Kommunikationsobjekt angegeben werden.
+Ob gerade die Sommerzeit aktiv ist, kann dem Logikmodul auf unterschiedliche Arten mitgeteilt werden. Diese Information wird benötigt, da für die Berechnung der Zeiten von Sonnenauf- und -untergang immer in UTC erfolgt. 
+Zu dieser UTC-Zeit wird dann entsprechend die Zeitzone und die Sommerzeit hinzuaddiert.
 
-> Ausnahme: Für Deutschland kann die Sommerzeit auch lokal vom Logikmodul berechnet werden.
+> Information: Für Deutschland kann die Sommerzeit auch lokal vom Logikmodul berechnet werden.
 
 #### **Breitengrad**
 
@@ -369,9 +372,25 @@ In dem Feld wird der Längengrad des Standortes eingegeben.
 
 Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt.
 
-#### **Sommerzeit intern berechnen?**
+#### **Sommerzeit ermitteln durch**
 
-Für Deutschland kann das Logikmodul die Sommerzeit intern berechnen. Wird hier ein 'Ja' gewählt, wird anhand des Kalenderdatums berechnet, ob aktuell die Sommerzeit aktiv ist. Wird hier ein 'Nein' gewählt, wird das Kommunikationsobjekt "Sommerzeit aktiv" eingeblendet (wie auch bei allen anderen Zeitzonen). Über dieses Kommunikationsobjekt kann dem Logikmodul dann die Sommerzeit mitgeteilt werden.
+Hier kann man eine der verfügbaren Möglichkeiten auswählen, mit der das Logikmodul ermitteln kann, ob gerade die Sommerzeit aktiv ist.
+
+##### **Kommunikationsobjekt 'Sommerzeit aktiv'**
+
+Wird diese Option ausgewählt, muss über das Kommunikationsobjekt 'Sommerzeit aktiv' dem Logikmodul mitgeteilt werden, ob gerade die Sommerzeit aktiv ist.
+
+##### **Kombiniertem Datum/Zeit-KO (DPT 19)**
+
+Erscheint nur, wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zeit-KO (DPT 19) gewählt worden ist.
+
+Wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zeit-KO (DPT 19) gewählt worden ist, kann dieses Zeittelegramm auch die Information enthalten, ob gerade die Sommerzeit aktiv ist. Wenn der Zeitgeber im System diese Information mit dem DPT 19-Telegramm mitschicken kann, sollte diese Option gewählt werden.
+
+##### **Interne Berechnung (nur für Deutschland)**
+
+Erscheint nur, wenn die Zeitzone 'Berlin' gewählt worden ist.
+
+Diese Option kann nur für Deutschland genutzt werden. Sie ist nicht zu verwenden, falls man in der selben Zeitzone wie Deutschland ist, aber in einem anderen Land.
 
 ### **Urlaub**
 
