@@ -84,6 +84,12 @@ void Timer::loop()
         mktime(&mNow);
         if (mTimeValid == tmValid)
         {
+            // prevent that a minute is missed, if an other hour is set with the same minute
+            if (mHourTick != mNow.tm_hour)
+            {
+                mHourTick = mNow.tm_hour;
+                mMinuteTick = -1;
+            }
             if (mMinuteTick != mNow.tm_min)
             {
                 mMinuteChanged = true;
@@ -159,7 +165,8 @@ void Timer::setDateFromBus(tm *iDate)
     mNow.tm_year = iDate->tm_year - 1900;
     mktime(&mNow);
     mTimeDelay = millis();
-    mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
+    if (mNow.tm_year >= MINYEAR-1900)
+        mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
 }
 
 void Timer::setDateTimeFromBus(tm *iDateTime)

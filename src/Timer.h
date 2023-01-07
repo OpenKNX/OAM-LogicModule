@@ -10,6 +10,8 @@
 #include <math.h>
 #include <ctime>
 
+#define MINYEAR 2022
+
 #define SUN_SUNRISE 0x00
 #define SUN_SUNSET 0x01
 
@@ -59,6 +61,7 @@ class Timer
     sDay mEaster = {0, 0}; // easter sunday
     sDay mAdvent = {0, 0}; // fourth advent
     int8_t mMinuteTick = -1;  // timer evaluation is called each time the minute changes
+    int8_t mHourTick = -1;    // timer evaluation is called each time the hour changes
     int8_t mDayTick = -1;     // sunrise/sunset calculation happens each time the day changes
     int16_t mYearTick = -1; // easter calculation happens each time year changes
 
@@ -145,4 +148,4 @@ class Timer
 #define asind(x) (RADEG * asin(x))
 #define acosd(x) (RADEG * acos(x))
 #define atan2d(y, x) (RADEG * atan2(y, x))
-e atan2d(y, x) (RADEG * atan2(y, x))
+#define atan2d(y, x) (RADEG * atan2(y, x))

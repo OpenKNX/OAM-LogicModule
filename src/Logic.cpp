@@ -307,14 +307,13 @@ void Logic::processInputKo(GroupObject &iKo)
                 // * NY - missing year
                 // * ND - missing date
                 // * NT - missing time
-                if (!(raw[6] & 0b10011010)) {
+                if (!(raw[6] & (DPT19_FAULT | DPT19_NO_YEAR | DPT19_NO_DATE | DPT19_NO_TIME))) {
                     struct tm lTmp = value;
                     sTimer.setDateTimeFromBus(&lTmp);
-
-                    const bool flagSuti = raw[6] & 0x01;
-                    // TODO summertime state
+                    const bool lSummertime = raw[6] & DPT19_SUMMERTIME;
+                    if (((knx.paramByte(LOG_SummertimeAll) & LOG_SummertimeAllMask) >> LOG_SummertimeAllShift) == VAL_STIM_FROM_DPT19)
+                        sTimer.setIsSummertime(lSummertime);
                 }
-
             }
         } else {
             struct tm lTmp = iKo.value(getDPT(VAL_DPT_10));
@@ -528,7 +527,7 @@ void Logic::setup(bool iSaveSupported) {
         bool lTimezoneSign = (knx.paramByte(LOG_TimezoneSign) & LOG_TimezoneSignMask) >> LOG_TimezoneSignShift;
         int8_t lTimezone = (knx.paramByte(LOG_TimezoneValue) & LOG_TimezoneValueMask) >> LOG_TimezoneValueShift;
         lTimezone = lTimezone * (lTimezoneSign ? -1 : 1);
-        bool lUseSummertime = (knx.paramByte(LOG_UseSummertime) & LOG_UseSummertimeMask);
+        bool lUseSummertime = (((knx.paramByte(LOG_SummertimeAll) & LOG_SummertimeAllMask) >> LOG_SummertimeAllShift) == VAL_STIM_FROM_INTERN);
         sTimer.setup(lLon, lLat, lTimezone, lUseSummertime, knx.paramInt(LOG_Neujahr));
         // for TimerRestore we prepare all Timer channels
         for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)

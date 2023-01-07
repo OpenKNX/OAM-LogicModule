@@ -14,6 +14,22 @@
 #define WDT_RCAUSE_EXT 4      // reset by reset signal
 #define WDT_RCAUSE_POR 0      // power on reset
 
+// DPT19 special flags
+#define DPT19_FAULT 0x80
+#define DPT19_WORKING_DAY 0x40
+#define DPT19_NO_WORKING_DAY 0x20
+#define DPT19_NO_YEAR 0x10
+#define DPT19_NO_DATE 0x08
+#define DPT19_NO_DAY_OF_WEEK 0x04
+#define DPT19_NO_TIME 0x02
+#define DPT19_SUMMERTIME 0x01
+
+// Values for Summertime
+#define VAL_STIM_FROM_KO 0
+#define VAL_STIM_FROM_DPT19 1
+#define VAL_STIM_FROM_INTERN 2
+
+
 typedef void (*loopCallback)(void *iThis);
 struct sLoopCallbackParams {
     loopCallback callback;

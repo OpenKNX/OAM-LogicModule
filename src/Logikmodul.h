@@ -23,9 +23,6 @@
 #define LOG_CombinedTimeDate           5      // 1 Bit, Bit 4
 #define     LOG_CombinedTimeDateMask 0x10
 #define     LOG_CombinedTimeDateShift 4
-#define LOG_UseSummertime              5      // 1 Bit, Bit 3
-#define     LOG_UseSummertimeMask 0x08
-#define     LOG_UseSummertimeShift 3
 #define LOG_VacationKo                 5      // 1 Bit, Bit 2
 #define     LOG_VacationKoMask 0x04
 #define     LOG_VacationKoShift 2
@@ -38,6 +35,18 @@
 #define LOG_HolidaySend                6      // 1 Bit, Bit 7
 #define     LOG_HolidaySendMask 0x80
 #define     LOG_HolidaySendShift 7
+#define LOG_SummertimeAll              6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeAllMask 0xC0
+#define     LOG_SummertimeAllShift 6
+#define LOG_SummertimeDE               6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeDEMask 0xC0
+#define     LOG_SummertimeDEShift 6
+#define LOG_SummertimeWorld            6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeWorldMask 0xC0
+#define     LOG_SummertimeWorldShift 6
+#define LOG_SummertimeKO               6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeKOMask 0xC0
+#define     LOG_SummertimeKOShift 6
 #define LOG_Diagnose                   6      // 1 Bit, Bit 3
 #define     LOG_DiagnoseMask 0x08
 #define     LOG_DiagnoseShift 3
@@ -872,5 +881,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 35
+#define MAIN_ApplicationVersion 38
 #define MAIN_OrderNumber "OpenKnxLogicDev"
