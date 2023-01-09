@@ -399,13 +399,42 @@ bool Logic::processDiagnoseCommand() {
             break;
         }
         case 'r': {
-            // return sunrise and sunset
-            sTime *lSunrise = sTimer.getSunInfo(SUN_SUNRISE);
-            sTime *lSunset = sTimer.getSunInfo(SUN_SUNSET);
-            // this if prevents stupid warnings
-            if (lSunrise->hour >= 0 && lSunrise->hour < 24 && lSunrise->minute >= 0 && lSunrise->minute < 60 && lSunset->hour >= 0 && lSunset->hour < 24 && lSunset->minute >= 0 && lSunset->minute < 60)
-                snprintf(sDiagnoseBuffer, 15, "R%02d:%02d S%02d:%02d", lSunrise->hour, lSunrise->minute, lSunset->hour, lSunset->minute);
-            lResult = true;
+            if (sDiagnoseBuffer[1] == 'e')
+            {
+                // return sunrise and sunset for a specific elevation teSDD,
+                // where S=Sign(+,-) and DD ist elevation in degree
+                int8_t lSign = 0;
+                if (sDiagnoseBuffer[2] == '-')
+                    lSign = -1;
+                else if (sDiagnoseBuffer[2] == '+')
+                    lSign = 1;
+                if (lSign == 0)
+                {
+                    snprintf(sDiagnoseBuffer, 15, "syntax: re+06");
+                }
+                else
+                {
+                    int8_t lDegree = ((sDiagnoseBuffer[3] - '0') * 10 + sDiagnoseBuffer[4] - '0') * lSign;
+                    sTime lSunrise;
+                    sTime lSunset;
+                    sTimer.getSunDegree(SUN_SUNRISE, lDegree, &lSunrise);
+                    sTimer.getSunDegree(SUN_SUNSET, lDegree, &lSunset);
+                    // this if prevents stupid warnings
+                    if (lSunrise.hour >= 0 && lSunrise.hour < 24 && lSunrise.minute >= 0 && lSunrise.minute < 60 && lSunset.hour >= 0 && lSunset.hour < 24 && lSunset.minute >= 0 && lSunset.minute < 60)
+                        snprintf(sDiagnoseBuffer, 15, "R%02d:%02d S%02d:%02d", lSunrise.hour, lSunrise.minute, lSunset.hour, lSunset.minute);
+                }
+                lResult = true;
+            }
+            else
+            {
+                // return sunrise and sunset
+                sTime *lSunrise = sTimer.getSunInfo(SUN_SUNRISE);
+                sTime *lSunset = sTimer.getSunInfo(SUN_SUNSET);
+                // this if prevents stupid warnings
+                if (lSunrise->hour >= 0 && lSunrise->hour < 24 && lSunrise->minute >= 0 && lSunrise->minute < 60 && lSunset->hour >= 0 && lSunset->hour < 24 && lSunset->minute >= 0 && lSunset->minute < 60)
+                    snprintf(sDiagnoseBuffer, 15, "R%02d:%02d S%02d:%02d", lSunrise->hour, lSunrise->minute, lSunset->hour, lSunset->minute);
+                lResult = true;
+            }
             break;
         }
         case 'o': {

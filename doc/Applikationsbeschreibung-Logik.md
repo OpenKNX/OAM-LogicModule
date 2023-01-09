@@ -23,6 +23,10 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+09.01.2023: Firmware 1.4, Applikation 1.4
+
+* NEU: Zeitschaltuhren können jetzt auch anhand des Sonnenstands (Elevation, Winkel zum Horizont) schalten.
+
 07.01.2023: Firmware 1.3, Applikation 1.3
 
 * FIX: Ungültige Datum- und Zeit-Telegramme werden ignoriert und stellen die Zeit nicht mehr auf unsinnige Werte

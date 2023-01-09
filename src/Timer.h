@@ -63,6 +63,7 @@ class Timer
     int8_t mMinuteTick = -1;  // timer evaluation is called each time the minute changes
     int8_t mHourTick = -1;    // timer evaluation is called each time the hour changes
     int8_t mDayTick = -1;     // sunrise/sunset calculation happens each time the day changes
+    int8_t mMonthTick = -1;   // sunrise/sunset calculation happens each time the month changes
     int16_t mYearTick = -1; // easter calculation happens each time year changes
 
     void calculateEaster();
@@ -108,6 +109,7 @@ class Timer
     uint8_t getSecond();
     uint8_t getWeekday();
     sTime *getSunInfo(uint8_t iSunInfo);
+    void getSunDegree(uint8_t iSunInfo, int8_t iDegree, sTime *eSun);
     sDay *getEaster();
     char *getTimeAsc();
     bool minuteChanged(); // true every minute
