@@ -403,18 +403,11 @@ bool Logic::processDiagnoseCommand() {
             {
                 // return sunrise and sunset for a specific elevation teSDD,
                 // where S=Sign(+,-) and DD ist elevation in degree
-                int8_t lSign = 0;
-                if (sDiagnoseBuffer[2] == '-')
-                    lSign = -1;
-                else if (sDiagnoseBuffer[2] == '+')
-                    lSign = 1;
-                if (lSign == 0)
+                if (sDiagnoseBuffer[2] == '-' || sDiagnoseBuffer[2] == '+')
                 {
-                    snprintf(sDiagnoseBuffer, 15, "syntax: re+06");
-                }
-                else
-                {
-                    int8_t lDegree = ((sDiagnoseBuffer[3] - '0') * 10 + sDiagnoseBuffer[4] - '0') * lSign;
+                    double lDegree = ((sDiagnoseBuffer[3] - '0') * 10 + sDiagnoseBuffer[4] - '0');
+                    uint8_t lMinute = ((sDiagnoseBuffer[5] - '0') * 10 + sDiagnoseBuffer[6] - '0'); 
+                    lDegree = (lDegree + lMinute / 60.0) * -(sDiagnoseBuffer[2] == '-');
                     sTime lSunrise;
                     sTime lSunset;
                     sTimer.getSunDegree(SUN_SUNRISE, lDegree, &lSunrise);
@@ -422,6 +415,10 @@ bool Logic::processDiagnoseCommand() {
                     // this if prevents stupid warnings
                     if (lSunrise.hour >= 0 && lSunrise.hour < 24 && lSunrise.minute >= 0 && lSunrise.minute < 60 && lSunset.hour >= 0 && lSunset.hour < 24 && lSunset.minute >= 0 && lSunset.minute < 60)
                         snprintf(sDiagnoseBuffer, 15, "R%02d:%02d S%02d:%02d", lSunrise.hour, lSunrise.minute, lSunset.hour, lSunset.minute);
+                }
+                else
+                {
+                    snprintf(sDiagnoseBuffer, 15, "TRY re-0600");
                 }
                 lResult = true;
             }

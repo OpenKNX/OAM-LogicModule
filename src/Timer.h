@@ -109,7 +109,7 @@ class Timer
     uint8_t getSecond();
     uint8_t getWeekday();
     sTime *getSunInfo(uint8_t iSunInfo);
-    void getSunDegree(uint8_t iSunInfo, int8_t iDegree, sTime *eSun);
+    void getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun);
     sDay *getEaster();
     char *getTimeAsc();
     bool minuteChanged(); // true every minute

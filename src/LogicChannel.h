@@ -166,8 +166,10 @@
 #define VAL_Tim_Sunset_Minus 9
 #define VAL_Tim_Sunset_Earliest 10
 #define VAL_Tim_Sunset_Latest 11
-#define VAL_Tim_Sunrise_Degree 12
-#define VAL_Tim_Sunset_Degree 13
+#define VAL_Tim_Sunrise_DegreeUp 12
+#define VAL_Tim_Sunset_DegreeUp 13
+#define VAL_Tim_Sunrise_DegreeDown 14
+#define VAL_Tim_Sunset_DegreeDown 15
 
 #define VAL_Tim_Restore_No 0
 #define VAL_Tim_Restore_Last 1
@@ -275,12 +277,12 @@ class LogicChannel
     bool checkPointInTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
     bool checkSunAbs(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iMinus);
     bool checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
-    bool checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
+    bool checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown);
     int16_t getTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, uint8_t iHour, uint8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
     int16_t getPointInTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
     int16_t getSunAbs(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iMinus);
     int16_t getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
-    int16_t getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
+    int16_t getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown);
     // uint32_t getTimerNow(bool iMidnight);
     void processTimerRestoreState(TimerRestore &iTimer);
 

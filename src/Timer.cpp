@@ -237,7 +237,7 @@ sTime *Timer::getSunInfo(uint8_t iSunInfo)
         return NULL;
 }
 
-void Timer::getSunDegree(uint8_t iSunInfo, int8_t iDegree, sTime *eSun)
+void Timer::getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun)
 {
     double rise, set;
     // sunrise/sunset calculation

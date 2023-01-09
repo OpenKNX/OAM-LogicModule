@@ -642,108 +642,20 @@
                   <Enumeration Text="Sonnenaufgang: Frühestens um..." Value="6" Id="%AID%_PT-DuskDawn_EN-6" />
                   <Enumeration Text="Sonnenaufgang: Spätestens um..." Value="7" Id="%AID%_PT-DuskDawn_EN-7" />
                   <Enumeration Text="Sonnenaufgang: Über Horizont..." Value="12" Id="%AID%_PT-DuskDawn_EN-12" />
+                  <Enumeration Text="Sonnenaufgang: Unter Horizont..." Value="14" Id="%AID%_PT-DuskDawn_EN-14" />
                   <Enumeration Text="Sonnenuntergang: plus Zeitversatz" Value="8" Id="%AID%_PT-DuskDawn_EN-8" />
                   <Enumeration Text="Sonnenuntergang: minus Zeitversatz" Value="9" Id="%AID%_PT-DuskDawn_EN-9" />
                   <Enumeration Text="Sonnenuntergang: Frühestens um..." Value="10" Id="%AID%_PT-DuskDawn_EN-10" />
                   <Enumeration Text="Sonnenuntergang: Spätestens um..." Value="11" Id="%AID%_PT-DuskDawn_EN-11" />
                   <Enumeration Text="Sonnenuntergang: Über Horizont..." Value="13" Id="%AID%_PT-DuskDawn_EN-13" />
+                  <Enumeration Text="Sonnenuntergang: Unter Horizont..." Value="15" Id="%AID%_PT-DuskDawn_EN-15" />
                 </TypeRestriction>
               </ParameterType>
               <!-- <ParameterType Id="%AID%_PT-Degree" Name="Degree">
                 <TypeNumber SizeInBit="8" Type="signedInt" minInclusive="-90" maxInclusive="90" />
               </ParameterType> -->
               <ParameterType Id="%AID%_PT-Degree" Name="Degree">
-                <TypeRestriction Base="Value" SizeInBit="8">
-                  <Enumeration Text="-90°" Value="166" Id="%AID%_PT-Degree_EN-165" />
-                  <Enumeration Text="-89°" Value="167" Id="%AID%_PT-Degree_EN-166" />
-                  <Enumeration Text="-88°" Value="168" Id="%AID%_PT-Degree_EN-167" />
-                  <Enumeration Text="-87°" Value="169" Id="%AID%_PT-Degree_EN-168" />
-                  <Enumeration Text="-86°" Value="170" Id="%AID%_PT-Degree_EN-169" />
-                  <Enumeration Text="-85°" Value="171" Id="%AID%_PT-Degree_EN-170" />
-                  <Enumeration Text="-84°" Value="172" Id="%AID%_PT-Degree_EN-171" />
-                  <Enumeration Text="-83°" Value="173" Id="%AID%_PT-Degree_EN-172" />
-                  <Enumeration Text="-82°" Value="174" Id="%AID%_PT-Degree_EN-173" />
-                  <Enumeration Text="-81°" Value="175" Id="%AID%_PT-Degree_EN-174" />
-                  <Enumeration Text="-80°" Value="176" Id="%AID%_PT-Degree_EN-175" />
-                  <Enumeration Text="-79°" Value="177" Id="%AID%_PT-Degree_EN-176" />
-                  <Enumeration Text="-78°" Value="178" Id="%AID%_PT-Degree_EN-177" />
-                  <Enumeration Text="-77°" Value="179" Id="%AID%_PT-Degree_EN-178" />
-                  <Enumeration Text="-76°" Value="180" Id="%AID%_PT-Degree_EN-179" />
-                  <Enumeration Text="-75°" Value="181" Id="%AID%_PT-Degree_EN-180" />
-                  <Enumeration Text="-74°" Value="182" Id="%AID%_PT-Degree_EN-181" />
-                  <Enumeration Text="-73°" Value="183" Id="%AID%_PT-Degree_EN-182" />
-                  <Enumeration Text="-72°" Value="184" Id="%AID%_PT-Degree_EN-183" />
-                  <Enumeration Text="-71°" Value="185" Id="%AID%_PT-Degree_EN-184" />
-                  <Enumeration Text="-70°" Value="186" Id="%AID%_PT-Degree_EN-185" />
-                  <Enumeration Text="-69°" Value="187" Id="%AID%_PT-Degree_EN-186" />
-                  <Enumeration Text="-68°" Value="188" Id="%AID%_PT-Degree_EN-187" />
-                  <Enumeration Text="-67°" Value="189" Id="%AID%_PT-Degree_EN-188" />
-                  <Enumeration Text="-66°" Value="190" Id="%AID%_PT-Degree_EN-189" />
-                  <Enumeration Text="-65°" Value="191" Id="%AID%_PT-Degree_EN-190" />
-                  <Enumeration Text="-64°" Value="192" Id="%AID%_PT-Degree_EN-191" />
-                  <Enumeration Text="-63°" Value="193" Id="%AID%_PT-Degree_EN-192" />
-                  <Enumeration Text="-62°" Value="194" Id="%AID%_PT-Degree_EN-193" />
-                  <Enumeration Text="-61°" Value="195" Id="%AID%_PT-Degree_EN-194" />
-                  <Enumeration Text="-60°" Value="196" Id="%AID%_PT-Degree_EN-195" />
-                  <Enumeration Text="-59°" Value="197" Id="%AID%_PT-Degree_EN-196" />
-                  <Enumeration Text="-58°" Value="198" Id="%AID%_PT-Degree_EN-197" />
-                  <Enumeration Text="-57°" Value="199" Id="%AID%_PT-Degree_EN-198" />
-                  <Enumeration Text="-56°" Value="200" Id="%AID%_PT-Degree_EN-199" />
-                  <Enumeration Text="-55°" Value="201" Id="%AID%_PT-Degree_EN-200" />
-                  <Enumeration Text="-54°" Value="202" Id="%AID%_PT-Degree_EN-201" />
-                  <Enumeration Text="-53°" Value="203" Id="%AID%_PT-Degree_EN-202" />
-                  <Enumeration Text="-52°" Value="204" Id="%AID%_PT-Degree_EN-203" />
-                  <Enumeration Text="-51°" Value="205" Id="%AID%_PT-Degree_EN-204" />
-                  <Enumeration Text="-50°" Value="206" Id="%AID%_PT-Degree_EN-205" />
-                  <Enumeration Text="-49°" Value="207" Id="%AID%_PT-Degree_EN-206" />
-                  <Enumeration Text="-48°" Value="208" Id="%AID%_PT-Degree_EN-207" />
-                  <Enumeration Text="-47°" Value="209" Id="%AID%_PT-Degree_EN-208" />
-                  <Enumeration Text="-46°" Value="210" Id="%AID%_PT-Degree_EN-209" />
-                  <Enumeration Text="-45°" Value="211" Id="%AID%_PT-Degree_EN-210" />
-                  <Enumeration Text="-44°" Value="212" Id="%AID%_PT-Degree_EN-211" />
-                  <Enumeration Text="-43°" Value="213" Id="%AID%_PT-Degree_EN-212" />
-                  <Enumeration Text="-42°" Value="214" Id="%AID%_PT-Degree_EN-213" />
-                  <Enumeration Text="-41°" Value="215" Id="%AID%_PT-Degree_EN-214" />
-                  <Enumeration Text="-40°" Value="216" Id="%AID%_PT-Degree_EN-215" />
-                  <Enumeration Text="-39°" Value="217" Id="%AID%_PT-Degree_EN-216" />
-                  <Enumeration Text="-38°" Value="218" Id="%AID%_PT-Degree_EN-217" />
-                  <Enumeration Text="-37°" Value="219" Id="%AID%_PT-Degree_EN-218" />
-                  <Enumeration Text="-36°" Value="220" Id="%AID%_PT-Degree_EN-219" />
-                  <Enumeration Text="-35°" Value="221" Id="%AID%_PT-Degree_EN-220" />
-                  <Enumeration Text="-34°" Value="222" Id="%AID%_PT-Degree_EN-221" />
-                  <Enumeration Text="-33°" Value="223" Id="%AID%_PT-Degree_EN-222" />
-                  <Enumeration Text="-32°" Value="224" Id="%AID%_PT-Degree_EN-223" />
-                  <Enumeration Text="-31°" Value="225" Id="%AID%_PT-Degree_EN-224" />
-                  <Enumeration Text="-30°" Value="226" Id="%AID%_PT-Degree_EN-225" />
-                  <Enumeration Text="-29°" Value="227" Id="%AID%_PT-Degree_EN-226" />
-                  <Enumeration Text="-28°" Value="228" Id="%AID%_PT-Degree_EN-227" />
-                  <Enumeration Text="-27°" Value="229" Id="%AID%_PT-Degree_EN-228" />
-                  <Enumeration Text="-26°" Value="230" Id="%AID%_PT-Degree_EN-229" />
-                  <Enumeration Text="-25°" Value="231" Id="%AID%_PT-Degree_EN-230" />
-                  <Enumeration Text="-24°" Value="232" Id="%AID%_PT-Degree_EN-231" />
-                  <Enumeration Text="-23°" Value="233" Id="%AID%_PT-Degree_EN-232" />
-                  <Enumeration Text="-22°" Value="234" Id="%AID%_PT-Degree_EN-233" />
-                  <Enumeration Text="-21°" Value="235" Id="%AID%_PT-Degree_EN-234" />
-                  <Enumeration Text="-20°" Value="236" Id="%AID%_PT-Degree_EN-235" />
-                  <Enumeration Text="-19°" Value="237" Id="%AID%_PT-Degree_EN-236" />
-                  <Enumeration Text="-18°" Value="238" Id="%AID%_PT-Degree_EN-237" />
-                  <Enumeration Text="-17°" Value="239" Id="%AID%_PT-Degree_EN-238" />
-                  <Enumeration Text="-16°" Value="240" Id="%AID%_PT-Degree_EN-239" />
-                  <Enumeration Text="-15°" Value="241" Id="%AID%_PT-Degree_EN-240" />
-                  <Enumeration Text="-14°" Value="242" Id="%AID%_PT-Degree_EN-241" />
-                  <Enumeration Text="-13°" Value="243" Id="%AID%_PT-Degree_EN-242" />
-                  <Enumeration Text="-12°" Value="244" Id="%AID%_PT-Degree_EN-243" />
-                  <Enumeration Text="-11°" Value="245" Id="%AID%_PT-Degree_EN-244" />
-                  <Enumeration Text="-10°" Value="246" Id="%AID%_PT-Degree_EN-245" />
-                  <Enumeration Text="-9°" Value="247" Id="%AID%_PT-Degree_EN-246" />
-                  <Enumeration Text="-8°" Value="248" Id="%AID%_PT-Degree_EN-247" />
-                  <Enumeration Text="-7°" Value="249" Id="%AID%_PT-Degree_EN-248" />
-                  <Enumeration Text="-6°" Value="250" Id="%AID%_PT-Degree_EN-249" />
-                  <Enumeration Text="-5°" Value="251" Id="%AID%_PT-Degree_EN-251" />
-                  <Enumeration Text="-4°" Value="252" Id="%AID%_PT-Degree_EN-252" />
-                  <Enumeration Text="-3°" Value="253" Id="%AID%_PT-Degree_EN-253" />
-                  <Enumeration Text="-2°" Value="254" Id="%AID%_PT-Degree_EN-254" />
-                  <Enumeration Text="-1°" Value="255" Id="%AID%_PT-Degree_EN-255" />
+                <TypeRestriction Base="Value" SizeInBit="6">
                   <Enumeration Text="0°" Value="0" Id="%AID%_PT-Degree_EN-0" />
                   <Enumeration Text="1°" Value="1" Id="%AID%_PT-Degree_EN-1" />
                   <Enumeration Text="2°" Value="2" Id="%AID%_PT-Degree_EN-2" />
@@ -808,33 +720,6 @@
                   <Enumeration Text="61°" Value="61" Id="%AID%_PT-Degree_EN-61" />
                   <Enumeration Text="62°" Value="62" Id="%AID%_PT-Degree_EN-62" />
                   <Enumeration Text="63°" Value="63" Id="%AID%_PT-Degree_EN-63" />
-                  <Enumeration Text="64°" Value="64" Id="%AID%_PT-Degree_EN-64" />
-                  <Enumeration Text="65°" Value="65" Id="%AID%_PT-Degree_EN-65" />
-                  <Enumeration Text="66°" Value="66" Id="%AID%_PT-Degree_EN-66" />
-                  <Enumeration Text="67°" Value="67" Id="%AID%_PT-Degree_EN-67" />
-                  <Enumeration Text="68°" Value="68" Id="%AID%_PT-Degree_EN-68" />
-                  <Enumeration Text="69°" Value="69" Id="%AID%_PT-Degree_EN-69" />
-                  <Enumeration Text="70°" Value="70" Id="%AID%_PT-Degree_EN-70" />
-                  <Enumeration Text="71°" Value="71" Id="%AID%_PT-Degree_EN-71" />
-                  <Enumeration Text="72°" Value="72" Id="%AID%_PT-Degree_EN-72" />
-                  <Enumeration Text="73°" Value="73" Id="%AID%_PT-Degree_EN-73" />
-                  <Enumeration Text="74°" Value="74" Id="%AID%_PT-Degree_EN-74" />
-                  <Enumeration Text="75°" Value="75" Id="%AID%_PT-Degree_EN-75" />
-                  <Enumeration Text="76°" Value="76" Id="%AID%_PT-Degree_EN-76" />
-                  <Enumeration Text="77°" Value="77" Id="%AID%_PT-Degree_EN-77" />
-                  <Enumeration Text="78°" Value="78" Id="%AID%_PT-Degree_EN-78" />
-                  <Enumeration Text="79°" Value="79" Id="%AID%_PT-Degree_EN-79" />
-                  <Enumeration Text="80°" Value="80" Id="%AID%_PT-Degree_EN-80" />
-                  <Enumeration Text="81°" Value="81" Id="%AID%_PT-Degree_EN-81" />
-                  <Enumeration Text="82°" Value="82" Id="%AID%_PT-Degree_EN-82" />
-                  <Enumeration Text="83°" Value="83" Id="%AID%_PT-Degree_EN-83" />
-                  <Enumeration Text="84°" Value="84" Id="%AID%_PT-Degree_EN-84" />
-                  <Enumeration Text="85°" Value="85" Id="%AID%_PT-Degree_EN-85" />
-                  <Enumeration Text="86°" Value="86" Id="%AID%_PT-Degree_EN-86" />
-                  <Enumeration Text="87°" Value="87" Id="%AID%_PT-Degree_EN-87" />
-                  <Enumeration Text="88°" Value="88" Id="%AID%_PT-Degree_EN-88" />
-                  <Enumeration Text="89°" Value="89" Id="%AID%_PT-Degree_EN-89" />
-                  <Enumeration Text="90°" Value="90" Id="%AID%_PT-Degree_EN-90" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="%AID%_PT-Minute" Name="Minute">

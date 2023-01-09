@@ -2242,11 +2242,17 @@ void LogicChannel::processTimerInput()
                         case VAL_Tim_Sunset_Latest:
                             lResult = checkSunLimit(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                             break;
-                        case VAL_Tim_Sunrise_Degree:
-                            lResult = checkSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday);
+                        case VAL_Tim_Sunrise_DegreeUp:
+                            lResult = checkSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                             break;
-                        case VAL_Tim_Sunset_Degree:
-                            lResult = checkSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday);
+                        case VAL_Tim_Sunset_DegreeUp:
+                            lResult = checkSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
+                            break;
+                        case VAL_Tim_Sunrise_DegreeDown:
+                            lResult = checkSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                            break;
+                        case VAL_Tim_Sunset_DegreeDown:
+                            lResult = checkSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                             break;
                         default:
                             break;
@@ -2398,11 +2404,12 @@ bool LogicChannel::checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimer
     return lResult;
 }
 
-bool LogicChannel::checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday)
+bool LogicChannel::checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
 {
-    int8_t lDegree = ((iBitfield & 0x3FC0) >> 6);
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
     sTime lTime;
-    iTimer.getSunDegree(iSunInfo, lDegree, &lTime);
+    iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
     bool lResult = checkTimerTime(iTimer, iTimerIndex, iBitfield, lTime.hour, lTime.minute, iSkipWeekday, iHandleAsSunday);
     return lResult;
 }
@@ -2543,15 +2550,25 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
                         if (lCurrentResult > -1)
                             printDebug("TimerRestore: Found SunsetLatest %04d with value %d\n", lCurrentResult, lCurrentValue);
                         break;
-                    case VAL_Tim_Sunrise_Degree:
-                        lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday);
+                    case VAL_Tim_Sunrise_DegreeUp:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseDegree %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            printDebug("TimerRestore: Found SunriseDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
                         break;
-                    case VAL_Tim_Sunset_Degree:
-                        lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday);
+                    case VAL_Tim_Sunset_DegreeUp:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetDegree %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            printDebug("TimerRestore: Found SunsetDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
+                    case VAL_Tim_Sunrise_DegreeDown:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunriseDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
+                    case VAL_Tim_Sunset_DegreeDown:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunsetDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
                         break;
                     default:
                         break;
@@ -2633,11 +2650,12 @@ int16_t LogicChannel::getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTime
     return lResult;
 }
 
-int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday)
+int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
 {
-    int8_t lDegree = ((iBitfield & 0x3FC0) >> 6);
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
     sTime lTime;
-    iTimer.getSunDegree(iSunInfo, lDegree, &lTime);
+    iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
     int16_t lResult = getTimerTime(iTimer, iTimerIndex, iBitfield, lTime.hour, lTime.minute, iSkipWeekday, iHandleAsSunday);
     return lResult;
 }
