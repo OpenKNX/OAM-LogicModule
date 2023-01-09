@@ -25,7 +25,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 09.01.2023: Firmware 1.4, Applikation 1.4
 
-* NEU: Zeitschaltuhren können jetzt auch anhand des Sonnenstands (Elevation, Winkel zum Horizont) schalten.
+* NEU: Zeitschaltuhren können jetzt auch anhand des Sonnenstands (Elevation, Winkel unter/über dem Horizont) schalten.
 
 07.01.2023: Firmware 1.3, Applikation 1.3
 
@@ -201,6 +201,7 @@ Zeitschaltuhren
 * Sonnenstandsbezogene Schaltzeiten:
 * Sonnenauf-/-untergang +/- Stunden/Minuten
 * Sonnenauf-/-untergang, aber frühstens/spätestens um ...
+* Sonnenauf-/-untergang, mit Angabe des Sonnenstands als Winkel über/unter dem Horizont
 * Jede Stunde zu bestimmten Minuten schalten
 * Jeder Schaltvorgang kann dann wie bei jedem Logikkanal auch alle Ausgangsfunktionen haben
 * Beim Neustart des Logikmoduls den zeitlich letzten Schaltzeitpunkt berechnen und erneut ausgeben
@@ -390,6 +391,7 @@ Erscheint nur, wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zei
 
 Wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zeit-KO (DPT 19) gewählt worden ist, kann dieses Zeittelegramm auch die Information enthalten, ob gerade die Sommerzeit aktiv ist. Wenn der Zeitgeber im System diese Information mit dem DPT 19-Telegramm mitschicken kann, sollte diese Option gewählt werden.
 
+Nach bisherigen Tests ist uns nur das MDT-IP-Interface 
 ##### **Interne Berechnung (nur für Deutschland)**
 
 Erscheint nur, wenn die Zeitzone 'Berlin' gewählt worden ist.
@@ -487,6 +489,7 @@ Neben absoluten Zeitpunkten sind auch relative Zeitpunkte möglich:
 * Zeitversatz (Stunde:Minute) relativ zum Sonnenauf-/-untergang
 * Sonnenauf-/-untergang, aber frühstens um Zeitpunkt (Stunde:Minute)
 * Sonnenauf-/-untergang, aber spätestens um Zeitpunkt (Stunde:Minute)
+* Sonnenauf-/-untergang, mit Angabe des Sonnenstands als Winkel über/unter dem Horizont
 
 Für die korrekte Berechnung von Sonnenauf- und -untergangszeit muss das Modul die korrekten Geokoordinaten (Standort) des Hauses wissen, wie auch die Zeitzone und ob es an diesem Ort eine Sommerzeitumschaltung gibt. Diese Informationen muss man für die korrekte Funktion einstellen.
 
@@ -1261,6 +1264,14 @@ Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten S
 
 Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit auf, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenaufgang. Es wird somit beim Sonnenaufgang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
+#### **Sonnenaufgang: Über Horizont**
+
+Der Schaltzeitpunkt ist morgens, sobald die Sonne den Winkel über dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+#### **Sonnenaufgang: Unter Horizont**
+
+Der Schaltzeitpunkt ist morgens, sobald die Sonne den Winkel unter dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
 #### **Sonnenuntergang: plus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenuntergang, zu dem die Zeitangabe, die in den Spalten Stunde und Minute steht, hinzuaddiert wird. Es wird somit um die angegebenen Stunden und Minuten nach Sonnenuntergang geschaltet.
@@ -1277,13 +1288,23 @@ Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten
 
 Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit unter, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenuntergang. Es wird somit beim Sonnenuntergang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
-### **Spalte: Stunde**
+#### **Sonnenuntergang: Über Horizont**
+
+Der Schaltzeitpunkt ist abends, sobald die Sonne den Winkel über dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+#### **Sonnenuntergang: Unter Horizont**
+
+Der Schaltzeitpunkt ist abends, sobald die Sonne den Winkel unter dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+### **Spalte: Stunde/Grad**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
 In dieser Spalte werden Stunden eingestellt, entweder als absolute Uhrzeit oder als Versatz zum Sonnenauf- oder -untergang.
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Stunde ausgeführt, natürlich unter Berücksichtigung der angegebenen Minuten. So kann man stündlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
+
+Bei Sonnenstandsangaben (Winkel über/unter dem Horizont) wird in dieser Spalte der Winkel angegeben.
 
 ### **Spalte: Minute**
 
@@ -1292,6 +1313,8 @@ Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 In dieser Spalte werden Minuten eingestellt, entweder als absolute Uhrzeit oder als Versatz zum Sonnenauf- oder -untergang.
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Minute ausgeführt, natürlich unter Berücksichtigung der angegebenen Stunde. So kann man minütlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
+
+Bei Sonnenstandsangaben (Winkel über/unter dem Horizont) wird in dieser Spalte der Winkelbruchteil in (Winkel-)Minuten angegeben.
 
 ### **Spalte: Wert**
 
