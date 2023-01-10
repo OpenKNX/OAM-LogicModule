@@ -98,11 +98,12 @@ void Timer::loop()
                 if (mUseSummertime && (getMonth() == 3 || getMonth() == 10) && getHour() == 3 && getMinute() == 1)
                     calculateSummertime();
             }
-            // Ensure that a changed moth causes a recalculation of all static dates/times
+            // Ensure that a changed month causes a recalculation of all static dates/times
             if (mMonthTick != mNow.tm_mon)
             {
                 mMonthTick = mNow.tm_mon;
                 mYearTick = -1;
+                mDayTick = -1;
             }
             if (mYearTick != mNow.tm_year)
             {
@@ -124,19 +125,22 @@ void Timer::loop()
     }
 }
 
+void Timer::convertToLocalTime(double iTime, sTime *eTime)
+{
+    eTime->hour = (int)floor(iTime);
+    eTime->minute = (int)(60 * (iTime - floor(iTime)));
+    eTime->hour += mTimezone + ((mIsSummertime) ? 1 : 0);
+}
+
 void Timer::calculateSunriseSunset()
 {
     double rise, set;
     // sunrise/sunset calculation
     sunRiseSet(getYear(), getMonth(), getDay(),
-               mLongitude, mLatitude, -50.0 / 60.0, 0, &rise, &set);
+               mLongitude, mLatitude, -50.0 / 60.0, 1, &rise, &set);
             //    mLongitude, mLatitude, -50.0 / 60.0, 1, &rise, &set);
-    mSunrise.hour = (int)floor(rise);
-    mSunrise.minute = (int)(60 * (rise - floor(rise)));
-    mSunrise.hour += mTimezone + ((mIsSummertime) ? 1 : 0);
-    mSunset.hour = (int)floor(set);
-    mSunset.minute = (int)(60 * (set - floor(set)));
-    mSunset.hour += mTimezone + ((mIsSummertime) ? 1 : 0);
+    convertToLocalTime(rise, &mSunrise);
+    convertToLocalTime(set, &mSunset);
 }
 
 void Timer::setTimeFromBus(tm *iTime)
@@ -242,19 +246,11 @@ void Timer::getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun)
     double rise, set;
     // sunrise/sunset calculation
     sunRiseSet(getYear(), getMonth(), getDay(),
-               mLongitude, mLatitude, iDegree, 0, &rise, &set);
+               mLongitude, mLatitude, iDegree, 1, &rise, &set);
     if (iSunInfo == SUN_SUNRISE)
-    {
-        eSun->hour = (int)floor(rise);
-        eSun->minute = (int)(60 * (rise - floor(rise)));
-        eSun->hour += mTimezone + ((mIsSummertime) ? 1 : 0);
-    } 
+        convertToLocalTime(rise, eSun);
     else if (iSunInfo == SUN_SUNSET)
-    {
-        eSun->hour = (int)floor(set);
-        eSun->minute = (int)(60 * (set - floor(set)));
-        eSun->hour += mTimezone + ((mIsSummertime) ? 1 : 0);
-    } 
+        convertToLocalTime(set, eSun);
 }
 
 sDay *Timer::getEaster()

@@ -72,6 +72,7 @@ class Timer
     uint8_t calculateLastSundayInMonth(uint8_t iMonth);
     void calculateHolidays(bool iDebugOutput = false);
     void calculateSunriseSunset();
+    void convertToLocalTime(double iTime, sTime *eTime);
     bool isEqualDate(sDay &iDate1, sDay &iDate2);
     sDay getDayByOffset(int8_t iOffset, sDay &iDate);
 
