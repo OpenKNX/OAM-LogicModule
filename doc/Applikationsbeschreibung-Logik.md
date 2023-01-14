@@ -267,7 +267,7 @@ Ein Toreingang kann auch ein Impulseingang sein (reagiert nur auf 1, wobei Tor g
 * Erlaubt diskrete getaktete Werte auf den Bus zu senden
 * Kann zur Synchronisation von Werten genutzt werden
 
-Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt<sup>*)</sup>
+Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt
 
 Senden von gespeicherten Werten nach einem Neustart
 
