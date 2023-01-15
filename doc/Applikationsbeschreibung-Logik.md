@@ -32,29 +32,33 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
 * [Update der Applikation](#update-der-applikation)
 * [Unterstützte Hardware](#unterstützte-hardware)
 
-**Konfiguration:**
-* [Allgemeine Parameter](#allgemeine-parameter)
+**ETS Konfiguration:**
+
+**+ [ Allgemeine Parameter](#allgemeine-parameter)**
   * [Gerätestart](#gerätestart)
   * [Installierte Hardware](#installierte-hardware)
-  * [Experteneinstellungen](#experteneinstellungen)
-<!-- Logikdokumentation -->
-* [Urlaub/Feiertage (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
+  * [**Experteneinstellungen**](#experteneinstellungen)
+
+**+ Logikkanäle**
+* [**+ Logikdokumentation**](#logikdokumentation)
+* [**Urlaub/Feiertage** (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
   * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
   * [Urlaub](#urlaub)
   * [Feiertage](#feiertage)
-* [Logik n: ...](#logik-n-)
+* [**+ Logik n: ...**](#logik-n-)
   * [Kanaldefinition](#kanaldefinition)
-    * [Logikdefinition](#logikdefinition)
-      * [Tor](#tordefinition)
-    * [Logik-Trigger](#logik-trigger)
-    * [Logikauswertung](#logikauswertung)
-  * [Eingang 1/2: ...](#eingang-1-unbenannt--eingang-2-unbenannt)
+  * [Logikdefinition](#logikdefinition)
+  * [Logikauswertung](#logikauswertung)
+  * [Tordefinition](#tordefinition)
+  * [Logik-Trigger](#logik-trigger)
+  * [**Eingang 1/2: Wert**](#eingang-1-unbenannt--eingang-2-unbenannt)
     * [Eingangskonverter](#eingangskonverter)
-  * [Kanalausgänge verbinden / Interne Eingänge](#kanalausgänge-verbinden)
-  * [Schaltzeiten: ... (Zeitschaltuhr)](#schaltzeiten-unbenannt)
+    * [Eingangswert vorbelegen](#eingangswert-vorbelegen)
+  * [**Kanalausgänge verbinden** (Interne Eingänge)](#kanalausgänge-verbinden)
+  * [**Schaltzeiten: ...** (Zeitschaltuhr)](#schaltzeiten-unbenannt)
     * [Tagesschaltuhr](#schaltzeitpunkte-tagesschaltuhr)
     * [Jahresschaltuhr](#schaltzeitpunkte-jahresschaltuhr)
-  * [Ausgang](#ausgang)
+  * [**Ausgang: ...**](#ausgang)
     * [Treppenlicht](#treppenlicht)
     * [Ein-/Ausschaltverzögerung](#ein-ausschaltverzögerung)
     * [Wiederholungsfilter](#wiederholungsfilter)
