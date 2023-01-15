@@ -65,6 +65,13 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
     * [Zyklisch senden](#zyklisch-senden)
     * [Interne Eingänge](#interne-eingänge)
     * [Wert für Ausgang](#wert-für-ausgang)
+      * [ReadRequest senden](#ja---readrequest-senden)
+      * [Gerät zurücksetzen senden](#ja---ger%C3%A4t-zur%C3%BCcksetzen-senden)
+        * [Physikalische Adresse](#physikalische-adresse)
+      * [Tonwiedergabe (Buzzer)](#ja---tonwiedergabe-buzzer)
+        * [Alarmausgabe (Buzzer oder Sperre trotz Sperre schalten)?](#alarmausgabe-buzzer-oder-sperre-trotz-sperre-schalten) 
+      * [RGB-LED schalten](#ja---rgb-led-schalten)
+        * [LED-Farbe festlegen (Schwarz=aus)](#led-farbe-festlegen-schwarzaus) 
       * [Formeln](#formeln)
 
 **Fortgeschrittene Funktionen:**
