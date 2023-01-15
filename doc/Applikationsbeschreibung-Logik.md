@@ -21,24 +21,24 @@ gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert s
 Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweiligen Dokumentation erfolgt in [ETS Konfiguration](#ets-konfiguration).
 
 ## Inhalte
-Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokument
+> Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokument
 * [Änderungshistorie](#änderungshistorie)
 * [Einleitung](#einleitung)
-* [Logikkanäle (Detailbeschreibung)](#logikkanäle)
-  * [Zeitschaltuhren](#zeitschaltuhren)
-  * [Startverhalten](#startverhalten)
-  * [Übersicht typische abgebildete KNX-Funktionen](#zusammenfassung)
-* [DPT-Konverter](#dpt-konverter)
-* [Detailbeschreibung der ETS Konfiguration](#ets-konfiguration)
+* Grundlegende Konzepte
+  * [Logikkanäle](#logikkanäle)
+    * [Zeitschaltuhren](#zeitschaltuhren)
+    * [Startverhalten](#startverhalten)
+    * [Übersicht typische abgebildete KNX-Funktionen](#zusammenfassung)
+  * [DPT-Konverter](#dpt-konverter)
+* [ETS Konfiguration](#ets-konfiguration) (Übersicht aller Konfigurationsseiten und Links zu Detailbeschreibung)
 * [Beispiele](#beispiele)
   * [Zeitschaltuhr soll jeden n-ten Tag schalten](#zeitschaltuhr-soll-jeden-n-ten-tag-schalten)
   * [Einfacher Szenen-Controller](#einfacher-szenen-controller)
 * [Update der Applikation](#update-der-applikation)
 * [Unterstützte Hardware](#unterstützte-hardware)
-
-**Fortgeschrittene Funktionen:**
-* [Diagnoseobjekt](#diagnoseobjekt)
-* [Benutzerfunktionen](#benutzerfunktionen)
+* Fortgeschrittene Funktionen
+  * [Diagnoseobjekt](#diagnoseobjekt)
+  * [Benutzerfunktionen](#benutzerfunktionen)
 
 ### ETS Konfiguration
 
