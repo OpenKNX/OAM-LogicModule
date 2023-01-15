@@ -45,7 +45,7 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
     * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
     * [Urlaub](#urlaub)
     * [Feiertage](#feiertage)
-  * [**+ Logik n: ...**](#logik-n-)
+  * [**+ Logik n: ...** (n=1 bis 99)](#logik-n-)
     * [Kanaldefinition](#kanaldefinition)
     * [Logikdefinition](#logikdefinition)
     * [Logikauswertung](#logikauswertung)
