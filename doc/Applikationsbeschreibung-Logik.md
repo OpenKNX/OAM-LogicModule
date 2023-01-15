@@ -33,6 +33,10 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
 * [Update der Applikation](#update-der-applikation)
 * [Unterstützte Hardware](#unterstützte-hardware)
 
+**Fortgeschrittene Funktionen:**
+* [Diagnoseobjekt](#diagnoseobjekt)
+* [Benutzerfunktionen](#benutzerfunktionen)
+
 ### ETS Konfiguration
 
 * **+ [ Allgemeine Parameter](#allgemeine-parameter)**
@@ -76,10 +80,6 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
         * [RGB-LED schalten](#ja---rgb-led-schalten)
           * [LED-Farbe festlegen (Schwarz=aus)](#led-farbe-festlegen-schwarzaus) 
         * [Formeln](#formeln)
-
-**Fortgeschrittene Funktionen:**
-* [Diagnoseobjekt](#diagnoseobjekt)
-* [Benutzerfunktionen](#benutzerfunktionen)
 
 
 
