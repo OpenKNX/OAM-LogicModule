@@ -18,6 +18,7 @@ Sie ist in die Bereiche
 * Logikkanäle
 
 gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
+Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweiligen Dokumentation erfolgt in [ETS Konfiguration](#ets-konfiguration).
 
 ## Inhalte
 Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokument
