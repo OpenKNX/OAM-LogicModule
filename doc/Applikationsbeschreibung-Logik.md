@@ -59,6 +59,7 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
     * [Ein-/Ausschaltverzögerung](#ein-ausschaltverzögerung)
     * [Wiederholungsfilter](#wiederholungsfilter)
     * [Zyklisch senden](#zyklisch-senden)
+    * [Interne Eingänge](#interne-eingänge)
     * [Wert für Ausgang](#wert-für-ausgang)
       * [Formeln](#formeln)
 
