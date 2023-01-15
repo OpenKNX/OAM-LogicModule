@@ -32,7 +32,7 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
 * [Update der Applikation](#update-der-applikation)
 * [Unterstützte Hardware](#unterstützte-hardware)
 
-**ETS Konfiguration:**
+### ETS Konfiguration
 
 * **+ [ Allgemeine Parameter](#allgemeine-parameter)**
   * [Gerätestart](#gerätestart)
