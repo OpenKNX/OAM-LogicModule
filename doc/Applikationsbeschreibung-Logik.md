@@ -38,9 +38,11 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
   * [Gerätestart](#gerätestart)
   * [Installierte Hardware](#installierte-hardware)
   * [**Experteneinstellungen**](#experteneinstellungen)
-
 * **+ Logikkanäle**
   * [**+ Logikdokumentation**](#logikdokumentation)
+    * [**Eingänge**](#eing%C3%A4nge)
+    * [**Zeitschaltuhren**](#zeitschaltuhren)
+    * [**Ausgänge**](#ausg%C3%A4nge)
   * [**Urlaub/Feiertage** (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
     * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
     * [Urlaub](#urlaub)
