@@ -31,6 +31,8 @@ Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokumen
 * [DPT-Konverter](#dpt-konverter)
 * [Detailbeschreibung der ETS Konfiguration](#ets-konfiguration)
 * [Beispiele](#beispiele)
+  * [Zeitschaltuhr soll jeden n-ten Tag schalten](#zeitschaltuhr-soll-jeden-n-ten-tag-schalten)
+  * [Einfacher Szenen-Controller](#einfacher-szenen-controller)
 * [Update der Applikation](#update-der-applikation)
 * [Unterstützte Hardware](#unterstützte-hardware)
 
