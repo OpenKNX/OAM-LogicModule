@@ -27,11 +27,7 @@ void ProcessHeartbeat()
 
 void ProcessReadRequests() {
     // this method is called after startup delay and executes read requests, which should just happen once after startup
-    static bool sCalled = false;
-    if (!sCalled) {
-        gLogic.processReadRequests();
-        sCalled = true;
-    }
+    gLogic.processReadRequests();
 }
 
 // true solange der Start des gesamten Moduls verzögert werden soll

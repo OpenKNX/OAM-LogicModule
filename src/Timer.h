@@ -10,6 +10,8 @@
 #include <math.h>
 #include <ctime>
 
+#define MINYEAR 2022
+
 #define SUN_SUNRISE 0x00
 #define SUN_SUNSET 0x01
 
@@ -19,8 +21,8 @@
 
 struct sTime
 {
-    uint8_t minute;
-    uint8_t hour;
+    int8_t minute;
+    int8_t hour;
 };
 
 struct sDay
@@ -59,7 +61,9 @@ class Timer
     sDay mEaster = {0, 0}; // easter sunday
     sDay mAdvent = {0, 0}; // fourth advent
     int8_t mMinuteTick = -1;  // timer evaluation is called each time the minute changes
+    int8_t mHourTick = -1;    // timer evaluation is called each time the hour changes
     int8_t mDayTick = -1;     // sunrise/sunset calculation happens each time the day changes
+    int8_t mMonthTick = -1;   // sunrise/sunset calculation happens each time the month changes
     int16_t mYearTick = -1; // easter calculation happens each time year changes
 
     void calculateEaster();
@@ -68,6 +72,7 @@ class Timer
     uint8_t calculateLastSundayInMonth(uint8_t iMonth);
     void calculateHolidays(bool iDebugOutput = false);
     void calculateSunriseSunset();
+    void convertToLocalTime(double iTime, sTime *eTime);
     bool isEqualDate(sDay &iDate1, sDay &iDate2);
     sDay getDayByOffset(int8_t iOffset, sDay &iDate);
 
@@ -105,17 +110,20 @@ class Timer
     uint8_t getSecond();
     uint8_t getWeekday();
     sTime *getSunInfo(uint8_t iSunInfo);
+    void getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun);
     sDay *getEaster();
     char *getTimeAsc();
     bool minuteChanged(); // true every minute
     void clearMinuteChanged(); //has to be cleared externally
     void setTimeFromBus(tm *iTime);
     void setDateFromBus(tm *iDate);
+    void setDateTimeFromBus(tm *iDateTime);
     uint8_t holidayToday();
     uint8_t holidayTomorrow();
     bool holidayChanged();
     void clearHolidayChanged();
     eTimeValid isTimerValid();
+    void setIsSummertime(bool iValue);
 };
 
 /* A macro to compute the number of days elapsed since 2000 Jan 0.0 */
@@ -142,4 +150,5 @@ class Timer
 #define atand(x) (RADEG * atan(x))
 #define asind(x) (RADEG * asin(x))
 #define acosd(x) (RADEG * acos(x))
+#define atan2d(y, x) (RADEG * atan2(y, x))
 #define atan2d(y, x) (RADEG * atan2(y, x))

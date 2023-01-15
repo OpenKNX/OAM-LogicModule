@@ -3,7 +3,40 @@
 #include "Helper.h"
 #include <ctime>
 
-sDay Timer::cHolidays[cHolidaysCount] = {{1, 1}, {6, 1}, {-52, EASTER}, {-48, EASTER}, {-47, EASTER}, {-46, EASTER}, {8, 3}, {-3, EASTER}, {-2, EASTER}, {0, EASTER}, {1, EASTER}, {1, 5}, {39, EASTER}, {49, EASTER}, {50, EASTER}, {60, EASTER}, {8, 8}, {15, 8}, {3, 10}, {31, 10}, {1, 11}, {-32, ADVENT}, {-21, ADVENT}, {-14, ADVENT}, {-7, ADVENT}, {0, ADVENT}, {24, 12}, {25, 12}, {26, 12}, {31, 12}, {26, 10}, {8, 12}};
+sDay Timer::cHolidays[cHolidaysCount] = {
+    {1, 1}, 
+    {6, 1}, 
+    {-52, EASTER}, 
+    {-48, EASTER}, 
+    {-47, EASTER}, 
+    {-46, EASTER}, 
+    {8, 3}, 
+    {-3, EASTER}, 
+    {-2, EASTER}, 
+    {0, EASTER}, 
+    {1, EASTER}, 
+    {1, 5}, 
+    {39, EASTER}, 
+    {49, EASTER}, 
+    {50, EASTER}, 
+    {60, EASTER}, 
+    {8, 8}, 
+    {15, 8}, 
+    {3, 10}, 
+    {31, 10}, 
+    {1, 11}, 
+    {-32, ADVENT}, 
+    {-21, ADVENT}, 
+    {-14, ADVENT}, 
+    {-7, ADVENT}, 
+    {0, ADVENT}, 
+    {24, 12}, 
+    {25, 12}, 
+    {26, 12}, 
+    {31, 12}, 
+    {26, 10}, 
+    {8, 12}
+};
 
 Timer::Timer()
 {
@@ -19,12 +52,14 @@ Timer::~Timer()
 {
 }
 
-Timer &Timer::instance() {
+Timer &Timer::instance()
+{
     static Timer sInstance;
     return sInstance;
 }
 
-void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iUseSummertime, uint32_t iHolidayBitmask) {
+void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iUseSummertime, uint32_t iHolidayBitmask)
+{
 
     mLongitude = iLongitude;
     mLatitude = iLatitude;
@@ -40,7 +75,8 @@ void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iU
     }
 }
 
-void Timer::loop() {
+void Timer::loop()
+{
     if (delayCheck(mTimeDelay, 1000))
     {
         mTimeDelay += 1000;
@@ -48,6 +84,12 @@ void Timer::loop() {
         mktime(&mNow);
         if (mTimeValid == tmValid)
         {
+            // prevent that a minute is missed, if an other hour is set with the same minute
+            if (mHourTick != mNow.tm_hour)
+            {
+                mHourTick = mNow.tm_hour;
+                mMinuteTick = -1;
+            }
             if (mMinuteTick != mNow.tm_min)
             {
                 mMinuteChanged = true;
@@ -55,6 +97,13 @@ void Timer::loop() {
                 mMinuteTick = mNow.tm_min;
                 if (mUseSummertime && (getMonth() == 3 || getMonth() == 10) && getHour() == 3 && getMinute() == 1)
                     calculateSummertime();
+            }
+            // Ensure that a changed month causes a recalculation of all static dates/times
+            if (mMonthTick != mNow.tm_mon)
+            {
+                mMonthTick = mNow.tm_mon;
+                mYearTick = -1;
+                mDayTick = -1;
             }
             if (mYearTick != mNow.tm_year)
             {
@@ -76,20 +125,26 @@ void Timer::loop() {
     }
 }
 
+void Timer::convertToLocalTime(double iTime, sTime *eTime)
+{
+    eTime->hour = (int)floor(iTime);
+    eTime->minute = (int)(60 * (iTime - floor(iTime)));
+    eTime->hour += mTimezone + ((mIsSummertime) ? 1 : 0);
+}
+
 void Timer::calculateSunriseSunset()
 {
     double rise, set;
     // sunrise/sunset calculation
     sunRiseSet(getYear(), getMonth(), getDay(),
-               mLongitude, mLatitude, 35.0 / 60.0, 1, &rise, &set);
-    double lTmp;
-    mSunrise.minute = round(modf(rise, &lTmp) * 60.0);
-    mSunrise.hour = lTmp + mTimezone + ((mIsSummertime) ? 1 : 0);
-    mSunset.minute = round(modf(set, &lTmp) * 60.0);
-    mSunset.hour = lTmp + mTimezone + ((mIsSummertime) ? 1 : 0);
+               mLongitude, mLatitude, -50.0 / 60.0, 1, &rise, &set);
+            //    mLongitude, mLatitude, -50.0 / 60.0, 1, &rise, &set);
+    convertToLocalTime(rise, &mSunrise);
+    convertToLocalTime(set, &mSunset);
 }
 
-void Timer::setTimeFromBus(tm *iTime) {
+void Timer::setTimeFromBus(tm *iTime)
+{
     if (mNow.tm_min != iTime->tm_min || mNow.tm_hour != iTime->tm_hour)
         mMinuteChanged = true;
     mNow.tm_sec = iTime->tm_sec;
@@ -100,13 +155,14 @@ void Timer::setTimeFromBus(tm *iTime) {
     mTimeValid = static_cast<eTimeValid>(mTimeValid | tmMinutesValid);
 }
 
-void Timer::setDateFromBus(tm *iDate) {
+void Timer::setDateFromBus(tm *iDate)
+{
     // we have to check, if some date dependant calculations have to be done
     // in case of date changes
     if (iDate->tm_year != getYear())
     {
         mYearTick = -1; // triggers easter calculation
-        mDayTick = -1;    // triggers sunrise/sunset calculation
+        mDayTick = -1;  // triggers sunrise/sunset calculation
         mMinuteChanged = true;
     }
     else if (iDate->tm_mon != getMonth() || iDate->tm_mday != getDay())
@@ -119,14 +175,24 @@ void Timer::setDateFromBus(tm *iDate) {
     mNow.tm_year = iDate->tm_year - 1900;
     mktime(&mNow);
     mTimeDelay = millis();
-    mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
+    if (mNow.tm_year >= MINYEAR-1900)
+        mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
 }
 
-bool Timer::minuteChanged() {
+void Timer::setDateTimeFromBus(tm *iDateTime)
+{
+    // TODO DPT19: check optimizations
+    setTimeFromBus(iDateTime);
+    setDateFromBus(iDateTime);
+}
+
+bool Timer::minuteChanged()
+{
     return mMinuteChanged && mTimeValid == tmValid;
 }
 
-void Timer::clearMinuteChanged() {
+void Timer::clearMinuteChanged()
+{
     mMinuteChanged = false;
 }
 
@@ -175,35 +241,64 @@ sTime *Timer::getSunInfo(uint8_t iSunInfo)
         return NULL;
 }
 
-sDay *Timer::getEaster() {
+void Timer::getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun)
+{
+    double rise, set;
+    // sunrise/sunset calculation
+    sunRiseSet(getYear(), getMonth(), getDay(),
+               mLongitude, mLatitude, iDegree, 1, &rise, &set);
+    if (iSunInfo == SUN_SUNRISE)
+        convertToLocalTime(rise, eSun);
+    else if (iSunInfo == SUN_SUNSET)
+        convertToLocalTime(set, eSun);
+}
+
+sDay *Timer::getEaster()
+{
     return &mEaster;
 }
 
-char *Timer::getTimeAsc() {
+char *Timer::getTimeAsc()
+{
     return asctime(&mNow);
 }
 
-uint8_t Timer::holidayToday() {
+uint8_t Timer::holidayToday()
+{
     return mHolidayToday;
 }
 
-uint8_t Timer::holidayTomorrow() {
+uint8_t Timer::holidayTomorrow()
+{
     return mHolidayTomorrow;
 }
 
-bool Timer::holidayChanged() {
+bool Timer::holidayChanged()
+{
     return mHolidayChanged;
 }
 
-void Timer::clearHolidayChanged() {
+void Timer::clearHolidayChanged()
+{
     mHolidayChanged = false;
 }
 
-eTimeValid Timer::isTimerValid() {
+eTimeValid Timer::isTimerValid()
+{
     return mTimeValid;
 }
 
-uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth) {
+void Timer::setIsSummertime(bool iValue)
+{
+    if (iValue != mIsSummertime)
+    {
+        calculateSunriseSunset();
+        mIsSummertime = iValue;
+    }
+}
+
+uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth)
+{
     mTimeHelper.tm_year = mNow.tm_year;
     mTimeHelper.tm_mon = iMonth - 1;
     mTimeHelper.tm_mday = 31;
@@ -212,45 +307,57 @@ uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth) {
 }
 
 // should be called only at 03:01 o'clock
-void Timer::calculateSummertime() {
+void Timer::calculateSummertime()
+{
     // first we do easy win
-    mIsSummertime = false;
-    if (mUseSummertime) {
-      if (getMonth() == 3) {
-          // find last Sunday in March
-          uint8_t lLastSunday = calculateLastSundayInMonth(3);
-          if (lLastSunday == mNow.tm_mday) {
-              // we have to take time into account
-              mIsSummertime = (mNow.tm_hour > 3);
-          } else {
-              mIsSummertime = (lLastSunday < mNow.tm_mday);
-          }
-      } else if (getMonth() == 10) {
-          // find last Sunday in October
-          uint8_t lLastSunday = calculateLastSundayInMonth(10);
-          if (lLastSunday == mNow.tm_mday)
-          {
-              // we have to take time into account
-              // here might be a problem if called between 
-              // 2 and 3, because these times exist in both
-              // summer and wintertime. This is currently
-              // mitigated with the fact, that this routine
-              // is called only once at 03:01. Currently just used
-              // for sunrise/sunset calculation, so calling
-              // time is no problem.
-              mIsSummertime = (mNow.tm_hour < 3);
-          }
-          else
-          {
-              mIsSummertime = (lLastSunday > mNow.tm_mday);
-          }
-      } else {
-          mIsSummertime = (getMonth() > 3 && getMonth() < 10);
-      }
+    bool lIsSummertime = false;
+    if (mUseSummertime)
+    {
+        if (getMonth() == 3)
+        {
+            // find last Sunday in March
+            uint8_t lLastSunday = calculateLastSundayInMonth(3);
+            if (lLastSunday == mNow.tm_mday)
+            {
+                // we have to take time into account
+                lIsSummertime = (mNow.tm_hour > 3);
+            }
+            else
+            {
+                lIsSummertime = (lLastSunday < mNow.tm_mday);
+            }
+        }
+        else if (getMonth() == 10)
+        {
+            // find last Sunday in October
+            uint8_t lLastSunday = calculateLastSundayInMonth(10);
+            if (lLastSunday == mNow.tm_mday)
+            {
+                // we have to take time into account
+                // here might be a problem if called between
+                // 2 and 3, because these times exist in both
+                // summer and wintertime. This is currently
+                // mitigated with the fact, that this routine
+                // is called only once at 03:01. Currently just used
+                // for sunrise/sunset calculation, so calling
+                // time is no problem.
+                lIsSummertime = (mNow.tm_hour < 3);
+            }
+            else
+            {
+                lIsSummertime = (lLastSunday > mNow.tm_mday);
+            }
+        }
+        else
+        {
+            lIsSummertime = (getMonth() > 3 && getMonth() < 10);
+        }
+        setIsSummertime(lIsSummertime);
     }
 }
 
-void Timer::calculateAdvent() {
+void Timer::calculateAdvent()
+{
     // calculates the 4th advent
     mTimeHelper.tm_year = mNow.tm_year;
     mTimeHelper.tm_mon = 11;
@@ -301,11 +408,13 @@ void Timer::calculateEaster()
 
 void Timer::debug()
 {
-    if (mTimeValid & tmMinutesValid) {
+    if (mTimeValid & tmMinutesValid)
+    {
         printDebug("Aktuelle Zeit: %s", getTimeAsc());
     }
 #if LOGIC_TRACE
-    if (mTimeValid & tmDateValid) {
+    if (mTimeValid & tmDateValid)
+    {
         printDebug("\nFeiertage %d: ", getYear());
         calculateHolidays(true);
         printDebug("\nEnd of holiday debug\n");
@@ -314,7 +423,8 @@ void Timer::debug()
 #endif
 }
 
-void Timer::calculateHolidays(bool iDebugOutput) {
+void Timer::calculateHolidays(bool iDebugOutput)
+{
     // we check only if date is valid
     if (mTimeValid < tmDateValid)
         return;
@@ -343,7 +453,8 @@ void Timer::calculateHolidays(bool iDebugOutput) {
                 lHoliday = cHolidays[i];
                 break;
         }
-        if (lHoliday.month > REMOVED) {
+        if (lHoliday.month > REMOVED)
+        {
             if (iDebugOutput)
                 printDebug("%02d.%02d., ", lHoliday.day, lHoliday.month);
             if (isEqualDate(lHoliday, lToday))
@@ -354,21 +465,25 @@ void Timer::calculateHolidays(bool iDebugOutput) {
                 break;
         }
     }
-    if (lHolidayToday != mHolidayToday) {
+    if (lHolidayToday != mHolidayToday)
+    {
         mHolidayToday = lHolidayToday;
         mHolidayChanged = true;
     }
-    if (lHolidayTomorrow != mHolidayTomorrow) {
+    if (lHolidayTomorrow != mHolidayTomorrow)
+    {
         mHolidayTomorrow = lHolidayTomorrow;
         mHolidayChanged = true;
     }
 }
 
-bool Timer::isEqualDate(sDay &iDate1, sDay &iDate2) {
+bool Timer::isEqualDate(sDay &iDate1, sDay &iDate2)
+{
     return (iDate1.day == iDate2.day && iDate1.month == iDate2.month);
 }
 
-sDay Timer::getDayByOffset(int8_t iOffset, sDay &iDate) {
+sDay Timer::getDayByOffset(int8_t iOffset, sDay &iDate)
+{
     mTimeHelper.tm_year = mNow.tm_year;
     mTimeHelper.tm_mon = iDate.month - 1;
     mTimeHelper.tm_mday = iDate.day + iOffset;
@@ -380,8 +495,8 @@ sDay Timer::getDayByOffset(int8_t iOffset, sDay &iDate) {
     if (mTimeHelper.tm_mday < 1 || mTimeHelper.tm_mday > 28)
         mktime(&mTimeHelper); //   -timezone;
 
-    //time_t nt_seconds = mktime(&mTimeHelper);     //   -timezone;
-    // return gmtime(&nt_seconds);
+    // time_t nt_seconds = mktime(&mTimeHelper);     //   -timezone;
+    //  return gmtime(&nt_seconds);
 
     sDay lResult = {(int8_t)mTimeHelper.tm_mday, (int8_t)(mTimeHelper.tm_mon + 1)};
     return lResult;
@@ -528,7 +643,6 @@ void Timer::sunRadDec(double d, double *RA, double *dec, double *r)
     /* Convert to spherical coordinates */
     *RA = atan2d(y, x);
     *dec = atan2d(z, sqrt(x * x + y * y));
-
 }
 
 /******************************************************************/

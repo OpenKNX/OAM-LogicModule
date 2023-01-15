@@ -20,6 +20,9 @@
 #define LOG_LedInstalled               5      // 1 Bit, Bit 5
 #define     LOG_LedInstalledMask 0x20
 #define     LOG_LedInstalledShift 5
+#define LOG_CombinedTimeDate           5      // 1 Bit, Bit 4
+#define     LOG_CombinedTimeDateMask 0x10
+#define     LOG_CombinedTimeDateShift 4
 #define LOG_VacationKo                 5      // 1 Bit, Bit 2
 #define     LOG_VacationKoMask 0x04
 #define     LOG_VacationKoShift 2
@@ -32,12 +35,18 @@
 #define LOG_HolidaySend                6      // 1 Bit, Bit 7
 #define     LOG_HolidaySendMask 0x80
 #define     LOG_HolidaySendShift 7
-#define LOG_Timezone                   6      // 2 Bits, Bit 6-5
-#define     LOG_TimezoneMask 0x60
-#define     LOG_TimezoneShift 5
-#define LOG_UseSummertime              6      // 1 Bit, Bit 4
-#define     LOG_UseSummertimeMask 0x10
-#define     LOG_UseSummertimeShift 4
+#define LOG_SummertimeAll              6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeAllMask 0xC0
+#define     LOG_SummertimeAllShift 6
+#define LOG_SummertimeDE               6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeDEMask 0xC0
+#define     LOG_SummertimeDEShift 6
+#define LOG_SummertimeWorld            6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeWorldMask 0xC0
+#define     LOG_SummertimeWorldShift 6
+#define LOG_SummertimeKO               6      // 2 Bits, Bit 7-6
+#define     LOG_SummertimeKOMask 0xC0
+#define     LOG_SummertimeKOShift 6
 #define LOG_Diagnose                   6      // 1 Bit, Bit 3
 #define     LOG_DiagnoseMask 0x08
 #define     LOG_DiagnoseShift 3
@@ -148,6 +157,15 @@
 #define LOG_LedMapping                25      // 3 Bits, Bit 7-5
 #define     LOG_LedMappingMask 0xE0
 #define     LOG_LedMappingShift 5
+#define LOG_Timezone                  25      // 5 Bits, Bit 4-0
+#define     LOG_TimezoneMask 0x1F
+#define     LOG_TimezoneShift 0
+#define LOG_TimezoneSign              25      // 1 Bit, Bit 4
+#define     LOG_TimezoneSignMask 0x10
+#define     LOG_TimezoneSignShift 4
+#define LOG_TimezoneValue             25      // 4 Bits, Bit 3-0
+#define     LOG_TimezoneValueMask 0x0F
+#define     LOG_TimezoneValueShift 0
 
 #define LOG_KoHeartbeat 1
 #define LOG_KoTime 2
@@ -158,6 +176,7 @@
 #define LOG_KoDiagnose 7
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
+#define LOG_KoIsSummertime 10
 
 #define LOG_ChannelCount 99
 
@@ -305,6 +324,8 @@
 #define LOG_fE1HighDelta              22      // int32_t
 #define LOG_fE1LowDeltaFloat          18      // float
 #define LOG_fE1HighDeltaFloat         22      // float
+#define LOG_fE1LowDeltaDouble         18      // float
+#define LOG_fE1HighDeltaDouble        22      // float
 #define LOG_fE1Low0Valid              25      // 1 Bit, Bit 7
 #define     LOG_fE1Low0ValidMask 0x80
 #define     LOG_fE1Low0ValidShift 7
@@ -379,6 +400,15 @@
 #define LOG_fE1LowDpt9                18      // float
 #define LOG_fE1HighDpt9               22      // float
 #define LOG_fE1LowDpt9Fix             18      // float
+#define LOG_fE1LowDpt12               18      // uint32_t
+#define LOG_fE1HighDpt12              22      // uint32_t
+#define LOG_fE1LowDpt12Fix            18      // uint32_t
+#define LOG_fE1LowDpt13               18      // int32_t
+#define LOG_fE1HighDpt13              22      // int32_t
+#define LOG_fE1LowDpt13Fix            18      // int32_t
+#define LOG_fE1LowDpt14               18      // float
+#define LOG_fE1HighDpt14              22      // float
+#define LOG_fE1LowDpt14Fix            18      // float
 #define LOG_fE1Low0Dpt17              18      // 8 Bits, Bit 7-0
 #define LOG_fE1Low1Dpt17              19      // 8 Bits, Bit 7-0
 #define LOG_fE1Low2Dpt17              20      // 8 Bits, Bit 7-0
@@ -395,6 +425,8 @@
 #define LOG_fE2HighDelta              30      // int32_t
 #define LOG_fE2LowDeltaFloat          26      // float
 #define LOG_fE2HighDeltaFloat         30      // float
+#define LOG_fE2LowDeltaDouble         26      // float
+#define LOG_fE2HighDeltaDouble        30      // float
 #define LOG_fE2Low0Valid              33      // 1 Bit, Bit 7
 #define     LOG_fE2Low0ValidMask 0x80
 #define     LOG_fE2Low0ValidShift 7
@@ -469,6 +501,15 @@
 #define LOG_fE2LowDpt9                26      // float
 #define LOG_fE2HighDpt9               30      // float
 #define LOG_fE2LowDpt9Fix             26      // float
+#define LOG_fE2LowDpt12               26      // uint32_t
+#define LOG_fE2HighDpt12              30      // uint32_t
+#define LOG_fE2LowDpt12Fix            26      // uint32_t
+#define LOG_fE2LowDpt13               26      // int32_t
+#define LOG_fE2HighDpt13              30      // int32_t
+#define LOG_fE2LowDpt13Fix            26      // int32_t
+#define LOG_fE2LowDpt14               26      // float
+#define LOG_fE2HighDpt14              30      // float
+#define LOG_fE2LowDpt14Fix            26      // float
 #define LOG_fE2Low0Dpt17              26      // 8 Bits, Bit 7-0
 #define LOG_fE2Low1Dpt17              27      // 8 Bits, Bit 7-0
 #define LOG_fE2Low2Dpt17              28      // 8 Bits, Bit 7-0
@@ -484,6 +525,9 @@
 #define LOG_fTd1Value                 18      // 1 Bit, Bit 7
 #define     LOG_fTd1ValueMask 0x80
 #define     LOG_fTd1ValueShift 7
+#define LOG_fTd1Degree                18      // 6 Bits, Bit 6-1
+#define     LOG_fTd1DegreeMask 0x7E
+#define     LOG_fTd1DegreeShift 1
 #define LOG_fTd1HourAbs               18      // 5 Bits, Bit 5-1
 #define     LOG_fTd1HourAbsMask 0x3E
 #define     LOG_fTd1HourAbsShift 1
@@ -498,6 +542,9 @@
 #define LOG_fTd2Value                 20      // 1 Bit, Bit 7
 #define     LOG_fTd2ValueMask 0x80
 #define     LOG_fTd2ValueShift 7
+#define LOG_fTd2Degree                20      // 6 Bits, Bit 6-1
+#define     LOG_fTd2DegreeMask 0x7E
+#define     LOG_fTd2DegreeShift 1
 #define LOG_fTd2HourAbs               20      // 5 Bits, Bit 5-1
 #define     LOG_fTd2HourAbsMask 0x3E
 #define     LOG_fTd2HourAbsShift 1
@@ -512,6 +559,9 @@
 #define LOG_fTd3Value                 22      // 1 Bit, Bit 7
 #define     LOG_fTd3ValueMask 0x80
 #define     LOG_fTd3ValueShift 7
+#define LOG_fTd3Degree                22      // 6 Bits, Bit 6-1
+#define     LOG_fTd3DegreeMask 0x7E
+#define     LOG_fTd3DegreeShift 1
 #define LOG_fTd3HourAbs               22      // 5 Bits, Bit 5-1
 #define     LOG_fTd3HourAbsMask 0x3E
 #define     LOG_fTd3HourAbsShift 1
@@ -526,6 +576,9 @@
 #define LOG_fTd4Value                 24      // 1 Bit, Bit 7
 #define     LOG_fTd4ValueMask 0x80
 #define     LOG_fTd4ValueShift 7
+#define LOG_fTd4Degree                24      // 6 Bits, Bit 6-1
+#define     LOG_fTd4DegreeMask 0x7E
+#define     LOG_fTd4DegreeShift 1
 #define LOG_fTd4HourAbs               24      // 5 Bits, Bit 5-1
 #define     LOG_fTd4HourAbsMask 0x3E
 #define     LOG_fTd4HourAbsShift 1
@@ -540,6 +593,9 @@
 #define LOG_fTd5Value                 26      // 1 Bit, Bit 7
 #define     LOG_fTd5ValueMask 0x80
 #define     LOG_fTd5ValueShift 7
+#define LOG_fTd5Degree                26      // 6 Bits, Bit 6-1
+#define     LOG_fTd5DegreeMask 0x7E
+#define     LOG_fTd5DegreeShift 1
 #define LOG_fTd5HourAbs               26      // 5 Bits, Bit 5-1
 #define     LOG_fTd5HourAbsMask 0x3E
 #define     LOG_fTd5HourAbsShift 1
@@ -554,6 +610,9 @@
 #define LOG_fTd6Value                 28      // 1 Bit, Bit 7
 #define     LOG_fTd6ValueMask 0x80
 #define     LOG_fTd6ValueShift 7
+#define LOG_fTd6Degree                28      // 6 Bits, Bit 6-1
+#define     LOG_fTd6DegreeMask 0x7E
+#define     LOG_fTd6DegreeShift 1
 #define LOG_fTd6HourAbs               28      // 5 Bits, Bit 5-1
 #define     LOG_fTd6HourAbsMask 0x3E
 #define     LOG_fTd6HourAbsShift 1
@@ -568,6 +627,9 @@
 #define LOG_fTd7Value                 30      // 1 Bit, Bit 7
 #define     LOG_fTd7ValueMask 0x80
 #define     LOG_fTd7ValueShift 7
+#define LOG_fTd7Degree                30      // 6 Bits, Bit 6-1
+#define     LOG_fTd7DegreeMask 0x7E
+#define     LOG_fTd7DegreeShift 1
 #define LOG_fTd7HourAbs               30      // 5 Bits, Bit 5-1
 #define     LOG_fTd7HourAbsMask 0x3E
 #define     LOG_fTd7HourAbsShift 1
@@ -582,6 +644,9 @@
 #define LOG_fTd8Value                 32      // 1 Bit, Bit 7
 #define     LOG_fTd8ValueMask 0x80
 #define     LOG_fTd8ValueShift 7
+#define LOG_fTd8Degree                32      // 6 Bits, Bit 6-1
+#define     LOG_fTd8DegreeMask 0x7E
+#define     LOG_fTd8DegreeShift 1
 #define LOG_fTd8HourAbs               32      // 5 Bits, Bit 5-1
 #define     LOG_fTd8HourAbsMask 0x3E
 #define     LOG_fTd8HourAbsShift 1
@@ -781,6 +846,9 @@
 #define LOG_fOOnDpt7                  53      // uint16_t
 #define LOG_fOOnDpt8                  53      // int16_t
 #define LOG_fOOnDpt9                  53      // float
+#define LOG_fOOnDpt12                 53      // uint32_t
+#define LOG_fOOnDpt13                 53      // int32_t
+#define LOG_fOOnDpt14                 53      // float
 #define LOG_fOOnDpt16                 53      // char*, 14 Byte
 #define LOG_fOOnDpt17                 53      // 8 Bits, Bit 7-0
 #define LOG_fOOnRGB                   53      // color, uint, 3 Byte
@@ -805,6 +873,9 @@
 #define LOG_fOOffDpt7                 68      // uint16_t
 #define LOG_fOOffDpt8                 68      // int16_t
 #define LOG_fOOffDpt9                 68      // float
+#define LOG_fOOffDpt12                68      // uint32_t
+#define LOG_fOOffDpt13                68      // int32_t
+#define LOG_fOOffDpt14                68      // float
 #define LOG_fOOffDpt16                68      // char*, 14 Byte
 #define LOG_fOOffDpt17                68      // 8 Bits, Bit 7-0
 #define LOG_fOOffRGB                  68      // color, uint, 3 Byte
@@ -834,5 +905,5 @@
 
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 48
-#define MAIN_ApplicationVersion 16
+#define MAIN_ApplicationVersion 20
 #define MAIN_OrderNumber "OpenKnxLogic"

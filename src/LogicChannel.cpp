@@ -385,7 +385,7 @@ void LogicChannel::setBuzzer(uint16_t iParamIndex)
 // input evaluation
 LogicValue LogicChannel::getParamForDelta(uint8_t iDpt, uint16_t iParamIndex)
 {
-    if (iDpt == VAL_DPT_9)
+    if (iDpt == VAL_DPT_9 || iDpt == VAL_DPT_14)
     {
         LogicValue lValue = getFloatParam(iParamIndex);
         return lValue;
@@ -433,12 +433,17 @@ LogicValue LogicChannel::getParamByDpt(uint8_t iDpt, uint16_t iParamIndex)
             LogicValue lValue = getIntParam(iParamIndex);
             return lValue;
         }
-        case VAL_DPT_9: {
+        case VAL_DPT_9: 
+        case VAL_DPT_14: {
             LogicValue lValue = getFloatParam(iParamIndex);
             return lValue;
         }
+        case VAL_DPT_12: {
+            LogicValue lValue = getIntParam(iParamIndex);
+            return lValue;
+        }
         case VAL_DPT_13: {
-            LogicValue lValue = (int32_t)getIntParam(iParamIndex);
+            LogicValue lValue = getSIntParam(iParamIndex);
             return lValue;
         }
         default: {
@@ -484,6 +489,10 @@ LogicValue LogicChannel::getInputValue(uint8_t iIOIndex, uint8_t *eDpt)
                 LogicValue lValue = (int16_t)lKo->value(getDPT(VAL_DPT_8));
                 return lValue;
             }
+            case VAL_DPT_12: {
+                LogicValue lValue = (uint32_t)lKo->value(getDPT(VAL_DPT_12));
+                return lValue;
+            }
             // case VAL_DPT_7:
             //     LogicValue lValue = lKo->valueRef()[0] + 256 * lKo->valueRef()[1];
             //     break;
@@ -491,8 +500,9 @@ LogicValue LogicChannel::getInputValue(uint8_t iIOIndex, uint8_t *eDpt)
             //     lValue =
             //         lKo->valueRef()[0] + 256 * lKo->valueRef()[1] + 65536 * lKo->valueRef()[2];
             //     break;
-            case VAL_DPT_9: {
-                LogicValue lValue = (float)lKo->value(getDPT(VAL_DPT_9));
+            case VAL_DPT_9: 
+            case VAL_DPT_14: {
+                LogicValue lValue = (float)lKo->value(getDPT(*eDpt));
                 return lValue;
             } // case VAL_DPT_17:
             default: {
@@ -528,9 +538,9 @@ void LogicChannel::writeConstantValue(uint16_t iParamIndex)
             knxWriteInt(IO_Output, lValueByte);
             break;
         case VAL_DPT_6:
-            int8_t lValueInt;
-            lValueInt = getSByteParam(iParamIndex);
-            knxWriteRawInt(IO_Output, lValueInt);
+            int8_t lValueShort;
+            lValueShort = getSByteParam(iParamIndex);
+            knxWriteRawInt(IO_Output, lValueShort);
             break;
         case VAL_DPT_7:
             uint16_t lValueUWord;
@@ -543,9 +553,20 @@ void LogicChannel::writeConstantValue(uint16_t iParamIndex)
             knxWriteInt(IO_Output, lValueSWord);
             break;
         case VAL_DPT_9:
+        case VAL_DPT_14:
             float lValueFloat;
             lValueFloat = getFloatParam(iParamIndex);
             knxWriteFloat(IO_Output, lValueFloat);
+            break;
+        case VAL_DPT_12:
+            uint32_t lValueInt;
+            lValueInt = getIntParam(iParamIndex);
+            knxWriteInt(IO_Output, lValueInt);
+            break;
+        case VAL_DPT_13:
+            int32_t lValueSInt;
+            lValueSInt = getSIntParam(iParamIndex);
+            knxWriteInt(IO_Output, lValueSInt);
             break;
         case VAL_DPT_16:
             uint8_t *lValueStr;
@@ -597,7 +618,7 @@ void LogicChannel::writeValue(LogicValue iValue, uint8_t iDpt)
             break;
         case VAL_DPT_5:
         case VAL_DPT_5001:
-            knxWriteRawInt(IO_Output, (uint8_t)iValue);
+            knxWriteInt(IO_Output, (uint8_t)iValue);
             break;
         case VAL_DPT_6:
             knxWriteInt(IO_Output, (int8_t)iValue);
@@ -616,6 +637,7 @@ void LogicChannel::writeValue(LogicValue iValue, uint8_t iDpt)
             knxWriteInt(IO_Output, (int16_t)iValue);
             break;
         case VAL_DPT_9:
+        case VAL_DPT_14:
             knxWriteFloat(IO_Output, (float)iValue);
             break;
         case VAL_DPT_16:
@@ -626,6 +648,8 @@ void LogicChannel::writeValue(LogicValue iValue, uint8_t iDpt)
             lValueByte &= 0x3F;
             knxWriteInt(IO_Output, lValueByte);
             break;
+        case VAL_DPT_12:
+        case VAL_DPT_13:
         case VAL_DPT_232:
             knxWriteInt(IO_Output, iValue);
             break;
@@ -909,7 +933,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 lDiff = lValue1In - lValue2In;
                 // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 // lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (lDpt != VAL_DPT_9) lDpt = VAL_DPT_13;
+                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14) lDpt = VAL_DPT_13;
                 lValueOut = (lDiff >= getParamByDpt(lDpt, lParamLow + 0)) && (lDiff <= getParamByDpt(lDpt, lParamLow + 4));
                 // lValueOut = uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
                 //             uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
@@ -942,7 +966,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 lDiff = lValue1In - lValue2In;
                 // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 // lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (lDpt != VAL_DPT_9) lDpt = VAL_DPT_13;
+                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14) lDpt = VAL_DPT_13;
                 if (lValue1In <= getParamByDpt(lDpt, lParamLow + 0))
                     lValueOut = false;
                 if (lValue1In >= getParamByDpt(lDpt, lParamLow + 4))
@@ -2092,42 +2116,39 @@ void LogicChannel::loop()
     // do no further processing until channel passed its startup time
     if (pCurrentPipeline & PIP_RUNNING)
     {
-        // we revert the processing order for pipeline events
-        // this reduces the chance to have a long running
-        // sequence of functions because of according pipeline settings
-        // On/Off repeat pipeline
-        if (pCurrentPipeline & (PIP_ON_REPEAT | PIP_OFF_REPEAT))
-            processOnOffRepeat();
-        // Output Filter pipeline
-        if (pCurrentPipeline & (PIP_OUTPUT_FILTER_ON | PIP_OUTPUT_FILTER_OFF))
-            processOutputFilter();
-        // Off delay pipeline
-        if (pCurrentPipeline & PIP_OFF_DELAY)
-            processOffDelay();
-        // On delay pipeline
-        if (pCurrentPipeline & PIP_ON_DELAY)
-            processOnDelay();
+        if (pCurrentPipeline & PIP_TIMER_INPUT)
+            processTimerInput();
+        // repeat input pipeline
+        if (pCurrentPipeline & PIP_REPEAT_INPUT1)
+            processRepeatInput1();
+        if (pCurrentPipeline & PIP_REPEAT_INPUT2)
+            processRepeatInput2();
+        // convert input pipeline
+        if (pCurrentPipeline & PIP_CONVERT_INPUT1)
+            processConvertInput(IO_Input1);
+        if (pCurrentPipeline & PIP_CONVERT_INPUT2)
+            processConvertInput(IO_Input2);
+        // Logic execution pipeline
+        if (pCurrentPipeline & PIP_LOGIC_EXECUTE)
+            processLogic();
         // stairlight pipeline
         if (pCurrentPipeline & PIP_STAIRLIGHT)
             processStairlight();
         // blink pipeline (has to be "after" stairlight)
         if (pCurrentPipeline & PIP_BLINK)
             processBlink();
-        // Logic execution pipeline
-        if (pCurrentPipeline & PIP_LOGIC_EXECUTE)
-            processLogic();
-        // convert input pipeline
-        if (pCurrentPipeline & PIP_CONVERT_INPUT1)
-            processConvertInput(IO_Input1);
-        if (pCurrentPipeline & PIP_CONVERT_INPUT2)
-            processConvertInput(IO_Input2);
-        // repeat input pipeline
-        if (pCurrentPipeline & PIP_REPEAT_INPUT1)
-            processRepeatInput1();
-        if (pCurrentPipeline & PIP_REPEAT_INPUT2)
-            processRepeatInput2();
-        if (pCurrentPipeline & PIP_TIMER_INPUT)
-            processTimerInput();
+        // Off delay pipeline
+        if (pCurrentPipeline & PIP_OFF_DELAY)
+            processOffDelay();
+        // On delay pipeline
+        if (pCurrentPipeline & PIP_ON_DELAY)
+            processOnDelay();
+        // Output Filter pipeline
+        if (pCurrentPipeline & (PIP_OUTPUT_FILTER_ON | PIP_OUTPUT_FILTER_OFF))
+            processOutputFilter();
+        // On/Off repeat pipeline
+        if (pCurrentPipeline & (PIP_ON_REPEAT | PIP_OFF_REPEAT))
+            processOnOffRepeat();
     }
 }
 
@@ -2220,6 +2241,18 @@ void LogicChannel::processTimerInput()
                             break;
                         case VAL_Tim_Sunset_Latest:
                             lResult = checkSunLimit(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                            break;
+                        case VAL_Tim_Sunrise_DegreeUp:
+                            lResult = checkSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
+                            break;
+                        case VAL_Tim_Sunset_DegreeUp:
+                            lResult = checkSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
+                            break;
+                        case VAL_Tim_Sunrise_DegreeDown:
+                            lResult = checkSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                            break;
+                        case VAL_Tim_Sunset_DegreeDown:
+                            lResult = checkSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                             break;
                         default:
                             break;
@@ -2371,6 +2404,15 @@ bool LogicChannel::checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimer
     return lResult;
 }
 
+bool LogicChannel::checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
+{
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
+    sTime lTime;
+    iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
+    bool lResult = checkTimerTime(iTimer, iTimerIndex, iBitfield, lTime.hour, lTime.minute, iSkipWeekday, iHandleAsSunday);
+    return lResult;
+}
 
 // implementing timer startup, especially rerun of missed timers (called timer restore state)
 void LogicChannel::startTimerRestoreState()
@@ -2508,6 +2550,26 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
                         if (lCurrentResult > -1)
                             printDebug("TimerRestore: Found SunsetLatest %04d with value %d\n", lCurrentResult, lCurrentValue);
                         break;
+                    case VAL_Tim_Sunrise_DegreeUp:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunriseDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
+                    case VAL_Tim_Sunset_DegreeUp:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunsetDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
+                    case VAL_Tim_Sunrise_DegreeDown:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunriseDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
+                    case VAL_Tim_Sunset_DegreeDown:
+                        lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
+                        if (lCurrentResult > -1)
+                            printDebug("TimerRestore: Found SunsetDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
+                        break;
                     default:
                         break;
                 }
@@ -2585,6 +2647,16 @@ int16_t LogicChannel::getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTime
         lMinute = iTimer.getSunInfo(iSunInfo)->minute;
     }
     int16_t lResult = getTimerTime(iTimer, iTimerIndex, iBitfield, lHour, lMinute, iSkipWeekday, iHandleAsSunday);
+    return lResult;
+}
+
+int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
+{
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
+    sTime lTime;
+    iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
+    int16_t lResult = getTimerTime(iTimer, iTimerIndex, iBitfield, lTime.hour, lTime.minute, iSkipWeekday, iHandleAsSunday);
     return lResult;
 }
 

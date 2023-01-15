@@ -15,10 +15,6 @@
             <ChannelIndependentBlock>
               <ParameterBlock Id="%AID%_PB-1" Name="General" Text="Logik: Obere Parameter">
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Gerätestart" UIHint="Headline" />
-                <!-- Time -->
-                <ComObjectRefRef RefId="%AID%_O-%T%000002_R-%T%00000201" />
-                <!-- Date -->
-                <ComObjectRefRef RefId="%AID%_O-%T%000003_R-%T%00000301" />
                 <!-- the following parameter is readonly and necessary (number of logik channels used in knxdprod) -->
                 <ParameterRefRef RefId="%AID%_P-%T%000001_R-%T%00000101" />
                 <!-- Startup Delay pattern -->
@@ -49,6 +45,21 @@
                   <ParameterRefRef RefId="%AID%_UP-%T%000005_R-%T%00000501" Cell="1,2" />
                   <ParameterRefRef RefId="%AID%_UP-%T%000004_R-%T%00000401" Cell="1,3" />
                 </ParameterBlock>
+                <!-- Combined Time/Date KO -->
+                <ParameterRefRef RefId="%AID%_UP-%T%000156_R-%T%00015601" />
+                <choose ParamRefId="%AID%_UP-%T%000156_R-%T%00015601">
+                  <when test="0">
+                    <!-- Time -->
+                    <ComObjectRefRef RefId="%AID%_O-%T%000002_R-%T%00000201" />
+                    <!-- Date -->
+                    <ComObjectRefRef RefId="%AID%_O-%T%000003_R-%T%00000301" />
+                  </when>
+                  <when test="1">
+                    <!-- Date-Time -->
+                    <ComObjectRefRef RefId="%AID%_O-%T%000002_R-%T%00000202" />
+                  </when>
+                </choose>
+
                 <!-- Read Time/Date on startup -->
                 <ParameterRefRef RefId="%AID%_UP-%T%000034_R-%T%00003401" />
                 <choose ParamRefId="%AID%_UP-%T%000005_R-%T%00000501">
@@ -57,7 +68,7 @@
                     <ComObjectRefRef RefId="%AID%_O-%T%000001_R-%T%00000101" />
                   </when>
                 </choose>
-                <!-- Initialize defaults for Hardware, if not changed anywhere, thiese defaults are hidden and not visible -->
+                <!-- Initialize defaults for Hardware, if not changed anywhere, these defaults are hidden and not visible -->
                 <!-- Buzzer installed? -->
                 <ParameterRefRef RefId="%AID%_UP-%T%000035_R-%T%00003501" />
                 <!-- RGB-LED installed? -->

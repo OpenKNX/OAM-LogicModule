@@ -18,14 +18,102 @@ Sie ist in die Bereiche
 * Logikkanäle
 
 gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
+Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweiligen Dokumentation erfolgt in [ETS Konfiguration](#ets-konfiguration).
+
+## Inhalte
+> Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokument
+* [Änderungshistorie](#änderungshistorie)
+* [Einleitung](#einleitung)
+* Grundlegende Konzepte
+  * [Logikkanäle](#logikkanäle)
+    * [Zeitschaltuhren](#zeitschaltuhren)
+    * [Startverhalten](#startverhalten)
+    * [Übersicht typische abgebildete KNX-Funktionen](#zusammenfassung)
+  * [DPT-Konverter](#dpt-konverter)
+* [ETS Konfiguration](#ets-konfiguration) (Übersicht aller Konfigurationsseiten und Links zu Detailbeschreibung)
+* [Beispiele](#beispiele)
+  * [Zeitschaltuhr soll jeden n-ten Tag schalten](#zeitschaltuhr-soll-jeden-n-ten-tag-schalten)
+  * [Einfacher Szenen-Controller](#einfacher-szenen-controller)
+* [Update der Applikation](#update-der-applikation)
+* [Unterstützte Hardware](#unterstützte-hardware)
+* Fortgeschrittene Funktionen
+  * [Diagnoseobjekt](#diagnoseobjekt)
+  * [Benutzerfunktionen](#benutzerfunktionen)
+
+### ETS Konfiguration
+
+* **+ [ Allgemeine Parameter](#allgemeine-parameter)**
+  * [Gerätestart](#gerätestart)
+  * [Installierte Hardware](#installierte-hardware)
+  * [**Experteneinstellungen**](#experteneinstellungen)
+* **+ Logikkanäle**
+  * [**+ Logikdokumentation**](#logikdokumentation)
+    * [**Eingänge**](#eing%C3%A4nge)
+    * [**Zeitschaltuhren**](#zeitschaltuhren)
+    * [**Ausgänge**](#ausg%C3%A4nge)
+  * [**Urlaub/Feiertage** (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
+    * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
+    * [Urlaub](#urlaub)
+    * [Feiertage](#feiertage)
+  * [**+ Logik n: ...** (n=1 bis 99)](#logik-n-)
+    * [Kanaldefinition](#kanaldefinition)
+    * [Logikdefinition](#logikdefinition)
+    * [Logikauswertung](#logikauswertung)
+    * [Tordefinition](#tordefinition)
+    * [Logik-Trigger](#logik-trigger)
+    * [**Eingang 1/2: Wert**](#eingang-1-unbenannt--eingang-2-unbenannt)
+      * [Eingangskonverter](#eingangskonverter)
+      * [Eingangswert vorbelegen](#eingangswert-vorbelegen)
+    * [**Kanalausgänge verbinden** (Interne Eingänge)](#kanalausgänge-verbinden)
+    * [**Schaltzeiten: ...** (Zeitschaltuhr)](#schaltzeiten-unbenannt)
+      * [Tagesschaltuhr](#schaltzeitpunkte-tagesschaltuhr)
+      * [Jahresschaltuhr](#schaltzeitpunkte-jahresschaltuhr)
+    * [**Ausgang: ...**](#ausgang)
+      * [Treppenlicht](#treppenlicht)
+      * [Ein-/Ausschaltverzögerung](#ein-ausschaltverzögerung)
+      * [Wiederholungsfilter](#wiederholungsfilter)
+      * [Zyklisch senden](#zyklisch-senden)
+      * [Interne Eingänge](#interne-eingänge)
+      * [Wert für Ausgang](#wert-für-ausgang)
+        * [ReadRequest senden](#ja---readrequest-senden)
+        * [Gerät zurücksetzen senden](#ja---ger%C3%A4t-zur%C3%BCcksetzen-senden)
+          * [Physikalische Adresse](#physikalische-adresse)
+        * [Tonwiedergabe (Buzzer)](#ja---tonwiedergabe-buzzer)
+          * [Alarmausgabe (Buzzer oder Sperre trotz Sperre schalten)?](#alarmausgabe-buzzer-oder-sperre-trotz-sperre-schalten) 
+        * [RGB-LED schalten](#ja---rgb-led-schalten)
+          * [LED-Farbe festlegen (Schwarz=aus)](#led-farbe-festlegen-schwarzaus) 
+        * [Formeln](#formeln)
+
+
 
 ## Änderungshistorie
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-27.12.2022: Firmware 1.0.5, Applikation 1.0
+09.01.2023: Firmware 1.4.1, Applikation 1.4
 
-* FIX: Eingänge, die als Konstanten fungieren (für Formeln), werden wieder als "gültig" angesehen (war neuer Bug zu 1.0 release)
+* NEU: Zeitschaltuhren können jetzt auch anhand des Sonnenstands (Elevation, Winkel unter/über dem Horizont) schalten.
+
+07.01.2023: Firmware 1.3, Applikation 1.3
+
+* FIX: Ungültige Datum- und Zeit-Telegramme werden ignoriert und stellen die Zeit nicht mehr auf unsinnige Werte
+* FIX: Ein Datum mit einem Jahr vor 2022 wird ignoriert, das hilft, wenn beim System-Neustart erst mal veraltete Datum-Telegramme verschickt werden
+* NEU: Sommerzeit kann nicht nur über ein KO gesetzt oder intern berechnet werden (gilt nur für Deutschland), sondern auch aus einem DPT19-Telegramm ermittelt werden, sofern der KNX-Zeitgeber das unterstützt.
+
+30.12.2022: Firmware 1.2, Applikation 1.2
+
+* NEU: Datum und Zeit kann jetzt auch über DPT 19 (Datum/Zeit kombiniert) an das Logikmodul übertragen werden (danke an Cornelius Köpp).
+* NEU: Es werden alle Zeitzonen für die Berechnung des Sonnenauf- und -untergangs unterstützt.
+* FIX: Die Berechnung vom Sonnenauf- und -untergang ist jetzt korrekt (danke an @dhb2002)
+* NEU: Neues Kommunikationsobjekt, mit dem man dem Logikmodul mitteilen kann, dass jetzt Sommerzeit aktiv ist (für Länder außerhalb Deutschlands notwendig).
+* FIX: Das Logikmodul (standalone) hat keine Leseanfragen für Zeit/Datum wiederholt, wenn die erste Leseanfrage nicht beantwortet wurde.
+* FIX: Das senden von Feiertagen auf den Bus wurde nicht durchgeführt (auch wenn in der Applikation eingestellt). Sie konnten aber schon immer per Read-Request gelesen werden (danke an Cornelius Köpp für den Fix).
+* FIX: Formelergebnisse, die als DPT 5.001 versendet werden sollten, waren falsch (neuer Bug in 1.1).
+
+27.12.2022: Firmware 1.1, Applikation 1.1
+
+* NEU: Es werden auch die DPT 12, 13 und 14 (4-Byte-Werte) sowohl am Ein- wie am Ausgang unterstützt.
+* FIX: Konstante Eingänge werden wieder als Gültig betrachtet (war ein neuer Bug in 1.0).
 
 23.12.2022: Firmware 1.0.3, Applikation 1.0
 
@@ -41,7 +129,6 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
 * NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
 * NEU: Weitere Hardware verfügbar ([Siehe Unterstützte Hardware](#unterstützte-hardware))
-
 
 08.11.2022: Firmware 0.12.3, Applikation 0.12 (Beta-Release)
 
@@ -125,7 +212,7 @@ Einstellbare Ausgangstrigger
 
 Mehrere Kanäle können zu größeren Logikblöcken zusammengefasst werden
 
-Eingänge unterstützen DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 17
+Eingänge unterstützen DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 17
 
 Ausgänge unterstützen zusätzlich den DPT 16
 
@@ -181,6 +268,7 @@ Zeitschaltuhren
 * Sonnenstandsbezogene Schaltzeiten:
 * Sonnenauf-/-untergang +/- Stunden/Minuten
 * Sonnenauf-/-untergang, aber frühstens/spätestens um ...
+* Sonnenauf-/-untergang, mit Angabe des Sonnenstands als Winkel über/unter dem Horizont
 * Jede Stunde zu bestimmten Minuten schalten
 * Jeder Schaltvorgang kann dann wie bei jedem Logikkanal auch alle Ausgangsfunktionen haben
 * Beim Neustart des Logikmoduls den zeitlich letzten Schaltzeitpunkt berechnen und erneut ausgeben
@@ -197,16 +285,14 @@ Ein Toreingang kann auch ein Impulseingang sein (reagiert nur auf 1, wobei Tor g
 * Erlaubt diskrete getaktete Werte auf den Bus zu senden
 * Kann zur Synchronisation von Werten genutzt werden
 
-Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt<sup>*)</sup>
+Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt
 
-Senden von gespeicherten Werten nach einem Neustart<sup>*)</sup>
-
-<sup>*)</sup> **Wichtig:** Erst ab release 1.0 verfügbar
-
+Senden von gespeicherten Werten nach einem Neustart
 
 ## **Allgemeine Parameter**
 
 <kbd>![Allgemeine Parameter](pics/AllgemeineParameter.PNG)</kbd>
+
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
 
 Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Punkte vorhanden sein.
@@ -227,9 +313,21 @@ Das Gerät kann einen Status "Ich bin noch in Betrieb" über das KO 1 senden. Hi
 
 Sollte hier eine 0 angegeben werden, wird kein "In Betrieb"-Signal gesendet und das KO 1 steht nicht zur Verfügung.
 
+### **Uhrzeit und Datum empfangen über**
+
+Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Dabei kann man wählen, ob man Uhrzeit über ein Kommunikationsobjekt und das Datum über ein anders empfangen will oder beides, Uhrzeit und Datum, über ein kombiniertes Kommunikationsobjekt.
+
+#### **Zwei getrennte KO Uhrzeit und Datum**
+
+Wählt man diesen Punkt, wird je ein Kommunikationsobjekt für Uhrzeit (DPT 10) und Datum (DPT 11) bereitgestellt. Der KNX-Zeitgeber im System muss die Uhrzeit und das Datum für die beiden Kommunikationsobjekte liefern können.
+
+#### **Ein kombiniertes KO Uhrzeit/Datum**
+
+Wählt man diesen Punkt, wir ein kombiniertes Kommunikationsobjekt für Uhrzeit/Datum (DPT 19) bereitgestellt. Der KNX-Zeitgeber im System muss die kombinierte Uhrzeit/Datum entsprechend liefern können.
+
 ### **Uhrzeit und Datum nach einem Neustart vom Bus lesen**
 
-Dieses Gerät kann Uhrzeit und Datum vom Bus empfangen. Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
+Nach einem Neustart können Uhrzeit und Datum auch aktiv über Lesetelegramme abgefragt werden. Mit diesem Parameter wird bestimmt, ob Uhrzeit und Datum nach einem Neustart aktiv gelesen werden.
 
 Wenn dieser Parameter gesetzt ist, wird die Uhrzeit und das Datum alle 20-30 Sekunden über ein Lesetelegramm vom Bus gelesen, bis eine entsprechende Antwort kommt. Falls keine Uhr im KNX-System vorhanden ist oder die Uhr nicht auf Leseanfragen antworten kann, sollte dieser Parameter auf "Nein" gesetzt werden.
 
@@ -304,13 +402,15 @@ In den Eingabefeldern kann man die Tonfrequenzen für die einzelnen Töne für L
 
 Eine stichwortartige Abhandlung dieser Dokumentation ist auch in der Applikation enthalten und auf 3 Unterseiten aufgeteilt.
 
-### **Allgemein**
-
-Hier ist die generelle Funktionsweise des Logikmoduls beschrieben.
+Auf der Seite **Logikdokumentation** wird zunächst die generelle Funktionsweise des Logikmoduls beschrieben.
 
 ### **Eingänge**
 
 Hier werden die Funktionsmodule für die Eingänge beschrieben.
+
+### **Zeitschaltuhren**
+
+Hier werden die Zeitschaltuhr-Funktionen beschrieben.
 
 ### **Ausgänge**
 
@@ -324,11 +424,16 @@ Das Logikmodul hat eine Zeitschaltuhr-Funktion, die einige globale Einstellungen
 
 <kbd>![Zeitangaben](pics/Zeit.PNG)</kbd>
 
-Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, ob eine Sommerzeitumschaltung intern vorgenommen werden soll.
+Für die korrekte Berechnung der Zeit für Sonnenauf- und -untergang werden die genauen Koordinaten des Standorts benötigt sowie auch die Zeitzone und die Information, ob gerade die Sommerzeit aktiv ist.
 
 Die Geo-Koordinaten können bei Google Maps nachgeschaut werden, indem man mit der rechten Maustaste auf das Objekt klickt und die unten erscheinenden Koordinaten benutzt.
 
 Die Standard-Koordinaten stehen für Frankfurt am Main, Innenstadt.
+
+Ob gerade die Sommerzeit aktiv ist, kann dem Logikmodul auf unterschiedliche Arten mitgeteilt werden. Diese Information wird benötigt, da für die Berechnung der Zeiten von Sonnenauf- und -untergang immer in UTC erfolgt. 
+Zu dieser UTC-Zeit wird dann entsprechend die Zeitzone und die Sommerzeit hinzuaddiert.
+
+> Information: Für Deutschland kann die Sommerzeit auch lokal vom Logikmodul berechnet werden.
 
 #### **Breitengrad**
 
@@ -340,19 +445,28 @@ In dem Feld wird der Längengrad des Standortes eingegeben.
 
 #### **Zeitzone**
 
-Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt. Es werden nur Zeitzonen für Europa angeboten.
+Für die korrekte Berechnung der Zeit wird die Zeitzone des Standortes benötigt.
 
-#### **Sommerzeit berücksichtigen**
+#### **Sommerzeit ermitteln durch**
 
-Mit einem "Ja" wird angegeben, dass die Umschaltung der Sommerzeit nicht vom Modul vorgenommen werden soll, sondern über den Bus auf dem KO 2 (Zeit) übertragen wird. Ein "Nein" führt zur internen Berechnung der Sommerzeit, das Modul geht davon aus, dass die Zeit auf dem Bus nicht die Sommerzeitverschiebung mitmacht (eher unüblich).
+Hier kann man eine der verfügbaren Möglichkeiten auswählen, mit der das Logikmodul ermitteln kann, ob gerade die Sommerzeit aktiv ist.
 
-Wichtig: Für alle Schaltvorgänge wird die Uhrzeit vom Bus genommen, diese sollte somit in Lokalzeit vorliegen und idealerweise auch die Sommerzeitverschiebung beinhalten. Die Angaben für Zeitzone und Sommerzeit werden benötigt, um die Berechnung der Sonnenauf- und -untergangszeit anzupassen, da diese normalerweise immer in UTC erfolgen.
+##### **Kommunikationsobjekt 'Sommerzeit aktiv'**
 
-Wichtig: Sprünge in der von außen (über den Bus) vorgegebenen Zeit können vom Modul nicht erkannt und in irgendeiner Form berücksichtigt werden. Sollten also Modulzeit und Buszeit auseinanderlaufen (indem z.B. die Buszeit nur einmal pro Woche auf dem Bus ausgegeben wird), könnte es passieren, dass die Modulzeit z.B. um 10 Minuten zurückgesetzt wird. Schaltvorgänge, die in dieser Zeit erfolgt sind, werden dann erneut ausgeführt. Falls um 10 Minuten nach vorne gesprungen wird, werden die Zeiten übersprungen und nicht ausgeführt.
+Wird diese Option ausgewählt, muss über das Kommunikationsobjekt 'Sommerzeit aktiv' dem Logikmodul mitgeteilt werden, ob gerade die Sommerzeit aktiv ist.
 
-Das eben gesagte macht sich besonders bei der Sommerzeitumstellung bemerkbar, da dabei gewollt um eine Stunde gesprungen wird!
+##### **Kombiniertem Datum/Zeit-KO (DPT 19)**
 
-Empfehlung: Um solche "Sprung-" bzw. "Wiederholungseffekte" zu vermeiden, sollte man mindestens einmal pro Tag die Uhrzeit auf dem Bus ausgeben und an den Tagen der Sommerzeitumschaltung zwischen 2 und 3 Uhr morgens keine Schaltzeiten definieren.
+Erscheint nur, wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zeit-KO (DPT 19) gewählt worden ist.
+
+Wenn der Datum- bzw. Zeitempfang über ein kombiniertes Datum/Zeit-KO (DPT 19) gewählt worden ist, kann dieses Zeittelegramm auch die Information enthalten, ob gerade die Sommerzeit aktiv ist. Wenn der Zeitgeber im System diese Information mit dem DPT 19-Telegramm mitschicken kann, sollte diese Option gewählt werden.
+
+Nach bisherigen Tests ist uns nur das MDT-IP-Interface 
+##### **Interne Berechnung (nur für Deutschland)**
+
+Erscheint nur, wenn die Zeitzone 'Berlin' gewählt worden ist.
+
+Diese Option kann nur für Deutschland genutzt werden. Sie ist nicht zu verwenden, falls man in der selben Zeitzone wie Deutschland ist, aber in einem anderen Land.
 
 ### **Urlaub**
 
@@ -378,7 +492,7 @@ Für die Zeitschaltuhren wird vom Modul eine Berechnung der Feiertage vorgenomme
 
 #### **Feiertage auf dem Bus verfügbar machen?**
 
-Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über diese Kommunikationsobjekte wird die Nummer eines Feiertags gesendet. Jede gesendete Nummer entspricht genau einem Feiertag, die Nummern entsprechen den in der Liste von Feiertagseinstellungen (siehe vorheriges Bild).
+Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über diese Kommunikationsobjekte wird die Nummer eines Feiertags gesendet. Jede gesendete Nummer entspricht genau einem Feiertag, die Nummern entsprechen denen in der Liste von Feiertagseinstellungen (siehe vorheriges Bild).
 
 * KO 5 (Welcher Feiertag ist heute?) sendet, wenn der aktuelle Tag ein Feiertag ist,
 * KO 6 (Welcher Feiertag ist morgen?) sendet, wenn der nächste Tag ein Feiertag ist.
@@ -403,13 +517,15 @@ Man kann aber eine (oder mehrere) Jahresschaltuhren dafür verwenden, weitere Fe
 
 Im Folgenden werden die generellen Konzepte und die grobe Funktion eines Logikkanals beschrieben. Die Parameter eines jeden Kanals werden später im Detail beschrieben.
 
-Jeder Logikkanal, von denen bis zu 80 zur Verfügung stehen, ist identisch aufgebaut. Es stehen immer 2 externe Eingänge, 2 interne Eingänge und ein Ausgang zur Verfügung. Alternativ kann als Eingang der Funktionsblock "Zeitschaltuhr" genutzt werden.
+Jeder Logikkanal, von denen bis zu 99 zur Verfügung stehen, ist identisch aufgebaut. Es stehen immer 2 externe Eingänge, 2 interne Eingänge und ein Ausgang zur Verfügung. Alternativ kann als Eingang der Funktionsblock "Zeitschaltuhr" genutzt werden.
 
 Zwischen die Eingänge und den Ausgang können verschiedene Funktionsblöcke geschaltet werden, die die Eingangssignale beeinflussen und Verknüpfen können und so ein Ausgangssignal erzeugen.
 
 Alle Funktionsblöcke kann man sich wie an einer Perlenschnur aufgereiht hintereinander vorstellen, das Ergebnis eines Funktionsblocks wird für den darauffolgenden Funktionsblock als Eingabe verwendet.
 
 <kbd>![Übersicht](pics/Uebersicht.PNG)</kbd>
+
+**) Derzeit implementiert: DPT 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 16, 17, 232; DPT 16 nicht als Eingang (Abweichend zum Bild)
 
 Jeder Funktionsblock arbeitet rein binär, also nur mit den Werten 0 oder 1 (DPT 1). Damit auch andere DPT möglich sind, besitzen externe Eingänge Konverter-Funktionsblöcke, die von einem beliebigen DPT nach DPT 1 konvertieren. Derzeit sind Schwellwertschalter und Vergleicher als Konverterfunktionen implementiert. Interne Eingänge und die Zeitschaltuhr benötigen keinen Konverter, da sie rein binär funktionieren.
 
@@ -443,6 +559,7 @@ Neben absoluten Zeitpunkten sind auch relative Zeitpunkte möglich:
 * Zeitversatz (Stunde:Minute) relativ zum Sonnenauf-/-untergang
 * Sonnenauf-/-untergang, aber frühstens um Zeitpunkt (Stunde:Minute)
 * Sonnenauf-/-untergang, aber spätestens um Zeitpunkt (Stunde:Minute)
+* Sonnenauf-/-untergang, mit Angabe des Sonnenstands als Winkel über/unter dem Horizont
 
 Für die korrekte Berechnung von Sonnenauf- und -untergangszeit muss das Modul die korrekten Geokoordinaten (Standort) des Hauses wissen, wie auch die Zeitzone und ob es an diesem Ort eine Sommerzeitumschaltung gibt. Diese Informationen muss man für die korrekte Funktion einstellen.
 
@@ -507,11 +624,11 @@ Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinfluss
 * Zeitschaltuhr-Funktionen
 * tbc
 
-## **Logik n: unbenannt**
+## **Logik n: ...**
 
 Da alle Kanäle identisch sind, wird hier nur ein Kanal repräsentativ beschrieben. Das gesagte kann für alle Kanäle eingestellt werden.
 
-Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "unbenannt" lautet.
+Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "..." lautet.
 
 <kbd>![Baumansicht der Kanäle](pics/Kanalbaum.PNG)</kbd>
 
@@ -804,11 +921,14 @@ Dieses Auswahlfeld legt den DPT für den Eingang fest. Unterstützt werden:
 * DPT 5: vorzeichenlose Zahl (0 bis 255)
 * DPT 5.001: Prozentzahl (0 bis 100)
 * DPT 6: vorzeichenbehaftete Zahl (-128 bis 127)
-* DPT 7: vorzeichenlose Zahl (0 bis 65535)
-* DPT 8: vorzeichenbehaftete Zahl (-32768 bis 32767)
-* DPT 9: Gleitkommawert (-670760,96 bis 670760,96)
+* DPT 7: vorzeichenlose Zahl (0 bis 65.535)
+* DPT 8: vorzeichenbehaftete Zahl (-32.768 bis 32.767)
+* DPT 9: Gleitkommawert (-670.760,96 bis 670.760,96)
+* DPT 12: vorzeichenlose Zahl (0 bis 4294967296)
+* DPT 13: vorzeichenbehaftete Zahl (-2.147.483.648 bis 2.147.483.647)
+* DPT 14: Gleitkommawert (-1.000.000.000.000 bis 1.000.000.000.000)
 * DPT 17: Szenen Nummer (1-64)
-* DPT 232: RGB-Wert (0-16777216)
+* DPT 232: RGB-Wert (0-16.777.216)
 
 Ist der DPT anders als DPT 1, erscheint je nach DPT ein Konverter, mit dem man den gewünschten Eingangs-DPT nach DPT 1 wandeln kann. Die gesamte weitere Verarbeitung des Eingangssignals erfolgt binär, also auf Basis von DPT 1.
 
@@ -861,7 +981,7 @@ In dem Bildschirmausschnitt ist der Konverter so konfiguriert, dass aus Szene 6,
 
 ### **Zahlenbasierte DPT**
 
-Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern  in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind alle gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+Alle DPT, die Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx, 9.xxx, 12.xxx, 13.xxx, 14.xxx und 232.xxx), können mittels 4 verschiedenen Zahlenkonvertern  in ein binäres Signal umgewandelt werden. Die Zahlenkonverter sind alle gleich in ihren Einstellungen, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
 
 #### **Wert für Eingang n bestimmen durch**
 
@@ -946,7 +1066,7 @@ Wird ein Differenzeingang genutzt, sollte dieser nicht auch noch als "normal akt
 
 ### **Ganzzahlbasierte DPT**
 
-Alle DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx), können mittels eines weiteren Einzelwert-Konverters in ein binäres Signal umgewandelt werden. Er ist gleich für alle DPT, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
+Einige DPT, die ganze Zahlen repräsentieren (das sind DPT 5.xxx, 5.001, 6.xxx, 7.xxx, 8.xxx), können mittels eines weiteren Einzelwert-Konverters in ein binäres Signal umgewandelt werden. Er ist gleich für alle DPT, die einzugebenden Zahlen müssen nur innerhalb der Wertebereiche des jeweiligen DPT liegen.
 
 #### **Einzelwert-Konverter**
 
@@ -966,6 +1086,8 @@ Der Einzelwert-Konverter erspart einige ODER-Verknüpfungen und spart so Logikka
 
 In dem angezeigten Bildschirmausschnitt wird bei den Werten 17, 25 und 40 ein EIN-Signal erzeugt, bei allen anderen Werten ein AUS-Signal.
 
+> Anmerkung: Aufgrund der intern verwendeten Speicherstruktur können für die DPT 12.xxx und DPT 13.xxx keine Einzelwert-Konverter verwendet werden.
+
 #### **Konstanten**
 
 Alle Eingänge können auch mit einem Konstanten Wert vorbelegt werden. Dies geschieht DPT gerecht, also passend zum Eingangs-DPT. Konstanten können in Formeln verwendet werden oder direkt von Ausgängen genutzt werden. Wobei man sowieso jeden Ausgang einen konstanten Wert senden lassen kann, insofern macht es keinen Sinn, konstante Eingänge für Ausgänge zu definieren.
@@ -979,6 +1101,8 @@ Der Einsatz von Konstanten ist primär für Formeln gedacht. Wie die Konstanten 
 ## Eingangswert vorbelegen
 
 Die folgenden Einstellungen erlaubten ein dezidiertes Verhalten beim Neustart des Gerätes, wie im Kapitel "Logikkanäle -> Startverhalten" beschrieben.
+
+Eingangswerte kann man nur vorbelegen, wenn sie nicht konstant sind.
 
 <kbd>![Eingangswert vorbelegen](pics/EingangVorbelegen.png)</kbd>
 
@@ -1070,7 +1194,7 @@ Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
 <kbd>![Warnung Rückkopplung](pics/Rueckkopplung.PNG)</kbd>
 
-## Definition Interner Eingang 1
+## Definition Interner Eingang 2
 
 Hier werden die Verbindungseinstellungen für den Internen Eingang 2 gewählt.
 
@@ -1158,7 +1282,7 @@ Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Urla
 
 Nach einem Neustart des Moduls kann die letzte Schaltzeit erneut ausgeführt werden. Sobald das Datum und die Uhrzeit erstmals über den Bus gesetzt worden sind, wird nach der spätesten Schaltzeit gesucht, die noch vor dem aktuellen Datum/Uhrzeit liegt. Dieser Schaltzeitpunkt wird dann ausgeführt.
 
-Da eine Nachberechnung aller Schaltzeiten für bis zu 80 Zeitschaltuhren inklusive Feiertagsbehandlung direkt nach dem ersten Setzen der Zeit über den Bus sehr lange dauern würde und in dieser Zeit (mehrere Sekunden) die Funktion des Moduls gestört wäre, wird die Nachberechnung der Schaltzeiten durch einen Nebenprozess während der normalen Funktion des Moduls durchgeführt. Der Nebenprozess funktioniert in kleinen Schritten, die wenig Rechenzeit kosten und die Normalfunktion nicht behindern. Als Konsequenz kann es etwas dauern, bis der entsprechende nachberechnete Zeitschaltpunkt nachgeholt wird.
+Da eine Nachberechnung aller Schaltzeiten für bis zu 99 Zeitschaltuhren inklusive Feiertagsbehandlung direkt nach dem ersten Setzen der Zeit über den Bus sehr lange dauern würde und in dieser Zeit (mehrere Sekunden) die Funktion des Moduls gestört wäre, wird die Nachberechnung der Schaltzeiten durch einen Nebenprozess während der normalen Funktion des Moduls durchgeführt. Der Nebenprozess funktioniert in kleinen Schritten, die wenig Rechenzeit kosten und die Normalfunktion nicht behindern. Als Konsequenz kann es etwas dauern, bis der entsprechende nachberechnete Zeitschaltpunkt nachgeholt wird.
 
 Wie lange es dauert, bis ein nachberechneter Zeitschaltpunkt nachgeholt wird, hängt wiederum vom Zeitschaltpunkt selbst ab.
 
@@ -1210,6 +1334,14 @@ Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten S
 
 Der Schaltzeitpunkt ist der Sonnenaufgang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit auf, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenaufgang. Es wird somit beim Sonnenaufgang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
+#### **Sonnenaufgang: Über Horizont**
+
+Der Schaltzeitpunkt ist morgens, sobald die Sonne den Winkel über dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+#### **Sonnenaufgang: Unter Horizont**
+
+Der Schaltzeitpunkt ist morgens, sobald die Sonne den Winkel unter dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
 #### **Sonnenuntergang: plus Zeitversatz**
 
 Der Schaltzeitpunkt ist der Sonnenuntergang, zu dem die Zeitangabe, die in den Spalten Stunde und Minute steht, hinzuaddiert wird. Es wird somit um die angegebenen Stunden und Minuten nach Sonnenuntergang geschaltet.
@@ -1226,13 +1358,23 @@ Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten
 
 Der Schaltzeitpunkt ist der Sonnenuntergang oder die Uhrzeit, die in den Spalten Stunde und Minute steht. Geht die Sonne nach der angegebenen Uhrzeit unter, wird bereits um die angegebene Uhrzeit geschaltet, sonst schon beim Sonnenuntergang. Es wird somit beim Sonnenuntergang, aber nicht später als die angegebene Uhrzeit geschaltet.
 
-### **Spalte: Stunde**
+#### **Sonnenuntergang: Über Horizont**
+
+Der Schaltzeitpunkt ist abends, sobald die Sonne den Winkel über dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+#### **Sonnenuntergang: Unter Horizont**
+
+Der Schaltzeitpunkt ist abends, sobald die Sonne den Winkel unter dem Horizont erreicht hat, der angegeben worden ist. Der Winkel kann in Grad und Minuten angegeben werden. Der Wertebereich geht von 0° bis 63°59'.
+
+### **Spalte: Stunde/Grad**
 
 Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 
 In dieser Spalte werden Stunden eingestellt, entweder als absolute Uhrzeit oder als Versatz zum Sonnenauf- oder -untergang.
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Stunde ausgeführt, natürlich unter Berücksichtigung der angegebenen Minuten. So kann man stündlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
+
+Bei Sonnenstandsangaben (Winkel über/unter dem Horizont) wird in dieser Spalte der Winkel angegeben.
 
 ### **Spalte: Minute**
 
@@ -1241,6 +1383,8 @@ Ist sowohl bei Tagesschaltuhr und Jahresschaltuhr vorhanden.
 In dieser Spalte werden Minuten eingestellt, entweder als absolute Uhrzeit oder als Versatz zum Sonnenauf- oder -untergang.
 
 Wird hier der Wert "jede" ausgewählt, wird der Schaltpunkt jede Minute ausgeführt, natürlich unter Berücksichtigung der angegebenen Stunde. So kann man minütlich wiederkehrende Aktionen definieren. Der Wert "jede" steht nur zur Verfügung, wenn der Zeitbezug auf "Zeitpunkt" steht.
+
+Bei Sonnenstandsangaben (Winkel über/unter dem Horizont) wird in dieser Spalte der Winkelbruchteil in (Winkel-)Minuten angegeben.
 
 ### **Spalte: Wert**
 
@@ -1522,9 +1666,12 @@ Dieses Auswahlfeld legt den DPT für den Ausgang fest. Unterstützt werden:
 * DPT 5: vorzeichenlose Zahl (0 bis 255)
 * DPT 5.001: Prozentzahl (0 bis 100)
 * DPT 6: vorzeichenbehaftete Zahl (-128 bis 127)
-* DPT 7: vorzeichenlose Zahl (0 bis 65535)
-* DPT 8: vorzeichenbehaftete Zahl (-32768 bis 32767)
-* DPT 9: Gleitkommawert (-670760,96 bis 670760,96)
+* DPT 7: vorzeichenlose Zahl (0 bis 65.535)
+* DPT 8: vorzeichenbehaftete Zahl (-32.768 bis 32.767)
+* DPT 9: Gleitkommawert (-670.760,96 bis 670.760,96)
+* DPT 12: vorzeichenlose Zahl (0 bis 4294967296)
+* DPT 13: vorzeichenbehaftete Zahl (-2.147.483.648 bis 2.147.483.647)
+* DPT 14: Gleitkommawert (-1.000.000.000.000 bis 1.000.000.000.000)
 * DPT 16: Text (bis 14 Byte)
 * DPT 17: Szenen Nummer (1-64)
 * DPT 232: RGB-Wert (3*8 Bit Rot-, Grün-, Blauwert)
@@ -1894,9 +2041,9 @@ stehen bereits 30 Benutzerfunktionen bereit, die nur noch mit dem notwendigen Co
 
     // user functions, may be implemented by Enduser
     // for DPT-Check you can use constants beginning with VAL_DPT_*
-    float LogicFunction::userFunction01(uint8_t DptE1, float E1, uint8_t DptE2, float E2, uint8_t *DptOut)
+    LogicValue LogicFunction::userFunction01(uint8_t DptE1, LogicValue E1, uint8_t DptE2, LogicValue E2, uint8_t *DptOut)
     {
-        return E1; // just an expample, result is first parameter value
+        return E1; // just an example, result is first parameter value
     }
 
 In der Beispielimplementierung für die Benutzerfunktion_01 wird der Wert vom Eingang 1 zurückgegeben.
@@ -2014,6 +2161,8 @@ DPT | 1 | 2 | 5 | 5.001 | 6 | 7 | 8 | 9 | 16 | 17 | 232
 9 | B | Z | G<sub>VW</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>VW</sub> | G<sub>W</sub> | I | T | S  | G
 17 | B | Z | G | G | G | G | G | G | T | I | G
 232 | B | Z | G<sub>VW</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>VW</sub> | G<sub>W</sub> | G<sub>W</sub> | T | S  | I
+
+> Achtung: Die obige Tabelle kann nur zur Orientierung dienen. In Laufe der Zeit hat sich einiges an der Behandlung der DPT im Logikmodul geändert. Das führt implizit zu Änderungen der Konvertierungen zwischen den DPT. Die Tabelle wird nochmal komplett überarbeitet werden, nachdem ein finaler Stand der zu verarbeitenden DPT im Logikmodul erreicht ist.
 
 Die Einträge an den Schnittpunkten haben folgende Bedeutung:
 
@@ -2280,11 +2429,11 @@ n | Eingang 1 | *) | Eingang 1 für einen Logikkanal
 n+1 | Eingang 2 | *) | Eingang 2 für einen Logikkanal
 n+2 | Ausgang | **) | Ausgang eines Logikkanals
 
-*) Eingangs-DPT ist 1, 2, 5, 5.001, 6, 7, 8, 9, 17, 232
+*) Eingangs-DPT ist 1, 2, 5, 5.001, 6, 7, 8, 9, 12, 13, 14, 17, 232
 
 **) Ausgangs-DPT ist Eingangs-DPT ergänzt um DPT 16.
 
-Jeder Logikkanal hat genau 3 aufeinanderfolgende Kommunikationsobjekte. Wenn n der Eingang 1 für Kanal x ist, so ist n+3 der Eingang 1 für Kanal x+1. Bei 80 Kanälen ist das letzte KO der Ausgang für Kanal 80 und hat die Nummer n+239.
+Jeder Logikkanal hat genau 3 aufeinanderfolgende Kommunikationsobjekte. Wenn n der Eingang 1 für Kanal x ist, so ist n+3 der Eingang 1 für Kanal x+1. Bei 99 Kanälen ist das letzte KO der Ausgang für Kanal 99 und hat die Nummer n+296.
 
 n für Kanal 1 ist von dem Gerät abhängig, auf dem die Applikation Logik läuft:
 
