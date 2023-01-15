@@ -396,13 +396,15 @@ In den Eingabefeldern kann man die Tonfrequenzen für die einzelnen Töne für L
 
 Eine stichwortartige Abhandlung dieser Dokumentation ist auch in der Applikation enthalten und auf 3 Unterseiten aufgeteilt.
 
-### **Allgemein**
-
-Hier ist die generelle Funktionsweise des Logikmoduls beschrieben.
+Auf der Seite **Logikdokumentation** wird zunächst die generelle Funktionsweise des Logikmoduls beschrieben.
 
 ### **Eingänge**
 
 Hier werden die Funktionsmodule für die Eingänge beschrieben.
+
+### **Zeitschaltuhren**
+
+Hier werden die Zeitschaltuhr-Funktionen beschrieben.
 
 ### **Ausgänge**
 
