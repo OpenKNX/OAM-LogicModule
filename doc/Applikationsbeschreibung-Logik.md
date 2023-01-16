@@ -2437,7 +2437,7 @@ Jeder Logikkanal hat genau 3 aufeinanderfolgende Kommunikationsobjekte. Wenn n d
 
 n für Kanal 1 ist von dem Gerät abhängig, auf dem die Applikation Logik läuft:
 
-* Für das Logikmodul ist n=20, somit ist das letzte belegte KO 259.
-* Für das Sensormodul ist n=125, somit ist das letzte belegte KO 364.
-* Für das Wiregateway ist n=150, somit ist das letzte belegte KO 389.
+* Für das Logikmodul ist n=20, somit ist das letzte belegte KO 316.
+* Für das Sensormodul ist n=125, somit ist das letzte belegte KO 421 bzw. KO 364 bei 80 Logikkanälen.
+* Für das Wiregateway ist n=150, somit ist das letzte belegte KO 446.
 * Für das Enocean-Gateway ist n=320, somit ist das letzte belegte KO 469 (50 Logikkanäle).
