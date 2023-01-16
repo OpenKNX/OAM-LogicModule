@@ -179,7 +179,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 23.04.2022: Firmware 0.7.0, Applikation 0.7 (Beta-Release)
 
 * initiales Release als OpenKNX LogicModule
-* Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logik) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
+* Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logic) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
 * Erzeugung von Firmware und knxprod wurde stark vereinfacht
 * (intern) verbesserte Kommunikation mit dem KNX-Bus
 * ETS-Applikation wird auch mit der ETS 6 getestet
