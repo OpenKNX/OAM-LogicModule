@@ -407,7 +407,7 @@ bool Logic::processDiagnoseCommand() {
                 {
                     double lDegree = ((sDiagnoseBuffer[3] - '0') * 10 + sDiagnoseBuffer[4] - '0');
                     uint8_t lMinute = ((sDiagnoseBuffer[5] - '0') * 10 + sDiagnoseBuffer[6] - '0'); 
-                    lDegree = (lDegree + lMinute / 60.0) * -(sDiagnoseBuffer[2] == '-');
+                    lDegree = (lDegree + lMinute / 60.0) * (sDiagnoseBuffer[2] == '+' ? 1 : -1);
                     sTime lSunrise;
                     sTime lSunset;
                     sTimer.getSunDegree(SUN_SUNRISE, lDegree, &lSunrise);
