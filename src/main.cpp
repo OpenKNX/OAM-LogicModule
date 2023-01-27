@@ -1,4 +1,4 @@
-// #ifdef LOGICMODULE
+#ifdef LOGICAPP
 #include <oknx.h>
 // #include <Logikmodul.h>
 #include <Logic.h>
@@ -6,6 +6,32 @@
 
 void appSetup(bool iSaveSupported);
 void appLoop();
+uint32_t minFreeMemory = INT32_MAX;
+
+// #include "TimerInterrupt_Generic.h"
+
+// // Init selected SAMD timer
+// SAMDTimer ITimer(TIMER_TC3);
+
+
+// ////////////////////////////////////////////////
+
+
+// // Init SAMD_ISR_Timer
+// // Each SAMD_ISR_Timer can service 16 different ISR-based timers
+// SAMD_ISR_Timer ISR_Timer;
+
+
+// #define TIMER_INTERVAL_1S             1000L
+// #define TIMER_INTERVAL_2S             2000L
+// #define TIMER_INTERVAL_5S             5000L
+
+
+
+// void TimerHandler(void)
+// {
+//   ISR_Timer.run();
+// }
 
 void setup()
 {
@@ -63,4 +89,4 @@ void loop()
     if (knx.configured())
         appLoop();
 }
-// #endif
+#endif

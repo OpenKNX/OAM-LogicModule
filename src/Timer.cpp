@@ -291,8 +291,8 @@ void Timer::setIsSummertime(bool iValue)
 {
     if (iValue != mIsSummertime)
     {
-        calculateSunriseSunset();
         mIsSummertime = iValue;
+        calculateSunriseSunset();
     }
 }
 

@@ -20,6 +20,7 @@ char LogicChannel::sFilter[30] = "";
  * ***************************/
 LogicChannel::LogicChannel(uint8_t iChannelNumber)
 {
+    _channelIndex = iChannelNumber;
     mChannelId = iChannelNumber;
     // initialize most important runtime field
     pCurrentPipeline = 0;
@@ -777,12 +778,12 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
         case IO_Input1:
             lRepeatInputBit = PIP_REPEAT_INPUT1;
             lRepeatTime = getTimeDelayParam(LOG_fE1RepeatBase);
-            lJustOneTelegram = getByteParam(LOG_fE1DefaultRepeat) & LOG_fE1DefaultRepeatMask;
+            lJustOneTelegram = ParamLOG_fE1DefaultRepeat; 
             break;
         case IO_Input2:
             lRepeatInputBit = PIP_REPEAT_INPUT2;
             lRepeatTime = getTimeDelayParam(LOG_fE2RepeatBase);
-            lJustOneTelegram = getByteParam(LOG_fE2DefaultRepeat) & LOG_fE2DefaultRepeatMask;
+            lJustOneTelegram = ParamLOG_fE2DefaultRepeat;
             break;
         default:
             return;
@@ -1305,6 +1306,10 @@ void LogicChannel::startStairlight(bool iOutput)
                 startOffDelay();
             // stairlight should be switched off
             bool lOff = getByteParam(LOG_fOStairOff) & LOG_fOStairOffMask;
+            // bool lOff = paramLOG_fOStairOff;
+            // bool lOff = LOG::fOStairOff(mChannelId);
+            // bool lOff = fOStairOff(mChannelId);
+            // lOff = paramlog
             if (lOff)
             {
                 // stairlight might be switched off,

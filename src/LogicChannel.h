@@ -204,6 +204,7 @@ class LogicChannel
   private:
     // instance
     uint8_t mChannelId;
+    uint8_t _channelIndex;
 #if LOGIC_TRACE
     static char sFilter[30];
     int channelDebug(const char *format, ...);

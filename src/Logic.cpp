@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "TimerRestore.h"
 #include "PCA9632.h"
+#include "MemoryFree.h"
 #ifdef WATCHDOG
 #include <Adafruit_SleepyDog.h>
 uint32_t gWatchdogDelay;
@@ -437,6 +438,11 @@ bool Logic::processDiagnoseCommand() {
         case 'o': {
             // calculate easter date
             snprintf(sDiagnoseBuffer, 15, "O%02d.%02d", sTimer.getEaster()->day, sTimer.getEaster()->month);
+            lResult = true;
+            break;
+        }
+        case 'm': {
+            snprintf(sDiagnoseBuffer, 15, "%i", freeMemory());
             lResult = true;
             break;
         }
