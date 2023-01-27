@@ -2,39 +2,40 @@
 #include "Arduino.h"
 #include "Helper.h"
 #include <ctime>
+#include "OpenKNX.h"
 
 sDay Timer::cHolidays[cHolidaysCount] = {
-    {1, 1}, 
-    {6, 1}, 
-    {-52, EASTER}, 
-    {-48, EASTER}, 
-    {-47, EASTER}, 
-    {-46, EASTER}, 
-    {8, 3}, 
-    {-3, EASTER}, 
-    {-2, EASTER}, 
-    {0, EASTER}, 
-    {1, EASTER}, 
-    {1, 5}, 
-    {39, EASTER}, 
-    {49, EASTER}, 
-    {50, EASTER}, 
-    {60, EASTER}, 
-    {8, 8}, 
-    {15, 8}, 
-    {3, 10}, 
-    {31, 10}, 
-    {1, 11}, 
-    {-32, ADVENT}, 
-    {-21, ADVENT}, 
-    {-14, ADVENT}, 
-    {-7, ADVENT}, 
-    {0, ADVENT}, 
-    {24, 12}, 
-    {25, 12}, 
-    {26, 12}, 
-    {31, 12}, 
-    {26, 10}, 
+    {1, 1},
+    {6, 1},
+    {-52, EASTER},
+    {-48, EASTER},
+    {-47, EASTER},
+    {-46, EASTER},
+    {8, 3},
+    {-3, EASTER},
+    {-2, EASTER},
+    {0, EASTER},
+    {1, EASTER},
+    {1, 5},
+    {39, EASTER},
+    {49, EASTER},
+    {50, EASTER},
+    {60, EASTER},
+    {8, 8},
+    {15, 8},
+    {3, 10},
+    {31, 10},
+    {1, 11},
+    {-32, ADVENT},
+    {-21, ADVENT},
+    {-14, ADVENT},
+    {-7, ADVENT},
+    {0, ADVENT},
+    {24, 12},
+    {25, 12},
+    {26, 12},
+    {31, 12},
+    {26, 10},
     {8, 12}
 };
 
@@ -409,15 +410,15 @@ void Timer::debug()
 {
     if (mTimeValid & tmMinutesValid)
     {
-        printDebug("Aktuelle Zeit: %s", getTimeAsc());
+        openknx.log("LogicTimer", "Aktuelle Zeit: %s", getTimeAsc());
     }
 #if LOGIC_TRACE
     if (mTimeValid & tmDateValid)
     {
-        printDebug("\nFeiertage %d: ", getYear());
+        openknx.log("LogicTimer", "\nFeiertage %d: ", getYear());
         calculateHolidays(true);
-        printDebug("\nEnd of holiday debug\n");
-        printDebug("Sonnenaufgang: %02d:%02d, Sonnenuntergang: %02d:%02d\n\n", mSunrise.hour, mSunrise.minute, mSunset.hour, mSunset.minute);
+        openknx.log("LogicTimer", "\nEnd of holiday debug\n");
+        openknx.log("LogicTimer", "Sonnenaufgang: %02d:%02d, Sonnenuntergang: %02d:%02d\n\n", mSunrise.hour, mSunrise.minute, mSunset.hour, mSunset.minute);
     }
 #endif
 }
@@ -455,7 +456,7 @@ void Timer::calculateHolidays(bool iDebugOutput)
         if (lHoliday.month > REMOVED)
         {
             if (iDebugOutput)
-                printDebug("%02d.%02d., ", lHoliday.day, lHoliday.month);
+                openknx.log("LogicTimer", "%02d.%02d., ", lHoliday.day, lHoliday.month);
             if (isEqualDate(lHoliday, lToday))
                 lHolidayToday = i + 1;
             if (isEqualDate(lHoliday, lTomorrow))

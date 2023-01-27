@@ -1,8 +1,8 @@
 #include "LogicChannel.h"
-#include "Logic.h"
 #include "Helper.h"
-#include "PCA9632.h"
+#include "Logic.h"
 #include "LogicFunction.h"
+#include "PCA9632.h"
 
 #ifndef abs
 #define abs(x) ((x) > 0 ? (x) : -(x))
@@ -40,7 +40,7 @@ LogicChannel::~LogicChannel()
 
 #if LOGIC_TRACE
 // channel debug output
-int LogicChannel::channelDebug(const char *iFormat, ...)
+int LogicChannel::log(const char *iFormat, ...)
 {
     char lBuffer[256];
     uint8_t lBufferPos = mChannelId * 2;
@@ -59,13 +59,14 @@ bool LogicChannel::debugFilter()
 {
     char lChannel[3];
     bool lReturn = true;
-    if (sFilter[0]) {
-      sprintf(lChannel, "%02i", mChannelId + 1);
-      lReturn = (sFilter[0] == lChannel[0]) && (sFilter[1] == lChannel[1]);
-      for (uint8_t i = 2; !lReturn && sFilter[i] && i < 30; i = i + 2)
-      {
-          lReturn = (sFilter[i] == lChannel[0]) && (sFilter[i + 1] == lChannel[1]);
-      }
+    if (sFilter[0])
+    {
+        sprintf(lChannel, "%02i", mChannelId + 1);
+        lReturn = (sFilter[0] == lChannel[0]) && (sFilter[1] == lChannel[1]);
+        for (uint8_t i = 2; !lReturn && sFilter[i] && i < 30; i = i + 2)
+        {
+            lReturn = (sFilter[i] == lChannel[0]) && (sFilter[i + 1] == lChannel[1]);
+        }
     }
     return lReturn;
 }
@@ -199,7 +200,7 @@ GroupObject *LogicChannel::getKo(uint8_t iIOIndex)
     {
         lExternalAccess = getWordParam(LOG_fE2OtherKO);
     }
-    bool lUseExternal = lExternalAccess & 0x8000;    // LOG_fE1UseOtherKOMask; // mask is for both inputs identical
+    bool lUseExternal = lExternalAccess & 0x8000; // LOG_fE1UseOtherKOMask; // mask is for both inputs identical
     if (lUseExternal)
     {
         uint16_t lKoNumber = lExternalAccess & 0x3FFF; // mask ist for both inputs identical
@@ -235,8 +236,8 @@ Dpt &LogicChannel::getKoDPT(uint8_t iIOIndex)
 // write value to bus
 void LogicChannel::knxWriteBool(uint8_t iIOIndex, bool iValue)
 {
-#if LOGIC_TRACE    
-    channelDebug("knxWrite KO %d bool value %d\n", calcKoNumber(iIOIndex), iValue);
+#if LOGIC_TRACE
+    log("knxWrite KO %d bool value %d", calcKoNumber(iIOIndex), iValue);
 #endif
     getKo(iIOIndex)->value(iValue, getKoDPT(iIOIndex));
 }
@@ -244,7 +245,7 @@ void LogicChannel::knxWriteBool(uint8_t iIOIndex, bool iValue)
 void LogicChannel::knxWriteInt(uint8_t iIOIndex, int32_t iValue)
 {
 #if LOGIC_TRACE
-    channelDebug("knxWrite KO %d int value %li\n", calcKoNumber(iIOIndex), iValue);
+    log("knxWrite KO %d int value %li", calcKoNumber(iIOIndex), iValue);
 #endif
     getKo(iIOIndex)->value((int32_t)iValue, getKoDPT(iIOIndex));
 }
@@ -252,7 +253,7 @@ void LogicChannel::knxWriteInt(uint8_t iIOIndex, int32_t iValue)
 void LogicChannel::knxWriteRawInt(uint8_t iIOIndex, int32_t iValue)
 {
 #if LOGIC_TRACE
-    channelDebug("knxWrite KO %d int value %li\n", calcKoNumber(iIOIndex), iValue);
+    log("knxWrite KO %d int value %li", calcKoNumber(iIOIndex), iValue);
 #endif
     GroupObject *lKo = getKo(iIOIndex);
     uint8_t *lValueRef = lKo->valueRef();
@@ -263,7 +264,7 @@ void LogicChannel::knxWriteRawInt(uint8_t iIOIndex, int32_t iValue)
 void LogicChannel::knxWriteFloat(uint8_t iIOIndex, float iValue)
 {
 #if LOGIC_TRACE
-    channelDebug("knxWrite KO %d float value %f\n", calcKoNumber(iIOIndex), iValue);
+    log("knxWrite KO %d float value %f", calcKoNumber(iIOIndex), iValue);
 #endif
     getKo(iIOIndex)->value(iValue, getKoDPT(iIOIndex));
 }
@@ -271,7 +272,7 @@ void LogicChannel::knxWriteFloat(uint8_t iIOIndex, float iValue)
 void LogicChannel::knxWriteString(uint8_t iIOIndex, const char *iValue)
 {
 #if LOGIC_TRACE
-    channelDebug("knxWrite KO %d string value %s\n", calcKoNumber(iIOIndex), iValue);
+    log("knxWrite KO %d string value %s", calcKoNumber(iIOIndex), iValue);
 #endif
     getKo(iIOIndex)->value(iValue, getKoDPT(iIOIndex));
 }
@@ -280,7 +281,7 @@ void LogicChannel::knxWriteString(uint8_t iIOIndex, const char *iValue)
 void LogicChannel::knxRead(uint8_t iIOIndex)
 {
 #if LOGIC_TRACE
-    channelDebug("knxReadRequest send from KO %d\n", calcKoNumber(iIOIndex));
+    log("knxReadRequest send from KO %d", calcKoNumber(iIOIndex));
 #endif
     getKo(iIOIndex)->requestObjectRead();
 }
@@ -292,9 +293,9 @@ void LogicChannel::knxResetDevice(uint16_t iParamIndex)
     uint16_t lLocalAddress = knx.individualAddress();
 #if LOGIC_TRACE
     uint8_t lHigh = lAddress >> 8;
-    channelDebug("knxResetDevice with PA %d.%d.%d\n", lHigh >> 4, lHigh & 0xF, lAddress & 0xFF);
+    log("knxResetDevice with PA %d.%d.%d", lHigh >> 4, lHigh & 0xF, lAddress & 0xFF);
 #endif
-    if (lAddress == lLocalAddress) 
+    if (lAddress == lLocalAddress)
     {
         // here we have to do a local restart (restart own device)
         if (knx.beforeRestartCallback() != 0)
@@ -341,7 +342,9 @@ void LogicChannel::setRGBColor(uint16_t iParamIndex)
                 PCA9632_SetColor(lRed, lGreen, lBlue);
                 break;
         }
-    } else {
+    }
+    else
+    {
         // in case of lock we turn off led
         PCA9632_SetColor(0, 0, 0);
     }
@@ -353,7 +356,8 @@ void LogicChannel::setBuzzer(uint16_t iParamIndex)
 {
 #ifdef BUZZER_PIN
     // check for global lock and alarm
-    if ((getByteParam(LOG_fAlarm) & LOG_fAlarmMask) || !knx.getGroupObject(LOG_KoBuzzerLock).value(getDPT(VAL_DPT_1))) {
+    if ((getByteParam(LOG_fAlarm) & LOG_fAlarmMask) || !knx.getGroupObject(LOG_KoBuzzerLock).value(getDPT(VAL_DPT_1)))
+    {
         switch (getByteParam(iParamIndex))
         {
             case VAL_Buzzer_Off:
@@ -371,7 +375,9 @@ void LogicChannel::setBuzzer(uint16_t iParamIndex)
             default:
                 break;
         }
-    } else {
+    }
+    else
+    {
         // in case of lock we turn off buzzer
         noTone(BUZZER_PIN);
     }
@@ -434,7 +440,7 @@ LogicValue LogicChannel::getParamByDpt(uint8_t iDpt, uint16_t iParamIndex)
             LogicValue lValue = getIntParam(iParamIndex);
             return lValue;
         }
-        case VAL_DPT_9: 
+        case VAL_DPT_9:
         case VAL_DPT_14: {
             LogicValue lValue = getFloatParam(iParamIndex);
             return lValue;
@@ -501,7 +507,7 @@ LogicValue LogicChannel::getInputValue(uint8_t iIOIndex, uint8_t *eDpt)
             //     lValue =
             //         lKo->valueRef()[0] + 256 * lKo->valueRef()[1] + 65536 * lKo->valueRef()[2];
             //     break;
-            case VAL_DPT_9: 
+            case VAL_DPT_9:
             case VAL_DPT_14: {
                 LogicValue lValue = (float)lKo->value(getDPT(*eDpt));
                 return lValue;
@@ -667,7 +673,7 @@ bool LogicChannel::isInputActive(uint8_t iIOIndex)
     uint8_t lIsActive = getByteParam((iIOIndex == IO_Input1) ? LOG_fE1 : LOG_fE2) & BIT_INPUT_MASK;
     if (lIsActive == 0)
     {
-        //input might be also activated by a delta input converter, means from the other input
+        // input might be also activated by a delta input converter, means from the other input
         lIsActive = (getByteParam((iIOIndex == IO_Input2) ? LOG_fE1Convert : LOG_fE2Convert) >> LOG_fE1ConvertShift) & 1;
     }
     return (lIsActive > 0);
@@ -684,9 +690,9 @@ void LogicChannel::startStartup()
     pOnDelay = millis();
     pCurrentPipeline |= PIP_STARTUP;
 #if LOGIC_TRACE
-    if (debugFilter()) 
+    if (debugFilter())
     {
-        channelDebug("startStartup: wait for %i s\n", getIntParam(LOG_fChannelDelay));
+        log("startStartup: wait for %i s", getIntParam(LOG_fChannelDelay));
     }
 #endif
 }
@@ -699,7 +705,7 @@ void LogicChannel::processStartup()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("endedStartup: waited %i ms\n", millis() - pOnDelay);
+            log("endedStartup: waited %i ms", millis() - pOnDelay);
         }
 #endif
         pCurrentPipeline &= ~PIP_STARTUP;
@@ -778,7 +784,7 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
         case IO_Input1:
             lRepeatInputBit = PIP_REPEAT_INPUT1;
             lRepeatTime = getTimeDelayParam(LOG_fE1RepeatBase);
-            lJustOneTelegram = ParamLOG_fE1DefaultRepeat; 
+            lJustOneTelegram = ParamLOG_fE1DefaultRepeat;
             break;
         case IO_Input2:
             lRepeatInputBit = PIP_REPEAT_INPUT2;
@@ -800,13 +806,15 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
 
 void LogicChannel::startConvert(uint8_t iIOIndex)
 {
-    if (iIOIndex == 1 || iIOIndex == 2) {
+    if (iIOIndex == 1 || iIOIndex == 2)
+    {
         pCurrentPipeline |= (iIOIndex == 1) ? PIP_CONVERT_INPUT1 : PIP_CONVERT_INPUT2;
         stopRepeatInput(iIOIndex);
     }
 }
 
-bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32_t iValue) {
+bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32_t iValue)
+{
     bool lValueOut = false;
     uint8_t lValueSize = 1;
     uint8_t lNumValues = 1;
@@ -837,7 +845,7 @@ bool LogicChannel::checkConvertValues(uint16_t iParamValues, uint8_t iDpt, int32
     }
     for (uint8_t lIndex = 0, lShift = 0x80; lIndex < lNumValues && !lValueOut; lIndex++, lShift >>= 1)
     {
-        if (lValid & lShift) 
+        if (lValid & lShift)
         {
             // we check just valid values
             LogicValue lValue = (int32_t)getParamByDpt(iDpt, iParamValues + lIndex * lValueSize);
@@ -864,7 +872,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
     {
         // in case of delta conversion get the other input value
         lValue2In = getInputValue(3 - iIOIndex, &lDptValue2);
-    } 
+    }
     else if (lConvert == VAL_InputConvert_Constant)
     {
         pValidActiveIO |= iIOIndex;
@@ -878,7 +886,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("processConvertInput E%i DPT1: In=Out=%i\n", iIOIndex, lValueOut);
+                log("processConvertInput E%i DPT1: In=Out=%i", iIOIndex, lValueOut);
             }
 #endif
             break;
@@ -902,11 +910,11 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
             {
                 if (lDpt == VAL_DPT_17)
                 {
-                    channelDebug("processConvertInput E%i DPT17: In=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValueOut);
+                    log("processConvertInput E%i DPT17: In=%i, Out=%i", iIOIndex, lValue1In.intValue, lValueOut);
                 }
                 else
                 {
-                    channelDebug("processConvertInput E%i DPT2: In=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValueOut);
+                    log("processConvertInput E%i DPT2: In=%i, Out=%i", iIOIndex, lValue1In.intValue, lValueOut);
                 }
             }
 #endif
@@ -926,7 +934,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i Interval: In=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValueOut.intValue);
+                    log("processConvertInput E%i Interval: In=%i, Out=%i", iIOIndex, lValue1In.intValue, lValueOut.intValue);
                 }
 #endif
                 break;
@@ -934,14 +942,15 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 lDiff = lValue1In - lValue2In;
                 // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 // lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14) lDpt = VAL_DPT_13;
+                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14)
+                    lDpt = VAL_DPT_13;
                 lValueOut = (lDiff >= getParamByDpt(lDpt, lParamLow + 0)) && (lDiff <= getParamByDpt(lDpt, lParamLow + 4));
                 // lValueOut = uValueGreaterThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 0), lDptResult, lDpt) &&
                 //             uValueLessThanOrEquals(lDiff, getParamByDpt(lDpt, lParamLow + 4), lDptResult, lDpt);
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i DeltaInterval: In1=%i, In2=%i, Delta=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValue2In.intValue, lValue1In.intValue - lValue2In.intValue, lValueOut);
+                    log("processConvertInput E%i DeltaInterval: In1=%i, In2=%i, Delta=%i, Out=%i", iIOIndex, lValue1In.intValue, lValue2In.intValue, lValue1In.intValue - lValue2In.intValue, lValueOut);
                 }
 #endif
                 break;
@@ -958,7 +967,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i Hysterese: In=%i, Out=%i\n", iIOIndex, lValue1In, lValueOut);
+                    log("processConvertInput E%i Hysterese: In=%i, Out=%i", iIOIndex, lValue1In, lValueOut);
                 }
 #endif
                 break;
@@ -967,7 +976,8 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
                 lDiff = lValue1In - lValue2In;
                 // lDiff = uValueSubtract(lValue1In, lValue2In, lDpt, lDptValue2);
                 // lDptResult = (lDpt == VAL_DPT_9 || lDptValue2 == VAL_DPT_9) ? VAL_DPT_9 : lDpt;
-                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14) lDpt = VAL_DPT_13;
+                if (lDpt != VAL_DPT_9 && lDpt != VAL_DPT_14)
+                    lDpt = VAL_DPT_13;
                 if (lValue1In <= getParamByDpt(lDpt, lParamLow + 0))
                     lValueOut = false;
                 if (lValue1In >= getParamByDpt(lDpt, lParamLow + 4))
@@ -979,7 +989,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i DeltaHysterese: In1=%i, In2=%i, Delta=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValue2In.intValue, lValue1In.intValue - lValue2In.intValue, lValueOut);
+                    log("processConvertInput E%i DeltaHysterese: In1=%i, In2=%i, Delta=%i, Out=%i", iIOIndex, lValue1In.intValue, lValue2In.intValue, lValue1In.intValue - lValue2In.intValue, lValueOut);
                 }
 #endif
                 break;
@@ -988,7 +998,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i SingleValues: In=%i, Out=%i\n", iIOIndex, lValue1In.intValue, lValueOut);
+                    log("processConvertInput E%i SingleValues: In=%i, Out=%i", iIOIndex, lValue1In.intValue, lValueOut);
                 }
 #endif
                 break;
@@ -997,7 +1007,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i Constant (%i): Out=%i\n", iIOIndex, lValue1In.intValue, lValueOut);
+                    log("processConvertInput E%i Constant (%i): Out=%i", iIOIndex, lValue1In.intValue, lValueOut);
                 }
 #endif
                 break;
@@ -1006,7 +1016,7 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("processConvertInput E%i: no Execution, wrong convert id\n", iIOIndex);
+                    log("processConvertInput E%i: no Execution, wrong convert id", iIOIndex);
                 }
 #endif
                 break;
@@ -1022,7 +1032,9 @@ void LogicChannel::startLogic(uint8_t iIOIndex, bool iValue)
 {
     // invert input
     bool lValue = iValue;
-    uint16_t lParamBase = (iIOIndex == BIT_EXT_INPUT_1) ? LOG_fE1 : (iIOIndex == BIT_EXT_INPUT_2) ? LOG_fE2 : (iIOIndex == BIT_INT_INPUT_1) ? LOG_fI1 : LOG_fI2;
+    uint16_t lParamBase = (iIOIndex == BIT_EXT_INPUT_1) ? LOG_fE1 : (iIOIndex == BIT_EXT_INPUT_2) ? LOG_fE2
+                                                                : (iIOIndex == BIT_INT_INPUT_1)   ? LOG_fI1
+                                                                                                  : LOG_fI2;
     uint8_t lInput = getByteParam(lParamBase);
     if (iIOIndex == BIT_INT_INPUT_1)
         lInput >>= 4;
@@ -1037,10 +1049,10 @@ void LogicChannel::startLogic(uint8_t iIOIndex, bool iValue)
     pTriggerIO |= iIOIndex;
     // finally set the pipeline bit
     pCurrentPipeline |= PIP_LOGIC_EXECUTE;
-#if LOGIC_TRACE  
+#if LOGIC_TRACE
     if (debugFilter())
     {
-        channelDebug("startLogic: Input %s%i; Value %i\n", (iIOIndex & (BIT_EXT_INPUT_1 | BIT_EXT_INPUT_2)) ? "E" : "I", (iIOIndex & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1)) ? 1 : 2, lValue);
+        log("startLogic: Input %s%i; Value %i", (iIOIndex & (BIT_EXT_INPUT_1 | BIT_EXT_INPUT_2)) ? "E" : "I", (iIOIndex & (BIT_EXT_INPUT_1 | BIT_INT_INPUT_1)) ? 1 : 2, lValue);
     }
 #endif
 }
@@ -1072,7 +1084,7 @@ void LogicChannel::processLogic()
         {
             case VAL_Logic_And:
                 // AND handles invalid inputs as 1
-                //Check if all bits are set -> logical AND of all input bits
+                // Check if all bits are set -> logical AND of all input bits
                 lNewOutput = (lCurrentInputs == lActiveInputs);
                 lValidOutput = true;
 #if LOGIC_TRACE
@@ -1101,8 +1113,8 @@ void LogicChannel::processLogic()
                 break;
             case VAL_Logic_Switch:
                 // Switch cannot handle invalid inputs but is based on telegrams (trigger in this class)
-                // An ON-trigger on input 1 turns OUTPUT to 1 (Set of FlipFlop) 
-                if ((BIT_EXT_INPUT_1 & pTriggerIO & lCurrentInputs) || (BIT_INT_INPUT_1 & pTriggerIO & lCurrentInputs)) 
+                // An ON-trigger on input 1 turns OUTPUT to 1 (Set of FlipFlop)
+                if ((BIT_EXT_INPUT_1 & pTriggerIO & lCurrentInputs) || (BIT_INT_INPUT_1 & pTriggerIO & lCurrentInputs))
                 {
                     lNewOutput = true;
                     lValidOutput = true;
@@ -1123,12 +1135,13 @@ void LogicChannel::processLogic()
                 // Invalid data is handled as ???
                 {
                     // Invalid gate is a closed gate (0), as described in app doc
-                    // if the behaviour should be changed (invalid is open), 
+                    // if the behaviour should be changed (invalid is open),
                     // just change the init (for gate and previous) to true.
                     bool lGate = false;
                     bool lPreviousGate = false;
                     // check if gate input is valid
-                    if (lValidInputs & (BIT_EXT_INPUT_2 | BIT_INT_INPUT_2)) {
+                    if (lValidInputs & (BIT_EXT_INPUT_2 | BIT_INT_INPUT_2))
+                    {
                         // get the current gate state
                         lGate = (lCurrentInputs & (BIT_EXT_INPUT_2 | BIT_INT_INPUT_2));
                         // get the previous gate state
@@ -1207,7 +1220,7 @@ void LogicChannel::processLogic()
             lTrigger &= BIT_INPUT_MASK;
             if (lHandleFirstProcessing == 0)
                 pCurrentIn |= BIT_FIRST_PROCESSING;
-            if ((lTrigger == 0 && (lNewOutput != lCurrentOutput || lInitialOutput)) ||     /* Just Changes  */
+            if ((lTrigger == 0 && (lNewOutput != lCurrentOutput || lInitialOutput)) ||    /* Just Changes  */
                 (lTrigger & pTriggerIO) > 0 ||                                            /* each telegram on specific input */
                 (lHandleFirstProcessing > 0 && (pCurrentIn & BIT_FIRST_PROCESSING) == 0)) /* first processing */
             {
@@ -1221,7 +1234,7 @@ void LogicChannel::processLogic()
                     lDebugValid = true;
                     if (debugFilter())
                     {
-                        channelDebug("endedLogic: Logic %s, Value %i\n", lDebugLogic, lNewOutput);
+                        log("endedLogic: Logic %s, Value %i", lDebugLogic, lNewOutput);
                     }
 #endif
                     // now we start stairlight processing
@@ -1230,10 +1243,10 @@ void LogicChannel::processLogic()
                 else
                 {
                     // if first telegram is suppressed, we nevertheless
-                    // remove the initial marker. 
+                    // remove the initial marker.
                     pCurrentOut &= ~BIT_OUTPUT_INITIAL;
                 }
-                pCurrentIn |= BIT_FIRST_PROCESSING; //first processing was done
+                pCurrentIn |= BIT_FIRST_PROCESSING; // first processing was done
             }
 #if LOGIC_TRACE
             else
@@ -1241,14 +1254,17 @@ void LogicChannel::processLogic()
                 lDebugValid = true;
                 if (debugFilter())
                 {
-                    if (lTrigger == 0 && lNewOutput == lCurrentOutput) { 
-                        channelDebug("endedLogic: No execution, Logic %s, Value %i (Value not changed)\n", lDebugLogic, lNewOutput);
+                    if (lTrigger == 0 && lNewOutput == lCurrentOutput)
+                    {
+                        log("endedLogic: No execution, Logic %s, Value %i (Value not changed)", lDebugLogic, lNewOutput);
                     }
-                    else if ((lTrigger & pTriggerIO) == 0) {
-                        channelDebug("endedLogic: No execution, Logic %s, Value %i (Input was not a trigger)\n", lDebugLogic, lNewOutput);
+                    else if ((lTrigger & pTriggerIO) == 0)
+                    {
+                        log("endedLogic: No execution, Logic %s, Value %i (Input was not a trigger)", lDebugLogic, lNewOutput);
                     }
-                    else if (lHandleFirstProcessing > 0 && (pCurrentIn & BIT_FIRST_PROCESSING) > 0) {
-                        channelDebug("endedLogic: No execution, Logic %s, Value %i (Skipped first processing)\n", lDebugLogic, lNewOutput);
+                    else if (lHandleFirstProcessing > 0 && (pCurrentIn & BIT_FIRST_PROCESSING) > 0)
+                    {
+                        log("endedLogic: No execution, Logic %s, Value %i (Skipped first processing)", lDebugLogic, lNewOutput);
                     }
                 }
             }
@@ -1256,8 +1272,9 @@ void LogicChannel::processLogic()
         }
     }
 #if LOGIC_TRACE
-    if (!lDebugValid && debugFilter()) {
-        channelDebug("endedLogic: No execution, Logic %s\n", lDebugLogic);
+    if (!lDebugValid && debugFilter())
+    {
+        log("endedLogic: No execution, Logic %s", lDebugLogic);
     }
 #endif
     pCurrentIODebug = (pCurrentIn & BIT_INPUT_MASK) | ((pCurrentOut & BIT_OUTPUT_LOGIC) ? BIT_OUTPUT_DEBUG : 0);
@@ -1285,12 +1302,19 @@ void LogicChannel::startStairlight(bool iOutput)
                 // stairlight is not running or may be re-triggered
                 // we init the stairlight timer
 #if LOGIC_TRACE
-                if (debugFilter()) 
+                if (debugFilter())
                 {
-                    if (lRetrigger) {
-                        channelDebug("retriggerStairlight: Factor %i, Base %s\n", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec" : (lStairTimeBase == 2) ? "min" : "h");
-                    } else {
-                        channelDebug("startStairlight: Factor %i, Base %s\n", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec" : (lStairTimeBase == 2) ? "min" : "h");
+                    if (lRetrigger)
+                    {
+                        log("retriggerStairlight: Factor %i, Base %s", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec"
+                                                                                                                  : (lStairTimeBase == 2)   ? "min"
+                                                                                                                                            : "h");
+                    }
+                    else
+                    {
+                        log("startStairlight: Factor %i, Base %s", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec"
+                                                                                                              : (lStairTimeBase == 2)   ? "min"
+                                                                                                                                        : "h");
                     }
                 }
 #endif
@@ -1316,9 +1340,11 @@ void LogicChannel::startStairlight(bool iOutput)
                 // we set the timer to 0
                 pStairlightDelay = 0;
 #if LOGIC_TRACE
-                if (debugFilter()) 
+                if (debugFilter())
                 {
-                    channelDebug("turnOffStairlight: Factor %i, Base %s\n", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec" : (lStairTimeBase == 2) ? "min" : "h");
+                    log("turnOffStairlight: Factor %i, Base %s", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec"
+                                                                                                            : (lStairTimeBase == 2)   ? "min"
+                                                                                                                                      : "h");
                 }
 #endif
             }
@@ -1340,12 +1366,15 @@ void LogicChannel::processStairlight()
     if (pStairlightDelay == 0 || delayCheck(pStairlightDelay, getTimeDelayParam(LOG_fOStairtimeBase)))
     {
 #if LOGIC_TRACE
-        if (debugFilter()) 
+        if (debugFilter())
         {
-            if (pCurrentPipeline & PIP_BLINK) {
-                channelDebug("endedBlink");
+            if (pCurrentPipeline & PIP_BLINK)
+            {
+                log("endedBlink");
             }
-            channelDebug("endedStairlight: Factor %i, Base %s\n", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec" : (lStairTimeBase == 2) ? "min" : "h");
+            log("endedStairlight: Factor %i, Base %s", lStairTime, (lStairTimeBase == 0) ? "sec/10" : (lStairTimeBase == 1) ? "sec"
+                                                                                                  : (lStairTimeBase == 2)   ? "min"
+                                                                                                                            : "h");
         }
 #endif
         // stairlight time is over, we switch off, also potential blinking
@@ -1363,7 +1392,7 @@ void LogicChannel::startBlink()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("startBlink: BlinkTime %8.1f s\n", lBlinkTime / 10.0);
+            log("startBlink: BlinkTime %8.1f s", lBlinkTime / 10.0);
         }
 #endif
         pBlinkDelay = millis();
@@ -1383,7 +1412,7 @@ void LogicChannel::processBlink()
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("processBlink: On\n");
+                log("processBlink: On");
             }
 #endif
             pCurrentOut |= BIT_OUTPUT_BLINK;
@@ -1394,7 +1423,7 @@ void LogicChannel::processBlink()
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("processBlink: Off\n");
+                log("processBlink: Off");
             }
 #endif
             pCurrentOut &= ~BIT_OUTPUT_BLINK;
@@ -1416,13 +1445,13 @@ void LogicChannel::startOnDelay()
     uint8_t lOnDelayRepeat = (lOnDelay & LOG_fODelayOnRepeatMask) >> LOG_fODelayOnRepeatShift;
     if ((pCurrentPipeline & PIP_ON_DELAY) == 0)
     {
-        // on delay is not running, we start it 
+        // on delay is not running, we start it
         pOnDelay = delayTimerInit();
         pCurrentPipeline |= PIP_ON_DELAY;
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("startOnDelay: Time %0.1f s\n", getIntParam(LOG_fODelayOn) / 10.0);
+            log("startOnDelay: Time %0.1f s", getIntParam(LOG_fODelayOn) / 10.0);
         }
 #endif
     }
@@ -1439,7 +1468,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Second ON, turn on immediately\n");
+                    log("startOnDelay: Second ON, turn on immediately");
                 }
 #endif
                 break;
@@ -1448,7 +1477,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Second ON, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOn) / 10.0);
+                    log("startOnDelay: Second ON, extend delay by %0.1f s", getIntParam(LOG_fODelayOn) / 10.0);
                 }
 #endif
                 break;
@@ -1456,7 +1485,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnDelay: Second ON, simply continue, remaining %li\n", millis() - pOnDelay);
+                    log("startOnDelay: Second ON, simply continue, remaining %li", millis() - pOnDelay);
                 }
 #endif
                 break;
@@ -1469,7 +1498,7 @@ void LogicChannel::startOnDelay()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("endedOffDelay: ON during OffDelay\n");
+            log("endedOffDelay: ON during OffDelay");
         }
 #endif
         pCurrentPipeline &= ~PIP_OFF_DELAY;
@@ -1488,7 +1517,7 @@ void LogicChannel::processOnDelay()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("endedOnDelay: Normal delay time %0.1f\n", getIntParam(LOG_fODelayOn) / 10.0);
+            log("endedOnDelay: Normal delay time %0.1f", getIntParam(LOG_fODelayOn) / 10.0);
         }
 #endif
         // delay time is over, we turn off pipeline
@@ -1514,7 +1543,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("startOffDelay: Time %0.1f s\n", getIntParam(LOG_fODelayOff) / 10.0);
+            log("startOffDelay: Time %0.1f s", getIntParam(LOG_fODelayOff) / 10.0);
         }
 #endif
     }
@@ -1531,7 +1560,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Second OFF, turn off immediately\n");
+                    log("startOffDelay: Second OFF, turn off immediately");
                 }
 #endif
                 break;
@@ -1540,7 +1569,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Second OFF, extend delay by %0.1f s\n", getIntParam(LOG_fODelayOff) / 10.0);
+                    log("startOffDelay: Second OFF, extend delay by %0.1f s", getIntParam(LOG_fODelayOff) / 10.0);
                 }
 #endif
                 break;
@@ -1548,7 +1577,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffDelay: Second OFF, simply continue, remaining %li\n", millis() - pOffDelay);
+                    log("startOffDelay: Second OFF, simply continue, remaining %li", millis() - pOffDelay);
                 }
 #endif
                 break;
@@ -1561,7 +1590,7 @@ void LogicChannel::startOffDelay()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("endedOnDelay: OFF during OnDelay\n");
+            log("endedOnDelay: OFF during OnDelay");
         }
 #endif
         pCurrentPipeline &= ~PIP_ON_DELAY;
@@ -1580,7 +1609,7 @@ void LogicChannel::processOffDelay()
 #if LOGIC_TRACE
         if (debugFilter())
         {
-            channelDebug("endedOffDelay: Normal delay time %0.1f\n", getIntParam(LOG_fODelayOff) / 10.0);
+            log("endedOffDelay: Normal delay time %0.1f", getIntParam(LOG_fODelayOff) / 10.0);
         }
 #endif
         // delay time is over, we turn off pipeline
@@ -1646,12 +1675,13 @@ void LogicChannel::startOnOffRepeat(bool iOutput)
             pRepeatOnOffDelay = millis();
             pCurrentPipeline &= ~PIP_OFF_REPEAT;
             processOutput(iOutput);
-            if (getTimeDelayParam(LOG_fORepeatOnBase) > 0) {
+            if (getTimeDelayParam(LOG_fORepeatOnBase) > 0)
+            {
                 pCurrentPipeline |= PIP_ON_REPEAT;
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOnRepeat: Every %0.1f s\n", getIntParam(LOG_fORepeatOn) / 10.0);
+                    log("startOnRepeat: Every %0.1f s", getIntParam(LOG_fORepeatOn) / 10.0);
                 }
 #endif
             }
@@ -1664,12 +1694,13 @@ void LogicChannel::startOnOffRepeat(bool iOutput)
             pRepeatOnOffDelay = millis();
             pCurrentPipeline &= ~PIP_ON_REPEAT;
             processOutput(iOutput);
-            if (getTimeDelayParam(LOG_fORepeatOffBase) > 0) {
+            if (getTimeDelayParam(LOG_fORepeatOffBase) > 0)
+            {
                 pCurrentPipeline |= PIP_OFF_REPEAT;
 #if LOGIC_TRACE
                 if (debugFilter())
                 {
-                    channelDebug("startOffRepeat: Every %0.1f s\n", getIntParam(LOG_fORepeatOff) / 10.0);
+                    log("startOffRepeat: Every %0.1f s", getIntParam(LOG_fORepeatOff) / 10.0);
                 }
 #endif
             }
@@ -1702,11 +1733,11 @@ void LogicChannel::processOnOffRepeat()
         {
             if (lValue)
             {
-                channelDebug("processOnRepeat: After %0.1f s\n", getIntParam(LOG_fORepeatOn) / 10.0);
+                log("processOnRepeat: After %0.1f s", getIntParam(LOG_fORepeatOn) / 10.0);
             }
             else
             {
-                channelDebug("processOffRepeat: After %0.1f s\n", getIntParam(LOG_fORepeatOff) / 10.0);
+                log("processOffRepeat: After %0.1f s", getIntParam(LOG_fORepeatOff) / 10.0);
             }
         }
 #endif
@@ -1729,7 +1760,7 @@ void LogicChannel::processInternalInputs(uint8_t iChannelId, bool iValue)
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("processInternalInputs: Input I1, Value %i\n", iValue);
+                log("processInternalInputs: Input I1, Value %i", iValue);
             }
 #endif
             startLogic(BIT_INT_INPUT_1, iValue);
@@ -1746,7 +1777,7 @@ void LogicChannel::processInternalInputs(uint8_t iChannelId, bool iValue)
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("processInternalInputs: Input I2, Value %i\n", iValue);
+                log("processInternalInputs: Input I2, Value %i", iValue);
             }
 #endif
             startLogic(BIT_INT_INPUT_2, iValue);
@@ -1771,7 +1802,7 @@ bool LogicChannel::processDiagnoseCommand(char *cBuffer)
             {
                 if (lValidInput & 1)
                 {
-                    //input is valid, we present its value
+                    // input is valid, we present its value
                     v[i] = (lCurrentIO & 1) ? '1' : '0';
                 }
                 else
@@ -1805,13 +1836,13 @@ bool LogicChannel::processDiagnoseCommand(char *cBuffer)
 // process the output itself
 void LogicChannel::processOutput(bool iValue)
 {
-    bool lInternalInputs = ((iValue && (getByteParam(LOG_fOInternalOn) & LOG_fOInternalOnMask )) || (!iValue && (getByteParam(LOG_fOInternalOff) & LOG_fOInternalOffMask)));
+    bool lInternalInputs = ((iValue && (getByteParam(LOG_fOInternalOn) & LOG_fOInternalOnMask)) || (!iValue && (getByteParam(LOG_fOInternalOff) & LOG_fOInternalOffMask)));
     if (lInternalInputs)
         LogicChannel::sLogic->processAllInternalInputs(this, iValue);
 #if LOGIC_TRACE
     if (debugFilter())
     {
-        channelDebug("processOutput: Value %i\n", iValue);
+        log("processOutput: Value %i", iValue);
     }
 #endif
     if (iValue)
@@ -1908,30 +1939,70 @@ bool LogicChannel::checkDpt(uint8_t iIOIndex, uint8_t iDpt)
 
 bool LogicChannel::readOneInputFromFlash(uint8_t iIOIndex)
 {
-    bool lResult = false;
-    const uint8_t *lFlashBuffer = sLogic->getFlash();
-    // first check, if Flash contains valid values
-    if (lFlashBuffer != nullptr)
-        lResult = true;
-    // Now check, if the DPT for requested KO is valid
-    // DPT might have changed due to new programming after last save
-    uint16_t lAddress = USERDATA_DPT_OFFSET + mChannelId * 2 + iIOIndex - 1;
-    if (lResult)
-        lResult = checkDpt(iIOIndex, lFlashBuffer[lAddress]);
-    // if the dpt is ok, we get the ko value
-    if (lResult)
-    {
-        lAddress = USERDATA_KO_OFFSET + mChannelId * 8 + (iIOIndex - 1) * 4;
-        GroupObject *lKo = getKo(iIOIndex);
-        for (uint8_t lIndex = 0; lIndex < lKo->valueSize(); lIndex++)
-            lKo->valueRef()[lIndex] = lFlashBuffer[lAddress + lIndex];
-        // lKo->commFlag(ComFlag::Ok);
-        lKo->objectWritten(); // we set the restored KO as valid for read (if L-Flat is set) and as sending (if Ü-Flag is set)
-    }
-    return lResult;
+    // bool lResult = false;
+    // const uint8_t *lFlashBuffer = sLogic->getFlash();
+    // // first check, if Flash contains valid values
+    // if (lFlashBuffer != nullptr)
+    //     lResult = true;
+    // // Now check, if the DPT for requested KO is valid
+    // // DPT might have changed due to new programming after last save
+    // uint16_t lAddress = USERDATA_DPT_OFFSET + mChannelId * 2 + iIOIndex - 1;
+    // if (lResult)
+    //     lResult = checkDpt(iIOIndex, lFlashBuffer[lAddress]);
+    // // if the dpt is ok, we get the ko value
+    // if (lResult)
+    // {
+    //     lAddress = USERDATA_KO_OFFSET + mChannelId * 8 + (iIOIndex - 1) * 4;
+    //     GroupObject *lKo = getKo(iIOIndex);
+    //     for (uint8_t lIndex = 0; lIndex < lKo->valueSize(); lIndex++)
+    //         lKo->valueRef()[lIndex] = lFlashBuffer[lAddress + lIndex];
+    //     // lKo->commFlag(ComFlag::Ok);
+    //     lKo->objectWritten(); // we set the restored KO as valid for read (if L-Flat is set) and as sending (if Ü-Flag is set)
+    // }
+    // return lResult;
+    return false;
 }
 
-uint8_t *LogicChannel::writeSingleDptToFlash(uint8_t iIOIndex, uint8_t *iBuffer)
+void LogicChannel::restore()
+{
+    restore(IO_Input1);
+    restore(IO_Input2);
+}
+
+void LogicChannel::restore(uint8_t iIOIndex)
+{
+    uint8_t lDpt = openknx.flash.readByte();
+    uint8_t *lValue = openknx.flash.read(4);
+
+    if (!checkDpt(iIOIndex, lDpt))
+        return;
+
+    log("      Input%i:  DPT %i  DATA: %02X %02X %02X %02X", iIOIndex, lDpt, lValue[0], lValue[1], lValue[2], lValue[3]);
+
+    GroupObject *lKo = getKo(iIOIndex);
+
+    for (uint8_t lIndex = 0; lIndex < lKo->valueSize(); lIndex++)
+        lKo->valueRef()[lIndex] = lValue[lIndex];
+
+    if (iIOIndex == 1)
+        mFlashLoadedInput1[mChannelId] = true;
+    else
+        mFlashLoadedInput2[mChannelId] = true;
+
+    lKo->commFlag(ComFlag::Ok);
+    lKo->objectWritten(); // we set the restored KO as valid for read (if L-Flat is set) and as sending (if Ü-Flag is set)
+}
+
+void LogicChannel::save()
+{
+    saveKoDpt(IO_Input1);
+    saveKoValue(IO_Input1);
+
+    saveKoDpt(IO_Input2);
+    saveKoValue(IO_Input2);
+}
+
+void LogicChannel::saveKoDpt(uint8_t iIOIndex)
 {
     uint8_t lDpt = 0xFF;
     if (isInputActive(iIOIndex) && isInputValid(iIOIndex))
@@ -1945,20 +2016,34 @@ uint8_t *LogicChannel::writeSingleDptToFlash(uint8_t iIOIndex, uint8_t *iBuffer)
         }
     }
 
-    // printDebug("%02X ", lDpt);
-    *iBuffer++ = lDpt;
-    return iBuffer;
+    // openknx.log("LogicChannel", "%02X ", lDpt);
+    openknx.flash.writeByte(lDpt);
+}
+
+void LogicChannel::saveKoValue(uint8_t iIOIndex)
+{
+    GroupObject *lKo = LogicChannel::getKoForChannel(iIOIndex, mChannelId);
+    if (lKo->valueSize() > 4)
+    {
+        openknx.flash.writeInt(0x0); // 4 bytes
+        return;
+    }
+
+    openknx.flash.write(lKo->valueRef(), lKo->valueSize());
+    openknx.flash.write((uint8_t)0x0, (4 - lKo->valueSize()));
 }
 
 // returns true, if any DPT from Flash does not fit to according input DPT.
 // in such a case the DPTs have to be written to Flash again
-bool LogicChannel::prepareChannel()
+// bool LogicChannel::prepareChannel()
+void LogicChannel::prepareChannel()
 {
-    bool lResult = false;
+    // bool lResult = false;
     bool lInput1Flash = false;
     bool lInput2Flash = false;
     uint8_t lLogicFunction = (getByteParam(LOG_fDisable) & LOG_fDisableMask) ? 0 : getByteParam(LOG_fLogic);
 
+    // log("       prepareChannel");
     if (lLogicFunction == 5)
     {
         // timer implementation, timer is on ext input 2
@@ -1991,11 +2076,13 @@ bool LogicChannel::prepareChannel()
             // should default be fetched from Flash
             if (lParInput & VAL_InputDefault_EEPROM)
             {
-                lInput1Flash = readOneInputFromFlash(IO_Input1);
+                //     lInput1Flash = readOneInputFromFlash(IO_Input1);
+                lInput1Flash = mFlashLoadedInput1[mChannelId];
+                log("Input1 Readed? %i", lInput1Flash);
                 if (!lInput1Flash)
                 {
                     lParInput &= ~VAL_InputDefault_EEPROM;
-                    lResult = true;
+                    // lResult = true;
                 }
             }
             switch (lParInput)
@@ -2047,22 +2134,25 @@ bool LogicChannel::prepareChannel()
             // should default be fetched from Flash
             if (lParInput & VAL_InputDefault_EEPROM)
             {
-                lInput2Flash = readOneInputFromFlash(IO_Input2);
+                //     lInput2Flash = readOneInputFromFlash(IO_Input2);
+                lInput2Flash = mFlashLoadedInput2[mChannelId];
                 if (!lInput2Flash)
                 {
                     lParInput &= ~VAL_InputDefault_EEPROM;
-                    lResult = true;
+                    // lResult = true;
                 }
             }
             switch (lParInput)
             {
                 case VAL_InputDefault_Read:
+                    log("         VAL_InputDefault_Read");
                     /* to read immediately we activate repeated read pipeline with 0 delay */
                     pInputProcessing.repeatInput2Delay = 0;
                     pCurrentPipeline |= PIP_REPEAT_INPUT2;
                     break;
 
                 case VAL_InputDefault_False:
+                    log("         VAL_InputDefault_False");
                     /* we clear bit for E2 and mark this value as valid */
                     startLogic(BIT_EXT_INPUT_2, false);
                     // we also add that this input was used and is now valid
@@ -2070,6 +2160,7 @@ bool LogicChannel::prepareChannel()
                     break;
 
                 case VAL_InputDefault_True:
+                    log("         VAL_InputDefault_True");
                     /* we set bit for E2 and mark this value as valid */
                     startLogic(BIT_EXT_INPUT_2, true);
                     // we also add that this input was used and is now valid
@@ -2100,12 +2191,17 @@ bool LogicChannel::prepareChannel()
         // we set the startup delay
         startStartup();
         // we trigger input processing, if there are values from Flash
+
+        if (lInput1Flash)
+            log("Input1 processInput");
+        if (lInput2Flash)
+            log("Input2 processInput");
         if (lInput1Flash)
             processInput(IO_Input1);
         if (lInput2Flash)
             processInput(IO_Input2);
     }
-    return lResult;
+    // return lResult;
 }
 
 void LogicChannel::loop()
@@ -2172,7 +2268,7 @@ void LogicChannel::processTimerInput()
 {
     bool lIsYearTimer = (getByteParam(LOG_fTYearDay) & LOG_fTYearDayMask);
     uint8_t lCountTimer = lIsYearTimer ? VAL_Tim_YearTimerCount : VAL_Tim_DayTimerCount; // there are 4 year timer or 8 day timer
-    bool lToday;                              // if it is a day timer lToday=true
+    bool lToday;                                                                         // if it is a day timer lToday=true
     bool lResult = false;
     bool lValue;
     bool lEvaluate = true;
@@ -2189,7 +2285,8 @@ void LogicChannel::processTimerInput()
 
     // holiday
     uint8_t lHolidaySetting = (getByteParam(LOG_fTHoliday) & LOG_fTHolidayMask) >> LOG_fTHolidayShift;
-    if (lEvaluate) {
+    if (lEvaluate)
+    {
         if (lHolidaySetting == VAL_Tim_Special_No && (sTimer.holidayToday() > 0))
             lEvaluate = false;
         if (lHolidaySetting == VAL_Tim_Special_Skip || lHolidaySetting == VAL_Tim_Special_Sunday)
@@ -2272,7 +2369,7 @@ void LogicChannel::processTimerInput()
 #if LOGIC_TRACE
             if (debugFilter())
             {
-                channelDebug("startTimerInput: Value %i\n", lValue);
+                log("startTimerInput: Value %i", lValue);
             }
 #endif
             startLogic(BIT_EXT_INPUT_2, lValue);
@@ -2411,7 +2508,7 @@ bool LogicChannel::checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimer
 
 bool LogicChannel::checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
 {
-    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9);
     uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
     sTime lTime;
     iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
@@ -2427,14 +2524,16 @@ void LogicChannel::startTimerRestoreState()
     if (lLogicFunction == VAL_Logic_Timer)
     {
         bool lShouldRestoreState = ((getByteParam(LOG_fTRestoreState) & LOG_fTRestoreStateMask) >> LOG_fTRestoreStateShift);
-        if (lShouldRestoreState == 1) {
+        if (lShouldRestoreState == 1)
+        {
             // Timers with vacation handling cannot be restored
             bool lIsUsingVacation = ((getByteParam(LOG_fTVacation) & LOG_fTVacationMask) >> LOG_fTVacationShift) <= VAL_Tim_Special_No;
-            if (lIsUsingVacation) {
+            if (lIsUsingVacation)
+            {
                 pCurrentPipeline |= PIP_TIMER_RESTORE_STATE;
                 pCurrentPipeline &= ~PIP_TIMER_RESTORE_STEP; // ensure first processing step is set to 1
             }
-            printDebug("TimerRestore activated for channel %d\n", mChannelId + 1);
+            openknx.log("LogicChannel", "TimerRestore activated for channel %d", mChannelId + 1);
         }
     }
 }
@@ -2450,12 +2549,13 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
 {
     bool lIsYearTimer = (getByteParam(LOG_fTYearDay) & LOG_fTYearDayMask);
     uint8_t lCountTimer = lIsYearTimer ? 4 : 8; // there are 4 year timer or 8 day timer
-    bool lToday;                              // if it is a day timer lToday=true
+    bool lToday;                                // if it is a day timer lToday=true
     int16_t lResult = -1;
     bool lValue = false;
     bool lEvaluate = false;
 
-    if (iTimer.isTimerValid() != tmValid) return;
+    if (iTimer.isTimerValid() != tmValid)
+        return;
 
     // ensure, that this is just executed once per restore day
     // we flag the execution according to the last bit of iteration counter
@@ -2472,13 +2572,13 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
 
     int16_t lDayTime = iTimer.getHour() * 100 + iTimer.getMinute();
 
-    printDebug("Processing TimerRestore on Channel %d for Day %02d.%02d.%02d\n", mChannelId + 1, iTimer.getDay(), iTimer.getMonth(), iTimer.getYear());
+    openknx.log("LogicChannel", "Processing TimerRestore on Channel %d for Day %02d.%02d.%02d", mChannelId + 1, iTimer.getDay(), iTimer.getMonth(), iTimer.getYear());
     // first we process settings valid for whole timer
     // vacation is not processed (always skipped)
 
     // holiday
     uint8_t lHolidaySetting = (getByteParam(LOG_fTHoliday) & LOG_fTHolidayMask) >> LOG_fTHolidayShift;
-    if (lHolidaySetting == VAL_Tim_Special_No && (iTimer.holidayToday() >0))
+    if (lHolidaySetting == VAL_Tim_Special_No && (iTimer.holidayToday() > 0))
         lEvaluate = false;
     if (lHolidaySetting == VAL_Tim_Special_Skip || lHolidaySetting == VAL_Tim_Special_Sunday)
         lEvaluate = true;
@@ -2487,7 +2587,7 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
     if (!lEvaluate)
         return;
 
-    bool lHandleAsSunday = (lHolidaySetting == VAL_Tim_Special_Sunday && (iTimer.holidayToday() >0));
+    bool lHandleAsSunday = (lHolidaySetting == VAL_Tim_Special_Sunday && (iTimer.holidayToday() > 0));
 
     // loop through all timer
     uint32_t lTimerFunctions = getIntParam(LOG_fTd1DuskDawn);
@@ -2507,73 +2607,73 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
 
                 // at this point we know, that this timer is valid for this day
                 // now we get the right switch time for that day
-                    
+
                 switch (lTimerFunction)
                 {
                     case VAL_Tim_PointInTime:
                         lCurrentResult = getPointInTime(iTimer, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found PointInTime %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found PointInTime %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_Plus:
                         lCurrentResult = getSunAbs(iTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunrisePlus %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunrisePlus %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_Minus:
                         lCurrentResult = getSunAbs(iTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseMinus %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunriseMinus %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_Plus:
                         lCurrentResult = getSunAbs(iTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetPlus %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetPlus %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_Minus:
                         lCurrentResult = getSunAbs(iTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetMinus %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetMinus %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_Earliest:
                         lCurrentResult = getSunLimit(iTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseEarliest %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunriseEarliest %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_Latest:
                         lCurrentResult = getSunLimit(iTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseLatest %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunriseLatest %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_Earliest:
                         lCurrentResult = getSunLimit(iTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetEarliest %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetEarliest %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_Latest:
                         lCurrentResult = getSunLimit(iTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetLatest %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetLatest %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_DegreeUp:
                         lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunriseDegreeUp %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_DegreeUp:
                         lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, false);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetDegreeUp %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetDegreeUp %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunrise_DegreeDown:
                         lCurrentResult = getSunDegree(sTimer, SUN_SUNRISE, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunriseDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunriseDegreeDown %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     case VAL_Tim_Sunset_DegreeDown:
                         lCurrentResult = getSunDegree(sTimer, SUN_SUNSET, lTimerIndex, lBitfield, lIsYearTimer, lHandleAsSunday, true);
                         if (lCurrentResult > -1)
-                            printDebug("TimerRestore: Found SunsetDegreeDown %04d with value %d\n", lCurrentResult, lCurrentValue);
+                            openknx.log("LogicChannel", "TimerRestore: Found SunsetDegreeDown %04d with value %d", lCurrentResult, lCurrentValue);
                         break;
                     default:
                         break;
@@ -2582,7 +2682,8 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
                 //   it is greater than the last found time
                 //   and smaller that the time of the processed day
                 // important: lDayTime is for today the current time, for any older day 2359 (End-Of-Day)
-                if (lCurrentResult > lResult && lCurrentResult <= lDayTime) {
+                if (lCurrentResult > lResult && lCurrentResult <= lDayTime)
+                {
                     lResult = lCurrentResult;
                     lValue = lCurrentValue;
                 }
@@ -2591,13 +2692,15 @@ void LogicChannel::processTimerRestoreState(TimerRestore &iTimer)
     }
     if (lResult > -1)
     {
-        printDebug("TimerRestore: Found timer %04d with value %d, starting processing\n", lResult, lValue);
+        openknx.log("LogicChannel", "TimerRestore: Found timer %04d with value %d, starting processing", lResult, lValue);
         startLogic(BIT_EXT_INPUT_2, lValue);
         // we also add that this input was used and is now valid
         pValidActiveIO |= BIT_EXT_INPUT_2;
         stopTimerRestoreState();
-    } else {
-        printDebug("TimerRestore: There are no timers for this day\n");
+    }
+    else
+    {
+        openknx.log("LogicChannel", "TimerRestore: There are no timers for this day");
     }
 }
 
@@ -2657,7 +2760,7 @@ int16_t LogicChannel::getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTime
 
 int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown)
 {
-    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9); 
+    uint8_t lDegree = ((iBitfield & 0x7E00) >> 9);
     uint8_t lMinute = ((iBitfield & 0x01F8) >> 3);
     sTime lTime;
     iTimer.getSunDegree(iSunInfo, (lDegree + lMinute / 60.0) * (iDown ? -1.0 : 1.0), &lTime);
@@ -2665,3 +2768,9 @@ int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTim
     return lResult;
 }
 
+const char *LogicChannel::name()
+{
+    char *buffer = new char[MAX_LOG_PREFIX];
+    sprintf(buffer, "LogicChannel<%i>", _channelIndex + 1);
+    return buffer;
+}
