@@ -1,5 +1,5 @@
 #pragma once
-#include <oknx.h>
+#include "OpenKNX.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -195,7 +195,7 @@
 
 class Logic;
 
-class LogicChannel
+class LogicChannel : public OpenKNX::Channel
 {
   private:
     // instance
@@ -205,6 +205,8 @@ class LogicChannel
     int channelDebug(const char *format, ...);
     bool debugFilter();
 #endif
+    bool mFlashLoadedInput1[LOG_ChannelsFirmware];
+    bool mFlashLoadedInput2[LOG_ChannelsFirmware];
     uint32_t calcParamIndex(uint16_t iParamIndex);
     uint16_t calcKoNumber(uint8_t iIOIndex);
     uint8_t getByteParam(uint16_t iParamIndex);
@@ -279,6 +281,7 @@ class LogicChannel
     int16_t getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
     uint32_t getTimerNow(bool iMidnight);
     void processTimerRestoreState(TimerRestore &iTimer);
+    const char * name() override;
 
   protected:
 
@@ -337,8 +340,13 @@ class LogicChannel
     void startTimerInput();
     void startTimerRestoreState();
     void stopTimerRestoreState();
-    uint8_t *writeSingleDptToFlash(uint8_t iIOIndex, uint8_t *iBuffer);
+    void restore();
+    void restore(uint8_t iIOIndex);
+    void save();
+    void saveKoDpt(uint8_t iIOIndex);
+    void saveKoValue(uint8_t iIOIndex);
 
-    bool prepareChannel();
+    // bool prepareChannel();
+    void prepareChannel();
     void loop();
 };

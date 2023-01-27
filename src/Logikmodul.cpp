@@ -1,7 +1,7 @@
-// #ifdef LOGICMODULE
+#ifdef LOGICMODULE
 #include "Helper.h"
 #include "Logic.h"
-#include "oknx.h"
+#include "OpenKNX.h"
 
 struct sRuntimeInfo
 {
@@ -77,4 +77,4 @@ void appSetup(bool iSaveSupported)
         openknx.flashUserData()->readFlash();
     }
 }
-// #endif
+#endif
