@@ -2050,7 +2050,6 @@ void LogicChannel::prepareChannel()
             {
                 //     lInput1Flash = readOneInputFromFlash(IO_Input1);
                 lInput1Flash = mFlashLoadedInput1[mChannelId];
-                log("Input1 Readed? %i", lInput1Flash);
                 if (!lInput1Flash)
                 {
                     lParInput &= ~VAL_InputDefault_EEPROM;
@@ -2117,14 +2116,12 @@ void LogicChannel::prepareChannel()
             switch (lParInput)
             {
                 case VAL_InputDefault_Read:
-                    log("         VAL_InputDefault_Read");
                     /* to read immediately we activate repeated read pipeline with 0 delay */
                     pInputProcessing.repeatInput2Delay = 0;
                     pCurrentPipeline |= PIP_REPEAT_INPUT2;
                     break;
 
                 case VAL_InputDefault_False:
-                    log("         VAL_InputDefault_False");
                     /* we clear bit for E2 and mark this value as valid */
                     startLogic(BIT_EXT_INPUT_2, false);
                     // we also add that this input was used and is now valid
@@ -2132,7 +2129,6 @@ void LogicChannel::prepareChannel()
                     break;
 
                 case VAL_InputDefault_True:
-                    log("         VAL_InputDefault_True");
                     /* we set bit for E2 and mark this value as valid */
                     startLogic(BIT_EXT_INPUT_2, true);
                     // we also add that this input was used and is now valid
@@ -2163,11 +2159,6 @@ void LogicChannel::prepareChannel()
         // we set the startup delay
         startStartup();
         // we trigger input processing, if there are values from Flash
-
-        if (lInput1Flash)
-            log("Input1 processInput");
-        if (lInput2Flash)
-            log("Input2 processInput");
         if (lInput1Flash)
             processInput(IO_Input1);
         if (lInput2Flash)
