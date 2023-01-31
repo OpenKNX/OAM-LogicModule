@@ -642,7 +642,7 @@ Hier werden die Einstellungen vorgenommen, die für die Funktion des gesamten Ka
 
 ### **Beschreibung des Kanals**
 
-Der hier vergebene Name hat keinen funktionalen Einfluss, erlaubt es aber, dem Kanal einen eigenen Namen zu geben, und ihn so leichter wiederzufinden. Der Name wird im Kanalbaum dargestellt und statt dem Text "unbenannt" genommen.
+Der hier vergebene Name hat keinen funktionalen Einfluss, erlaubt es aber, dem Kanal einen eigenen Namen zu geben, und ihn so leichter wiederzufinden. Der Name wird im Kanalbaum dargestellt und statt des Standardtextes "..." genommen.
 
 ### **Zeit bis der Kanal nach einem Neustart aktiv wird**
 
