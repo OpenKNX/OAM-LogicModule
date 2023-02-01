@@ -144,8 +144,11 @@ void Logic::processAllInternalInputs(LogicChannel *iChannel, bool iValue)
     }
 }
 
-void Logic::firstLoop()
+void Logic::afterStartupDelay()
 {
+    log("afterStartupDelay");
+    mAfterStartupDelayCompleted = true;
+
     if (ParamLOG_VacationRead)
         KoLOG_Vacation.requestObjectRead();
 
@@ -477,6 +480,8 @@ void Logic::loop()
     //         gWatchdogDelay = millis();
     //     }
     // #endif
+    if(!mAfterStartupDelayCompleted && openknx.startupReady())
+        afterStartupDelay();
 
     sTimer.loop(); // clock and timer async methods
     // TODO: loopSubmodules deaktiviert
