@@ -18,6 +18,73 @@ Sie ist in die Bereiche
 * Logikkanäle
 
 gegliedert, wobei die Logikkanäle wiederum in bis zu 99 Kanäle untergliedert sind. Die real verfügbare Anzahl von Logikkanälen hängt von der konkreten ETS-Applikation ab, die die Logikapplikation nutzt.
+Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweiligen Dokumentation erfolgt in [ETS Konfiguration](#ets-konfiguration).
+
+## Inhalte
+> Achtung: Nachfolgende Auflistung teilweise abweichend von Reihenfolge im Dokument
+* [Änderungshistorie](#änderungshistorie)
+* [Einleitung](#einleitung)
+* Grundlegende Konzepte
+  * [Logikkanäle](#logikkanäle)
+    * [Zeitschaltuhren](#zeitschaltuhren)
+    * [Startverhalten](#startverhalten)
+    * [Übersicht typische abgebildete KNX-Funktionen](#zusammenfassung)
+  * [DPT-Konverter](#dpt-konverter)
+* [ETS Konfiguration](#ets-konfiguration) (Übersicht aller Konfigurationsseiten und Links zu Detailbeschreibung)
+* [Beispiele](#beispiele)
+  * [Zeitschaltuhr soll jeden n-ten Tag schalten](#zeitschaltuhr-soll-jeden-n-ten-tag-schalten)
+  * [Einfacher Szenen-Controller](#einfacher-szenen-controller)
+* [Update der Applikation](#update-der-applikation)
+* [Unterstützte Hardware](#unterstützte-hardware)
+* Fortgeschrittene Funktionen
+  * [Diagnoseobjekt](#diagnoseobjekt)
+  * [Benutzerfunktionen](#benutzerfunktionen)
+
+### ETS Konfiguration
+
+* **+ [ Allgemeine Parameter](#allgemeine-parameter)**
+  * [Gerätestart](#gerätestart)
+  * [Installierte Hardware](#installierte-hardware)
+  * [**Experteneinstellungen**](#experteneinstellungen)
+* **+ Logikkanäle**
+  * [**+ Logikdokumentation**](#logikdokumentation)
+    * [**Eingänge**](#eing%C3%A4nge)
+    * [**Zeitschaltuhren**](#zeitschaltuhren)
+    * [**Ausgänge**](#ausg%C3%A4nge)
+  * [**Urlaub/Feiertage** (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
+    * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
+    * [Urlaub](#urlaub)
+    * [Feiertage](#feiertage)
+  * [**+ Logik n: ...** (n=1 bis 99)](#logik-n-)
+    * [Kanaldefinition](#kanaldefinition)
+    * [Logikdefinition](#logikdefinition)
+    * [Logikauswertung](#logikauswertung)
+    * [Tordefinition](#tordefinition)
+    * [Logik-Trigger](#logik-trigger)
+    * [**Eingang 1/2: Wert**](#eingang-1-unbenannt--eingang-2-unbenannt)
+      * [Eingangskonverter](#eingangskonverter)
+      * [Eingangswert vorbelegen](#eingangswert-vorbelegen)
+    * [**Kanalausgänge verbinden** (Interne Eingänge)](#kanalausgänge-verbinden)
+    * [**Schaltzeiten: ...** (Zeitschaltuhr)](#schaltzeiten-unbenannt)
+      * [Tagesschaltuhr](#schaltzeitpunkte-tagesschaltuhr)
+      * [Jahresschaltuhr](#schaltzeitpunkte-jahresschaltuhr)
+    * [**Ausgang: ...**](#ausgang)
+      * [Treppenlicht](#treppenlicht)
+      * [Ein-/Ausschaltverzögerung](#ein-ausschaltverzögerung)
+      * [Wiederholungsfilter](#wiederholungsfilter)
+      * [Zyklisch senden](#zyklisch-senden)
+      * [Interne Eingänge](#interne-eingänge)
+      * [Wert für Ausgang](#wert-für-ausgang)
+        * [ReadRequest senden](#ja---readrequest-senden)
+        * [Gerät zurücksetzen senden](#ja---ger%C3%A4t-zur%C3%BCcksetzen-senden)
+          * [Physikalische Adresse](#physikalische-adresse)
+        * [Tonwiedergabe (Buzzer)](#ja---tonwiedergabe-buzzer)
+          * [Alarmausgabe (Buzzer oder Sperre trotz Sperre schalten)?](#alarmausgabe-buzzer-oder-sperre-trotz-sperre-schalten) 
+        * [RGB-LED schalten](#ja---rgb-led-schalten)
+          * [LED-Farbe festlegen (Schwarz=aus)](#led-farbe-festlegen-schwarzaus) 
+        * [Formeln](#formeln)
+
+
 
 ## Änderungshistorie
 
@@ -112,7 +179,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 23.04.2022: Firmware 0.7.0, Applikation 0.7 (Beta-Release)
 
 * initiales Release als OpenKNX LogicModule
-* Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logik) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
+* Basiert auf dem [Vorgänger-Logikmodul](https://github.com/mumpf/knx-logic) version 3.8 (im folgenden stehen die Neuerungen gegenüber 3.8)
 * Erzeugung von Firmware und knxprod wurde stark vereinfacht
 * (intern) verbesserte Kommunikation mit dem KNX-Bus
 * ETS-Applikation wird auch mit der ETS 6 getestet
@@ -218,13 +285,14 @@ Ein Toreingang kann auch ein Impulseingang sein (reagiert nur auf 1, wobei Tor g
 * Erlaubt diskrete getaktete Werte auf den Bus zu senden
 * Kann zur Synchronisation von Werten genutzt werden
 
-Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt<sup>*)</sup>
+Speichern von Werten über einen Stromausfall hinweg wird auch ohne EEPROM unterstützt
 
 Senden von gespeicherten Werten nach einem Neustart
 
 ## **Allgemeine Parameter**
 
 <kbd>![Allgemeine Parameter](pics/AllgemeineParameter.PNG)</kbd>
+
 Hier werden Einstellungen getroffen, die die generelle Arbeitsweise des Logikmoduls bestimmen.
 
 Die Seite "Allgemeine Parameter" sieht bei jeder ETS-Applikation, die das Logikmodul verwendet, unterschiedlich aus, immer passend zu der verwendeten Hardwarekomponente, für die die ETS-Applikation geschrieben wurde. Somit müssen nicht alle im Folgenden aufgeführten Punkte vorhanden sein.
@@ -334,13 +402,15 @@ In den Eingabefeldern kann man die Tonfrequenzen für die einzelnen Töne für L
 
 Eine stichwortartige Abhandlung dieser Dokumentation ist auch in der Applikation enthalten und auf 3 Unterseiten aufgeteilt.
 
-### **Allgemein**
-
-Hier ist die generelle Funktionsweise des Logikmoduls beschrieben.
+Auf der Seite **Logikdokumentation** wird zunächst die generelle Funktionsweise des Logikmoduls beschrieben.
 
 ### **Eingänge**
 
 Hier werden die Funktionsmodule für die Eingänge beschrieben.
+
+### **Zeitschaltuhren**
+
+Hier werden die Zeitschaltuhr-Funktionen beschrieben.
 
 ### **Ausgänge**
 
@@ -422,7 +492,7 @@ Für die Zeitschaltuhren wird vom Modul eine Berechnung der Feiertage vorgenomme
 
 #### **Feiertage auf dem Bus verfügbar machen?**
 
-Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über diese Kommunikationsobjekte wird die Nummer eines Feiertags gesendet. Jede gesendete Nummer entspricht genau einem Feiertag, die Nummern entsprechen den in der Liste von Feiertagseinstellungen (siehe vorheriges Bild).
+Ein "Ja" bei dieser Einstellung schaltet 2 Kommunikationsobjekte frei. Über diese Kommunikationsobjekte wird die Nummer eines Feiertags gesendet. Jede gesendete Nummer entspricht genau einem Feiertag, die Nummern entsprechen denen in der Liste von Feiertagseinstellungen (siehe vorheriges Bild).
 
 * KO 5 (Welcher Feiertag ist heute?) sendet, wenn der aktuelle Tag ein Feiertag ist,
 * KO 6 (Welcher Feiertag ist morgen?) sendet, wenn der nächste Tag ein Feiertag ist.
@@ -447,7 +517,7 @@ Man kann aber eine (oder mehrere) Jahresschaltuhren dafür verwenden, weitere Fe
 
 Im Folgenden werden die generellen Konzepte und die grobe Funktion eines Logikkanals beschrieben. Die Parameter eines jeden Kanals werden später im Detail beschrieben.
 
-Jeder Logikkanal, von denen bis zu 80 zur Verfügung stehen, ist identisch aufgebaut. Es stehen immer 2 externe Eingänge, 2 interne Eingänge und ein Ausgang zur Verfügung. Alternativ kann als Eingang der Funktionsblock "Zeitschaltuhr" genutzt werden.
+Jeder Logikkanal, von denen bis zu 99 zur Verfügung stehen, ist identisch aufgebaut. Es stehen immer 2 externe Eingänge, 2 interne Eingänge und ein Ausgang zur Verfügung. Alternativ kann als Eingang der Funktionsblock "Zeitschaltuhr" genutzt werden.
 
 Zwischen die Eingänge und den Ausgang können verschiedene Funktionsblöcke geschaltet werden, die die Eingangssignale beeinflussen und Verknüpfen können und so ein Ausgangssignal erzeugen.
 
@@ -554,11 +624,11 @@ Die hier für jeden Kanal zur Verfügung stehenden Möglichkeiten der Beeinfluss
 * Zeitschaltuhr-Funktionen
 * tbc
 
-## **Logik n: unbenannt**
+## **Logik n: ...**
 
 Da alle Kanäle identisch sind, wird hier nur ein Kanal repräsentativ beschrieben. Das gesagte kann für alle Kanäle eingestellt werden.
 
-Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "unbenannt" lautet.
+Ein Logikkanal wird durch einen Tab mit dem Namen "Logik n: \<Name der Logik>" repräsentiert, wobei n die Nummer des Kanals ist und der \<Name der Logik> anfänglich "..." lautet.
 
 <kbd>![Baumansicht der Kanäle](pics/Kanalbaum.PNG)</kbd>
 
@@ -572,11 +642,11 @@ Hier werden die Einstellungen vorgenommen, die für die Funktion des gesamten Ka
 
 ### **Beschreibung des Kanals**
 
-Der hier vergebene Name hat keinen funktionalen Einfluss, erlaubt es aber, dem Kanal einen eigenen Namen zu geben, und ihn so leichter wiederzufinden. Der Name wird im Kanalbaum dargestellt und statt dem Text "unbenannt" genommen.
+Der hier vergebene Name hat keinen funktionalen Einfluss, erlaubt es aber, dem Kanal einen eigenen Namen zu geben, und ihn so leichter wiederzufinden. Der Name wird im Kanalbaum dargestellt und statt des Standardtextes "..." genommen.
 
 ### **Zeit bis der Kanal nach einem Neustart aktiv wird**
 
-Neben "Allgemeine Parameter -> Zeit bis das Gerät nach einem Neustart aktiv wird" kann auch noch pro Kanal eine Startverzögerung sinnvoll sein. Der Grund ist in "Logikkanäle -> Startverhalten" beschrieben.
+Neben "Allgemeine Parameter -> Zeit bis das Gerät nach einem Neustart aktiv wird" kann auch noch pro Kanal eine Startverzögerung sinnvoll sein. Der Grund ist in "Logikkanäle -> [Startverhalten](#startverhalten)" beschrieben.
 
 Die Verzögerungszeit wird hier angegeben.
 
@@ -683,7 +753,7 @@ Hier werden die Einstellungen vorgenommen, die für die Auswertung der Logik rel
 
 Erscheint nur, wenn die Logik-Operation nicht auf ZEITSCHALTUHR gestellt wurde.
 
-Wie bereits in "Logikkanäle -> Startverhalten" beschrieben, ist es notwendig, einer Logikverknüpfung zu sagen, wie sie mit undefinierten Eingängen umgehen soll.
+Wie bereits in "Logikkanäle -> [Startverhalten](#startverhalten)" beschrieben, ist es notwendig, einer Logikverknüpfung zu sagen, wie sie mit undefinierten Eingängen umgehen soll.
 
 #### **auch wenn noch nicht alle Werte gültig sind**
 
@@ -1124,7 +1194,7 @@ Als Eingabe wird hier die Nummer der Logik erwartet, deren Ausgang als interner 
 Es kann auch der Ausgang des aktuellen Kanals als interner Eingang verwendet werden. Da dies aber schwer abzusehende Seiteneffekte haben kann, die im Falle einer Schleife auch den Bus mit vielen Telegrammen fluten können, erscheint in einem solchen Fall eine Warnung:
 <kbd>![Warnung Rückkopplung](pics/Rueckkopplung.PNG)</kbd>
 
-## Definition Interner Eingang 1
+## Definition Interner Eingang 2
 
 Hier werden die Verbindungseinstellungen für den Internen Eingang 2 gewählt.
 
@@ -1212,7 +1282,7 @@ Bei dieser Zeitschaltuhr werden die Schaltzeiten normal behandelt, an einem Urla
 
 Nach einem Neustart des Moduls kann die letzte Schaltzeit erneut ausgeführt werden. Sobald das Datum und die Uhrzeit erstmals über den Bus gesetzt worden sind, wird nach der spätesten Schaltzeit gesucht, die noch vor dem aktuellen Datum/Uhrzeit liegt. Dieser Schaltzeitpunkt wird dann ausgeführt.
 
-Da eine Nachberechnung aller Schaltzeiten für bis zu 80 Zeitschaltuhren inklusive Feiertagsbehandlung direkt nach dem ersten Setzen der Zeit über den Bus sehr lange dauern würde und in dieser Zeit (mehrere Sekunden) die Funktion des Moduls gestört wäre, wird die Nachberechnung der Schaltzeiten durch einen Nebenprozess während der normalen Funktion des Moduls durchgeführt. Der Nebenprozess funktioniert in kleinen Schritten, die wenig Rechenzeit kosten und die Normalfunktion nicht behindern. Als Konsequenz kann es etwas dauern, bis der entsprechende nachberechnete Zeitschaltpunkt nachgeholt wird.
+Da eine Nachberechnung aller Schaltzeiten für bis zu 99 Zeitschaltuhren inklusive Feiertagsbehandlung direkt nach dem ersten Setzen der Zeit über den Bus sehr lange dauern würde und in dieser Zeit (mehrere Sekunden) die Funktion des Moduls gestört wäre, wird die Nachberechnung der Schaltzeiten durch einen Nebenprozess während der normalen Funktion des Moduls durchgeführt. Der Nebenprozess funktioniert in kleinen Schritten, die wenig Rechenzeit kosten und die Normalfunktion nicht behindern. Als Konsequenz kann es etwas dauern, bis der entsprechende nachberechnete Zeitschaltpunkt nachgeholt wird.
 
 Wie lange es dauert, bis ein nachberechneter Zeitschaltpunkt nachgeholt wird, hängt wiederum vom Zeitschaltpunkt selbst ab.
 
@@ -2363,11 +2433,11 @@ n+2 | Ausgang | **) | Ausgang eines Logikkanals
 
 **) Ausgangs-DPT ist Eingangs-DPT ergänzt um DPT 16.
 
-Jeder Logikkanal hat genau 3 aufeinanderfolgende Kommunikationsobjekte. Wenn n der Eingang 1 für Kanal x ist, so ist n+3 der Eingang 1 für Kanal x+1. Bei 80 Kanälen ist das letzte KO der Ausgang für Kanal 80 und hat die Nummer n+239.
+Jeder Logikkanal hat genau 3 aufeinanderfolgende Kommunikationsobjekte. Wenn n der Eingang 1 für Kanal x ist, so ist n+3 der Eingang 1 für Kanal x+1. Bei 99 Kanälen ist das letzte KO der Ausgang für Kanal 99 und hat die Nummer n+296.
 
 n für Kanal 1 ist von dem Gerät abhängig, auf dem die Applikation Logik läuft:
 
-* Für das Logikmodul ist n=20, somit ist das letzte belegte KO 259.
-* Für das Sensormodul ist n=125, somit ist das letzte belegte KO 364.
-* Für das Wiregateway ist n=150, somit ist das letzte belegte KO 389.
+* Für das Logikmodul ist n=20, somit ist das letzte belegte KO 316.
+* Für das Sensormodul ist n=125, somit ist das letzte belegte KO 421 bzw. KO 364 bei 80 Logikkanälen.
+* Für das Wiregateway ist n=150, somit ist das letzte belegte KO 446.
 * Für das Enocean-Gateway ist n=320, somit ist das letzte belegte KO 469 (50 Logikkanäle).
