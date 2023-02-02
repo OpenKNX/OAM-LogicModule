@@ -63,7 +63,7 @@ class Logic : public OpenKNX::Module
     //const uint8_t *getFlash();
     // void writeAllInputsToEEPROMFacade();
     void processAllInternalInputs(LogicChannel *iChannel, bool iValue);
-    void afterStartupDelay();
+    void processAfterStartupDelay();
     void processReadRequests();
     void processInputKo(GroupObject &iKo);
     bool processDiagnoseCommand();
@@ -86,7 +86,6 @@ class Logic : public OpenKNX::Module
 
     LogicChannel *mChannel[LOG_ChannelsFirmware];
     uint8_t mNumChannels; // Number of channels defined in knxprod
-    bool mAfterStartupDelayCompleted = false;
 
     // we need a lookup for external KO
     static const uint16_t cCountKoLookups = LOG_ChannelsFirmware * 3;

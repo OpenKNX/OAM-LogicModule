@@ -145,10 +145,9 @@ void Logic::processAllInternalInputs(LogicChannel *iChannel, bool iValue)
     }
 }
 
-void Logic::afterStartupDelay()
+void Logic::processAfterStartupDelay()
 {
     log("afterStartupDelay");
-    mAfterStartupDelayCompleted = true;
 
     if (ParamLOG_VacationRead)
         KoLOG_Vacation.requestObjectRead();
@@ -562,7 +561,6 @@ void Logic::setup()
         lChannel->startTimerRestoreState();
     }
 }
-
 void Logic::loop()
 {
     // static uint32_t sLogicLoopTime;
@@ -579,8 +577,8 @@ void Logic::loop()
     //         gWatchdogDelay = millis();
     //     }
     // #endif
-    if(!mAfterStartupDelayCompleted && openknx.startupReady())
-        afterStartupDelay();
+    if(!openknx.afterStartupDelay())
+        return;
 
     // sLogicLoopTime = millis();
     sTimer.loop(); // clock and timer async methods
