@@ -2761,7 +2761,5 @@ int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTim
 
 const char *LogicChannel::name()
 {
-    char *buffer = new char[MAX_LOG_PREFIX];
-    sprintf(buffer, "LogicChannel<%i>", _channelIndex + 1);
-    return buffer;
+    return appendChannelSuffix("Logic");
 }

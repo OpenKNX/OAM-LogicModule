@@ -56,7 +56,7 @@ uint16_t Logic::flashSize()
 
 const char *Logic::name()
 {
-    return "LogicModule";
+    return "Logic";
 }
 
 Logic::Logic()
