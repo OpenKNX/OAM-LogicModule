@@ -2684,5 +2684,5 @@ int16_t LogicChannel::getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTime
 
 const char *LogicChannel::name()
 {
-    return appendChannelSuffix("Logic");
+    return "Logic";
 }
