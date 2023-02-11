@@ -7,7 +7,7 @@
             (time & 0xC000) == 0x4000 ? (time & 0x3FFF) * 60000 : \
             (time & 0xC000) == 0x8000 ? ((time & 0x3FFF) > 1000 ? 3600000 : \
                                          (time & 0x3FFF) * 3600000 ) : 0 )
-                                             
+
 // Parameter with single occurrence
 
 
@@ -1229,11 +1229,11 @@
 #define ParamLOG_fE1Low7Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low7Valid)) & LOG_fE1Low7ValidMask))
 // Eingang 1 ist EIN, wenn Wert gleich
 #define ParamLOG_fE1LowDpt2                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE1Low1Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE1Low2Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low2Dpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE1Low3Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Dpt2)))
 // Eingang 1 ist konstant
 #define ParamLOG_fE1LowDpt2Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt2Fix)))
@@ -1397,13 +1397,13 @@
 #define ParamLOG_fE2Low6Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Valid)) & LOG_fE2Low6ValidMask))
 // Nächste Zeile auswerten?
 #define ParamLOG_fE2Low7Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low7Valid)) & LOG_fE2Low7ValidMask))
-// Eingang 2 ist EIN, wenn Wert gleich 
+// Eingang 2 ist EIN, wenn Wert gleich
 #define ParamLOG_fE2Low0Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE2Low1Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE2Low2Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low2Dpt2)))
-// ... oder wenn Wert gleich 
+// ... oder wenn Wert gleich
 #define ParamLOG_fE2Low3Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Dpt2)))
 // Eingang 2 ist konstant
 #define ParamLOG_fE2LowDpt2Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt2Fix)))
@@ -1811,7 +1811,7 @@
 #define ParamLOG_fOOnDpt1                  (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt1)))
 //     Wert für EIN senden als
 #define ParamLOG_fOOnDpt2                  (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt2)))
-//     Wert für EIN senden als 
+//     Wert für EIN senden als
 #define ParamLOG_fOOnDpt5                  (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt5)))
 //     Wert für EIN senden als
 #define ParamLOG_fOOnDpt5001               (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt5001)))
@@ -1829,17 +1829,17 @@
 #define ParamLOG_fOOnDpt13                 ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnDpt13)))
 //     Wert für EIN senden als
 #define ParamLOG_fOOnDpt14                 (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOnDpt14), Float_Enc_IEEE754Single))
-//     Wert für EIN senden als 
+//     Wert für EIN senden als
 #define ParamLOG_fOOnDpt16                 (knx.paramData(LOG_ParamCalcIndex(LOG_fOOnDpt16)))
-//     Wert für EIN senden als 
+//     Wert für EIN senden als
 #define ParamLOG_fOOnDpt17                 (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt17)))
 //     Wert für EIN senden als (3-Byte-RGB)
 #define ParamLOG_fOOnRGB                   ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnRGB)) & LOG_fOOnRGBMask) >> LOG_fOOnRGBShift)
-// 
+//
 #define ParamLOG_fOOnPAArea                ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPAArea)) & LOG_fOOnPAAreaMask) >> LOG_fOOnPAAreaShift)
-// 
+//
 #define ParamLOG_fOOnPALine                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPALine)) & LOG_fOOnPALineMask)
-// 
+//
 #define ParamLOG_fOOnPADevice              (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPADevice)))
 //     Wert für EIN ermitteln als
 #define ParamLOG_fOOnFunction              (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnFunction)))
@@ -1877,15 +1877,15 @@
 #define ParamLOG_fOOffDpt14                (knx.paramFloat(LOG_ParamCalcIndex(LOG_fOOffDpt14), Float_Enc_IEEE754Single))
 //     Wert für AUS senden als
 #define ParamLOG_fOOffDpt16                (knx.paramData(LOG_ParamCalcIndex(LOG_fOOffDpt16)))
-//     Wert für AUS senden als 
+//     Wert für AUS senden als
 #define ParamLOG_fOOffDpt17                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt17)))
 //     Wert für AUS senden als (3-Byte-RGB)
 #define ParamLOG_fOOffRGB                  ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffRGB)) & LOG_fOOffRGBMask) >> LOG_fOOffRGBShift)
-// 
+//
 #define ParamLOG_fOOffPAArea               ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPAArea)) & LOG_fOOffPAAreaMask) >> LOG_fOOffPAAreaShift)
-// 
+//
 #define ParamLOG_fOOffPALine               (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPALine)) & LOG_fOOffPALineMask)
-// 
+//
 #define ParamLOG_fOOffPADevice             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPADevice)))
 //     Wert für AUS ermitteln als
 #define ParamLOG_fOOffFunction             (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffFunction)))

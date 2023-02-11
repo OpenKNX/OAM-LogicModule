@@ -1,5 +1,15 @@
 #pragma once
 
+#ifdef BOARD_KONNEKTION_TEST
+#define PROG_LED_PIN A3
+#define PROG_LED_PIN_ACTIVE_ON HIGH
+#define PROG_BUTTON_PIN 38
+#define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
+// #define KNX_UART_RX_PIN 0
+// #define KNX_UART_TX_PIN 1
+#define HARDWARE_NAME "KONNEKTING-TEST"
+#endif
+
 #ifndef BOARD_ENDUSER
 // // Board specific definietions
 // // #define BOARD_MASIFI
