@@ -128,7 +128,7 @@ Im Folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * FIX: Die KO-Nummer für interne Verbindungen war nur auf 3 Stellen beschränkt. Es gibt inzwischen aber Applikationen, die über 1000 KO haben.
 * NEU: Eine neue [Formel "B2I (Bool zu Int)"](#a--b2ie1-e2-bool-zu-int) erlaubt die Umrechnung von 2 Einzelbits in einen Wert 0-3 bzw. Szene 1-4. 
-* NEU: Weitere Hardware verfügbar ([Siehe Unterstützte Hardware](#unterstützte-hardware))
+* NEU: Weitere Hardware verfügbar (siehe [Unterstützte Hardware](#unterstützte-hardware))
 
 08.11.2022: Firmware 0.12.3, Applikation 0.12 (Beta-Release)
 
