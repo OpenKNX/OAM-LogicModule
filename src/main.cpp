@@ -8,7 +8,7 @@ void appSetup(bool iSaveSupported);
 void appLoop();
 uint32_t minFreeMemory = INT32_MAX;
 
-// #include "TimerInterrupt_Generic.h"
+#include "TimerInterrupt_Generic.h"
 
 // // Init selected SAMD timer
 // SAMDTimer ITimer(TIMER_TC3);

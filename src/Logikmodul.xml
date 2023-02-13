@@ -13,12 +13,12 @@
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
         <op:version OpenKnxId="0xA0" ApplicationNumber="49" ApplicationVersion="46" ReplacesVersions="14 19 20 21 22 23 24 25 31 32 33 34 35 38 44 45" ApplicationRevision="0" />
-        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
+        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="5.0" ContextHelpFile="%FILE-HelpFile-de%" IconFile="%FILE-Icons%" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
-            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1" />
+            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="9" KoOffset="20" ModuleType="1" />
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <op:include href="Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
@@ -64,6 +64,9 @@
                 <LdCtrlLoadImageProp ObjIdx="4" PropId="27" />
               </LoadProcedure>
             </LoadProcedures>
+            <Extension>
+              <op:include href="Logikmodul.share.xml" xpath="//Extension/*" prefix="LOG" />
+            </Extension>
             <Messages>
               <Message Id="%AID%_M-1" Name="VersionMismatch" Text="Diese Applikaiton benötigt die Firmware-Version %VersionMessage%, siehe Geräteinfo." />
             </Messages>
@@ -84,6 +87,9 @@
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
+      <Baggages>
+        <op:include href="Logikmodul.share.xml" xpath="//Baggages/*" prefix="LOG" />
+      </Baggages>
       <Hardware>
         <Hardware Id="%HardwareId%" Name="OpenKNX-Logic" SerialNumber="0xA031" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>

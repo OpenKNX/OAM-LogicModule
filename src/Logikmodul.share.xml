@@ -14,6 +14,17 @@
               <ParameterType Id="%AID%_PT-NumChannels" Name="NumChannels">
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="%N%" maxInclusive="%N%" />
               </ParameterType>
+              <ParameterType Id="%AID%_PT-OpenKNX" Name="OpenKNX">
+                <TypePicture RefId="%FILE-openknx%" HorizontalAlignment="Right" />
+              </ParameterType>              
+              <!-- Images for Logicmodule -->
+              <ParameterType Id="%AID%_PT-PicAND" Name="PicAND">
+                <TypePicture RefId="%FILE-pics-and%" HorizontalAlignment="Right" />
+              </ParameterType>              
+              <ParameterType Id="%AID%_PT-PicOR" Name="PicOR">
+                <TypePicture RefId="%FILE-pics-or%" HorizontalAlignment="Right" />
+              </ParameterType>              
+
               <!-- Delay pattern -->
               <ParameterType Id="%AID%_PT-DelayBase" Name="DelayBase">
                 <TypeRestriction Base="Value" SizeInBit="2">
@@ -1209,6 +1220,13 @@
               <ComObjectRef Id="%AID%_O-%T%000009_R-%T%00000901" RefId="%AID%_O-%T%000009" />
               <ComObjectRef Id="%AID%_O-%T%000010_R-%T%00001001" RefId="%AID%_O-%T%000010" />
             </ComObjectRefs>
+            <Extension>
+              <Baggage RefId="%FILE-HELP-de%" />
+              <Baggage RefId="%FILE-ICONS%" />
+              <Baggage RefId="%FILE-openknx%" />
+              <Baggage RefId="%FILE-pics-and%" />
+              <Baggage RefId="%FILE-pics-or%" />
+            </Extension>
           </Static>
           <Dynamic>
             <Channel Name="Logik" Text="Logikfunktionen" Number="3" Id="%AID%_CH-3">
@@ -1408,6 +1426,23 @@
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="30" Name="HelpFile_de-DE.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="30" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="knx3.jpg" Id="%FILE-openknx%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="30" Name="AND.png" Id="%FILE-pics-and%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="30" Name="OR.png" Id="%FILE-pics-or%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
     </Manufacturer>
   </ManufacturerData>
 </KNX>
