@@ -88,7 +88,7 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
 
 ## Änderungshistorie
 
-Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
+Im Folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
 09.01.2023: Firmware 1.4.1, Applikation 1.4
 
@@ -107,7 +107,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 * FIX: Die Berechnung vom Sonnenauf- und -untergang ist jetzt korrekt (danke an @dhb2002)
 * NEU: Neues Kommunikationsobjekt, mit dem man dem Logikmodul mitteilen kann, dass jetzt Sommerzeit aktiv ist (für Länder außerhalb Deutschlands notwendig).
 * FIX: Das Logikmodul (standalone) hat keine Leseanfragen für Zeit/Datum wiederholt, wenn die erste Leseanfrage nicht beantwortet wurde.
-* FIX: Das senden von Feiertagen auf den Bus wurde nicht durchgeführt (auch wenn in der Applikation eingestellt). Sie konnten aber schon immer per Read-Request gelesen werden (danke an Cornelius Köpp für den Fix).
+* FIX: Das Senden von Feiertagen auf den Bus wurde nicht durchgeführt (auch wenn in der Applikation eingestellt). Sie konnten aber schon immer per Read-Request gelesen werden (danke an Cornelius Köpp für den Fix).
 * FIX: Formelergebnisse, die als DPT 5.001 versendet werden sollten, waren falsch (neuer Bug in 1.1).
 
 27.12.2022: Firmware 1.1, Applikation 1.1
@@ -222,7 +222,7 @@ Alle Ein- und Ausgänge können ihre Werte invertieren
 
 Eingänge können aktiv Werte lesen
 
-* beim Startup
+* Beim Startup
 * Zyklisch mit einstellbarer Zeit
 * Zyklisch bis die erste Antwort kommt
 
@@ -389,7 +389,7 @@ Mit einem 'Ja' wird das KO 7 'Diagnoseobjekt' freigeschaltet.
 
 ### **RGB-LED**
 
-Da RGB-LED unterschiedliche Pin-Belegungen für die Farben Rot, Grün und Blau haben, kann es passieren, dass man nach dem anlöten der LED feststellt, dass man falsche Farben präsentiert bekommt.
+Da RGB-LED unterschiedliche Pin-Belegungen für die Farben Rot, Grün und Blau haben, kann es passieren, dass man nach dem Anlöten der LED feststellt, dass man falsche Farben präsentiert bekommt.
 
 An dieser Stelle kann man die Pinbelegung für Rot/Grün/Blau in verschiedenen Permutationen einstellen und so softwareseitig mögliche Belegungsprobleme beseitigen.
 
@@ -837,7 +837,7 @@ Bisher wurde detailliert beschrieben, wie das Logik-Funktionsmodul die Eingänge
 
 ### **Logik sendet ihren Wert weiter**
 
-Diese Auswahlbox erlaubt eine Detaillierte Einstellung des Verhaltens.
+Diese Auswahlbox erlaubt eine detaillierte Einstellung des Verhaltens.
 
 #### **Nur bei geändertem Ergebnis**
 
