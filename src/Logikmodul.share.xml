@@ -15,7 +15,7 @@
                 <TypeNumber SizeInBit="8" Type="unsignedInt" minInclusive="%N%" maxInclusive="%N%" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-OpenKNXLogo" Name="OpenKNXLogo">
-                <TypePicture RefId="%FILE-openknxlogo%" HorizontalAlignment="Right" />
+                <TypePicture RefId="%FILE-openknxlogo%" HorizontalAlignment="Left" />
               </ParameterType>              
               <!-- Images for Logicmodule -->
               <ParameterType Id="%AID%_PT-PicAND" Name="PicAND">
@@ -1435,7 +1435,7 @@
           <FileInfo TimeInfo="%DATETIME%" />
         </Baggage>
         <Baggage TargetPath="A0\30" Name="OR.png" Id="%FILE-or%">
-          <FileInfo TimeInfo="%DATETIME%" Version="1.0.0.0" />
+          <FileInfo TimeInfo="%DATETIME%" />
         </Baggage>
       </Baggages>
     </Manufacturer>

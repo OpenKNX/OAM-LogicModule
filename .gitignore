@@ -7,3 +7,4 @@
 **/*.debug.xml
 release/*
 src/Baggages.debug/*
+src/*.baggages/*

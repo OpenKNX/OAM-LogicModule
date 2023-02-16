@@ -14,7 +14,19 @@
           <Dynamic>
             <ChannelIndependentBlock>
               <ParameterBlock Id="%AID%_PB-1" Name="General" Text="Logik: Obere Parameter">
-                <ParameterRefRef RefId="%AID%_P-%T%000163_R-%T%00016301" HelpContext="OpenKNXLogo" />
+                <!-- Logo presentation -->
+                <ParameterBlock Id="%AID%_PB-nnn" Name="DisplayOpenKNXLogo" Inline="true" Layout="Grid">
+                  <Rows>
+                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                  </Rows>
+                  <Columns>
+                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="25%" />
+                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="5%" />
+                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="70%" />
+                  </Columns>
+                  <ParameterRefRef RefId="%AID%_P-%T%000163_R-%T%00016301" HelpContext="OpenKNXLogo" Cell="1,1" />
+                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Willkommen bei OpenKNX" Cell="1,3" />
+                </ParameterBlock>
                 <ParameterSeparator Id="%AID%_PS-nnn" Text="Gerätestart" UIHint="Headline" />
                 <!-- the following parameter is readonly and necessary (number of logik channels used in knxdprod) -->
                 <ParameterRefRef RefId="%AID%_P-%T%000001_R-%T%00000101" />
