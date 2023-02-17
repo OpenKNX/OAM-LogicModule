@@ -1428,6 +1428,10 @@
         <Baggage TargetPath="A0\30" Name="Icons.zip" Id="%FILE-ICONS%">
           <FileInfo TimeInfo="%DATETIME%" />
         </Baggage>
+        <!-- Alternative addressing method with relative path, path is always relative to src dir!!! -->
+        <!-- <Baggage TargetPath="" Name="..\..\OGM-Common\resources\OpenKNX-Logo.png" Id="%FILE-openknxlogo%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage> -->
         <Baggage TargetPath="" Name="OpenKNX-Logo.png" Id="%FILE-openknxlogo%">
           <FileInfo TimeInfo="%DATETIME%" />
         </Baggage>
