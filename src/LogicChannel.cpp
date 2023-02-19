@@ -2759,7 +2759,7 @@ int16_t LogicChannel::getSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTim
     return lResult;
 }
 
-const char *LogicChannel::name()
+const std::string LogicChannel::name()
 {
     return "Logic";
 }
