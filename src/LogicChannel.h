@@ -281,7 +281,7 @@ class LogicChannel : public OpenKNX::Channel
     int16_t getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
     uint32_t getTimerNow(bool iMidnight);
     void processTimerRestoreState(TimerRestore &iTimer);
-    const char * name() override;
+    const std::string name() override;
 
   protected:
 

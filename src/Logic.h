@@ -58,7 +58,7 @@ class Logic : public OpenKNX::Module
     void readFlash(const uint8_t* iBuffer, const uint16_t iSize) override;
     void writeFlash() override;
     uint16_t flashSize() override;
-    const char* name() override;
+    const std::string name() override;
 
   private:
     static uint8_t sMagicWord[];

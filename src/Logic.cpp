@@ -53,7 +53,7 @@ uint16_t Logic::flashSize()
     return 1 + (LOG_ChannelsFirmware * 2 * 5);
 }
 
-const char *Logic::name()
+const std::string Logic::name()
 {
     return "Logic";
 }

@@ -2682,7 +2682,7 @@ int16_t LogicChannel::getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTime
     return lResult;
 }
 
-const char *LogicChannel::name()
+const std::string LogicChannel::name()
 {
     return "Logic";
 }
