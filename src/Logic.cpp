@@ -205,12 +205,12 @@ void Logic::readFlash(const uint8_t *iBuffer, const uint16_t iSize)
     uint8_t lVersion = openknx.flash.readByte();
     if (lVersion != 1) // version unknown
     {
-        log("    Wrong version of flash data (%i)", lVersion);
+        logDebugP("Wrong version of flash data (%i)", lVersion);
         return;
     }
 
     uint8_t lMaxChannels = (iSize - 1) / (2 * 5);
-    log("    Reading channel data from flash (%i/%i)", lMaxChannels, mNumChannels);
+    logDebugP("Reading channel data from flash (%i/%i)", lMaxChannels, mNumChannels);
     for (uint8_t lIndex = 0; lIndex < MIN(mNumChannels, lMaxChannels); lIndex++)
     {
         mChannel[lIndex]->restore();
