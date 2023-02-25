@@ -4,6 +4,8 @@
 #include <Logic.h>
 #include "hardware.h"
 
+#pragma message "Pico Core Version: " ARDUINO_PICO_VERSION_STR 
+
 void appSetup(bool iSaveSupported);
 void appLoop();
 
