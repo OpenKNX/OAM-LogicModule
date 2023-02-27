@@ -4,14 +4,14 @@ Set-Location ..
 $subprojects = Get-ChildItem -File lib
 $projectDir = Get-Location
 # we first check, if we are in Admin- or Developer mode and allowed to create symlinks:
-cmd /c "mklink /D $projectDir\lib\linktest ..\restore"
+cmd /c "mklink /D `"$projectDir\lib\linktest`" ..\restore"
 if (!$?) { 
     Write-Host "You need Developer-Mode or Administrator privileges to execute this script!"
     timeout /T 20
     exit 1 
 }
 # cleanup after test
-cmd /c "rmdir $projectDir\lib\linktest"
+cmd /c "rmdir `"$projectDir\lib\linktest`""
 if (!$?) { exit 1 }
 
 Set-Location ..
@@ -44,7 +44,7 @@ foreach ($subproject in $subprojects) {
         Rename-Item $projectDir/lib/$subproject $projectDir/lib/tmp-openknx-restore
         if (!$?) { exit 1 }
         # this has to be a cmd-shell to work in developer mode
-        cmd /c "mklink /D $projectDir\lib\$subproject ..\..\$subproject"
+        cmd /c "mklink /D `"$projectDir\lib\$subproject`" ..\..\$subproject"
         if ($?) { 
             # link creation successful, now we can safely delete old renamed file
             Remove-Item $projectDir/lib/tmp-openknx-restore
