@@ -1115,9 +1115,9 @@
 // Zeitbezug
 #define ParamLOG_fTd8DuskDawn              (knx.paramByte(LOG_ParamCalcIndex(LOG_fTd8DuskDawn)) & LOG_fTd8DuskDawnMask)
 // Von-Wert
-#define ParamLOG_fE1LowDelta               ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE1LowDelta)))
+#define ParamLOG_fE1LowDelta               ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDelta)))
 // Bis-Wert
-#define ParamLOG_fE1HighDelta              ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE1HighDelta)))
+#define ParamLOG_fE1HighDelta              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDelta)))
 // Von-Wert
 #define ParamLOG_fE1LowDeltaFloat          (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDeltaFloat), Float_Enc_IEEE754Single))
 // Bis-Wert
@@ -1257,15 +1257,15 @@
 // Eingang 1 ist konstant
 #define ParamLOG_fE1LowDpt17Fix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt17Fix)))
 // Von-Wert
-#define ParamLOG_fE1LowDptRGB              ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE1LowDptRGB)))
+#define ParamLOG_fE1LowDptRGB              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDptRGB)))
 // Bis-Wert
-#define ParamLOG_fE1HighDptRGB             ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE1HighDptRGB)))
+#define ParamLOG_fE1HighDptRGB             ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDptRGB)))
 // Eingang 1 ist konstant
-#define ParamLOG_fE1LowDptRGBFix           ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE1LowDptRGBFix)))
+#define ParamLOG_fE1LowDptRGBFix           ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDptRGBFix)))
 // Von-Wert
-#define ParamLOG_fE2LowDelta               ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE2LowDelta)))
+#define ParamLOG_fE2LowDelta               ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDelta)))
 // Bis-Wert
-#define ParamLOG_fE2HighDelta              ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE2HighDelta)))
+#define ParamLOG_fE2HighDelta              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2HighDelta)))
 // Von-Wert
 #define ParamLOG_fE2LowDeltaFloat          (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDeltaFloat), Float_Enc_IEEE754Single))
 // Bis-Wert
@@ -1405,11 +1405,11 @@
 // Eingang 2 ist konstant
 #define ParamLOG_fE2LowDpt17Fix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt17Fix)))
 // Von-Wert
-#define ParamLOG_fE2LowDptRGB              ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE2LowDptRGB)))
+#define ParamLOG_fE2LowDptRGB              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDptRGB)))
 // Bis-Wert
-#define ParamLOG_fE2HighDptRGB             ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE2HighDptRGB)))
+#define ParamLOG_fE2HighDptRGB             ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2HighDptRGB)))
 // Eingang 2 ist konstant
-#define ParamLOG_fE2LowDptRGBFix           ((int32_t)knx.paramLong(LOG_ParamCalcIndex(LOG_fE2LowDptRGBFix)))
+#define ParamLOG_fE2LowDptRGBFix           ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDptRGBFix)))
 // Schaltwert
 #define ParamLOG_fTd1Value                 ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTd1Value)) & LOG_fTd1ValueMask))
 // Stunde
@@ -1683,7 +1683,7 @@
 //     Wert für EIN senden als 
 #define ParamLOG_fOOnDpt17                 (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt17)))
 //     Wert für EIN senden als (3-Byte-RGB)
-#define ParamLOG_fOOnRGB                   ((knx.paramLong(LOG_ParamCalcIndex(LOG_fOOnRGB)) & LOG_fOOnRGBMask) >> LOG_fOOnRGBShift)
+#define ParamLOG_fOOnRGB                   ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOnRGB)) & LOG_fOOnRGBMask) >> LOG_fOOnRGBShift)
 // 
 #define ParamLOG_fOOnPAArea                ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnPAArea)) & LOG_fOOnPAAreaMask) >> LOG_fOOnPAAreaShift)
 // 
@@ -1723,7 +1723,7 @@
 //     Wert für AUS senden als 
 #define ParamLOG_fOOffDpt17                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt17)))
 //     Wert für AUS senden als (3-Byte-RGB)
-#define ParamLOG_fOOffRGB                  ((knx.paramLong(LOG_ParamCalcIndex(LOG_fOOffRGB)) & LOG_fOOffRGBMask) >> LOG_fOOffRGBShift)
+#define ParamLOG_fOOffRGB                  ((knx.paramInt(LOG_ParamCalcIndex(LOG_fOOffRGB)) & LOG_fOOffRGBMask) >> LOG_fOOffRGBShift)
 // 
 #define ParamLOG_fOOffPAArea               ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffPAArea)) & LOG_fOOffPAAreaMask) >> LOG_fOOffPAAreaShift)
 // 
