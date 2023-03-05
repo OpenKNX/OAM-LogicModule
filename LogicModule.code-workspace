@@ -4,6 +4,9 @@
 			"path": "."
 		},
 		{
+			"path": "../OFM-LogicModule"
+		},
+		{
 			"path": "../OGM-Common"
 		},
 		{

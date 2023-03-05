@@ -79,13 +79,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Create Dependencies",
+            "label": "Start Pre-Build-Task",
             "type": "shell",
-            "command": "lib/OGM-Common/scripts/setup/reusable/Build-Dependencies.ps1", 
+            "command": "lib/OGM-Common/scripts/build/OpenKNX-Pre-Build.ps1",
             "args": [
             ],
-            "problemMatcher": [],
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "OpenKNXproducer",
