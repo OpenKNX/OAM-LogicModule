@@ -442,13 +442,13 @@
               </ParameterType>
               <ParameterType Id="%AID%_PT-OutputSend" Name="OutputSend">
                 <TypeRestriction Base="Value" SizeInBit="8">
-                  <Enumeration Text="Nein" Value="0" Id="%AID%_PT-OutputSendOn_EN-0" />
-                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%AID%_PT-OutputSendOn_EN-1" />
-                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%AID%_PT-OutputSendOn_EN-2" />
-                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%AID%_PT-OutputSendOn_EN-3" />
-                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%AID%_PT-OutputSendOn_EN-8" />
-                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%AID%_PT-OutputSendOn_EN-4" />
-                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%AID%_PT-OutputSendOn_EN-5" />
+                  <Enumeration Text="Nein" Value="0" Id="%AID%_PT-OutputSend_EN-0" />
+                  <Enumeration Text="Ja - Wert vorgeben" Value="1" Id="%AID%_PT-OutputSend_EN-1" />
+                  <Enumeration Text="Ja - Wert von Eingang 1" Value="2" Id="%AID%_PT-OutputSend_EN-2" />
+                  <Enumeration Text="Ja - Wert von Eingang 2" Value="3" Id="%AID%_PT-OutputSend_EN-3" />
+                  <Enumeration Text="Ja - Wert einer Funktion" Value="8" Id="%AID%_PT-OutputSend_EN-8" />
+                  <Enumeration Text="Ja - Read Request senden" Value="4" Id="%AID%_PT-OutputSend_EN-4" />
+                  <Enumeration Text="Ja - 'Gerät zurücksetzen' senden" Value="5" Id="%AID%_PT-OutputSend_EN-5" />
                 </TypeRestriction>
               </ParameterType>
               <ParameterType Id="%AID%_PT-OutputSendBuzzer" Name="OutputSendBuzzer">
