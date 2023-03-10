@@ -337,7 +337,7 @@
 // Sommerzeit aktiv
 #define KoLOG_IsSummertime              (knx.getGroupObject(LOG_KoIsSummertime))
 
-#define LOG_ChannelCount 50
+#define LOG_ChannelCount 99
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 26
@@ -1920,6 +1920,6 @@
 #define KoLOG_KOfO                      (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 50
-#define MAIN_ApplicationVersion 39
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 52
 #define MAIN_OrderNumber "OpenKnxLogicDev"
