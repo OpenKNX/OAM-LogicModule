@@ -91,6 +91,8 @@
 #define INFO_LED_PIN_ACTIVE_ON HIGH
 #define COUNT_1WIRE_BUSMASTER 1
 #define COUNT_1WIRE_CHANNEL 30
+// #define KNX_UART_RX_PIN 0
+// #define KNX_UART_TX_PIN 1
 // #define COUNT_PM_CHANNEL 6
 // #define COUNT_LOG_CHANNEL 80
 // Buzzer
