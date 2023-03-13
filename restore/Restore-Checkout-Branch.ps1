@@ -14,6 +14,8 @@ foreach ($subproject in $subprojects) {
         if (!$?) { exit 1 }
         git checkout $attr[1]
         if (!$?) { exit 1 }
+        git pull --ff-only
+        if (!$?) { exit 1 }
         Set-Location $currentDir
     }
 }

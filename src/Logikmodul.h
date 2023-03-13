@@ -1920,6 +1920,6 @@
 #define KoLOG_KOfO                      (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
 
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 52
-#define MAIN_OrderNumber "OpenKnxLogicDev"
+#define MAIN_ApplicationNumber 48
+#define MAIN_ApplicationVersion 20
+#define MAIN_OrderNumber "OpenKnxLogic"
