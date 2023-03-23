@@ -1422,7 +1422,7 @@
         </ApplicationProgram>
       </ApplicationPrograms>
       <Baggages>
-        <Baggage TargetPath="A0\30" Name="HelpFile_de-DE.zip" Id="%FILE-HELP-de%">
+        <Baggage TargetPath="A0\30" Name="LogicHelpFile_de-DE.zip" Id="%FILE-HELP-de%">
           <FileInfo TimeInfo="%DATETIME%" />
         </Baggage>
         <Baggage TargetPath="A0\30" Name="Icons.zip" Id="%FILE-ICONS%">
