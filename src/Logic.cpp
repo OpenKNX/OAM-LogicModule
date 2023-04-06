@@ -152,6 +152,9 @@ void Logic::firstLoop()
 
     prepareChannels();
 
+    // TODO: Check if how to realize handling adequate to Commons v1 implementation
+    // TODO FIXME: Repeated Reading
+    // TODO FIXME: Include Implementation for DPT19
     if (ParamLOG_ReadTimeDate)
     {
         eTimeValid lValid = sTimer.isTimerValid();
