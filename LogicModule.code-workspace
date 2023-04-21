@@ -7,6 +7,9 @@
 			"path": "../OFM-LogicModule"
 		},
 		{
+			"path": "../OFM-Updater"
+		},
+		{
 			"path": "../OGM-Common"
 		},
 		{
