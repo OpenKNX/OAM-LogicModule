@@ -538,7 +538,7 @@
                 <TypeFloat Encoding="IEEE-754 Single" minInclusive="-671088" maxInclusive="670760" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-ValueDpt12" Name="ValueDpt12">
-                <TypeNumber SizeInBit="32" Type="unsignedInt" minInclusive="0" maxInclusive="4294967296" />
+                <TypeNumber SizeInBit="32" Type="unsignedInt" minInclusive="0" maxInclusive="4294967295" />
               </ParameterType>
               <ParameterType Id="%AID%_PT-ValueDpt13" Name="ValueDpt13">
                 <TypeNumber SizeInBit="32" Type="signedInt" minInclusive="-2147483648" maxInclusive="2147483647" />
