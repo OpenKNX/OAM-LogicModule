@@ -131,10 +131,15 @@
 // #define I2C_1WIRE_DEVICE_ADDRESSS 0x18  // Address of DS2484 1-Wire-Busmaster chip
 // #define I2C_EEPROM_DEVICE_ADDRESSS 0x50 // Address of 24LC256 eeprom chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
-#define HW_ANALOG_ID 26 
-#define HW_REVISION_ID1 10
-#define HW_REVISION_ID2 11
-#define HW_REVISION_ID3 12
+// #define HW_ANALOG_ID 26 
+// #define HW_REVISION_ID1 10
+// #define HW_REVISION_ID2 11
+// #define HW_REVISION_ID3 12
+#define SmartMF_HardwareVariant_PIN 26
+#define SmartMF_HardwareRevision_ID1 10
+#define SmartMF_HardwareRevision_ID2 11
+#define SmartMF_HardwareRevision_ID3 12
+
 #endif
 
 // Sensormodul-Breakout-Board
@@ -154,10 +159,14 @@
 #define BUZZER_PIN 9
 // #define I2C_1WIRE_DEVICE_ADDRESSS 0x18  // Address of DS2484 1-Wire-Busmaster chip
 #define I2C_RGBLED_DEVICE_ADDRESS 0x60  // Address of PCA9632 RBGW-LED-Driver
-#define HW_ANALOG_ID 26 
-#define HW_REVISION_ID1 10
-#define HW_REVISION_ID2 11
-#define HW_REVISION_ID3 12
+// #define HW_ANALOG_ID 26 
+// #define HW_REVISION_ID1 10
+// #define HW_REVISION_ID2 11
+// #define HW_REVISION_ID3 12
+#define SmartMF_HardwareVariant_PIN 26
+#define SmartMF_HardwareRevision_ID1 10
+#define SmartMF_HardwareRevision_ID2 11
+#define SmartMF_HardwareRevision_ID3 12
 #endif
 
 #ifdef BOARD_MASIFI_AUSSEN_V13
@@ -335,6 +344,11 @@
 #define HF_S2_PIN 3
 #define HF_POWER_PIN 10
 #define SAVE_INTERRUPT_PIN 11
+#define SmartMF_HardwareVariant_PIN 29
+#define SmartMF_HardwareRevision_ID1 22
+#define SmartMF_HardwareRevision_ID2 23
+#define SmartMF_HardwareRevision_ID3 24
+
 // #define SENSOR_I2C_OPT300x Wire1
 // #define SENSOR_I2C_VEML7700 Wire1
 #endif

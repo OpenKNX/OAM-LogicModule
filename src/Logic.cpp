@@ -5,6 +5,7 @@
 #include "TimerRestore.h"
 #include "PCA9632.h"
 #include "MemoryFree.h"
+#include "SmartMF.h"
 #ifdef WATCHDOG
 #include <Adafruit_SleepyDog.h>
 uint32_t gWatchdogDelay;
@@ -547,6 +548,7 @@ void Logic::setup(bool iSaveSupported) {
             sprintf(lErrorText, "FATAL: Firmware compiled for %d channels, but knxprod needs %d channels!\n", LOG_ChannelsFirmware, mNumChannels);
             fatalError(FATAL_LOG_WRONG_CHANNEL_COUNT, lErrorText);
         }
+        smartMF.init();
         for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
         {
             mChannel[lIndex] = new LogicChannel(lIndex);

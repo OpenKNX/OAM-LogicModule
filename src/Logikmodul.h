@@ -8,6 +8,12 @@
             (time & 0xC000) == 0x8000 ? ((time & 0x3FFF) > 1000 ? 3600000 : \
                                          (time & 0x3FFF) * 3600000 ) : 0 )
                                              
+#define MAIN_OpenKnxId 0xA0
+#define MAIN_ApplicationNumber 49
+#define MAIN_ApplicationVersion 53
+#define MAIN_ParameterSize 112
+#define MAIN_MaxKoNumber 22
+#define MAIN_OrderNumber "OpenKnxLogicDev"
 // Parameter with single occurrence
 
 
@@ -337,7 +343,7 @@
 // Sommerzeit aktiv
 #define KoLOG_IsSummertime              (knx.getGroupObject(LOG_KoIsSummertime))
 
-#define LOG_ChannelCount 99
+#define LOG_ChannelCount 1
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 26
@@ -1919,7 +1925,3 @@
 // Ausgang
 #define KoLOG_KOfO                      (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
 
-#define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 52
-#define MAIN_OrderNumber "OpenKnxLogicDev"
