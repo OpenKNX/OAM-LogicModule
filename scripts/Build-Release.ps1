@@ -44,6 +44,10 @@ if (!$?) { exit 1 }
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OpenKNX_REG1_Base firmware-OpenKNX-REG1-Base uf2
 if (!$?) { exit 1 }
 
+# build firmware for OpenKNX-UP1
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OpenKNX_UP1 firmware-OpenKNX-UP1 uf2
+if (!$?) { exit 1 }
+
 # build firmware for RP2040 sensormodule breakout board
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_Breakout_RP2040 firmware-Sensormodul-Breakout-RP2040 uf2 Sensormodul-Breakout-Board-Just-for-testers
 if (!$?) { exit 1 }
