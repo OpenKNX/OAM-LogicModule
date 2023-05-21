@@ -519,6 +519,8 @@ void Logic::debug() {
     sTimer.debug();
 #ifdef ARDUINO_ARCH_RP2040
     printDebug("Free Heap: %i\n", rp2040.getFreeHeap());
+#else
+    printDebug("Free Memory: %i\n", freeMemory());
 #endif
 }
 
