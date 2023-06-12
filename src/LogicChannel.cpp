@@ -856,8 +856,8 @@ void LogicChannel::processConvertInput(uint8_t iIOIndex)
     // get input value
     uint8_t lDpt;
     LogicValue lValue1In = getInputValue(iIOIndex, &lDpt);
-    LogicValue lValue2In = 0L;
-    LogicValue lDiff = 0L;
+    LogicValue lValue2In = (int32_t)0;
+    LogicValue lDiff = (int32_t)0;
     uint8_t lDptValue2 = 0;
     // uint8_t lDptResult = 0;
     if ((lConvert < VAL_InputConvert_Values) && (lConvert & 1))
