@@ -1120,11 +1120,10 @@ void LogicChannel::processLogic()
                 // GATE works a little bit more complex
                 // E1 OR I1 are the data inputs
                 // E2 OR I2 are the gate inputs
-                // Invalid data is handled as ???
+                // Invalid data is handled as "false"
+                // Invalid gate is handled as "force open/close"
                 {
-                    // Invalid gate is a closed gate (0), as described in app doc
-                    // if the behaviour should be changed (invalid is open), 
-                    // just change the init (for gate and previous) to true.
+                    // Invalid gate is in tri state mode and opens/closes on first trigger
                     bool lGate = false;
                     bool lPreviousGate = false;
                     // check if gate input is valid
@@ -1143,13 +1142,15 @@ void LogicChannel::processLogic()
                         if (lIsTriggeredGate)
                             pCurrentIn &= ~(BIT_EXT_INPUT_2 | BIT_INT_INPUT_2);
                     }
-                    uint8_t lGateState = 2 * lPreviousGate + lGate;
+                    uint8_t lGateState = 4 * lInitialOutput + 2 * lPreviousGate + lGate;
                     uint8_t lOnGateTrigger = 0xFF;
                     switch (lGateState)
                     {
                         case VAL_Gate_Closed_Open: // was closed and opens now
+                        case VAL_Gate_Init_Open: // was undefined and opens now
                             lOnGateTrigger = (getByteParam(LOG_fTriggerGateOpen) & LOG_fTriggerGateOpenMask) >> LOG_fTriggerGateOpenShift;
                         case VAL_Gate_Open_Close: // was open and closes now
+                        case VAL_Gate_Init_Close: // was undefined and closes now
                         {
                             if (lOnGateTrigger == 0xFF)
                                 lOnGateTrigger = (getByteParam(LOG_fTriggerGateClose) & LOG_fTriggerGateCloseMask) >> LOG_fTriggerGateCloseShift;
