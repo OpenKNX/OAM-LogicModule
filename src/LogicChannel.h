@@ -52,6 +52,8 @@
 #define VAL_Gate_Closed_Open 1
 #define VAL_Gate_Open_Close 2
 #define VAL_Gate_Open_Open 3
+#define VAL_Gate_Init_Close 4
+#define VAL_Gate_Init_Open 5
 
 // enum delay extend
 #define VAL_Delay_Nothing 0
