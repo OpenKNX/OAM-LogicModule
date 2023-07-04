@@ -26,7 +26,7 @@ LogicChannel::LogicChannel(uint8_t iChannelNumber)
     pCurrentPipeline = 0;
     pValidActiveIO = 0;
     pTriggerIO = 0;
-    pCurrentIn = 0;
+    pCurrentIn = BIT_INITIAL_GATE;
     pCurrentOut = BIT_OUTPUT_INITIAL; // tri-state output, at the beginning we are undefined
 }
 
@@ -1142,8 +1142,10 @@ void LogicChannel::processLogic()
                         if (lIsTriggeredGate)
                             pCurrentIn &= ~(BIT_EXT_INPUT_2 | BIT_INT_INPUT_2);
                     }
-                    uint8_t lGateState = 4 * lInitialOutput + 2 * lPreviousGate + lGate;
+                    uint8_t lGateState = 4 * ((pCurrentIn & BIT_INITIAL_GATE) > 0) + 2 * lPreviousGate + lGate;
                     uint8_t lOnGateTrigger = 0xFF;
+                    // delete the INITIAL_GATE marker
+                    pCurrentIn &= ~BIT_INITIAL_GATE;
                     switch (lGateState)
                     {
                         case VAL_Gate_Closed_Open: // was closed and opens now
