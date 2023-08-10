@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "build_SAMD"
+                "develop_SAMD"
             ],
             "group": "build",
             "problemMatcher": []
@@ -18,7 +18,7 @@
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
-                "build_RP2040"
+                "develop_RP2040"
             ],
             "group": "build",
             "problemMatcher": []
@@ -82,22 +82,20 @@
             "label": "Start Pre-Build-Task",
             "type": "shell",
             "command": "lib/OGM-Common/scripts/build/OpenKNX-Pre-Build.ps1",
-            "args": [
-            ],
+            "args": [],
             "group": "build",
             "problemMatcher": []
         },
         {
             "label": "OpenKNXproducer",
             "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/src"
-            },
             "command": "~/bin/OpenKNXproducer.exe",
             "args": [
                 "create",
                 "--Debug",
-                "Logikmodul"
+                "--HeaderFileName",
+                "include/knxprod.h",
+                "src/Logikmodul"
             ],
             "problemMatcher": [],
             "group": "test"
@@ -105,7 +103,7 @@
         {
             "label": "Build-Release",
             "type": "shell",
-            "command": "scripts/Build-Release.ps1", 
+            "command": "scripts/Build-Release.ps1",
             "args": [
                 "Release"
             ],
@@ -116,8 +114,7 @@
             "label": "Build-Beta",
             "type": "shell",
             "command": "scripts/Build-Release.ps1",
-            "args": [
-            ],
+            "args": [],
             "problemMatcher": [],
             "group": "test"
         }

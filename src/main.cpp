@@ -1,10 +1,10 @@
 #include "Logic.h"
 #ifdef ARDUINO_ARCH_RP2040
-#include "UpdaterModule.h"
+    #include "UpdaterModule.h"
 #endif
 #include "OpenKNX.h"
 #ifdef ARDUINO_ARCH_RP2040
-#pragma message "Pico Core Version: " ARDUINO_PICO_VERSION_STR 
+    #pragma message "Pico Core Version: " ARDUINO_PICO_VERSION_STR
 #endif
 
 void setup()

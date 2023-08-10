@@ -1,28 +1,37 @@
 #Generated from Visual Studio settings
 ---
 BasedOnStyle: llvm
+BreakBeforeBraces: Custom
 BraceWrapping: 
   AfterClass: true
   AfterControlStatement: true
+  AfterCaseLabel: true
   AfterEnum: true
   AfterFunction: true
   AfterNamespace: true
   AfterStruct: true
   AfterUnion: true
+  AfterExternBlock: true
   BeforeCatch: true
   BeforeElse: true
-  SplitEmptyFunction: false
+  BeforeWhile: true
+  BeforeLambdaBody: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
   IndentBraces: false
-#BreakBeforeBraces: Attach
-BreakBeforeBraces: Custom
 ColumnLimit: 0
 IndentWidth: 4
+IndentPPDirectives: BeforeHash
 NamespaceIndentation: All
 TabWidth: 4
 DerivePointerAlignment: true
 IndentCaseLabels: true
-AllowShortFunctionsOnASingleLine: InlineOnly
-AllowShortIfStatementsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: OnlyFirstIf
+AllowShortLambdasOnASingleLine: All 
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 UseTab: Never
