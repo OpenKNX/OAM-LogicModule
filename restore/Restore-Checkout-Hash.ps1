@@ -12,7 +12,7 @@ foreach ($subproject in $subprojects) {
         Set-Location $attr[2]
         git fetch --all
         if (!$?) { exit 1 }
-        git checkout $attr[0]
+        git -c advice.detachedHead=false checkout $attr[0]
         if (!$?) { exit 1 }
         # no pull on hash
         Set-Location $currentDir
