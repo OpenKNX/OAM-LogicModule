@@ -12,13 +12,15 @@
         <!-- Each increase of AppliationVersion FORCES the Enduser to update according firmware, too -->
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
-        <op:version OpenKnxId="0xA0" ApplicationNumber="48" ApplicationVersion="20" ReplacesVersions="8 9 11 12 13 16 17 18 19" ApplicationRevision="0" />
+        <op:version OpenKnxId="0xA0" ApplicationNumber="48" ApplicationVersion="21" ReplacesVersions="8 9 11 12 13 16 17 18 19 20" ApplicationRevision="0" />
         <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
-            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1" />
+            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1">
+              <op:verify file="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ApplicationProgram[@ApplicationVersion=21]" />
+            </op:define>
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />

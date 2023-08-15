@@ -22,7 +22,6 @@ BraceWrapping:
   IndentBraces: false
 ColumnLimit: 0
 IndentWidth: 4
-IndentPPDirectives: BeforeHash
 NamespaceIndentation: All
 TabWidth: 4
 DerivePointerAlignment: true
@@ -35,4 +34,5 @@ AllowShortLambdasOnASingleLine: All
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 UseTab: Never
+IndentPPDirectives: BeforeHash
 ...

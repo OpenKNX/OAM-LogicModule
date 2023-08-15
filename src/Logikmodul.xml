@@ -18,7 +18,9 @@
             <Code>
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
-            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1" />
+            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1">
+              <op:verify file="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ApplicationProgram[@ApplicationVersion=21]" />
+            </op:define>
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
