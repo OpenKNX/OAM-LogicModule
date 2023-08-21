@@ -19,7 +19,7 @@
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
             <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1">
-              <op:verify File="../lib/OFM-LogicModule/src/LogikmodulVersion.h" ModuleVersion="21" />
+              <op:verify File="../lib/OFM-LogicModule/src/ModuleVersion.h" ModuleVersion="21" />
             </op:define>
             <ParameterTypes>
               <!-- generic parameter types for any device -->
