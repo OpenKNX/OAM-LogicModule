@@ -1,20 +1,22 @@
 #include "oknx.h"
-#include "Logic.h"
+
 #include "Helper.h"
+#include "Logic.h"
 #include "Timer.h"
 #include "TimerRestore.h"
-#include "PCA9632.h"
+
 #include "MemoryFree.h"
+#include "PCA9632.h"
 #include "SmartMF.h"
+
 #ifdef WATCHDOG
 #include <Adafruit_SleepyDog.h>
 uint32_t gWatchdogDelay;
 uint8_t gWatchdogResetCause;
 #endif
 
-
 uint8_t Logic::sMagicWord[] = {0xAE, 0x49, 0xD2, 0x9F};
-Timer &Logic::sTimer = Timer::instance(); // singleton
+Timer &Logic::sTimer = Timer::instance();                      // singleton
 TimerRestore &Logic::sTimerRestore = TimerRestore::instance(); // singleton
 
 char Logic::sDiagnoseBuffer[16] = {0};
@@ -22,11 +24,13 @@ sLoopCallbackParams Logic::sLoopCallbacks[5] = {nullptr};
 uint8_t Logic::sNumLoopCallbacks = 0;
 
 // callbacks have to be static members
-void Logic::onInputKoHandler(GroupObject &iKo) {
+void Logic::onInputKoHandler(GroupObject &iKo)
+{
     LogicChannel::sLogic->processInputKo(iKo);
 }
 
-void Logic::addLoopCallback(loopCallback iLoopCallback, void *iThis) {
+void Logic::addLoopCallback(loopCallback iLoopCallback, void *iThis)
+{
     sLoopCallbackParams lParams;
     lParams.callback = iLoopCallback;
     lParams.instance = iThis;
@@ -41,10 +45,10 @@ const uint8_t *Logic::restore(const uint8_t *iBuffer)
 
 uint8_t *Logic::save(uint8_t *iBuffer)
 {
-    return LogicChannel::sLogic->saveToFlash(iBuffer); 
+    return LogicChannel::sLogic->saveToFlash(iBuffer);
 }
 
-uint16_t Logic::saveSize() 
+uint16_t Logic::saveSize()
 {
     return 1004; // just the size for logic
 }
@@ -54,7 +58,7 @@ bool Logic::powerOn()
     return true;
 }
 
-const char* Logic::name()
+const char *Logic::name()
 {
     return "LogicModule";
 }
@@ -64,21 +68,27 @@ const char* Logic::name()
 Logic::Logic()
 {
     LogicChannel::sLogic = this;
+    // init KoLookup (robustness)
+    addKoLookup(0, 0, 0);
+    mNumKoLookups = 0;
 }
 
 Logic::~Logic()
 {
 }
 
-LogicChannel *Logic::getChannel(uint8_t iChannelId) {
+LogicChannel *Logic::getChannel(uint8_t iChannelId)
+{
     return mChannel[iChannelId];
 }
 
-uint8_t Logic::getChannelId(LogicChannel *iChannel) {
+uint8_t Logic::getChannelId(LogicChannel *iChannel)
+{
     uint8_t lResult = -1;
     for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
     {
-        if (mChannel[lIndex] == iChannel) {
+        if (mChannel[lIndex] == iChannel)
+        {
             lResult = lIndex;
             break;
         }
@@ -86,7 +96,7 @@ uint8_t Logic::getChannelId(LogicChannel *iChannel) {
     return lResult;
 }
 
-void Logic::addKoLookup(uint16_t iKoNumber, uint8_t iChannelId, uint8_t iIOIndex) 
+void Logic::addKoLookup(uint16_t iKoNumber, uint8_t iChannelId, uint8_t iIOIndex)
 {
     // first implementation, in future we use sorted insert
     mKoLookup[mNumKoLookups].koNumber = iKoNumber;
@@ -96,15 +106,17 @@ void Logic::addKoLookup(uint16_t iKoNumber, uint8_t iChannelId, uint8_t iIOIndex
         mNumKoLookups++;
 }
 
-bool Logic::getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup) 
+bool Logic::getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup)
 {
     sKoLookup *lIterator = *iKoLookup;
+    uint16_t lIterationCount = 0;
     if (*iKoLookup == 0)
         lIterator = &mKoLookup[0];
     else
         lIterator++;
-    while (lIterator->koNumber > 0)
+    while (lIterator->koNumber > 0 && lIterationCount < mNumKoLookups)
     {
+        lIterationCount++;
         if (lIterator->koNumber == iKoNumber)
         {
             *iKoLookup = lIterator;
@@ -118,12 +130,13 @@ bool Logic::getKoLookup(uint16_t iKoNumber, sKoLookup **iKoLookup)
     return false;
 }
 
-bool Logic::prepareChannels() {
+bool Logic::prepareChannels()
+{
     bool lResult = false;
     printDebug("prepareChannels called...\n");
     for (uint8_t lIndex = 0; lIndex < mNumChannels; lIndex++)
     {
-        // Important: lResult has to be the last argument in this OR, 
+        // Important: lResult has to be the last argument in this OR,
         // otherwise prepareChannel might be not called
         lResult = mChannel[lIndex]->prepareChannel() || lResult;
     }
@@ -142,12 +155,14 @@ void Logic::processAllInternalInputs(LogicChannel *iChannel, bool iValue)
     }
 }
 
-void Logic::processReadRequests() {
+void Logic::processReadRequests()
+{
     static bool sLogicProcessReadRequestsCalled = false;
     static uint32_t sDelay = 19000;
 
-    // the following code should be called only once after initial startup delay 
-    if (!sLogicProcessReadRequestsCalled) {
+    // the following code should be called only once after initial startup delay
+    if (!sLogicProcessReadRequestsCalled)
+    {
         if (knx.paramByte(LOG_VacationRead) & LOG_VacationReadMask)
         {
             knx.getGroupObject(LOG_KoVacation).requestObjectRead();
@@ -164,10 +179,13 @@ void Logic::processReadRequests() {
         if (delayCheck(sDelay, 30000) && lValid != tmValid)
         {
             sDelay = millis();
-            if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
+            if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask)
+            {
                 // combined date and time
                 knx.getGroupObject(LOG_KoTime).requestObjectRead();
-            } else {
+            }
+            else
+            {
                 // date and time from separate KOs
                 if (lValid != tmMinutesValid)
                     knx.getGroupObject(LOG_KoTime).requestObjectRead();
@@ -264,7 +282,6 @@ uint8_t *Logic::saveToFlash(uint8_t *iBuffer)
         // in case knx is not configured but there are old values, we copy them back to buffer
         for (size_t i = 0; i < saveSize(); i++)
             iBuffer[i] = mFlashBuffer[i];
-        
     }
     return iBuffer + saveSize(); // we always return a fixed size!
 }
@@ -274,18 +291,21 @@ void Logic::processInputKo(GroupObject &iKo)
 {
     // we have to check first, if external KO are used
     sKoLookup *lKoLookup = nullptr;
-    while (getKoLookup(iKo.asap(), &lKoLookup)) 
+    while (getKoLookup(iKo.asap(), &lKoLookup))
     {
         LogicChannel *lChannel = mChannel[lKoLookup->channelIndex];
         lChannel->processInput(lKoLookup->ioIndex);
     }
-    if (iKo.asap() == LOG_KoTime) {
-        if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask) {
+    if (iKo.asap() == LOG_KoTime)
+    {
+        if (knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask)
+        {
             KNXValue value = "";
 
             // first ensure we have a valid data-time content
             // (including the correct length)
-            if (iKo.tryValue(value, getDPT(VAL_DPT_19))) {
+            if (iKo.tryValue(value, getDPT(VAL_DPT_19)))
+            {
 
                 // use raw value, as current version of knx do not provide access to all fields
                 // TODO DPT19: check integration of extended DPT19 access into knx or OpenKNX-Commons
@@ -309,7 +329,8 @@ void Logic::processInputKo(GroupObject &iKo)
                 // * NY - missing year
                 // * ND - missing date
                 // * NT - missing time
-                if (!(raw[6] & (DPT19_FAULT | DPT19_NO_YEAR | DPT19_NO_DATE | DPT19_NO_TIME))) {
+                if (!(raw[6] & (DPT19_FAULT | DPT19_NO_YEAR | DPT19_NO_DATE | DPT19_NO_TIME)))
+                {
                     struct tm lTmp = value;
                     sTimer.setDateTimeFromBus(&lTmp);
                     const bool lSummertime = raw[6] & DPT19_SUMMERTIME;
@@ -317,28 +338,39 @@ void Logic::processInputKo(GroupObject &iKo)
                         sTimer.setIsSummertime(lSummertime);
                 }
             }
-        } else {
+        }
+        else
+        {
             KNXValue value = "";
             // ensure we have a valid time content
-            if (iKo.tryValue(value, getDPT(VAL_DPT_10))) {
+            if (iKo.tryValue(value, getDPT(VAL_DPT_10)))
+            {
                 struct tm lTmp = value;
                 sTimer.setTimeFromBus(&lTmp);
-            }   
+            }
         }
-    } else if (iKo.asap() == LOG_KoDate) {
+    }
+    else if (iKo.asap() == LOG_KoDate)
+    {
         KNXValue value = "";
         // ensure we have a valid date content
-        if (iKo.tryValue(value, getDPT(VAL_DPT_11))) {
+        if (iKo.tryValue(value, getDPT(VAL_DPT_11)))
+        {
             struct tm lTmp = value;
             sTimer.setDateFromBus(&lTmp);
         }
-    } else if (iKo.asap() == LOG_KoIsSummertime) {
+    }
+    else if (iKo.asap() == LOG_KoIsSummertime)
+    {
         sTimer.setIsSummertime(iKo.value(getDPT(VAL_DPT_1)));
-    } else if (iKo.asap() == LOG_KoDiagnose) {
+    }
+    else if (iKo.asap() == LOG_KoDiagnose)
+    {
         processDiagnoseCommand(iKo);
     }
 #ifdef BUZZER_PIN
-    else if (iKo.asap() == LOG_KoBuzzerLock) {
+    else if (iKo.asap() == LOG_KoBuzzerLock)
+    {
         // turn off buzzer in case of lock
         if (iKo.value(getDPT(VAL_DPT_1)))
             noTone(BUZZER_PIN);
@@ -362,26 +394,33 @@ void Logic::processInputKo(GroupObject &iKo)
     }
 }
 
-char *Logic::initDiagnose(GroupObject &iKo) {
+char *Logic::initDiagnose(GroupObject &iKo)
+{
     memcpy(sDiagnoseBuffer, iKo.valueRef(), 14);
     return sDiagnoseBuffer;
 }
 
-char *Logic::getDiagnoseBuffer() {
+char *Logic::getDiagnoseBuffer()
+{
     return sDiagnoseBuffer;
 }
 
-bool Logic::processDiagnoseCommand() {
+bool Logic::processDiagnoseCommand()
+{
     bool lResult = false;
-    //diagnose is interactive and reacts on commands
-    switch (sDiagnoseBuffer[0]) {
+    // diagnose is interactive and reacts on commands
+    switch (sDiagnoseBuffer[0])
+    {
         case 'l': {
             // Command l<nn>: Logic inputs and output of last execution
             // find channel and dispatch
             uint8_t lIndex = (sDiagnoseBuffer[1] - '0') * 10 + sDiagnoseBuffer[2] - '0' - 1;
-            if (lIndex < LOG_ChannelCount) {
+            if (lIndex < LOG_ChannelCount)
+            {
                 lResult = mChannel[lIndex]->processDiagnoseCommand(sDiagnoseBuffer);
-            } else {
+            }
+            else
+            {
                 // ignore invalid channel
                 lResult = false;
             }
@@ -408,7 +447,7 @@ bool Logic::processDiagnoseCommand() {
                 if (sDiagnoseBuffer[2] == '-' || sDiagnoseBuffer[2] == '+')
                 {
                     double lDegree = ((sDiagnoseBuffer[3] - '0') * 10 + sDiagnoseBuffer[4] - '0');
-                    uint8_t lMinute = ((sDiagnoseBuffer[5] - '0') * 10 + sDiagnoseBuffer[6] - '0'); 
+                    uint8_t lMinute = ((sDiagnoseBuffer[5] - '0') * 10 + sDiagnoseBuffer[6] - '0');
                     lDegree = (lDegree + lMinute / 60.0) * (sDiagnoseBuffer[2] == '+' ? 1 : -1);
                     sTime lSunrise;
                     sTime lSunset;
@@ -487,7 +526,8 @@ bool Logic::processDiagnoseCommand() {
     return lResult;
 }
 
-void Logic::processDiagnoseCommand(GroupObject &iKo) {
+void Logic::processDiagnoseCommand(GroupObject &iKo)
+{
     // this method is called as soon as iKo is changed
     // an external change is expected
     // because this iKo also is changed within this method,
@@ -497,7 +537,7 @@ void Logic::processDiagnoseCommand(GroupObject &iKo) {
     if (!sIsCalled)
     {
         sIsCalled = true;
-        //diagnose is interactive and reacts on commands
+        // diagnose is interactive and reacts on commands
         initDiagnose(iKo);
         if (processDiagnoseCommand())
             outputDiagnose(iKo);
@@ -505,13 +545,15 @@ void Logic::processDiagnoseCommand(GroupObject &iKo) {
     }
 };
 
-void Logic::outputDiagnose(GroupObject &iKo) {
+void Logic::outputDiagnose(GroupObject &iKo)
+{
     sDiagnoseBuffer[15] = 0;
     iKo.value(sDiagnoseBuffer, getDPT(VAL_DPT_16));
     printDebug("Diagnose: %s\n", sDiagnoseBuffer);
 }
 
-void Logic::debug() {
+void Logic::debug()
+{
     printDebug("Logik-LOG_ChannelsFirmware (in Firmware): %d\n", LOG_ChannelsFirmware);
     printDebug("Logik-gNumChannels (in knxprod):  %d\n", mNumChannels);
 
@@ -524,11 +566,13 @@ void Logic::debug() {
 #endif
 }
 
-void Logic::setup(bool iSaveSupported) {
+void Logic::setup(bool iSaveSupported)
+{
     // Wire.end();   // seems to end hangs on I2C bus
     // Wire.begin(); // we use I2C in logic, so we setup the bus. It is not critical to setup it more than once
 #ifdef WATCHDOG
-    if ((knx.paramByte(LOG_Watchdog) & LOG_WatchdogMask) >> LOG_WatchdogShift) {
+    if ((knx.paramByte(LOG_Watchdog) & LOG_WatchdogMask) >> LOG_WatchdogShift)
+    {
         // used for Diagnose command
         gWatchdogResetCause = Watchdog.resetCause();
         // setup watchdog to prevent endless loops
@@ -560,9 +604,11 @@ void Logic::setup(bool iSaveSupported) {
         pinMode(BUZZER_PIN, OUTPUT);
 #endif
         // we set just a callback if it is not set from a potential caller
-        if (GroupObject::classCallback() == 0) GroupObject::classCallback(Logic::onInputKoHandler);
+        if (GroupObject::classCallback() == 0)
+            GroupObject::classCallback(Logic::onInputKoHandler);
         // we store some input values in case of restart or ets programming
-        if (iSaveSupported) openknx.flashUserData()->first(this);
+        if (iSaveSupported)
+            openknx.flashUserData()->first(this);
 
         // prepareChannels();
         float lLat = LogicChannel::getFloat(knx.paramData(LOG_Latitude));
@@ -614,7 +660,8 @@ void Logic::loop()
         // loopSubmodules(); // this leads to performance critical loop duration!!!
     }
     // printDebug("channelLoop() takes: %i\n", millis() - sLogicLoopTime);
-    if (sTimer.minuteChanged() && knx.configured()) {
+    if (sTimer.minuteChanged() && knx.configured())
+    {
         // sLogicLoopTime = millis();
         sendHoliday();
         sTimer.clearMinuteChanged();
@@ -624,27 +671,29 @@ void Logic::loop()
     // sLogicLoopTime = millis();
     processTimerRestore();
     // printDebug("TimerRestore() takes: %i\n", millis() - sLogicLoopTime);
-
 }
 
-const uint8_t *Logic::getFlash() 
+const uint8_t *Logic::getFlash()
 {
     return mFlashBuffer;
 }
 
 // start timer implementation
-void Logic::processTimerRestore() {
+void Logic::processTimerRestore()
+{
     static uint32_t sTimerRestoreDelay = 1;
     if (!knx.configured())
         return;
-        
+
     if (sTimerRestoreDelay == 0)
         return;
-    if (sTimer.isTimerValid() == tmValid && delayCheck(sTimerRestoreDelay, 500)) {
+    if (sTimer.isTimerValid() == tmValid && delayCheck(sTimerRestoreDelay, 500))
+    {
         sTimerRestoreDelay = millis();
         if (sTimerRestoreDelay == 0)
             sTimerRestoreDelay = 1; // prevent set to 0 in case of timer overflow
-        if (sTimerRestore.getDayIteration() < 365) {
+        if (sTimerRestore.getDayIteration() < 365)
+        {
             if (sTimerRestore.getDayIteration() == 0)
             {
                 // initialize RestoreTimer
@@ -655,7 +704,9 @@ void Logic::processTimerRestore() {
                 sTimerRestore.decreaseDay();
             }
             loopSubmodules();
-        } else {
+        }
+        else
+        {
             // stop timer restore processing in logic...
             sTimerRestoreDelay = 0;
             // ... and in each channel
@@ -669,14 +720,16 @@ void Logic::processTimerRestore() {
 }
 
 // send holiday information on bus
-void Logic::sendHoliday() {
+void Logic::sendHoliday()
+{
     if (sTimer.holidayChanged())
     {
         // write the newly calculated holiday information into KO (can be read externally)
         knx.getGroupObject(LOG_KoHoliday1).valueNoSend(sTimer.holidayToday(), getDPT(VAL_DPT_5));
         knx.getGroupObject(LOG_KoHoliday2).valueNoSend(sTimer.holidayTomorrow(), getDPT(VAL_DPT_5));
         sTimer.clearHolidayChanged();
-        if (knx.paramByte(LOG_HolidaySend) & LOG_HolidaySendMask) {
+        if (knx.paramByte(LOG_HolidaySend) & LOG_HolidaySendMask)
+        {
             // and send it, if requested by application setting
             knx.getGroupObject(LOG_KoHoliday1).objectWritten();
             knx.getGroupObject(LOG_KoHoliday2).objectWritten();
@@ -684,7 +737,8 @@ void Logic::sendHoliday() {
     }
 }
 
-void Logic::loopSubmodules() {
+void Logic::loopSubmodules()
+{
     static uint8_t sCount = 0;
     uint8_t lCount = sCount / 2;
     openknx.loop();
