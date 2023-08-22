@@ -335,7 +335,7 @@ void Logic::processInputKo(GroupObject &iKo)
                     sTimer.setDateTimeFromBus(&lTmp);
                     const bool lSummertime = raw[6] & DPT19_SUMMERTIME;
                     if (((knx.paramByte(LOG_SummertimeAll) & LOG_SummertimeAllMask) >> LOG_SummertimeAllShift) == VAL_STIM_FROM_DPT19)
-                        sTimer.setIsSummertime(lSummertime);
+                        sTimer.IsSummertime(lSummertime);
                 }
             }
         }
@@ -362,7 +362,7 @@ void Logic::processInputKo(GroupObject &iKo)
     }
     else if (iKo.asap() == LOG_KoIsSummertime)
     {
-        sTimer.setIsSummertime(iKo.value(getDPT(VAL_DPT_1)));
+        sTimer.IsSummertime(iKo.value(getDPT(VAL_DPT_1)));
     }
     else if (iKo.asap() == LOG_KoDiagnose)
     {

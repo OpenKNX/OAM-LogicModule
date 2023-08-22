@@ -16,47 +16,55 @@ TimerRestore::~TimerRestore()
 {
 }
 
-TimerRestore &TimerRestore::instance() {
+TimerRestore &TimerRestore::instance()
+{
     static TimerRestore sInstance;
     return sInstance;
 }
 
-void TimerRestore::setup(Timer &iTimer) {
+void TimerRestore::setup(Timer &iTimer)
+{
     mDayIteration = 0;
     mNow = iTimer.mNow;
     mLongitude = iTimer.mLongitude;
     mLatitude = iTimer.mLatitude;
     mTimezone = iTimer.mTimezone;
+    mUseSummertime = iTimer.UseSummertime();
+    mIsSummertime = iTimer.IsSummertime();
     mTimeValid = tmValid;
     calculateEaster();
     calculateAdvent();
     doDayCalculations();
 }
 
-void TimerRestore::decreaseDay() {
+void TimerRestore::decreaseDay()
+{
     mNow.tm_mday -= 1;
-    // Jeder ältere Tag als "Heute" wird 
+    // Jeder ältere Tag als "Heute" wird
     // mit dem Tagesende (25:59:59) betrachtet
-    mNow.tm_hour = 23; 
+    mNow.tm_hour = 23;
     mNow.tm_min = 59;
     mNow.tm_sec = 59;
     doDayCalculations();
 }
 
-void TimerRestore::doDayCalculations() {
+void TimerRestore::doDayCalculations()
+{
     uint16_t lYear = mNow.tm_year;
     mktime(&mNow);
     mDayIteration += 1;
     // printDebug("TimerRestore: Day %02d.%02d.%02d\n", this->getDay(), this->getMonth(), this->getYear());
-    calculateSummertime(); // initial summertime calculation if year changes
-    calculateSunriseSunset();
-    if (lYear != mNow.tm_year) {
+    if (!calculateSummertime()) // initial summertime calculation if year changes
+        calculateSunriseSunset();
+    if (lYear != mNow.tm_year)
+    {
         calculateEaster();
         calculateAdvent();
     }
     calculateHolidays();
 }
 
-uint16_t TimerRestore::getDayIteration() {
+uint16_t TimerRestore::getDayIteration()
+{
     return mDayIteration;
 }

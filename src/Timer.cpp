@@ -4,39 +4,38 @@
 #include <ctime>
 
 sDay Timer::cHolidays[cHolidaysCount] = {
-    {1, 1}, 
-    {6, 1}, 
-    {-52, EASTER}, 
-    {-48, EASTER}, 
-    {-47, EASTER}, 
-    {-46, EASTER}, 
-    {8, 3}, 
-    {-3, EASTER}, 
-    {-2, EASTER}, 
-    {0, EASTER}, 
-    {1, EASTER}, 
-    {1, 5}, 
-    {39, EASTER}, 
-    {49, EASTER}, 
-    {50, EASTER}, 
-    {60, EASTER}, 
-    {8, 8}, 
-    {15, 8}, 
-    {3, 10}, 
-    {31, 10}, 
-    {1, 11}, 
-    {-32, ADVENT}, 
-    {-21, ADVENT}, 
-    {-14, ADVENT}, 
-    {-7, ADVENT}, 
-    {0, ADVENT}, 
-    {24, 12}, 
-    {25, 12}, 
-    {26, 12}, 
-    {31, 12}, 
-    {26, 10}, 
-    {8, 12}
-};
+    {1, 1},
+    {6, 1},
+    {-52, EASTER},
+    {-48, EASTER},
+    {-47, EASTER},
+    {-46, EASTER},
+    {8, 3},
+    {-3, EASTER},
+    {-2, EASTER},
+    {0, EASTER},
+    {1, EASTER},
+    {1, 5},
+    {39, EASTER},
+    {49, EASTER},
+    {50, EASTER},
+    {60, EASTER},
+    {8, 8},
+    {15, 8},
+    {3, 10},
+    {31, 10},
+    {1, 11},
+    {-32, ADVENT},
+    {-21, ADVENT},
+    {-14, ADVENT},
+    {-7, ADVENT},
+    {0, ADVENT},
+    {24, 12},
+    {25, 12},
+    {26, 12},
+    {31, 12},
+    {26, 10},
+    {8, 12}};
 
 Timer::Timer()
 {
@@ -73,6 +72,11 @@ void Timer::setup(double iLongitude, double iLatitude, int8_t iTimezone, bool iU
             cHolidays[i].month = REMOVED;
         iHolidayBitmask <<= 1;
     }
+}
+
+bool Timer::UseSummertime()
+{
+    return mUseSummertime;
 }
 
 void Timer::loop()
@@ -174,7 +178,7 @@ void Timer::setDateFromBus(tm *iDate)
     mNow.tm_year = iDate->tm_year - 1900;
     mktime(&mNow);
     mTimeDelay = millis();
-    if (mNow.tm_year >= MINYEAR-1900)
+    if (mNow.tm_year >= MINYEAR - 1900)
         mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
 }
 
@@ -287,7 +291,12 @@ eTimeValid Timer::isTimerValid()
     return mTimeValid;
 }
 
-void Timer::setIsSummertime(bool iValue)
+bool Timer::IsSummertime()
+{
+    return mIsSummertime;
+}
+
+void Timer::IsSummertime(bool iValue)
 {
     if (iValue != mIsSummertime)
     {
@@ -306,12 +315,13 @@ uint8_t Timer::calculateLastSundayInMonth(uint8_t iMonth)
 }
 
 // should be called only at 03:01 o'clock
-void Timer::calculateSummertime()
+bool Timer::calculateSummertime()
 {
     // first we do easy win
-    bool lIsSummertime = false;
+    bool lResult = false;
     if (mUseSummertime)
     {
+        bool lIsSummertime = false;
         if (getMonth() == 3)
         {
             // find last Sunday in March
@@ -351,8 +361,13 @@ void Timer::calculateSummertime()
         {
             lIsSummertime = (getMonth() > 3 && getMonth() < 10);
         }
-        setIsSummertime(lIsSummertime);
+        if (lIsSummertime != mIsSummertime)
+        {
+            IsSummertime(lIsSummertime);
+            lResult = true;
+        }
     }
+    return lResult;
 }
 
 void Timer::calculateAdvent()

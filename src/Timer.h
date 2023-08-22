@@ -1,14 +1,14 @@
 #pragma once
 
 /***********************************
- * 
+ *
  * Do all time relevant processing in logicmodule
- * 
+ *
  * *********************************/
 
-#include <stdint.h>
-#include <math.h>
 #include <ctime>
+#include <math.h>
+#include <stdint.h>
 
 #define MINYEAR 2022
 
@@ -58,17 +58,17 @@ class Timer
     bool mHolidayChanged = false;
     sTime mSunrise;
     sTime mSunset;
-    sDay mEaster = {0, 0}; // easter sunday
-    sDay mAdvent = {0, 0}; // fourth advent
-    int8_t mMinuteTick = -1;  // timer evaluation is called each time the minute changes
-    int8_t mHourTick = -1;    // timer evaluation is called each time the hour changes
-    int8_t mDayTick = -1;     // sunrise/sunset calculation happens each time the day changes
-    int8_t mMonthTick = -1;   // sunrise/sunset calculation happens each time the month changes
-    int16_t mYearTick = -1; // easter calculation happens each time year changes
+    sDay mEaster = {0, 0};   // easter sunday
+    sDay mAdvent = {0, 0};   // fourth advent
+    int8_t mMinuteTick = -1; // timer evaluation is called each time the minute changes
+    int8_t mHourTick = -1;   // timer evaluation is called each time the hour changes
+    int8_t mDayTick = -1;    // sunrise/sunset calculation happens each time the day changes
+    int8_t mMonthTick = -1;  // sunrise/sunset calculation happens each time the month changes
+    int16_t mYearTick = -1;  // easter calculation happens each time year changes
 
     void calculateEaster();
     void calculateAdvent();
-    void calculateSummertime();
+    bool calculateSummertime();
     uint8_t calculateLastSundayInMonth(uint8_t iMonth);
     void calculateHolidays(bool iDebugOutput = false);
     void calculateSunriseSunset();
@@ -78,8 +78,8 @@ class Timer
 
     Timer();
     ~Timer();
-    Timer(const Timer&);    // make copy constructor private
-    Timer &operator=(const Timer&); // prevent copy
+    Timer(const Timer &);            // make copy constructor private
+    Timer &operator=(const Timer &); // prevent copy
 
     int sunRiseSet(int year, int month, int day, double lon, double lat,
                    double altit, int upper_limb, double *rise, double *set);
@@ -101,7 +101,6 @@ class Timer
     void loop();
     void debug();
 
-    
     uint8_t getDay();
     uint8_t getMonth();
     uint16_t getYear();
@@ -113,8 +112,8 @@ class Timer
     void getSunDegree(uint8_t iSunInfo, double iDegree, sTime *eSun);
     sDay *getEaster();
     char *getTimeAsc();
-    bool minuteChanged(); // true every minute
-    void clearMinuteChanged(); //has to be cleared externally
+    bool minuteChanged();      // true every minute
+    void clearMinuteChanged(); // has to be cleared externally
     void setTimeFromBus(tm *iTime);
     void setDateFromBus(tm *iDate);
     void setDateTimeFromBus(tm *iDateTime);
@@ -123,7 +122,9 @@ class Timer
     bool holidayChanged();
     void clearHolidayChanged();
     eTimeValid isTimerValid();
-    void setIsSummertime(bool iValue);
+    bool IsSummertime();
+    void IsSummertime(bool iValue);
+    bool UseSummertime();
 };
 
 /* A macro to compute the number of days elapsed since 2000 Jan 0.0 */
@@ -150,5 +151,4 @@ class Timer
 #define atand(x) (RADEG * atan(x))
 #define asind(x) (RADEG * asin(x))
 #define acosd(x) (RADEG * acos(x))
-#define atan2d(y, x) (RADEG * atan2(y, x))
 #define atan2d(y, x) (RADEG * atan2(y, x))

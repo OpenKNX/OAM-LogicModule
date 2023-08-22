@@ -90,6 +90,15 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+22.08.2023: Firmware 1.5, Applikation 1.5
+
+* NEW: TOR hat jetzt einen Tri-State-Eingang zum öffnen vom Tor: Das Tor ist beim Neustart weder offen noch geschlossen und agiert somit beim ersten Telegramm erwartungskonform
+* NEW: TOR ist bei Neustart am Ausgang undefiniert und wird mit dem ersten öffnen/schließen erst initialisiert.
+* FIX: Zeitschaltuhren Sonnenauf-/untergang mit Zeitversatz konnten intern zu ungültigen Zeiten führen und schalteten dann unerwartet oder gar nicht.
+* FIX: Beim nachholen von Schaltzeiten wurde die Sommerzeit nicht beachtet.
+* FIX: Der KNX-Stack ist jetzt wesentlich robuster bei hoch ausgelastetem KNX-Bus. Das hat direkte Auswirkungen auf die Logik, die früher bei Hochlast Telegramme ausgelassen wurden, die dann als Trigger für Logiken fehlten.
+* FIX: Einige wenige DPT9-Werte ungleich 0 wurden vom KNX-Stack als 0 gesendet. Das ist gelöst. Es waren Werte der Form &pm;(2<sup>n</sup>)/100 für n>10, also z.B. &pm;20.48, &pm;40.96, &pm;81.92, &pm;163.84, &pm;327.68, &pm;655.36 usw. 
+
 18.02.2023: Firmware 1.4.2, Applikation 1.4
 
 * Überflüssige Libraries entfernt, keine funktionalen Änderungen.
@@ -794,6 +803,10 @@ Das Auswahlfeld erscheint nur, wenn als logische Operation TOR gewählt wurde.
 
 Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geöffnet wird (Toreingang geht auf EIN).
 
+Normalerweise ist das Tor entweder geöffnet oder geschlossen. Ein geöffnetes Tor kann nicht nochmal öffnen. Wird also wiederholt ein EIN-Signal an den Toreingang gesendet, werden die folgenden Einstellungen nur beim ersten EIN (beim wirklichen öffnen) berücksichtigt, nicht bei den Folgetelegrammen.
+
+Nach einem Neustart ist das Tor weder geöffnet noch geschlossen, das erste EIN-Telegramm am Toreingang führt somit auf jeden Fall zum öffnen und zur Berücksichtigung der folgenden Einstellungen.
+
 #### **nichts gesendet**
 
 Beim öffnen vom Tor wird nichts gesendet, erst das nächste Telegramm am Dateneingang wird gesendet.
@@ -815,6 +828,10 @@ Beim öffnen vom Tor wird der Eingangswert gesendet. Damit kann man erreichen, d
 Das Auswahlfeld erscheint nur, wenn als Logik-Operation TOR gewählt wurde und das Tor nicht sofort nach dem Öffnen geschlossen wird.
 
 Mit dem Auswahlfeld kann man einstellen, ob das Tor zusätzliche Telegramme verschicken soll, wenn es gerade geschlossen wird (Toreingang geht auf AUS).
+
+Normalerweise ist das Tor entweder geöffnet oder geschlossen. Ein geschlossenes Tor kann nicht nochmal schließen. Wird also wiederholt ein AUS-Signal an den Toreingang gesendet, werden die folgenden Einstellungen nur beim ersten AUS (beim wirklichen schließen) berücksichtigt, nicht bei den Folgetelegrammen.
+
+Nach einem Neustart ist das Tor weder geöffnet noch geschlossen, das erste AUS-Telegramm am Toreingang führt somit auf jeden Fall zum schließen und zur Berücksichtigung der folgenden Einstellungen.
 
 #### **nichts gesendet**
 

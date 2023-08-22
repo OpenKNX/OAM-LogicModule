@@ -1,16 +1,16 @@
 #pragma once
+#include "EepromManager.h"
+#include "HardwareDevices.h"
+#include "KnxHelper.h"
+#include "LogicValue.h"
+#include "Timer.h"
+#include "TimerRestore.h"
+#include "knxprod.h"
+#include <Wire.h>
 #include <oknx.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <Wire.h>
-#include "Timer.h"
-#include "TimerRestore.h"
-#include "LogicValue.h"
-#include "KnxHelper.h"
-#include "EepromManager.h"
-#include "knxprod.h"
-#include "HardwareDevices.h"
 
 #define SAVE_BUFFER_START_PAGE 0 // All stored KO data begin at this page and takes 40 pages,
 #define SAVE_BUFFER_NUM_PAGES 41 // so next store should start at page 41
@@ -97,11 +97,11 @@
 #define BIT_PREVIOUS_GATE 0x40
 #define BIT_INITIAL_GATE 0x80
 
-#define BIT_OUTPUT_LOGIC 0x01    
+#define BIT_OUTPUT_LOGIC 0x01
 #define BIT_OUTPUT_BLINK 0x02
 #define BIT_OUTPUT_PREVIOUS 0x04
 #define BIT_OUTPUT_INITIAL 0x08
-#define BIT_OUTPUT_DEBUG 0x10    
+#define BIT_OUTPUT_DEBUG 0x10
 
 // enum fo IOIndex
 #define IO_Absolute 0
@@ -110,24 +110,24 @@
 #define IO_Output 3
 
 // pipeline steps
-#define PIP_STARTUP 1                     // startup delay for each channel
-#define PIP_REPEAT_INPUT1 2               // send read requests for input 1
-#define PIP_REPEAT_INPUT2 4               // send read requests for input 2
-#define PIP_CONVERT_INPUT1 8              // convert input value 1 to bool
-#define PIP_CONVERT_INPUT2 16             // convert input value 2 to bool
-#define PIP_LOGIC_EXECUTE 32              // do logical step
-#define PIP_STAIRLIGHT 64                 // do stairlight delay
-#define PIP_BLINK 128                     // do blinking during stairlight
-#define PIP_ON_DELAY 256                  // delay on signal
-#define PIP_OFF_DELAY 512                 // delay off signal
-#define PIP_OUTPUT_FILTER_ON 1024         // Filter repeated signals
-#define PIP_OUTPUT_FILTER_OFF 2048        // Filter repeated signals
-#define PIP_ON_REPEAT 4096                // repeat on signal
-#define PIP_OFF_REPEAT 8192               // repeat off signal
-#define PIP_TIMER_INPUT 16384             // process timer as input signal
-#define PIP_RUNNING 32768                 // is a currently running channel
-#define PIP_TIMER_RESTORE_STATE 65536     // timer restore is active for this channel
-#define PIP_TIMER_RESTORE_STEP 131072     // timer restore for this channel was processed an other day back
+#define PIP_STARTUP 1                 // startup delay for each channel
+#define PIP_REPEAT_INPUT1 2           // send read requests for input 1
+#define PIP_REPEAT_INPUT2 4           // send read requests for input 2
+#define PIP_CONVERT_INPUT1 8          // convert input value 1 to bool
+#define PIP_CONVERT_INPUT2 16         // convert input value 2 to bool
+#define PIP_LOGIC_EXECUTE 32          // do logical step
+#define PIP_STAIRLIGHT 64             // do stairlight delay
+#define PIP_BLINK 128                 // do blinking during stairlight
+#define PIP_ON_DELAY 256              // delay on signal
+#define PIP_OFF_DELAY 512             // delay off signal
+#define PIP_OUTPUT_FILTER_ON 1024     // Filter repeated signals
+#define PIP_OUTPUT_FILTER_OFF 2048    // Filter repeated signals
+#define PIP_ON_REPEAT 4096            // repeat on signal
+#define PIP_OFF_REPEAT 8192           // repeat off signal
+#define PIP_TIMER_INPUT 16384         // process timer as input signal
+#define PIP_RUNNING 32768             // is a currently running channel
+#define PIP_TIMER_RESTORE_STATE 65536 // timer restore is active for this channel
+#define PIP_TIMER_RESTORE_STEP 131072 // timer restore for this channel was processed an other day back
 
 #define TIMD_WEEKDAY_MASK 0x0007
 #define TIMD_WEEKDAY_SHIFT 0
@@ -222,7 +222,7 @@ class LogicChannel
     uint32_t getIntParam(uint16_t iParamIndex);
     int32_t getSIntParam(uint16_t iParamIndex);
     float getFloatParam(uint16_t iParamIndex);
-    uint8_t* getStringParam(uint16_t iParamIndex);
+    uint8_t *getStringParam(uint16_t iParamIndex);
     uint32_t getTimeDelayParam(uint16_t iParamIndex, bool iAsSeconds = false);
     GroupObject *getKo(uint8_t iIOIndex);
     Dpt &getKoDPT(uint8_t iIOIndex);
@@ -230,7 +230,7 @@ class LogicChannel
     void knxWriteInt(uint8_t iIOIndex, int32_t iValue);
     void knxWriteRawInt(uint8_t iIOIndex, int32_t iValue);
     void knxWriteFloat(uint8_t iIOIndex, float iValue);
-    void knxWriteString(uint8_t iIOIndex, const char* iValue);
+    void knxWriteString(uint8_t iIOIndex, const char *iValue);
     void knxRead(uint8_t iIOIndex);
     void knxResetDevice(uint16_t iParamIndex);
     LogicValue getParamForDelta(uint8_t iDpt, uint16_t iParamIndex);
@@ -277,12 +277,12 @@ class LogicChannel
     void processTimerInput();
     bool checkTimerToday(Timer &iTimer, uint8_t iTimerIndex, bool iHandleAsSunday);
     bool checkWeekday(Timer &iTimer, uint8_t iWeekday, bool iHandleAsSunday);
-    bool checkTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, uint8_t iHour, uint8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
+    bool checkTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, int8_t iHour, int8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
     bool checkPointInTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
     bool checkSunAbs(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iMinus);
     bool checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
     bool checkSunDegree(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iDown);
-    int16_t getTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, uint8_t iHour, uint8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
+    int16_t getTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, int8_t iHour, int8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
     int16_t getPointInTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
     int16_t getSunAbs(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iMinus);
     int16_t getSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
@@ -291,7 +291,6 @@ class LogicChannel
     void processTimerRestoreState(TimerRestore &iTimer);
 
   protected:
-
     union uInputProcessing
     {
         struct
@@ -318,7 +317,7 @@ class LogicChannel
     uint8_t pCurrentOut;       // Bitfield: logic output (0), blink output (1), previous output (2), initial output (3), debug output (4)
     uint32_t pCurrentPipeline; // Bitfield: indicator for current pipeline step
 
-    uint8_t pCurrentIODebug;   // Bitfield: current input (0-3), logic output (4)
+    uint8_t pCurrentIODebug; // Bitfield: current input (0-3), logic output (4)
     // uint32_t pRepeatInput1Delay;  // used also for timer preparation
     // uint32_t pRepeatInput2Delay;  // used also for timer processing
     uInputProcessing pInputProcessing;
@@ -343,7 +342,7 @@ class LogicChannel
     bool checkDpt(uint8_t iIOIndex, uint8_t iDpt);
     void processInput(uint8_t iIOIndex);
     void processInternalInputs(uint8_t iChannelId, bool iValue);
-    bool processDiagnoseCommand(char* cBuffer);
+    bool processDiagnoseCommand(char *cBuffer);
     void startTimerInput();
     void startTimerRestoreState();
     void stopTimerRestoreState();
