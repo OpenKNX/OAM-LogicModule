@@ -277,7 +277,7 @@ class LogicChannel
     void processTimerInput();
     bool checkTimerToday(Timer &iTimer, uint8_t iTimerIndex, bool iHandleAsSunday);
     bool checkWeekday(Timer &iTimer, uint8_t iWeekday, bool iHandleAsSunday);
-    bool checkTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, int8_t iHour, int8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday);
+    bool checkTimerTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, int8_t iHour, int8_t iMinute, bool iSkipWeekday, bool iHandleAsSunday, bool iWithGenericTime);
     bool checkPointInTime(Timer &iTimer, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday);
     bool checkSunAbs(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iMinus);
     bool checkSunLimit(Timer &iTimer, uint8_t iSunInfo, uint8_t iTimerIndex, uint16_t iBitfield, bool iSkipWeekday, bool iHandleAsSunday, bool iLatest);
