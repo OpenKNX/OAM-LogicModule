@@ -81,11 +81,17 @@ bool Timer::UseSummertime()
 
 void Timer::loop()
 {
-    if (delayCheck(mTimeDelay, 1000))
+    if (mTimeDelay == 0 || delayCheck(mTimeDelay, 1000))
     {
-        mTimeDelay += 1000;
-        mNow.tm_sec += 1;
-        mktime(&mNow);
+        // if time is set from bus, we have immediately to recalculate everything which is necessary
+        if (mTimeDelay == 0)
+            mTimeDelay = millis();
+        else
+        {
+            mTimeDelay += 1000;
+            mNow.tm_sec += 1;
+            mktime(&mNow);
+        }
         if (mTimeValid == tmValid)
         {
             // prevent that a minute is missed, if an other hour is set with the same minute
@@ -154,7 +160,7 @@ void Timer::setTimeFromBus(tm *iTime)
     mNow.tm_min = iTime->tm_min;
     mNow.tm_hour = iTime->tm_hour;
     mktime(&mNow);
-    mTimeDelay = millis();
+    mTimeDelay = 0; // force time/year calculations
     mTimeValid = static_cast<eTimeValid>(mTimeValid | tmMinutesValid);
 }
 
@@ -177,7 +183,7 @@ void Timer::setDateFromBus(tm *iDate)
     mNow.tm_mon = iDate->tm_mon - 1;
     mNow.tm_year = iDate->tm_year - 1900;
     mktime(&mNow);
-    mTimeDelay = millis();
+    mTimeDelay = 0; // force time/year calculations
     if (mNow.tm_year >= MINYEAR - 1900)
         mTimeValid = static_cast<eTimeValid>(mTimeValid | tmDateValid);
 }
