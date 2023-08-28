@@ -605,7 +605,7 @@ void LogicChannel::writeFunctionValue(uint16_t iParamIndex)
     LogicValue lE1 = getInputValue(BIT_EXT_INPUT_1, &lDptE1);
     LogicValue lE2 = getInputValue(BIT_EXT_INPUT_2, &lDptE2);
     uint8_t lDptOut = getByteParam(LOG_fODpt);
-    LogicValue lValue = LogicFunction::callFunction(lFunction, lDptE1, lE1, lDptE2, lE2, &lDptOut);
+    LogicValue lValue = LogicFunction::callFunction(_channelIndex, lFunction, lDptE1, lE1, lDptE2, lE2, &lDptOut);
     writeValue(lValue, lDptOut);
 }
 

@@ -493,6 +493,7 @@
                   <Enumeration Text="A = Min(E1, E2) (Minimum)" Value="6" Id="%AID%_PT-ValueFunction_EN-6" />
                   <Enumeration Text="A = Max(E1, E2) (Maximum)" Value="7" Id="%AID%_PT-ValueFunction_EN-7" />
                   <Enumeration Text="A = B2I(E1, E2) (Bool zu Int)" Value="14" Id="%AID%_PT-ValueFunction_EN-14" />
+                  <Enumeration Text="A = Glättung(E1, E2)" Value="15" Id="%AID%_PT-ValueFunction_EN-15" />
                   <Enumeration Text="A = Benutzerfunktion_01(E1, E2)" Value="201" Id="%AID%_PT-ValueFunction_EN-201" />
                   <Enumeration Text="A = Benutzerfunktion_02(E1, E2)" Value="202" Id="%AID%_PT-ValueFunction_EN-202" />
                   <Enumeration Text="A = Benutzerfunktion_03(E1, E2)" Value="203" Id="%AID%_PT-ValueFunction_EN-203" />
