@@ -52,7 +52,7 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
     * [**Zeitschaltuhren**](#zeitschaltuhren)
     * [**Ausgänge**](#ausg%C3%A4nge)
   * [**Urlaub/Feiertage** (und andere zeitabhängige Einstellungen)](#urlaubfeiertage)
-    * [Zeit (inkl Sonnenstand und Sommer/Winterzeit)](#zeit)
+    * [Zeit (inklusive Sonnenstand und Sommer/Winterzeit)](#zeit)
     * [Urlaub](#urlaub)
     * [Feiertage](#feiertage)
   * [**+ Logik n: ...** (n=1 bis 99)](#logik-n-)
@@ -94,6 +94,7 @@ Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer d
 
 * NEW: TOR hat jetzt einen Tri-State-Eingang zum öffnen vom Tor: Das Tor ist beim Neustart weder offen noch geschlossen und agiert somit beim ersten Telegramm erwartungskonform
 * NEW: TOR ist bei Neustart am Ausgang undefiniert und wird mit dem ersten öffnen/schließen erst initialisiert.
+* NEU: Mathematische Funktion "Glättung" von Werten eingeführt
 * FIX: Zeitschaltuhren Sonnenauf-/untergang mit Zeitversatz konnten intern zu ungültigen Zeiten führen und schalteten dann unerwartet oder gar nicht.
 * FIX: Beim nachholen von Schaltzeiten wurde die Sommerzeit nicht beachtet.
 * FIX: Der KNX-Stack ist jetzt wesentlich robuster bei hoch ausgelastetem KNX-Bus. Das hat direkte Auswirkungen auf die Logik, die früher bei Hochlast Telegramme ausgelassen wurden, die dann als Trigger für Logiken fehlten.
@@ -2029,6 +2030,28 @@ Die Werte von E1 und E2 werden zuerst nach Boolean konvertiert. Dabei gilt:
     E ungleich 0 --> true  bzw. 1
 
 Ist nur ein Eingang aktiv, ist der andere 0.
+
+#### **A = Glättung(E1, E2)**
+
+Der Wert E1 wird mit Hilfe eines Dämpfungswertes E2 geglättet ausgegeben und erlaubt es so, einen Messwertverlauf zu glätten, indem starke Wertschwankungen ausgeglichen werden.
+
+Die Glättung wird nach folgender Formel berechnet:
+
+A<sub>neu</sub> = A<sub>alt</sub> + (E1 - A<sub>alt</sub>) / E2
+
+wobei A<sub>neu</sub> der neue Berechnete Wert des KO ist, das den neuen Wert sendet und A<sub>alt</sub> der letzte (vorherige) Wert ist, der gesendet wurde.
+
+Ist noch kein Glättungswert berechnet worden (A<sub>alt</sub> ist initial), so gilt
+
+A<sub>neu</sub> = E1
+
+Die Funktion nimmt somit initial den ersten Messwert als Startwert.
+
+> Achtung: Der Initialwert für die Berechnung kann auch von außen gesetzt werden, indem am Ausgangs-KO ein S-Flag gesetzt wird und das KO dann mit dem Initialwert beschrieben wird. 
+
+Die Funktion kann zwar mit allen Eingangs-DPT arbeiten, ist aber besonders für DPT9 und DPT14 geeignet und auch nur mit diesen getestet.
+
+Die Funktion liefert 0, wenn nur einer der beiden Eingänge aktiv sein sollte oder E2 = 0 ist.
 
 ### **Benutzerfunktionen**
 
