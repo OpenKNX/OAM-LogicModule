@@ -733,10 +733,12 @@ void LogicChannel::processInput(uint8_t iIOIndex)
     uint8_t lConverter = getByteParam(lOtherParamBase) >> LOG_fE1ConvertShift;
     if (lConverter & 1)
     {
-        // delta conversion, we start convert for the other input
-        startConvert(3 - iIOIndex);
-        // we also add that this input was used and is now valid
-        pValidActiveIO |= iIOIndex;
+        // delta conversion, we cannot rely on the fact, that the other input is already valid
+        if (pValidActiveIO & (3 - iIOIndex))
+        {
+            // we start convert for the other input
+            startConvert(3 - iIOIndex);
+        }
     }
 }
 
