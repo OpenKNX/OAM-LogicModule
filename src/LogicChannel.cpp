@@ -724,7 +724,7 @@ void LogicChannel::processInput(uint8_t iIOIndex)
     if (lActive > 0)
     {
         // this input is we start convert for this input
-        startConvert(iIOIndex);
+        startConvert(iIOIndex, iIOIndex);
         // we also add that this input was used and is now valid
         pValidActiveIO |= iIOIndex;
     }
@@ -733,12 +733,10 @@ void LogicChannel::processInput(uint8_t iIOIndex)
     uint8_t lConverter = getByteParam(lOtherParamBase) >> LOG_fE1ConvertShift;
     if (lConverter & 1)
     {
-        // delta conversion, we cannot rely on the fact, that the other input is already valid
-        if (pValidActiveIO & (3 - iIOIndex))
-        {
-            // we start convert for the other input
-            startConvert(3 - iIOIndex);
-        }
+        // delta conversion, we start convert for the other input
+        startConvert(3 - iIOIndex, iIOIndex);
+        // we also add that this input was used and is now valid
+        pValidActiveIO |= iIOIndex;
     }
 }
 
@@ -806,12 +804,12 @@ void LogicChannel::stopRepeatInput(uint8_t iIOIndex)
     }
 }
 
-void LogicChannel::startConvert(uint8_t iIOIndex)
+void LogicChannel::startConvert(uint8_t iIOIndex, uint8_t iStopIndex)
 {
     if (iIOIndex == 1 || iIOIndex == 2)
     {
         pCurrentPipeline |= (iIOIndex == 1) ? PIP_CONVERT_INPUT1 : PIP_CONVERT_INPUT2;
-        stopRepeatInput(iIOIndex);
+        stopRepeatInput(iStopIndex);
     }
 }
 

@@ -251,7 +251,7 @@ class LogicChannel
     void processRepeatInput1();
     void processRepeatInput2();
     void stopRepeatInput(uint8_t iIOIndex);
-    void startConvert(uint8_t iIOIndex);
+    void startConvert(uint8_t iIOIndex, uint8_t iStopIndex);
     bool checkConvertValues(uint16_t iParamValues, uint8_t iValueSize, int32_t iValue);
     void processConvertInput(uint8_t iIOIndex);
     void startLogic(uint8_t iIOIndex, bool iValue);

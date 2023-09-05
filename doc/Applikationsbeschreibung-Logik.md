@@ -90,7 +90,7 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
-05.09.2023: Firmware 1.5.2, Applikation 1.5
+05.09.2023: Firmware 1.5.3, Applikation 1.5
 
 * FIX: Differenzintervall-/Differenzhysterese-Eingänge haben keine ReadRequests nach einem Neustart verschickt, wenn bei einem der beiden Eingänge ein Telegramm empfangen worden ist. 
 
