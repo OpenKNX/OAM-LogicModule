@@ -6,3 +6,4 @@
 **/*.knxprod
 **/*.debug.xml
 release/*
+include/versions.h
