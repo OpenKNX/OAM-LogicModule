@@ -14,7 +14,7 @@
 #define MAIN_ParameterSize 8540
 #define MAIN_MaxKoNumber 316
 #define MAIN_OrderNumber "OpenKnxLogicDev"
-#define LOG_ModuleVersion 21
+#define LOG_ModuleVersion 32
 // Parameter with single occurrence
 
 
