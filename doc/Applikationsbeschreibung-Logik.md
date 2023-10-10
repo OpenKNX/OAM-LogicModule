@@ -90,6 +90,10 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+09.10.2023: Firmware 1.6, Applikation 1.6
+
+* FIX: Die KO-Nummer bei internen KO-Verknüpfungen konnte bei ETS-internen Kopiervorgängen verlorengehen bzw. sich verändern.
+
 05.09.2023: Firmware 1.5.3, Applikation 1.5
 
 * FIX: Differenzintervall-/Differenzhysterese-Eingänge haben keine ReadRequests nach einem Neustart verschickt, wenn bei einem der beiden Eingänge ein Telegramm empfangen worden ist. 

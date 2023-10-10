@@ -528,7 +528,7 @@
               <Parameter Id="%AID%_P-%T%%CCC%162" Name="f%C%I1Name" ParameterType="%AID%_PT-Text40Byte" Text="Beschreibung interner Eingang 1" Value="" />
               <Parameter Id="%AID%_P-%T%%CCC%163" Name="f%C%I2Name" ParameterType="%AID%_PT-Text40Byte" Text="Beschreibung interner Eingang 2" Value="" />
               <Parameter Id="%AID%_P-%T%%CCC%278" Name="f%C%AskForAlarm" ParameterType="%AID%_PT-OnOffYesNo" Text="LED oder Buzzer aktiv (interner Wert)" Access="None" Value="0" />
-              <Parameter Id="%AID%_P-%T%%CCC%395" Name="f%C%OKONumber" ParameterType="%AID%_PT-KONumber" Text="Kommunikationsobjekt für Ausgang" Access="Read" Value="%K2%" />
+              <!-- <Parameter Id="%AID%_P-%T%%CCC%395" Name="f%C%OKONumber" ParameterType="%AID%_PT-KONumber" Text="Kommunikationsobjekt für Ausgang" Access="Read" Value="%K2%" /> -->
             </Parameters>
             <ParameterRefs>
               <ParameterRef Id="%AID%_P-%T%%CCC%001_R-%T%%CCC%00101" RefId="%AID%_P-%T%%CCC%001" />
@@ -939,10 +939,10 @@
               <ParameterRef Id="%AID%_UP-%T%%CCC%376_R-%T%%CCC%37601" RefId="%AID%_UP-%T%%CCC%376" Text="Bis-Wert" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%376_R-%T%%CCC%37602" RefId="%AID%_UP-%T%%CCC%376" Text="Einschalt-Wert" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%377_R-%T%%CCC%37701" RefId="%AID%_UP-%T%%CCC%377" />
-              <ParameterRef Id="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" RefId="%AID%_UP-%T%%CCC%378" Access="Read" />
+              <!-- <ParameterRef Id="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" RefId="%AID%_UP-%T%%CCC%378" Access="Read" /> -->
               <ParameterRef Id="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37802" RefId="%AID%_UP-%T%%CCC%378" Value="1" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%379_R-%T%%CCC%37901" RefId="%AID%_UP-%T%%CCC%379" />
-              <ParameterRef Id="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" RefId="%AID%_UP-%T%%CCC%380" Access="Read" />
+              <!-- <ParameterRef Id="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" RefId="%AID%_UP-%T%%CCC%380" Access="Read" /> -->
               <ParameterRef Id="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38002" RefId="%AID%_UP-%T%%CCC%380" Value="1" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%381_R-%T%%CCC%38101" RefId="%AID%_UP-%T%%CCC%381" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%382_R-%T%%CCC%38201" RefId="%AID%_UP-%T%%CCC%382" />
@@ -958,7 +958,7 @@
               <ParameterRef Id="%AID%_UP-%T%%CCC%392_R-%T%%CCC%39201" RefId="%AID%_UP-%T%%CCC%392" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%393_R-%T%%CCC%39301" RefId="%AID%_UP-%T%%CCC%393" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%394_R-%T%%CCC%39401" RefId="%AID%_UP-%T%%CCC%394" />
-              <ParameterRef Id="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" RefId="%AID%_P-%T%%CCC%395" />
+              <!-- <ParameterRef Id="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" RefId="%AID%_P-%T%%CCC%395" /> -->
               <ParameterRef Id="%AID%_UP-%T%%CCC%396_R-%T%%CCC%39601" RefId="%AID%_UP-%T%%CCC%396" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%397_R-%T%%CCC%39701" RefId="%AID%_UP-%T%%CCC%397" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%398_R-%T%%CCC%39801" RefId="%AID%_UP-%T%%CCC%398" />
@@ -1171,7 +1171,18 @@
                                 <ParameterRefRef RefId="%AID%_UP-%T%%CCC%377_R-%T%%CCC%37701" />
                                 <choose ParamRefId="%AID%_UP-%T%%CCC%377_R-%T%%CCC%37701">
                                   <when test="0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" />
+                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" /> -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1aKoDisplay" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="54%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="    Nummer des Kommunikationsobjekts" Cell="1,1" />
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="%K0%" Cell="1,2" />
+                                    </ParameterBlock>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37802" />
@@ -1292,7 +1303,18 @@
                                 <ParameterRefRef RefId="%AID%_UP-%T%%CCC%377_R-%T%%CCC%37701" />
                                 <choose ParamRefId="%AID%_UP-%T%%CCC%377_R-%T%%CCC%37701">
                                   <when test="0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" />
+                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37801" /> -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1bKoDisplay" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="54%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="    Nummer des Kommunikationsobjekts" Cell="1,1" />
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="%K0%" Cell="1,2" />
+                                    </ParameterBlock>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%378_R-%T%%CCC%37802" />
@@ -1933,7 +1955,18 @@
                                 <ParameterRefRef RefId="%AID%_UP-%T%%CCC%379_R-%T%%CCC%37901" />
                                 <choose ParamRefId="%AID%_UP-%T%%CCC%379_R-%T%%CCC%37901">
                                   <when test="0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" />
+                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" /> -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2aKoDisplay" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="54%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="    Nummer des Kommunikationsobjekts" Cell="1,1" />
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="%K1%" Cell="1,2" />
+                                    </ParameterBlock>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38002" />
@@ -2055,7 +2088,18 @@
                                 <ParameterRefRef RefId="%AID%_UP-%T%%CCC%379_R-%T%%CCC%37901" />
                                 <choose ParamRefId="%AID%_UP-%T%%CCC%379_R-%T%%CCC%37901">
                                   <when test="0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" />
+                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38001" /> -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2bKoDisplay" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="55%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="    Nummer des Kommunikationsobjekts" Cell="1,1" />
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="%K1%" Cell="1,2" />
+                                    </ParameterBlock>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%380_R-%T%%CCC%38002" />
@@ -3125,7 +3169,18 @@
                       <ParameterBlock Id="%AID%_PB-%C%18" Name="f%C%Output" Text="Ausgang: {{0: ...}}" TextParameterRefId="%AID%_P-%T%%CCC%132_R-%T%%CCC%13201">
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Definition Ausgang" UIHint="Headline" />
                         <ParameterRefRef RefId="%AID%_P-%T%%CCC%132_R-%T%%CCC%13201" />
-                        <ParameterRefRef RefId="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" />
+                        <!-- <ParameterRefRef RefId="%AID%_P-%T%%CCC%395_R-%T%%CCC%39501" /> -->
+                        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%OKoDisplay" Inline="true" Layout="Grid">
+                          <Rows>
+                            <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                          </Rows>
+                          <Columns>
+                            <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="46%" />
+                            <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="54%" />
+                          </Columns>
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Kommunikationsobjekt für Ausgang" Cell="1,1" />
+                          <ParameterSeparator Id="%AID%_PS-nnn" Text="%K2%" Cell="1,2" />
+                        </ParameterBlock>
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="Die folgenden Blöcke können den Ausgangswert beeinflussen. Sie werden - sofern aktiv - in der hier aufgeführten Reihnfolge ausgeführt" />
                         <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" />
