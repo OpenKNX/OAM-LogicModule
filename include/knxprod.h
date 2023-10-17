@@ -8,7 +8,7 @@
             (time & 0xC000) == 0x8000 ? ((time & 0x3FFF) > 1000 ? 3600000 : \
                                          (time & 0x3FFF) * 3600000 ) : 0 )
                                              
-#define MAIN_OpenKnxId 0xA0
+#define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 49
 #define MAIN_ApplicationVersion 61
 #define MAIN_ParameterSize 8540
