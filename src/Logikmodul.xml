@@ -12,14 +12,14 @@
         <!-- Each increase of AppliationVersion FORCES the Enduser to update according firmware, too -->
         <!-- If you just want to have a BUGFIX-Update of the ETS-Appliation (without firmware), increase ApplicationVersion AND ApplicationRevision simultaneously -->
         <!-- To sync ETS-Application and firmware again, increase ApplicationVersion AND set ApplicationRevision to 0 -->
-        <op:version OpenKnxId="0xA0" ApplicationNumber="49" ApplicationVersion="61" ReplacesVersions="14 19 20 21 22 23 24 25 31 32 33 34 35 38 44 45 46 52 57 59 60" ApplicationRevision="0" />
-        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
+        <op:version OpenKnxId="0xA0" ApplicationNumber="49" ApplicationVersion="63" ReplacesVersions="14 19 20 21 22 23 24 25 31 32 33 34 35 38 44 45 46 52 57 59 60 61 62" ApplicationRevision="0" />
+        <ApplicationProgram Id="%AID%" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="WP-Logic-Dev" ContextHelpFile="%FILE-HELP-de%" IconFile="%FILE-ICONS%" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="true" MinEtsVersion="4.0" ApplicationNumber="0" ApplicationVersion="0" ReplacesVersions="0">
           <Static>
             <Code>
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
-            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1">
-              <op:verify File="../lib/OFM-LogicModule/src/ModuleVersion.h" ModuleVersion="21" />
+            <op:define prefix="LOG" header="Logikmodul.h" NumChannels="1" KoOffset="20" ModuleType="1">
+              <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="32" />
             </op:define>
             <ParameterTypes>
               <!-- generic parameter types for any device -->
@@ -86,6 +86,10 @@
           </Dynamic>
         </ApplicationProgram>
       </ApplicationPrograms>
+      <Baggages>
+        <op:include href="../lib/OGM-Common/src/Common.share.xml" xpath="//Baggages/*" prefix="LOG" />
+        <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//Baggages/*" prefix="PM" />
+      </Baggages>
       <Hardware>
         <Hardware Id="%HardwareId%" Name="OpenKNX-Logic" SerialNumber="0xA031" VersionNumber="1" BusCurrent="10" HasIndividualAddress="true" HasApplicationProgram="true">
           <Products>
