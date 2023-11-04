@@ -87,6 +87,14 @@
             "problemMatcher": []
         },
         {
+            "label": "Create Dependencies",
+            "type": "shell",
+            "command": "lib/OGM-Common/scripts/setup/reusable/Build-Dependencies.ps1",
+            "args": [],
+            "problemMatcher": [],
+            "group": "build"
+        },
+        {
             "label": "OpenKNXproducer",
             "type": "shell",
             "command": "~/bin/OpenKNXproducer.exe",
