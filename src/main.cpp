@@ -2,7 +2,7 @@
 #ifdef ARDUINO_ARCH_RP2040
     #include "UpdaterModule.h"
 #endif
-#if defined(KNX_ETH_GEN) || defined(KNX_ETH_WIFI)
+#if defined(KNX_IP_W5500) || defined(KNX_IP_WIFI)
     #include "IPConfig.h"
 #endif
 #include "OpenKNX.h"
@@ -18,7 +18,7 @@ void setup()
 #ifdef ARDUINO_ARCH_RP2040
     openknx.addModule(2, new UpdaterModule());
 #endif
-#if defined(KNX_ETH_GEN) || defined(KNX_ETH_WIFI)
+#if defined(KNX_IP_W5500) || defined(KNX_IP_WIFI)
     openknx.addModule(3, new IPConfigModule());
 #endif
     openknx.setup();
