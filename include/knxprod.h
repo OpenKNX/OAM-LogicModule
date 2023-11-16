@@ -8,16 +8,6 @@
             (time & 0xC000) == 0x8000 ? ((time & 0x3FFF) > 1000 ? 3600000 : \
                                          (time & 0x3FFF) * 3600000 ) : 0 )
                                              
-#pragma once
-
-
-#define paramDelay(time) (uint32_t)( \
-            (time & 0xC000) == 0xC000 ? (time & 0x3FFF) * 100 : \
-            (time & 0xC000) == 0x0000 ? (time & 0x3FFF) * 1000 : \
-            (time & 0xC000) == 0x4000 ? (time & 0x3FFF) * 60000 : \
-            (time & 0xC000) == 0x8000 ? ((time & 0x3FFF) > 1000 ? 3600000 : \
-                                         (time & 0x3FFF) * 3600000 ) : 0 )
-                                             
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
 #define MAIN_ApplicationVersion 63
@@ -199,17 +189,17 @@
 
 // Anzahl verfügbarer Logikkanäle
 #define ParamLOG_NumChannels               (knx.paramByte(LOG_NumChannels))
-// Zeitbasis
+// Zeit bis das Gerät nach einem Neustart aktiv wird
 #define ParamLOG_StartupDelayBase          ((knx.paramByte(LOG_StartupDelayBase) & LOG_StartupDelayBaseMask) >> LOG_StartupDelayBaseShift)
-// Zeit
+// Zeit bis das Gerät nach einem Neustart aktiv wird
 #define ParamLOG_StartupDelayTime          (knx.paramWord(LOG_StartupDelayTime) & LOG_StartupDelayTimeMask)
-// Zeit (in Millisekunden)
+// Zeit bis das Gerät nach einem Neustart aktiv wird (in Millisekunden)
 #define ParamLOG_StartupDelayTimeMS        (paramDelay(knx.paramWord(LOG_StartupDelayTime)))
-// Zeitbasis
+// In Betrieb senden alle
 #define ParamLOG_HeartbeatDelayBase        ((knx.paramByte(LOG_HeartbeatDelayBase) & LOG_HeartbeatDelayBaseMask) >> LOG_HeartbeatDelayBaseShift)
-// Zeit
+// In Betrieb senden alle
 #define ParamLOG_HeartbeatDelayTime        (knx.paramWord(LOG_HeartbeatDelayTime) & LOG_HeartbeatDelayTimeMask)
-// Zeit (in Millisekunden)
+// In Betrieb senden alle (in Millisekunden)
 #define ParamLOG_HeartbeatDelayTimeMS      (paramDelay(knx.paramWord(LOG_HeartbeatDelayTime)))
 // Uhrzeit und Datum nach einem Neustart vom Bus lesen
 #define ParamLOG_ReadTimeDate              ((bool)(knx.paramByte(LOG_ReadTimeDate) & LOG_ReadTimeDateMask))
@@ -313,7 +303,7 @@
 #define ParamLOG_BuzzerNormal              (knx.paramWord(LOG_BuzzerNormal))
 // Frequenz für Buzzer (laut)
 #define ParamLOG_BuzzerLoud                (knx.paramWord(LOG_BuzzerLoud))
-// Lötpad A / B / C entspicht
+// Lötpad A / B / C entspricht
 #define ParamLOG_LedMapping                ((knx.paramByte(LOG_LedMapping) & LOG_LedMappingMask) >> LOG_LedMappingShift)
 // Zeitzone
 #define ParamLOG_Timezone                  (knx.paramByte(LOG_Timezone) & LOG_TimezoneMask)
@@ -1116,11 +1106,11 @@
 #define     LOG_fE2OtherKOMask 0x7FFF
 #define     LOG_fE2OtherKOShift 0
 
-// Zeitbasis
+// Zeit bis der Kanal nach einem Neustart aktiv wird
 #define ParamLOG_fChannelDelayBase         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fChannelDelayBase)) & LOG_fChannelDelayBaseMask) >> LOG_fChannelDelayBaseShift)
-// Zeit
+// Zeit bis der Kanal nach einem Neustart aktiv wird
 #define ParamLOG_fChannelDelayTime         (knx.paramWord(LOG_ParamCalcIndex(LOG_fChannelDelayTime)) & LOG_fChannelDelayTimeMask)
-// Zeit (in Millisekunden)
+// Zeit bis der Kanal nach einem Neustart aktiv wird (in Millisekunden)
 #define ParamLOG_fChannelDelayTimeMS       (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fChannelDelayTime))))
 // Logik-Operation
 #define ParamLOG_fLogic                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fLogic)))
@@ -1154,13 +1144,13 @@
 #define ParamLOG_fTriggerGateOpen          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTriggerGateOpen)) & LOG_fTriggerGateOpenMask) >> LOG_fTriggerGateOpenShift)
 // Eingang 1
 #define ParamLOG_fE1                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1)) & LOG_fE1Mask)
-// Wert für Eingang 1 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE1Convert                ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Convert)) & LOG_fE1ConvertMask) >> LOG_fE1ConvertShift)
-// Wert für Eingang 1 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertFloat           ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertFloat)) & LOG_fE1ConvertFloatMask) >> LOG_fE1ConvertFloatShift)
-// Wert für Eingang 1 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE1ConvertSpecial         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1ConvertSpecial)) & LOG_fE1ConvertSpecialMask) >> LOG_fE1ConvertSpecialShift)
-// DPT für Eingang 1
+// DPT für Eingang
 #define ParamLOG_fE1Dpt                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Dpt)))
 // Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit
 #define ParamLOG_fE1Default                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Default)) & LOG_fE1DefaultMask)
@@ -1172,23 +1162,23 @@
 #define ParamLOG_fE1DefaultRepeat          ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1DefaultRepeat)) & LOG_fE1DefaultRepeatMask))
 // Typ der Zeitschaltuhr
 #define ParamLOG_fTYearDay                 ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTYearDay)) & LOG_fTYearDayMask))
-// Beim Neustart letzte Schaltzeit nachholen
+// Bei Neustart letzte Schaltzeit nachholen
 #define ParamLOG_fTRestoreState            ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTRestoreState)) & LOG_fTRestoreStateMask) >> LOG_fTRestoreStateShift)
-// Zeitbasis
+// Eingang wird gelesen alle
 #define ParamLOG_fE1RepeatBase             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1RepeatBase)) & LOG_fE1RepeatBaseMask) >> LOG_fE1RepeatBaseShift)
-// Zeit
+// Eingang wird gelesen alle
 #define ParamLOG_fE1RepeatTime             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1RepeatTime)) & LOG_fE1RepeatTimeMask)
-// Zeit (in Millisekunden)
+// Eingang wird gelesen alle (in Millisekunden)
 #define ParamLOG_fE1RepeatTimeMS           (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fE1RepeatTime))))
 // Eingang 2
 #define ParamLOG_fE2                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2)) & LOG_fE2Mask)
-// Wert für Eingang 2 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE2Convert                ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Convert)) & LOG_fE2ConvertMask) >> LOG_fE2ConvertShift)
-// Wert für Eingang 2 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertFloat           ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertFloat)) & LOG_fE2ConvertFloatMask) >> LOG_fE2ConvertFloatShift)
-// Wert für Eingang 2 wird ermittelt durch
+// Wert für Eingang wird ermittelt durch
 #define ParamLOG_fE2ConvertSpecial         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2ConvertSpecial)) & LOG_fE2ConvertSpecialMask) >> LOG_fE2ConvertSpecialShift)
-// DPT für Eingang 2
+// DPT für Eingang
 #define ParamLOG_fE2Dpt                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Dpt)))
 // Falls Vorbelegung aus dem Speicher nicht möglich oder nicht gewünscht, dann vorbelegen mit
 #define ParamLOG_fE2Default                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Default)) & LOG_fE2DefaultMask)
@@ -1202,11 +1192,11 @@
 #define ParamLOG_fTHoliday                 ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTHoliday)) & LOG_fTHolidayMask) >> LOG_fTHolidayShift)
 // Urlaubsbehandlung
 #define ParamLOG_fTVacation                ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTVacation)) & LOG_fTVacationMask) >> LOG_fTVacationShift)
-// Zeitbasis
+// Eingang wird gelesen alle
 #define ParamLOG_fE2RepeatBase             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2RepeatBase)) & LOG_fE2RepeatBaseMask) >> LOG_fE2RepeatBaseShift)
-// Zeit
+// Eingang wird gelesen alle
 #define ParamLOG_fE2RepeatTime             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2RepeatTime)) & LOG_fE2RepeatTimeMask)
-// Zeit (in Millisekunden)
+// Eingang wird gelesen alle (in Millisekunden)
 #define ParamLOG_fE2RepeatTimeMS           (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fE2RepeatTime))))
 // Zeitbezug
 #define ParamLOG_fTd1DuskDawn              ((knx.paramByte(LOG_ParamCalcIndex(LOG_fTd1DuskDawn)) & LOG_fTd1DuskDawnMask) >> LOG_fTd1DuskDawnShift)
@@ -1252,7 +1242,7 @@
 #define ParamLOG_fE1Low6Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Valid)) & LOG_fE1Low6ValidMask))
 // Nächste Zeile auswerten?
 #define ParamLOG_fE1Low7Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low7Valid)) & LOG_fE1Low7ValidMask))
-// Eingang 1 ist EIN, wenn Wert gleich
+// Eingang ist EIN, wenn Wert gleich
 #define ParamLOG_fE1LowDpt2                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt2)))
 // ... oder wenn Wert gleich 
 #define ParamLOG_fE1Low1Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt2)))
@@ -1260,13 +1250,13 @@
 #define ParamLOG_fE1Low2Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low2Dpt2)))
 // ... oder wenn Wert gleich 
 #define ParamLOG_fE1Low3Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Dpt2)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt2Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt2Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt5                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt5)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt5               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1HighDpt5)))
-// Eingang 1 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE1Low0Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt5In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low1Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt5In)))
@@ -1280,13 +1270,13 @@
 #define ParamLOG_fE1Low5Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low5Dpt5In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low6Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Dpt5In)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt5Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt5Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt5001             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt5001)))
-// Bisrt
+// Bis-Wert
 #define ParamLOG_fE1HighDpt5001            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1HighDpt5001)))
-// Eingang 1 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE1Low0Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt5xIn)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low1Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt5xIn)))
@@ -1300,13 +1290,13 @@
 #define ParamLOG_fE1Low5Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low5Dpt5xIn)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low6Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Dpt5xIn)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt5xFix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt5xFix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt6                ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt6)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt6               ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1HighDpt6)))
-// Eingang 1 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE1Low0Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt6In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low1Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt6In)))
@@ -1320,57 +1310,57 @@
 #define ParamLOG_fE1Low5Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low5Dpt6In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low6Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Dpt6In)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt6Fix             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt6Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt7                (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1LowDpt7)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt7               (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1HighDpt7)))
-// Eingang 1 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE1Low0Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low0Dpt7In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low1Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low1Dpt7In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low2Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low2Dpt7In)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt7Fix             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1LowDpt7Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt8                ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1LowDpt8)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt8               ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1HighDpt8)))
-// Eingang 1 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE1Low0Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low0Dpt8In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low1Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low1Dpt8In)))
 // ... oder bei Wert
 #define ParamLOG_fE1Low2Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1Low2Dpt8In)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt8Fix             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE1LowDpt8Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt9                (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDpt9), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt9               (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1HighDpt9), Float_Enc_IEEE754Single))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt9Fix             (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDpt9Fix), Float_Enc_IEEE754Single))
 // Von-Wert
 #define ParamLOG_fE1LowDpt12               (knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDpt12)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt12              (knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDpt12)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt12Fix            (knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDpt12Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt13               ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDpt13)))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt13              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDpt13)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt13Fix            ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDpt13Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDpt14               (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDpt14), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE1HighDpt14              (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1HighDpt14), Float_Enc_IEEE754Single))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt14Fix            (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE1LowDpt14Fix), Float_Enc_IEEE754Single))
-// Eingang 1 ist EIN bei Szene
+// Eingang ist EIN bei Szene
 #define ParamLOG_fE1Low0Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt17)))
 // ... oder bei Szene
 #define ParamLOG_fE1Low1Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt17)))
@@ -1386,13 +1376,13 @@
 #define ParamLOG_fE1Low6Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low6Dpt17)))
 // ... oder bei Szene
 #define ParamLOG_fE1Low7Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low7Dpt17)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDpt17Fix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt17Fix)))
 // Von-Wert
 #define ParamLOG_fE1LowDptRGB              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDptRGB)))
 // Bis-Wert
 #define ParamLOG_fE1HighDptRGB             ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1HighDptRGB)))
-// Eingang 1 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE1LowDptRGBFix           ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE1LowDptRGBFix)))
 // Von-Wert
 #define ParamLOG_fE2LowDelta               ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDelta)))
@@ -1422,7 +1412,7 @@
 #define ParamLOG_fE2Low6Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Valid)) & LOG_fE2Low6ValidMask))
 // Nächste Zeile auswerten?
 #define ParamLOG_fE2Low7Valid              ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low7Valid)) & LOG_fE2Low7ValidMask))
-// Eingang 2 ist EIN, wenn Wert gleich 
+// Eingang ist EIN, wenn Wert gleich 
 #define ParamLOG_fE2Low0Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt2)))
 // ... oder wenn Wert gleich 
 #define ParamLOG_fE2Low1Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt2)))
@@ -1430,13 +1420,13 @@
 #define ParamLOG_fE2Low2Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low2Dpt2)))
 // ... oder wenn Wert gleich 
 #define ParamLOG_fE2Low3Dpt2               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Dpt2)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt2Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt2Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt5                (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt5)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt5               (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2HighDpt5)))
-// Eingang 2 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE2Low0Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt5In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low1Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt5In)))
@@ -1450,13 +1440,13 @@
 #define ParamLOG_fE2Low5Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low5Dpt5In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low6Dpt5In             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Dpt5In)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt5Fix             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt5Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt5001             (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt5001)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt5001            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2HighDpt5001)))
-// Eingang 2 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE2Low0Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt5xIn)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low1Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt5xIn)))
@@ -1470,13 +1460,13 @@
 #define ParamLOG_fE2Low5Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low5Dpt5xIn)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low6Dpt5xIn            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Dpt5xIn)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt5xFix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt5xFix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt6                ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt6)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt6               ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2HighDpt6)))
-// Eingang 2 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE2Low0Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt6In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low1Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt6In)))
@@ -1490,57 +1480,57 @@
 #define ParamLOG_fE2Low5Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low5Dpt6In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low6Dpt6In             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Dpt6In)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt6Fix             ((int8_t)knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt6Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt7                (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2LowDpt7)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt7               (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2HighDpt7)))
-// Eingang 2 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE2Low0Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low0Dpt7In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low1Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low1Dpt7In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low2Dpt7In             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low2Dpt7In)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt7Fix             (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2LowDpt7Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt8                ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2LowDpt8)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt8               ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2HighDpt8)))
-// Eingang 2 ist EIN bei Wert
+// Eingang ist EIN bei Wert
 #define ParamLOG_fE2Low0Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low0Dpt8In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low1Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low1Dpt8In)))
 // ... oder bei Wert
 #define ParamLOG_fE2Low2Dpt8In             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2Low2Dpt8In)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt8Fix             ((int16_t)knx.paramWord(LOG_ParamCalcIndex(LOG_fE2LowDpt8Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt9                (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDpt9), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt9               (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2HighDpt9), Float_Enc_IEEE754Single))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt9Fix             (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDpt9Fix), Float_Enc_IEEE754Single))
 // Von-Wert
 #define ParamLOG_fE2LowDpt12               (knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDpt12)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt12              (knx.paramInt(LOG_ParamCalcIndex(LOG_fE2HighDpt12)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt12Fix            (knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDpt12Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt13               ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDpt13)))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt13              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2HighDpt13)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt13Fix            ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDpt13Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDpt14               (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDpt14), Float_Enc_IEEE754Single))
 // Bis-Wert
 #define ParamLOG_fE2HighDpt14              (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2HighDpt14), Float_Enc_IEEE754Single))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt14Fix            (knx.paramFloat(LOG_ParamCalcIndex(LOG_fE2LowDpt14Fix), Float_Enc_IEEE754Single))
-// Eingang 2 ist EIN bei Szene
+// Eingang ist EIN bei Szene
 #define ParamLOG_fE2Low0Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt17)))
 // ... oder bei Szene
 #define ParamLOG_fE2Low1Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt17)))
@@ -1556,13 +1546,13 @@
 #define ParamLOG_fE2Low6Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low6Dpt17)))
 // ... oder bei Szene
 #define ParamLOG_fE2Low7Dpt17              (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low7Dpt17)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDpt17Fix            (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt17Fix)))
 // Von-Wert
 #define ParamLOG_fE2LowDptRGB              ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDptRGB)))
 // Bis-Wert
 #define ParamLOG_fE2HighDptRGB             ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2HighDptRGB)))
-// Eingang 2 ist konstant
+// Eingang ist konstant
 #define ParamLOG_fE2LowDptRGBFix           ((int32_t)knx.paramInt(LOG_ParamCalcIndex(LOG_fE2LowDptRGBFix)))
 // Schaltwert
 #define ParamLOG_fTd1Value                 ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fTd1Value)) & LOG_fTd1ValueMask))
@@ -1760,21 +1750,21 @@
 #define ParamLOG_fI1                       ((knx.paramByte(LOG_ParamCalcIndex(LOG_fI1)) & LOG_fI1Mask) >> LOG_fI1Shift)
 // Interner Eingang 4
 #define ParamLOG_fI2                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fI2)) & LOG_fI2Mask)
-// Internen Eingang 3 verbinden mit Kanalausgang Nr.:
+// Internen Eingang verbinden mit Kanalausgang Nr.:
 #define ParamLOG_fI1Function               (knx.paramByte(LOG_ParamCalcIndex(LOG_fI1Function)))
-// Internen Eingang 4 verbinden mit Kanalausgang Nr.:
+// Internen Eingang verbinden mit Kanalausgang Nr.:
 #define ParamLOG_fI2Function               (knx.paramByte(LOG_ParamCalcIndex(LOG_fI2Function)))
-// Zeitbasis
+// Zeit für Treppenlicht
 #define ParamLOG_fOStairtimeBase           ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOStairtimeBase)) & LOG_fOStairtimeBaseMask) >> LOG_fOStairtimeBaseShift)
-// Zeit
+// Zeit für Treppenlicht
 #define ParamLOG_fOStairtimeTime           (knx.paramWord(LOG_ParamCalcIndex(LOG_fOStairtimeTime)) & LOG_fOStairtimeTimeMask)
-// Zeit (in Millisekunden)
+// Zeit für Treppenlicht (in Millisekunden)
 #define ParamLOG_fOStairtimeTimeMS         (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fOStairtimeTime))))
-// Zeitbasis
+// Treppenlicht blinkt im Rhythmus
 #define ParamLOG_fOBlinkBase               ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOBlinkBase)) & LOG_fOBlinkBaseMask) >> LOG_fOBlinkBaseShift)
-// Zeit
+// Treppenlicht blinkt im Rhythmus
 #define ParamLOG_fOBlinkTime               (knx.paramWord(LOG_ParamCalcIndex(LOG_fOBlinkTime)) & LOG_fOBlinkTimeMask)
-// Zeit (in Millisekunden)
+// Treppenlicht blinkt im Rhythmus (in Millisekunden)
 #define ParamLOG_fOBlinkTimeMS             (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fOBlinkTime))))
 // Ausgang schaltet zeitverzögert
 #define ParamLOG_fODelay                   ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fODelay)) & LOG_fODelayMask))
@@ -1786,17 +1776,17 @@
 #define ParamLOG_fODelayOffRepeat          ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffRepeat)) & LOG_fODelayOffRepeatMask) >> LOG_fODelayOffRepeatShift)
 // Darauffolgendes EIN führt zu
 #define ParamLOG_fODelayOffReset           ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffReset)) & LOG_fODelayOffResetMask))
-// Zeitbasis
+// EINschalten wird verzögert um
 #define ParamLOG_fODelayOnBase             ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOnBase)) & LOG_fODelayOnBaseMask) >> LOG_fODelayOnBaseShift)
-// Zeit
+// EINschalten wird verzögert um
 #define ParamLOG_fODelayOnTime             (knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOnTime)) & LOG_fODelayOnTimeMask)
-// Zeit (in Millisekunden)
+// EINschalten wird verzögert um (in Millisekunden)
 #define ParamLOG_fODelayOnTimeMS           (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOnTime))))
-// Zeitbasis
+// AUSschalten wird verzögert um
 #define ParamLOG_fODelayOffBase            ((knx.paramByte(LOG_ParamCalcIndex(LOG_fODelayOffBase)) & LOG_fODelayOffBaseMask) >> LOG_fODelayOffBaseShift)
-// Zeit
+// AUSschalten wird verzögert um
 #define ParamLOG_fODelayOffTime            (knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOffTime)) & LOG_fODelayOffTimeMask)
-// Zeit (in Millisekunden)
+// AUSschalten wird verzögert um (in Millisekunden)
 #define ParamLOG_fODelayOffTimeMS          (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fODelayOffTime))))
 // Ausgang hat eine Treppenlichtfunktion
 #define ParamLOG_fOStair                   ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fOStair)) & LOG_fOStairMask))
@@ -1808,17 +1798,17 @@
 #define ParamLOG_fORepeat                  ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fORepeat)) & LOG_fORepeatMask))
 // Wiederholungsfilter
 #define ParamLOG_fOOutputFilter            ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOutputFilter)) & LOG_fOOutputFilterMask) >> LOG_fOOutputFilterShift)
-// Zeitbasis
+// EIN-Telegramm wird wiederholt alle
 #define ParamLOG_fORepeatOnBase            ((knx.paramByte(LOG_ParamCalcIndex(LOG_fORepeatOnBase)) & LOG_fORepeatOnBaseMask) >> LOG_fORepeatOnBaseShift)
-// Zeit
+// EIN-Telegramm wird wiederholt alle
 #define ParamLOG_fORepeatOnTime            (knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOnTime)) & LOG_fORepeatOnTimeMask)
-// Zeit (in Millisekunden)
+// EIN-Telegramm wird wiederholt alle (in Millisekunden)
 #define ParamLOG_fORepeatOnTimeMS          (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOnTime))))
-// Zeitbasis
+// AUS-Telegramm wird wiederholt alle
 #define ParamLOG_fORepeatOffBase           ((knx.paramByte(LOG_ParamCalcIndex(LOG_fORepeatOffBase)) & LOG_fORepeatOffBaseMask) >> LOG_fORepeatOffBaseShift)
-// Zeit
+// AUS-Telegramm wird wiederholt alle
 #define ParamLOG_fORepeatOffTime           (knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOffTime)) & LOG_fORepeatOffTimeMask)
-// Zeit (in Millisekunden)
+// AUS-Telegramm wird wiederholt alle (in Millisekunden)
 #define ParamLOG_fORepeatOffTimeMS         (paramDelay(knx.paramWord(LOG_ParamCalcIndex(LOG_fORepeatOffTime))))
 // DPT für Ausgang
 #define ParamLOG_fODpt                     (knx.paramByte(LOG_ParamCalcIndex(LOG_fODpt)))
@@ -1922,11 +1912,11 @@
 #define ParamLOG_fOOffKONumber             ((knx.paramWord(LOG_ParamCalcIndex(LOG_fOOffKONumber)) & LOG_fOOffKONumberMask) >> LOG_fOOffKONumberShift)
 //     DPT des Kommunikationsobjekts
 #define ParamLOG_fOOffKODpt                (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffKODpt)))
-// Kommunikationsobjekt für Eingang 1
+// Kommunikationsobjekt für Eingang
 #define ParamLOG_fE1UseOtherKO             ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE1UseOtherKO)) & LOG_fE1UseOtherKOMask))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fE1OtherKO                (knx.paramWord(LOG_ParamCalcIndex(LOG_fE1OtherKO)) & LOG_fE1OtherKOMask)
-// Kommunikationsobjekt für Eingang 2
+// Kommunikationsobjekt für Eingang
 #define ParamLOG_fE2UseOtherKO             ((bool)(knx.paramByte(LOG_ParamCalcIndex(LOG_fE2UseOtherKO)) & LOG_fE2UseOtherKOMask))
 //     Nummer des Kommunikationsobjekts
 #define ParamLOG_fE2OtherKO                (knx.paramWord(LOG_ParamCalcIndex(LOG_fE2OtherKO)) & LOG_fE2OtherKOMask)
