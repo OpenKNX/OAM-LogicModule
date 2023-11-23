@@ -10,205 +10,243 @@
                                              
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 63
-#define MAIN_ParameterSize 112
-#define MAIN_MaxKoNumber 22
+#define MAIN_ApplicationVersion 82
+#define MAIN_ParameterSize 284
+#define MAIN_MaxKoNumber 28
 #define MAIN_OrderNumber "OpenKnxLogicDev"
 #define LOG_ModuleVersion 32
 // Parameter with single occurrence
 
 
-#define LOG_NumChannels                0      // uint8_t
-#define LOG_StartupDelayBase           1      // 2 Bits, Bit 7-6
-#define     LOG_StartupDelayBaseMask 0xC0
-#define     LOG_StartupDelayBaseShift 6
-#define LOG_StartupDelayTime           1      // 14 Bits, Bit 13-0
-#define     LOG_StartupDelayTimeMask 0x3FFF
-#define     LOG_StartupDelayTimeShift 0
-#define LOG_HeartbeatDelayBase         3      // 2 Bits, Bit 7-6
-#define     LOG_HeartbeatDelayBaseMask 0xC0
-#define     LOG_HeartbeatDelayBaseShift 6
-#define LOG_HeartbeatDelayTime         3      // 14 Bits, Bit 13-0
-#define     LOG_HeartbeatDelayTimeMask 0x3FFF
-#define     LOG_HeartbeatDelayTimeShift 0
-#define LOG_ReadTimeDate               5      // 1 Bit, Bit 7
-#define     LOG_ReadTimeDateMask 0x80
-#define     LOG_ReadTimeDateShift 7
-#define LOG_BuzzerInstalled            5      // 1 Bit, Bit 6
-#define     LOG_BuzzerInstalledMask 0x40
-#define     LOG_BuzzerInstalledShift 6
-#define LOG_LedInstalled               5      // 1 Bit, Bit 5
-#define     LOG_LedInstalledMask 0x20
-#define     LOG_LedInstalledShift 5
-#define LOG_CombinedTimeDate           5      // 1 Bit, Bit 4
-#define     LOG_CombinedTimeDateMask 0x10
-#define     LOG_CombinedTimeDateShift 4
-#define LOG_VacationKo                 5      // 1 Bit, Bit 2
-#define     LOG_VacationKoMask 0x04
-#define     LOG_VacationKoShift 2
-#define LOG_HolidayKo                  5      // 1 Bit, Bit 1
-#define     LOG_HolidayKoMask 0x02
-#define     LOG_HolidayKoShift 1
-#define LOG_VacationRead               5      // 1 Bit, Bit 0
-#define     LOG_VacationReadMask 0x01
-#define     LOG_VacationReadShift 0
-#define LOG_HolidaySend                6      // 1 Bit, Bit 7
-#define     LOG_HolidaySendMask 0x80
-#define     LOG_HolidaySendShift 7
-#define LOG_SummertimeAll              6      // 2 Bits, Bit 7-6
-#define     LOG_SummertimeAllMask 0xC0
-#define     LOG_SummertimeAllShift 6
-#define LOG_SummertimeDE               6      // 2 Bits, Bit 7-6
-#define     LOG_SummertimeDEMask 0xC0
-#define     LOG_SummertimeDEShift 6
-#define LOG_SummertimeWorld            6      // 2 Bits, Bit 7-6
-#define     LOG_SummertimeWorldMask 0xC0
-#define     LOG_SummertimeWorldShift 6
-#define LOG_SummertimeKO               6      // 2 Bits, Bit 7-6
-#define     LOG_SummertimeKOMask 0xC0
-#define     LOG_SummertimeKOShift 6
-#define LOG_Diagnose                   6      // 1 Bit, Bit 3
-#define     LOG_DiagnoseMask 0x08
-#define     LOG_DiagnoseShift 3
-#define LOG_Watchdog                   6      // 1 Bit, Bit 2
-#define     LOG_WatchdogMask 0x04
-#define     LOG_WatchdogShift 2
-#define LOG_Neujahr                    7      // 1 Bit, Bit 7
+#define BASE_StartupDelayBase           0      // 2 Bits, Bit 7-6
+#define     BASE_StartupDelayBaseMask 0xC0
+#define     BASE_StartupDelayBaseShift 6
+#define BASE_StartupDelayTime           0      // 14 Bits, Bit 13-0
+#define     BASE_StartupDelayTimeMask 0x3FFF
+#define     BASE_StartupDelayTimeShift 0
+#define BASE_HeartbeatDelayBase         2      // 2 Bits, Bit 7-6
+#define     BASE_HeartbeatDelayBaseMask 0xC0
+#define     BASE_HeartbeatDelayBaseShift 6
+#define BASE_HeartbeatDelayTime         2      // 14 Bits, Bit 13-0
+#define     BASE_HeartbeatDelayTimeMask 0x3FFF
+#define     BASE_HeartbeatDelayTimeShift 0
+#define BASE_Timezone                   4      // 5 Bits, Bit 7-3
+#define     BASE_TimezoneMask 0xF8
+#define     BASE_TimezoneShift 3
+#define BASE_TimezoneSign               4      // 1 Bit, Bit 7
+#define     BASE_TimezoneSignMask 0x80
+#define     BASE_TimezoneSignShift 7
+#define BASE_TimezoneValue              4      // 4 Bits, Bit 6-3
+#define     BASE_TimezoneValueMask 0x78
+#define     BASE_TimezoneValueShift 3
+#define BASE_CombinedTimeDate           4      // 1 Bit, Bit 2
+#define     BASE_CombinedTimeDateMask 0x04
+#define     BASE_CombinedTimeDateShift 2
+#define BASE_SummertimeAll              4      // 2 Bits, Bit 1-0
+#define     BASE_SummertimeAllMask 0x03
+#define     BASE_SummertimeAllShift 0
+#define BASE_SummertimeDE               4      // 2 Bits, Bit 1-0
+#define     BASE_SummertimeDEMask 0x03
+#define     BASE_SummertimeDEShift 0
+#define BASE_SummertimeWorld            4      // 2 Bits, Bit 1-0
+#define     BASE_SummertimeWorldMask 0x03
+#define     BASE_SummertimeWorldShift 0
+#define BASE_SummertimeKO               4      // 2 Bits, Bit 1-0
+#define     BASE_SummertimeKOMask 0x03
+#define     BASE_SummertimeKOShift 0
+#define BASE_Diagnose                   5      // 1 Bit, Bit 7
+#define     BASE_DiagnoseMask 0x80
+#define     BASE_DiagnoseShift 7
+#define BASE_Watchdog                   5      // 1 Bit, Bit 6
+#define     BASE_WatchdogMask 0x40
+#define     BASE_WatchdogShift 6
+#define BASE_ReadTimeDate               5      // 1 Bit, Bit 5
+#define     BASE_ReadTimeDateMask 0x20
+#define     BASE_ReadTimeDateShift 5
+#define BASE_Latitude                   6      // float
+#define BASE_Longitude                 10      // float
+
+// Zeitbasis
+#define ParamBASE_StartupDelayBase          ((knx.paramByte(BASE_StartupDelayBase) & BASE_StartupDelayBaseMask) >> BASE_StartupDelayBaseShift)
+// Zeit
+#define ParamBASE_StartupDelayTime          (knx.paramWord(BASE_StartupDelayTime) & BASE_StartupDelayTimeMask)
+// Zeit (in Millisekunden)
+#define ParamBASE_StartupDelayTimeMS        (paramDelay(knx.paramWord(BASE_StartupDelayTime)))
+// Zeitbasis
+#define ParamBASE_HeartbeatDelayBase        ((knx.paramByte(BASE_HeartbeatDelayBase) & BASE_HeartbeatDelayBaseMask) >> BASE_HeartbeatDelayBaseShift)
+// Zeit
+#define ParamBASE_HeartbeatDelayTime        (knx.paramWord(BASE_HeartbeatDelayTime) & BASE_HeartbeatDelayTimeMask)
+// Zeit (in Millisekunden)
+#define ParamBASE_HeartbeatDelayTimeMS      (paramDelay(knx.paramWord(BASE_HeartbeatDelayTime)))
+// Zeitzone
+#define ParamBASE_Timezone                  ((knx.paramByte(BASE_Timezone) & BASE_TimezoneMask) >> BASE_TimezoneShift)
+// Zeitzone-Vorzeichen
+#define ParamBASE_TimezoneSign              ((bool)(knx.paramByte(BASE_TimezoneSign) & BASE_TimezoneSignMask))
+// Zeitzone-Wert
+#define ParamBASE_TimezoneValue             ((knx.paramByte(BASE_TimezoneValue) & BASE_TimezoneValueMask) >> BASE_TimezoneValueShift)
+// Empfangen über
+#define ParamBASE_CombinedTimeDate          ((bool)(knx.paramByte(BASE_CombinedTimeDate) & BASE_CombinedTimeDateMask))
+// Sommerzeit ermitteln durch
+#define ParamBASE_SummertimeAll             (knx.paramByte(BASE_SummertimeAll) & BASE_SummertimeAllMask)
+// Sommerzeit ermitteln durch
+#define ParamBASE_SummertimeDE              (knx.paramByte(BASE_SummertimeDE) & BASE_SummertimeDEMask)
+// Sommerzeit ermitteln durch
+#define ParamBASE_SummertimeWorld           (knx.paramByte(BASE_SummertimeWorld) & BASE_SummertimeWorldMask)
+// Sommerzeit ermitteln durch
+#define ParamBASE_SummertimeKO              (knx.paramByte(BASE_SummertimeKO) & BASE_SummertimeKOMask)
+// Diagnoseobjekt anzeigen
+#define ParamBASE_Diagnose                  ((bool)(knx.paramByte(BASE_Diagnose) & BASE_DiagnoseMask))
+// Watchdog aktivieren
+#define ParamBASE_Watchdog                  ((bool)(knx.paramByte(BASE_Watchdog) & BASE_WatchdogMask))
+// Bei Neustart vom Bus lesen
+#define ParamBASE_ReadTimeDate              ((bool)(knx.paramByte(BASE_ReadTimeDate) & BASE_ReadTimeDateMask))
+// Breitengrad
+#define ParamBASE_Latitude                  (knx.paramFloat(BASE_Latitude, Float_Enc_IEEE754Single))
+// Längengrad
+#define ParamBASE_Longitude                 (knx.paramFloat(BASE_Longitude, Float_Enc_IEEE754Single))
+
+#define BASE_KoHeartbeat 1
+#define BASE_KoTime 2
+#define BASE_KoDate 3
+#define BASE_KoDiagnose 7
+#define BASE_KoIsSummertime 10
+
+// In Betrieb
+#define KoBASE_Heartbeat                 (knx.getGroupObject(BASE_KoHeartbeat))
+// Uhrzeit/Datum
+#define KoBASE_Time                      (knx.getGroupObject(BASE_KoTime))
+// Datum
+#define KoBASE_Date                      (knx.getGroupObject(BASE_KoDate))
+// Diagnose
+#define KoBASE_Diagnose                  (knx.getGroupObject(BASE_KoDiagnose))
+// Sommerzeit aktiv
+#define KoBASE_IsSummertime              (knx.getGroupObject(BASE_KoIsSummertime))
+
+#define LOG_BuzzerInstalled           14      // 1 Bit, Bit 7
+#define     LOG_BuzzerInstalledMask 0x80
+#define     LOG_BuzzerInstalledShift 7
+#define LOG_LedInstalled              14      // 1 Bit, Bit 6
+#define     LOG_LedInstalledMask 0x40
+#define     LOG_LedInstalledShift 6
+#define LOG_VacationKo                14      // 1 Bit, Bit 5
+#define     LOG_VacationKoMask 0x20
+#define     LOG_VacationKoShift 5
+#define LOG_HolidayKo                 14      // 1 Bit, Bit 4
+#define     LOG_HolidayKoMask 0x10
+#define     LOG_HolidayKoShift 4
+#define LOG_VacationRead              14      // 1 Bit, Bit 3
+#define     LOG_VacationReadMask 0x08
+#define     LOG_VacationReadShift 3
+#define LOG_HolidaySend               14      // 1 Bit, Bit 2
+#define     LOG_HolidaySendMask 0x04
+#define     LOG_HolidaySendShift 2
+#define LOG_Neujahr                   15      // 1 Bit, Bit 7
 #define     LOG_NeujahrMask 0x80
 #define     LOG_NeujahrShift 7
-#define LOG_DreiKoenige                7      // 1 Bit, Bit 6
+#define LOG_DreiKoenige               15      // 1 Bit, Bit 6
 #define     LOG_DreiKoenigeMask 0x40
 #define     LOG_DreiKoenigeShift 6
-#define LOG_Weiberfastnacht            7      // 1 Bit, Bit 5
+#define LOG_Weiberfastnacht           15      // 1 Bit, Bit 5
 #define     LOG_WeiberfastnachtMask 0x20
 #define     LOG_WeiberfastnachtShift 5
-#define LOG_Rosenmontag                7      // 1 Bit, Bit 4
+#define LOG_Rosenmontag               15      // 1 Bit, Bit 4
 #define     LOG_RosenmontagMask 0x10
 #define     LOG_RosenmontagShift 4
-#define LOG_Fastnachtsdienstag         7      // 1 Bit, Bit 3
+#define LOG_Fastnachtsdienstag        15      // 1 Bit, Bit 3
 #define     LOG_FastnachtsdienstagMask 0x08
 #define     LOG_FastnachtsdienstagShift 3
-#define LOG_Aschermittwoch             7      // 1 Bit, Bit 2
+#define LOG_Aschermittwoch            15      // 1 Bit, Bit 2
 #define     LOG_AschermittwochMask 0x04
 #define     LOG_AschermittwochShift 2
-#define LOG_Frauentag                  7      // 1 Bit, Bit 1
+#define LOG_Frauentag                 15      // 1 Bit, Bit 1
 #define     LOG_FrauentagMask 0x02
 #define     LOG_FrauentagShift 1
-#define LOG_Gruendonnerstag            7      // 1 Bit, Bit 0
+#define LOG_Gruendonnerstag           15      // 1 Bit, Bit 0
 #define     LOG_GruendonnerstagMask 0x01
 #define     LOG_GruendonnerstagShift 0
-#define LOG_Karfreitag                 8      // 1 Bit, Bit 7
+#define LOG_Karfreitag                16      // 1 Bit, Bit 7
 #define     LOG_KarfreitagMask 0x80
 #define     LOG_KarfreitagShift 7
-#define LOG_Ostersonntag               8      // 1 Bit, Bit 6
+#define LOG_Ostersonntag              16      // 1 Bit, Bit 6
 #define     LOG_OstersonntagMask 0x40
 #define     LOG_OstersonntagShift 6
-#define LOG_Ostermontag                8      // 1 Bit, Bit 5
+#define LOG_Ostermontag               16      // 1 Bit, Bit 5
 #define     LOG_OstermontagMask 0x20
 #define     LOG_OstermontagShift 5
-#define LOG_TagDerArbeit               8      // 1 Bit, Bit 4
+#define LOG_TagDerArbeit              16      // 1 Bit, Bit 4
 #define     LOG_TagDerArbeitMask 0x10
 #define     LOG_TagDerArbeitShift 4
-#define LOG_Himmelfahrt                8      // 1 Bit, Bit 3
+#define LOG_Himmelfahrt               16      // 1 Bit, Bit 3
 #define     LOG_HimmelfahrtMask 0x08
 #define     LOG_HimmelfahrtShift 3
-#define LOG_Pfingstsonntag             8      // 1 Bit, Bit 2
+#define LOG_Pfingstsonntag            16      // 1 Bit, Bit 2
 #define     LOG_PfingstsonntagMask 0x04
 #define     LOG_PfingstsonntagShift 2
-#define LOG_Pfingstmontag              8      // 1 Bit, Bit 1
+#define LOG_Pfingstmontag             16      // 1 Bit, Bit 1
 #define     LOG_PfingstmontagMask 0x02
 #define     LOG_PfingstmontagShift 1
-#define LOG_Fronleichnam               8      // 1 Bit, Bit 0
+#define LOG_Fronleichnam              16      // 1 Bit, Bit 0
 #define     LOG_FronleichnamMask 0x01
 #define     LOG_FronleichnamShift 0
-#define LOG_Friedensfest               9      // 1 Bit, Bit 7
+#define LOG_Friedensfest              17      // 1 Bit, Bit 7
 #define     LOG_FriedensfestMask 0x80
 #define     LOG_FriedensfestShift 7
-#define LOG_MariaHimmelfahrt           9      // 1 Bit, Bit 6
+#define LOG_MariaHimmelfahrt          17      // 1 Bit, Bit 6
 #define     LOG_MariaHimmelfahrtMask 0x40
 #define     LOG_MariaHimmelfahrtShift 6
-#define LOG_DeutscheEinheit            9      // 1 Bit, Bit 5
+#define LOG_DeutscheEinheit           17      // 1 Bit, Bit 5
 #define     LOG_DeutscheEinheitMask 0x20
 #define     LOG_DeutscheEinheitShift 5
-#define LOG_Nationalfeiertag          10      // 1 Bit, Bit 1
+#define LOG_Nationalfeiertag          18      // 1 Bit, Bit 1
 #define     LOG_NationalfeiertagMask 0x02
 #define     LOG_NationalfeiertagShift 1
-#define LOG_Reformationstag            9      // 1 Bit, Bit 4
+#define LOG_Reformationstag           17      // 1 Bit, Bit 4
 #define     LOG_ReformationstagMask 0x10
 #define     LOG_ReformationstagShift 4
-#define LOG_Allerheiligen              9      // 1 Bit, Bit 3
+#define LOG_Allerheiligen             17      // 1 Bit, Bit 3
 #define     LOG_AllerheiligenMask 0x08
 #define     LOG_AllerheiligenShift 3
-#define LOG_BussBettag                 9      // 1 Bit, Bit 2
+#define LOG_BussBettag                17      // 1 Bit, Bit 2
 #define     LOG_BussBettagMask 0x04
 #define     LOG_BussBettagShift 2
-#define LOG_MariaEmpfaengnis          10      // 1 Bit, Bit 0
+#define LOG_MariaEmpfaengnis          18      // 1 Bit, Bit 0
 #define     LOG_MariaEmpfaengnisMask 0x01
 #define     LOG_MariaEmpfaengnisShift 0
-#define LOG_Advent1                    9      // 1 Bit, Bit 1
+#define LOG_Advent1                   17      // 1 Bit, Bit 1
 #define     LOG_Advent1Mask 0x02
 #define     LOG_Advent1Shift 1
-#define LOG_Advent2                    9      // 1 Bit, Bit 0
+#define LOG_Advent2                   17      // 1 Bit, Bit 0
 #define     LOG_Advent2Mask 0x01
 #define     LOG_Advent2Shift 0
-#define LOG_Advent3                   10      // 1 Bit, Bit 7
+#define LOG_Advent3                   18      // 1 Bit, Bit 7
 #define     LOG_Advent3Mask 0x80
 #define     LOG_Advent3Shift 7
-#define LOG_Advent4                   10      // 1 Bit, Bit 6
+#define LOG_Advent4                   18      // 1 Bit, Bit 6
 #define     LOG_Advent4Mask 0x40
 #define     LOG_Advent4Shift 6
-#define LOG_Heiligabend               10      // 1 Bit, Bit 5
+#define LOG_Heiligabend               18      // 1 Bit, Bit 5
 #define     LOG_HeiligabendMask 0x20
 #define     LOG_HeiligabendShift 5
-#define LOG_Weihnachtstag1            10      // 1 Bit, Bit 4
+#define LOG_Weihnachtstag1            18      // 1 Bit, Bit 4
 #define     LOG_Weihnachtstag1Mask 0x10
 #define     LOG_Weihnachtstag1Shift 4
-#define LOG_Weihnachtstag2            10      // 1 Bit, Bit 3
+#define LOG_Weihnachtstag2            18      // 1 Bit, Bit 3
 #define     LOG_Weihnachtstag2Mask 0x08
 #define     LOG_Weihnachtstag2Shift 3
-#define LOG_Silvester                 10      // 1 Bit, Bit 2
+#define LOG_Silvester                 18      // 1 Bit, Bit 2
 #define     LOG_SilvesterMask 0x04
 #define     LOG_SilvesterShift 2
-#define LOG_Latitude                  11      // float
-#define LOG_Longitude                 15      // float
 #define LOG_BuzzerSilent              19      // uint16_t
 #define LOG_BuzzerNormal              21      // uint16_t
 #define LOG_BuzzerLoud                23      // uint16_t
 #define LOG_LedMapping                25      // 3 Bits, Bit 7-5
 #define     LOG_LedMappingMask 0xE0
 #define     LOG_LedMappingShift 5
-#define LOG_Timezone                  25      // 5 Bits, Bit 4-0
-#define     LOG_TimezoneMask 0x1F
-#define     LOG_TimezoneShift 0
-#define LOG_TimezoneSign              25      // 1 Bit, Bit 4
-#define     LOG_TimezoneSignMask 0x10
-#define     LOG_TimezoneSignShift 4
-#define LOG_TimezoneValue             25      // 4 Bits, Bit 3-0
-#define     LOG_TimezoneValueMask 0x0F
-#define     LOG_TimezoneValueShift 0
 
-// Anzahl verfügbarer Logikkanäle
-#define ParamLOG_NumChannels               (knx.paramByte(LOG_NumChannels))
-// Zeit bis das Gerät nach einem Neustart aktiv wird
-#define ParamLOG_StartupDelayBase          ((knx.paramByte(LOG_StartupDelayBase) & LOG_StartupDelayBaseMask) >> LOG_StartupDelayBaseShift)
-// Zeit bis das Gerät nach einem Neustart aktiv wird
-#define ParamLOG_StartupDelayTime          (knx.paramWord(LOG_StartupDelayTime) & LOG_StartupDelayTimeMask)
-// Zeit bis das Gerät nach einem Neustart aktiv wird (in Millisekunden)
-#define ParamLOG_StartupDelayTimeMS        (paramDelay(knx.paramWord(LOG_StartupDelayTime)))
-// In Betrieb senden alle
-#define ParamLOG_HeartbeatDelayBase        ((knx.paramByte(LOG_HeartbeatDelayBase) & LOG_HeartbeatDelayBaseMask) >> LOG_HeartbeatDelayBaseShift)
-// In Betrieb senden alle
-#define ParamLOG_HeartbeatDelayTime        (knx.paramWord(LOG_HeartbeatDelayTime) & LOG_HeartbeatDelayTimeMask)
-// In Betrieb senden alle (in Millisekunden)
-#define ParamLOG_HeartbeatDelayTimeMS      (paramDelay(knx.paramWord(LOG_HeartbeatDelayTime)))
-// Uhrzeit und Datum nach einem Neustart vom Bus lesen
-#define ParamLOG_ReadTimeDate              ((bool)(knx.paramByte(LOG_ReadTimeDate) & LOG_ReadTimeDateMask))
 // Akustischer Signalgeber vorhanden (Buzzer)?
 #define ParamLOG_BuzzerInstalled           ((bool)(knx.paramByte(LOG_BuzzerInstalled) & LOG_BuzzerInstalledMask))
 // Optischer Signalgeber vorhanden (RGB-LED)?
 #define ParamLOG_LedInstalled              ((bool)(knx.paramByte(LOG_LedInstalled) & LOG_LedInstalledMask))
-// Uhrzeit und Datum empfangen über
-#define ParamLOG_CombinedTimeDate          ((bool)(knx.paramByte(LOG_CombinedTimeDate) & LOG_CombinedTimeDateMask))
 // Urlaubsbehandlung aktivieren?
 #define ParamLOG_VacationKo                ((bool)(knx.paramByte(LOG_VacationKo) & LOG_VacationKoMask))
 // Feiertage auf dem Bus verfügbar machen?
@@ -217,18 +255,6 @@
 #define ParamLOG_VacationRead              ((bool)(knx.paramByte(LOG_VacationRead) & LOG_VacationReadMask))
 // Nach Neuberechnung Feiertagsinfo senden?
 #define ParamLOG_HolidaySend               ((bool)(knx.paramByte(LOG_HolidaySend) & LOG_HolidaySendMask))
-// Sommerzeit ermitteln durch
-#define ParamLOG_SummertimeAll             ((knx.paramByte(LOG_SummertimeAll) & LOG_SummertimeAllMask) >> LOG_SummertimeAllShift)
-// Sommerzeit ermitteln durch
-#define ParamLOG_SummertimeDE              ((knx.paramByte(LOG_SummertimeDE) & LOG_SummertimeDEMask) >> LOG_SummertimeDEShift)
-// Sommerzeit ermitteln durch
-#define ParamLOG_SummertimeWorld           ((knx.paramByte(LOG_SummertimeWorld) & LOG_SummertimeWorldMask) >> LOG_SummertimeWorldShift)
-// Sommerzeit ermitteln durch
-#define ParamLOG_SummertimeKO              ((knx.paramByte(LOG_SummertimeKO) & LOG_SummertimeKOMask) >> LOG_SummertimeKOShift)
-// Diagnoseobjekt anzeigen
-#define ParamLOG_Diagnose                  ((bool)(knx.paramByte(LOG_Diagnose) & LOG_DiagnoseMask))
-// Watchdog aktivieren
-#define ParamLOG_Watchdog                  ((bool)(knx.paramByte(LOG_Watchdog) & LOG_WatchdogMask))
 // 1. Neujahr
 #define ParamLOG_Neujahr                   ((bool)(knx.paramByte(LOG_Neujahr) & LOG_NeujahrMask))
 // 2. Heilige Drei Könige
@@ -293,10 +319,6 @@
 #define ParamLOG_Weihnachtstag2            ((bool)(knx.paramByte(LOG_Weihnachtstag2) & LOG_Weihnachtstag2Mask))
 // 30. Silvester
 #define ParamLOG_Silvester                 ((bool)(knx.paramByte(LOG_Silvester) & LOG_SilvesterMask))
-// Breitengrad
-#define ParamLOG_Latitude                  (knx.paramFloat(LOG_Latitude, Float_Enc_IEEE754Single))
-// Längengrad
-#define ParamLOG_Longitude                 (knx.paramFloat(LOG_Longitude, Float_Enc_IEEE754Single))
 // Frequenz für Buzzer (leise)
 #define ParamLOG_BuzzerSilent              (knx.paramWord(LOG_BuzzerSilent))
 // Frequenz für Buzzer (normal)
@@ -305,46 +327,25 @@
 #define ParamLOG_BuzzerLoud                (knx.paramWord(LOG_BuzzerLoud))
 // Lötpad A / B / C entspricht
 #define ParamLOG_LedMapping                ((knx.paramByte(LOG_LedMapping) & LOG_LedMappingMask) >> LOG_LedMappingShift)
-// Zeitzone
-#define ParamLOG_Timezone                  (knx.paramByte(LOG_Timezone) & LOG_TimezoneMask)
-// Zeitzone-Vorzeichen
-#define ParamLOG_TimezoneSign              ((bool)(knx.paramByte(LOG_TimezoneSign) & LOG_TimezoneSignMask))
-// Zeitzone-Wert
-#define ParamLOG_TimezoneValue             (knx.paramByte(LOG_TimezoneValue) & LOG_TimezoneValueMask)
 
-#define LOG_KoHeartbeat 1
-#define LOG_KoTime 2
-#define LOG_KoDate 3
 #define LOG_KoVacation 4
 #define LOG_KoHoliday1 5
 #define LOG_KoHoliday2 6
-#define LOG_KoDiagnose 7
 #define LOG_KoLedLock 8
 #define LOG_KoBuzzerLock 9
-#define LOG_KoIsSummertime 10
 
-// In Betrieb
-#define KoLOG_Heartbeat                 (knx.getGroupObject(LOG_KoHeartbeat))
-// Uhrzeit/Datum
-#define KoLOG_Time                      (knx.getGroupObject(LOG_KoTime))
-// Datum
-#define KoLOG_Date                      (knx.getGroupObject(LOG_KoDate))
 // Urlaub
 #define KoLOG_Vacation                  (knx.getGroupObject(LOG_KoVacation))
 // Welcher Feiertag ist heute?
 #define KoLOG_Holiday1                  (knx.getGroupObject(LOG_KoHoliday1))
 // Welcher Feiertag ist morgen?
 #define KoLOG_Holiday2                  (knx.getGroupObject(LOG_KoHoliday2))
-// Diagnose
-#define KoLOG_Diagnose                  (knx.getGroupObject(LOG_KoDiagnose))
 // LED sperren
 #define KoLOG_LedLock                   (knx.getGroupObject(LOG_KoLedLock))
 // Buzzer sperren
 #define KoLOG_BuzzerLock                (knx.getGroupObject(LOG_KoBuzzerLock))
-// Sommerzeit aktiv
-#define KoLOG_IsSummertime              (knx.getGroupObject(LOG_KoIsSummertime))
 
-#define LOG_ChannelCount 1
+#define LOG_ChannelCount 3
 
 // Parameter per channel
 #define LOG_ParamBlockOffset 26
