@@ -9,23 +9,22 @@
   <op:ETS ProductName="Logikmodul"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x31" 
-          ApplicationVersion="5.2"  
+          ApplicationVersion="5.7"  
           ReplacesVersions="14 19 20 21 22 23 24 25 31 32 33 34 35 38 44 45 46 52 57 59 60 61 62 4.0 5.1" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic"   
           BuildSuffix="-Dev"
           BuildSuffixText=" (dev)"
           OrderNumber="OpenKnxLogicDev"
+          BaggagesRootDir="A0/30"
   />
 
   <op:define prefix="BASE" 
-            header="Logikmodul.h" 
             share="../lib/OGM-Common/src/Common.share.xml"
             ModuleType="10" />
  
   <op:define prefix="LOG" 
-             header="Logikmodul.h" 
-             share="../lib/OFM-LogicModule/src/Logikmodul.share.xml"
+             share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
              NumChannels="3" 
              KoOffset="20" 
@@ -33,10 +32,6 @@
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="2.0" /> 
   </op:define>
   
-  <generate base="ApplicationTemplate.xml">
-    <Dynamic>
-      <op:include href="../lib/OGM-Common/src/Common.share.xml" xpath="//Dynamic/ChannelIndependentBlock" prefix="BASE" />
-      <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//Dynamic/Channel" prefix="LOG" />
-    </Dynamic>
-  </generate>
+  <!-- <generate base="MyApplication.xml" /> -->
+  <generate />
 </KNX>
