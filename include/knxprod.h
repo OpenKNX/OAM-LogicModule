@@ -11,10 +11,10 @@
 #define MAIN_OpenKnxId 0xAF
 #define MAIN_ApplicationNumber 49
 #define MAIN_ApplicationVersion 61
-#define MAIN_ParameterSize 8540
+#define MAIN_ParameterSize 8588
 #define MAIN_MaxKoNumber 316
 #define MAIN_OrderNumber "OpenKnxLogicDev"
-#define LOG_ModuleVersion 21
+#define LOG_ModuleVersion 32
 // Parameter with single occurrence
 
 
@@ -1941,4 +1941,49 @@
 #define KoLOG_KOfE2                     (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfE2)))
 // Ausgang
 #define KoLOG_KOfO                      (knx.getGroupObject(LOG_KoCalcNumber(LOG_KoKOfO)))
+
+#define NET_HostAddress               8540      // 0_t
+#define NET_SubnetMask                8544      // 0_t
+#define NET_GatewayAddress            8548      // 0_t
+#define NET_NameserverAddress1        8552      // 0_t
+#define NET_NameserverAddress2        8556      // 0_t
+#define NET_CustomHostname            8560      // 1 Bit, Bit 7
+#define     NET_CustomHostnameMask 0x80
+#define     NET_CustomHostnameShift 7
+#define NET_StaticIP                  8560      // 1 Bit, Bit 6
+#define     NET_StaticIPMask 0x40
+#define     NET_StaticIPShift 6
+#define NET_mDNS                      8560      // 1 Bit, Bit 5
+#define     NET_mDNSMask 0x20
+#define     NET_mDNSShift 5
+#define NET_HTTP                      8560      // 1 Bit, Bit 4
+#define     NET_HTTPMask 0x10
+#define     NET_HTTPShift 4
+#define NET_NTP                       8560      // 1 Bit, Bit 3
+#define     NET_NTPMask 0x08
+#define     NET_NTPShift 3
+#define NET_HostName                  8564      // char*, 24 Byte
+
+//   IP-Adresse
+#define ParamNET_HostAddress               ()
+//   Subnetzsmaske
+#define ParamNET_SubnetMask                ()
+//   Standardgateway
+#define ParamNET_GatewayAddress            ()
+//   Primär
+#define ParamNET_NameserverAddress1        ()
+//   Sekundär
+#define ParamNET_NameserverAddress2        ()
+//   Hostname anpassen
+#define ParamNET_CustomHostname            ((bool)(knx.paramByte(NET_CustomHostname) & NET_CustomHostnameMask))
+//   DHCP
+#define ParamNET_StaticIP                  ((bool)(knx.paramByte(NET_StaticIP) & NET_StaticIPMask))
+//   mDNS
+#define ParamNET_mDNS                      ((bool)(knx.paramByte(NET_mDNS) & NET_mDNSMask))
+//   Weberver
+#define ParamNET_HTTP                      ((bool)(knx.paramByte(NET_HTTP) & NET_HTTPMask))
+//   Zeitgeber (NTP)
+#define ParamNET_NTP                       ((bool)(knx.paramByte(NET_NTP) & NET_NTPMask))
+// 
+#define ParamNET_HostName                  (knx.paramData(NET_HostName))
 

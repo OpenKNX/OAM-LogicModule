@@ -19,30 +19,36 @@
               <RelativeSegment Id="%AID%_RS-04-00000" Name="Parameters" Offset="0" Size="%MemorySize%" LoadStateMachine="4" />
             </Code>
             <op:define prefix="LOG" header="Logikmodul.h" NumChannels="99" KoOffset="20" ModuleType="1">
-              <op:verify File="../lib/OFM-LogicModule/src/ModuleVersion.h" ModuleVersion="21" />
+              <op:verify File="../lib/OFM-LogicMOdule/library.json" ModuleVersion="32" />
             </op:define>
+            <op:define prefix="NET" header="../include/knxprod.h" KoOffset="0" ModuleType="4" />
             <ParameterTypes>
               <!-- generic parameter types for any device -->
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ParameterTypes/ParameterType" prefix="LOG" />
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//ParameterTypes/ParameterType" prefix="NET" />
             </ParameterTypes>
             <Parameters>
               <!-- Standard parameter in any of our devices -->
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="parameter" prefix="LOG" />
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.templ.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="template" prefix="LOG" />
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//Parameters/Parameter|//Parameters/Union" type="parameter" prefix="NET" />
             </Parameters>
             <ParameterRefs>
               <!-- General -->
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.parts.xml" xpath="//ParameterRefs/ParameterRef" prefix="LOG" />
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.templ.xml" xpath="//ParameterRefs/ParameterRef" type="template" prefix="LOG" />
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//ParameterRefs/ParameterRef" prefix="NET" />
             </ParameterRefs>
             <ComObjectTable>
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ComObjectTable/ComObject" prefix="LOG" />
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.templ.xml" xpath="//ComObjectTable/ComObject" type="template" prefix="LOG" />
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//ComObjectTable/ComObject" prefix="NET" />
             </ComObjectTable>
             <ComObjectRefs>
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="LOG" />
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.templ.xml" xpath="//ComObjectRefs/ComObjectRef" type="template" prefix="LOG" />
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//ComObjectRefs/ComObjectRef" prefix="NET" />
             </ComObjectRefs>
             <AddressTable MaxEntries="2047" />
             <AssociationTable MaxEntries="2047" />
@@ -78,6 +84,7 @@
                 <op:include href="../lib/OFM-LogicModule/src/Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Hardware']/*" prefix="LOG" />
                 <op:include href="../lib/OFM-LogicModule/src/Logikmodul.parts.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Diagnose']/*" prefix="LOG" />
               </ParameterBlock>
+              <op:include href="../lib/OFM-Network/src/NetworkModule.xml" xpath="//Dynamic/ChannelIndependentBlock/ParameterBlock[@Name='Network']" prefix="NET" />
             </ChannelIndependentBlock>
             <Channel Id="%AID%_CH-1" Name="Logikkanaele" Number="1" Text="Logikkanäle">
               <op:include href="../lib/OFM-LogicModule/src/Logikmodul.share.xml" xpath="//Dynamic/Channel/*" prefix="LOG" />
