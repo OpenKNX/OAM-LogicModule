@@ -101,11 +101,29 @@
             "group": "test"
         },
         {
+            "label": "Build-Release-Package",
+            "type": "shell",
+            "command": "scripts/Build-Release-Package.ps1",
+            "args": [],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
             "label": "Build-Release",
             "type": "shell",
             "command": "scripts/Build-Release.ps1",
             "args": [
                 "Release"
+            ],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "label": "Build-IP",
+            "type": "shell",
+            "command": "scripts/Build-IP.ps1",
+            "args": [
+                "IP"
             ],
             "problemMatcher": [],
             "group": "test"

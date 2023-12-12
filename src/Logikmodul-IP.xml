@@ -3,14 +3,13 @@
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
   <op:ETS ProductName="Logikmodul-IP"
           OpenKnxId="0xA0" 
-          ApplicationNumber="0x33" 
-          ApplicationVersion="1.7"  
+          ApplicationNumber="0x32" 
+          ApplicationVersion="1.6"  
           ReplacesVersions="0" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic-Net"   
           OrderNumber="OpenKnxLogicIP"
-          BuildSuffix="-dev"
-          BuildSuffixText=" (dev)"
+          IsRailMounted="true"
           BaggagesRootDir="A0/30"
           MaskVersion="MV-57B0"
           MediumTypes="MT-5"
@@ -27,7 +26,7 @@
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
-             NumChannels="3" 
+             NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="2.0" /> 

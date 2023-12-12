@@ -17,16 +17,7 @@ if (!$?) { exit 1 }
 Set-Location ..
 foreach ($subproject in $subprojects) {
     $cloned = 0
-    if ($subproject.Name -eq "knx")
-    {
-        # the following command may fail, because the project might already have been cloned
-        git clone https://github.com/thelsing/knx.git
-        if (!$?) { 
-            Write-Host -ForegroundColor Yellow "If the above message was 'fatal: ... already exists' then you can ignore this message, the project is already cloned"
-        }
-        $cloned = 1
-    }
-    elseif ($subproject.Name -ne "README")
+    if ($subproject.Name -ne "README")
     {
         # the following command may fail, because the project might already have been cloned
         git clone https://github.com/OpenKNX/$subproject.git

@@ -1,6 +1,10 @@
 #include "Logic.h"
 #ifdef ARDUINO_ARCH_RP2040
-    #include "UpdaterModule.h"
+    #include "FileTransferModule.h"
+    #if defined(KNX_IP_GENERIC)
+        #include "NetworkModule.h"
+        #include "UsbExchangeModule.h"
+    #endif
 #endif
 #include "OpenKNX.h"
 #ifdef ARDUINO_ARCH_RP2040
@@ -11,9 +15,14 @@ void setup()
 {
     const uint8_t firmwareRevision = 0;
     openknx.init(firmwareRevision);
-    openknx.addModule(1, new Logic());
+    openknx.addModule(1, openknxLogic);
 #ifdef ARDUINO_ARCH_RP2040
-    openknx.addModule(2, new UpdaterModule());
+    // openknx.addModule(2, new UpdaterModule());
+    openknx.addModule(9, openknxFileTransferModule);
+    #if defined(KNX_IP_GENERIC)
+    openknx.addModule(7, openknxNetwork);
+    openknx.addModule(8, openknxUsbExchangeModule);
+    #endif
 #endif
     openknx.setup();
 }

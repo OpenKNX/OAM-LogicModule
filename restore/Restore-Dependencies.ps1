@@ -8,12 +8,16 @@ $projectDir = Get-Location
 cmd /c "mklink /D `"$projectDir\lib\linktest`" ..\restore"
 if (!$?) { 
     Write-Host "You need Developer-Mode or Administrator privileges to execute this script!"
+    Set-Location $currentDir
     timeout /T 20
     exit 1 
 }
 # cleanup after test
 cmd /c "rmdir `"$projectDir\lib\linktest`""
-if (!$?) { exit 1 }
+if (!$?) {
+    Set-Location $currentDir
+    exit 1
+}
 
 Set-Location ..
 foreach ($line in $subprojects_dependencies) {
@@ -38,7 +42,10 @@ foreach ($line in $subprojects_dependencies) {
         $renamed = $false
         if(Test-Path -Path $projectDir/lib/$subproject) {
             Rename-Item $projectDir/lib/$subproject $projectDir/lib/tmp-openknx-restore
-            if (!$?) { exit 1 }
+            if (!$?) { 
+                Set-Location $currentDir
+                exit 1 
+            }
             $renamed = $true
         }
         cmd /c "mklink /D `"$projectDir\lib\$subproject`" ..\..\$subproject"
@@ -47,10 +54,14 @@ foreach ($line in $subprojects_dependencies) {
             if ($?) { 
                 # link creation successful, now we can safely delete old renamed file
                 Remove-Item -Recurse $projectDir/lib/tmp-openknx-restore
-                if (!$?) { exit 1 }
+                if (!$?) { 
+                    Set-Location $currentDir
+                    exit 1 
+                }
             } else {
                 # link creation failed, we restore previous state and leave script
                 Rename-Item $projectDir/lib/tmp-openknx-restore $projectDir/lib/$subproject 
+                Set-Location $currentDir
                 exit 1 
             }
         }

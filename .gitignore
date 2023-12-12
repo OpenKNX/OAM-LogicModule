@@ -7,4 +7,4 @@
 **/*.debug.xml
 release/*
 src/*.baggages
-
+release-package/*
