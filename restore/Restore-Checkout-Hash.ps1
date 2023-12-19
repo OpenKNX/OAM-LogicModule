@@ -29,4 +29,4 @@ foreach ($subproject in $subprojects) {
     }
 }
 Set-Location restore
-timeout /T 20
+if ($IsMacOS -or $IsLinux) { Start-Sleep -Seconds 5 } else { timeout /T 20 }

@@ -4,24 +4,28 @@
   <op:ETS ProductName="Logikmodul-IP"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x32" 
-          ApplicationVersion="1.6"  
+          ApplicationVersion="3.0"  
           ReplacesVersions="0" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic-Net"   
           OrderNumber="OpenKnxLogicIP"
           IsRailMounted="true"
-          BaggagesRootDir="A0/30"
+          BaggagesRootDir="A0/32"
           MaskVersion="MV-57B0"
           MediumTypes="MT-5"
   />
 
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
-            ModuleType="10" />
- 
+            ModuleType="10">
+     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.0" /> 
+  </op:define>
+
   <op:define prefix="NET" 
             share="../lib/OFM-Network/src/Network.share.xml"
-            ModuleType="11" />
+            ModuleType="11">
+    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="0.1" /> 
+  </op:define>
  
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
@@ -29,7 +33,7 @@
              NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="2.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->

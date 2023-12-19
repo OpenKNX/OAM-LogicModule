@@ -4,8 +4,8 @@
   <op:ETS ProductName="Logikmodul"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x30" 
-          ApplicationVersion="1.6"  
-          ReplacesVersions="8 9 11 12 13 16 17 18 19 20 1.5" 
+          ApplicationVersion="3.0"  
+          ReplacesVersions="8 9 11 12 13 16 17 18 19 20 1.5 1.6 1.7 1.8 1.9 1.10 1.11 1.12 1.13 1.14 1.15" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic"  
           HardwareName="OpenKNX-Logic" 
@@ -16,7 +16,9 @@
 
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
-            ModuleType="10" />
+            ModuleType="10">
+     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.0" /> 
+  </op:define>
  
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
@@ -24,7 +26,7 @@
              NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="2.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->

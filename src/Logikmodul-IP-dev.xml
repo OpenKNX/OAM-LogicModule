@@ -1,35 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
-  <op:config name="%LOG_EnableHardware%" value="1" />
-  <op:config name="%LOG_LedAccess%" value="ReadWrite" />
-  <op:config name="%LOG_LedDefault%" value="0" />
-  <op:config name="%LOG_BuzzerAccess%" value="ReadWrite" />
-  <op:config name="%LOG_BuzzerDefault%" value="1" />
-  <op:ETS ProductName="Logikmodul"
+  <op:ETS ProductName="Logikmodul-IP"
           OpenKnxId="0xA0" 
-          ApplicationNumber="0x31" 
-          ApplicationVersion="5.7"  
-          ReplacesVersions="14 19 20 21 22 23 24 25 31 32 33 34 35 38 44 45 46 52 57 59 60 61 62 4.0 5.1" 
+          ApplicationNumber="0x33" 
+          ApplicationVersion="1.8"  
+          ReplacesVersions="0" 
           ApplicationRevision="0" 
-          ApplicationName="WP-Logic"   
-          BuildSuffix="-Dev"
+          ApplicationName="WP-Logic-Net"   
+          OrderNumber="OpenKnxLogicIP"
+          BuildSuffix="-dev"
           BuildSuffixText=" (dev)"
-          OrderNumber="OpenKnxLogicDev"
           BaggagesRootDir="A0/30"
+          MaskVersion="MV-57B0"
+          MediumTypes="MT-5"
   />
 
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
             ModuleType="10" />
  
+  <op:define prefix="NET" 
+            share="../lib/OFM-Network/src/Network.share.xml"
+            ModuleType="11" />
+ 
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
-             NumChannels="3" 
+             NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="2.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->
