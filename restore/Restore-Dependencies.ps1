@@ -34,7 +34,10 @@ Here's a high-level description of what it does:
 $Verbose=$false
 $DebugMsg=$false
 
-function CheckOS {
+function Test-IsRunAsAdministrator {
+  return ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+}
+function CheckOS ($AdminOnly = $true) {
   # check on which os we are running
   # After check, the Os-Informations are availibe in the PS-Env.
   if ($PSVersionTable.PSVersion.Major -lt 6.0) {
@@ -52,7 +55,16 @@ function CheckOS {
 
   if ($IsLinuxEnv) { Write-Host -ForegroundColor Green "We are on Linux Build Enviroment" }
   if ($IsMacOSEnv ) { Write-Host -ForegroundColor Green "We are on MacOS Build Enviroment" }
-  if ($IsWinEnv ) { Write-Host -ForegroundColor Green "We are on Windows Build Enviroment" }
+  if ($IsWinEnv ) { 
+    Write-Host -ForegroundColor Green "We are on Windows Build Enviroment"
+    Write-Host -ForegroundColor Green "Checking if we are in Developer Mode or Administrator privileges"
+    if( $AdminOnly -and -not (Test-IsRunAsAdministrator)) {
+      Write-Host -ForegroundColor Red "ERROR: Restore-Dependencies requires Developer Mode or Administrator privileges to run!"
+      Write-Host -ForegroundColor Red "- Please run the script again with Developer Mode or Administrator privileges."
+      Write-Host -ForegroundColor Red "- If you are using Windows >10, you can enable Developer Mode by going to Settings > Update & Security > For developers and selecting Developer mode."
+      exit 1
+    } else { Write-Host -ForegroundColor Green "The script is running with Developer Mode or Administrator privileges." }
+  }
 }
 function ProcessDependencies($DependenciesFile) {
   # Check if the file exists
@@ -337,17 +349,13 @@ function CreateSymbolicLink ($projectDir, $projectFiles) {
       $linkTarget = $ProjectFile.BaseName
       if ($IsMacOS -or $IsLinux) {
         $linkValue = Join-Path -Path ".." -ChildPath ".." -AdditionalChildPath $linkTarget
-        New-Item -ItemType SymbolicLink -Path $projectFile.Path -Value $linkValue | Out-Null
-        if($true) { Write-Host "- CreateSymbolicLink - Symbolic link created at $($projectFile.Path) with target $linkValue"([Char]0x221A) -ForegroundColor Green }
+        New-Item -ItemType SymbolicLink -Path $projectFile.Path -Target $linkValue | Out-Null
       } else { 
-        $TargetLinkDir = Split-Path -Path $projectDir -Parent
-        $LinkPath = Join-Path $projectDir "lib"
-        $LinkName = $ProjectFile.BaseName
-        $LinkTarget = Join-Path $TargetLinkDir $ProjectFile.BaseName
-        New-Item -ItemType Junction -Path $LinkPath -Name $LinkName -Value $LinkTarget -OutVariable output | Out-Null
-        if($true) { Write-Host "- CreateSymbolicLink - Symbolic (Junction) link created at $($LinkPath) with Name $($LinkName) and target $($LinkTarget)"([Char]0x221A)  -ForegroundColor Green }
-        
+        $linkValue = Join-Path $(Join-Path ".." "..") $linkTarget
+        #New-Item -ItemType SymbolicLink -Path $projectFile.Path -Target $linkValue | Out-Null
+        cmd /C mklink /D "$($projectFile.Path)" "$linkValue"
       }
+      if($true) { Write-Host "- CreateSymbolicLink - Symbolic link created at $($projectFile.Path) with target $linkValue"([Char]0x221A) -ForegroundColor Green }
     }
   }
 }
