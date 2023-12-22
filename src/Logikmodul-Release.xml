@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
+  <op:config name="%LOG_EnableHardware%" value="1" />
+  <op:config name="%LOG_LedAccess%" value="ReadWrite" />
+  <op:config name="%LOG_LedDefault%" value="0" />
+  <op:config name="%LOG_BuzzerAccess%" value="ReadWrite" />
+  <op:config name="%LOG_BuzzerDefault%" value="0" />
   <op:ETS ProductName="Logikmodul"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x30" 

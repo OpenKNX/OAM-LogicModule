@@ -5,7 +5,7 @@
   <op:config name="%LOG_LedAccess%" value="ReadWrite" />
   <op:config name="%LOG_LedDefault%" value="0" />
   <op:config name="%LOG_BuzzerAccess%" value="ReadWrite" />
-  <op:config name="%LOG_BuzzerDefault%" value="1" />
+  <op:config name="%LOG_BuzzerDefault%" value="0" />
   <op:ETS ProductName="Logikmodul"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x31" 
@@ -26,7 +26,7 @@
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
              template="../lib/OFM-LogicModule/src/Logikmodul.templ.xml"
-             NumChannels="99" 
+             NumChannels="3" 
              KoOffset="20" 
              ModuleType="1" >
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 

@@ -57,12 +57,16 @@ lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v40_RP2
 if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile for SAMD
-# lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v31_SAMD firmware-Sensormodul-v31-SAMD bin
-# if (!$?) { exit 1 }
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v31_SAMD firmware-Sensormodul-v31-SAMD bin
+if (!$?) { exit 1 }
 
-# lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v30_SAMD firmware-Sensormodul-v30-SAMD bin
-# if (!$?) { exit 1 }
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v30_SAMD firmware-Sensormodul-v30-SAMD bin
+if (!$?) { exit 1 }
 
 # execute generic post-build steps
 lib/OGM-Common/scripts/setup/reusable/Build-Release-Postprocess.ps1 $args[0]
 if (!$?) { exit 1 }
+
+if (Test-Path -Path release-collection -PathType Container) {
+    Copy-Item release/* release-collection/
+}
