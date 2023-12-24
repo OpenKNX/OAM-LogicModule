@@ -79,9 +79,9 @@
             "problemMatcher": []
         },
         {
-            "label": "Start Pre-Build-Task",
+            "label": "Build-Dependencies",
             "type": "shell",
-            "command": "lib/OGM-Common/scripts/build/OpenKNX-Pre-Build.ps1",
+            "command": "lib/OGM-Common/scripts/setup/reusable/Build-Dependencies.ps1",
             "args": [],
             "group": "build",
             "problemMatcher": []
@@ -109,11 +109,29 @@
             "group": "test"
         },
         {
+            "label": "Build-Release-Package",
+            "type": "shell",
+            "command": "scripts/Build-Release-Package.ps1",
+            "args": [],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
             "label": "Build-Release",
             "type": "shell",
             "command": "scripts/Build-Release.ps1",
             "args": [
                 "Release"
+            ],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
+            "label": "Build-IP",
+            "type": "shell",
+            "command": "scripts/Build-IP.ps1",
+            "args": [
+                "IP"
             ],
             "problemMatcher": [],
             "group": "test"

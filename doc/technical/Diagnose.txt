@@ -1,6 +1,0 @@
-Befehle:
-v - Firmware-Version
-s - Save-Buffer count
-l<nn> - Diagnose logik channel <nn> (leading zero necessary)
-      > E11E20I11I2xA1
-      > A1 B0 C1 Dx Q1 <-- der wird es

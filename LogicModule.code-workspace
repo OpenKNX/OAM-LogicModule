@@ -7,10 +7,16 @@
 			"path": "../OFM-LogicModule"
 		},
 		{
-			"path": "../OFM-Updater"
+			"path": "../OGM-Common"
 		},
 		{
-			"path": "../OGM-Common"
+			"path": "../OFM-FileTransferModule"
+		},
+		{
+			"path": "../OFM-UsbExchange"
+		},
+		{
+			"path": "../OFM-Network"
 		},
 		{
 			"path": "../knx"

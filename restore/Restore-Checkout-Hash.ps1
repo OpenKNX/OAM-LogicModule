@@ -11,12 +11,22 @@ foreach ($subproject in $subprojects) {
         Write-Host "Subproject $($attr[2])" -ForegroundColor Yellow
         Set-Location $attr[2]
         git fetch --all
-        if (!$?) { exit 1 }
+        if (!$?) {
+            Write-Host "  FAIL: fetch --all" -ForegroundColor Red
+            Set-Location $currentDir
+            Set-Location restore
+            exit 1
+        }
         git -c advice.detachedHead=false checkout $attr[0]
-        if (!$?) { exit 1 }
+        if (!$?) {
+            Write-Host "  FAIL: checkout" -ForegroundColor Red
+            Set-Location $currentDir
+            Set-Location restore
+            exit 1
+        }
         # no pull on hash
         Set-Location $currentDir
     }
 }
 Set-Location restore
-timeout /T 20
+if ($IsMacOS -or $IsLinux) { Start-Sleep -Seconds 5 } else { timeout /T 20 }
