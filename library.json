@@ -1,0 +1,16 @@
+{
+    "name": "OAM-LogicModule",
+    "version": "3.0.0",
+    "description": "OpenKNX Logic application",
+    "homepage": "https://openknx.de",
+    "authors": {
+        "name": "OpenKNX",
+        "email": "info@openknx.de",
+        "url": "https://openknx.de",
+        "maintainer": true
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OpenKNX/OAM-LogicModule"
+    }
+}
