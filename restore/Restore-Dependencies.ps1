@@ -31,8 +31,115 @@ Here's a high-level description of what it does:
 
   8. Many core functions of the script are modularized and can be used outside of this script, providing flexibility and reusability.
 #>
-$Verbose=$false
-$DebugMsg=$false
+# Optional Input Parameters
+param(
+  # Set the Git checkout mode
+  [ValidateSet("Branch", "Hash")]
+  [string]$GitCheckoutMode= "Branch", # Branch or Hash. Default is Branch
+
+  # Force the script to recreate symbolic links
+  [switch]$ForceRecreateSymLinks= $true, # Default is $true
+  
+  # "dependencies.txt" file
+  [string]$DependenciesFile= "dependencies.txt", # Default is "dependencies.txt"
+
+  # Check for privileges (Windows only)
+  [switch]$CheckForDeveloperMode= $true,  # Default is $true
+  [switch]$CHeckForSymbolicLinkPermissions= $true, # Default is $true
+  [switch]$CheckForAdminOnly= $false # Default is $false
+)
+
+# Global Variables
+$UseMklinkToCreateSymLinks = $false
+
+# Set the Write-Host message behavior
+[switch]$Verbose= $false # Default is $false
+[switch]$DebugMsg= $false  # Default is $false
+
+function Test-Administrator {
+  return (([Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole('Administrators')).If($true, $false)
+}
+
+function Test-DeveloperMode {
+  try {
+    # Check if the registry key exists
+    $isDeveloperMode = (Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name "AllowDevelopmentWithoutDevLicense" -ErrorAction Stop) -eq 1
+    return $isDeveloperMode
+  } catch {
+    Write-Host -ForegroundColor Red "Error: $_"
+    return $false
+  }
+}
+
+function Test-SymbolicLinkPermission {
+  # Create a test symbolic link and target
+  $testLinkPath = Join-Path ([System.IO.Path]::GetTempPath()) "test_symlink"
+  $testTargetPath = Join-Path ([System.IO.Path]::GetTempPath()) "test_target"
+  # Create the test target file
+  New-Item -ItemType File -Path $testTargetPath -Force | Out-Null
+  try {
+    New-Item -ItemType SymbolicLink -Path $testLinkPath -Target $testTargetPath -Force | Out-Null
+    Write-Host -ForegroundColor Green "- User $($env:USERNAME) has permissions to create symbolic links."([Char]0x221A)
+    return $true
+  } catch {
+    Write-Host -ForegroundColor Red "- User $($env:USERNAME) does not have permissions to create symbolic links."
+    return $false
+  } finally {
+    Remove-Item -Path $testLinkPath -ErrorAction SilentlyContinue
+    Remove-Item -Path $testTargetPath -ErrorAction SilentlyContinue
+  }
+}
+
+function OpenKNX_ShowLogo($AddCustomText= $null) {
+  Write-Host ""
+  Write-Host "Open " -NoNewline
+  #Write-Host "▀" -ForegroundColor Green
+  Write-Host "$( [char]::ConvertFromUtf32(0x2580) )" -ForegroundColor Green
+  $unicodeString = "$( [char]::ConvertFromUtf32(0x2533) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x253B) ) "
+  
+  if ($AddCustomText) { 
+    #Write-Host "┳━━━━┻  $AddCustomText" -ForegroundColor Green
+    Write-Host "$($unicodeString) $($AddCustomText)"  -ForegroundColor Green
+  } else {
+    #Write-Host "┳━━━━┻" -ForegroundColor Green
+    Write-Host "$($unicodeString)"  -ForegroundColor Green
+  }
+
+  #Write-Host "▄" -NoNewline -ForegroundColor Green
+  Write-Host "$( [char]::ConvertFromUtf32(0x2584) )" -NoNewline -ForegroundColor Green
+  Write-Host " KNX"
+  Write-Host ""
+}
+
+function CheckForPrivileges {
+  if ($IsWinEnv ) {
+    if($CheckForAdminOnly) {
+      if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking if we are in Administrator privileges" }
+      if( -not (Test-Administrator) ) {
+        Write-Host -ForegroundColor Red "ERROR: Restore-Dependencies requires Administrator privileges to run!"
+        Write-Host -ForegroundColor Red "- Please run the script again with Administrator privileges."
+        exit 1
+      } else { Write-Host -ForegroundColor Green "- The script is running with Administrator privileges." ([Char]0x221A) }
+    }
+    if($CheckForDeveloperMode) {
+      if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking if we are in Developer Mode" }
+      if( -not (Test-DeveloperMode) ) {
+        Write-Host -ForegroundColor Red "ERROR: Restore-Dependencies requires Developer Mode to run!"
+        Write-Host -ForegroundColor Red "- Please run the script again with Developer Mode."
+        Write-Host -ForegroundColor Red "- If you are using Windows `>10, you can enable Developer Mode by going to Settings `> Update `& Security `> For developers and selecting Developer mode."
+        exit 1
+      } else { Write-Host -ForegroundColor Green "- The script is running with Developer Mode." ([Char]0x221A) }
+    }
+    if($CHeckForSymbolicLinkPermissions) {
+      if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking if we have permissions to create symbolic links" }
+      if( -not (Test-SymbolicLinkPermission) ) {   
+        Write-Host -ForegroundColor Red "ERROR: Restore-Dependencies requires permissions to create symbolic links to run!"
+        Write-Host -ForegroundColor Red "- Please run the script again with Administrator privileges."
+        exit 1
+      } else { Write-Host -ForegroundColor Green "- The script has permissions to create symbolic links." ([Char]0x221A) }
+    }
+  }
+}
 
 function CheckOS {
   # check on which os we are running
@@ -50,15 +157,20 @@ function CheckOS {
   $script:IsMacOSEnv = (Get-Variable -Name "IsMacOS" -ErrorAction Ignore) -and $IsMacOS
   $script:IsWinEnv = !$IsLinuxEnv -and !$IsMacOSEnv
 
-  if ($IsLinuxEnv) { Write-Host -ForegroundColor Green "We are on Linux Build Enviroment" }
-  if ($IsMacOSEnv ) { Write-Host -ForegroundColor Green "We are on MacOS Build Enviroment" }
-  if ($IsWinEnv ) { Write-Host -ForegroundColor Green "We are on Windows Build Enviroment" }
+  $CurrentOS = switch($true) {
+    $IsLinuxEnv { "Linux" }
+    $IsMacOSEnv { "MacOS" }
+    $IsWinEnv { "Windows" }
+    default { "Unknown" }
+  }
+  $PSVersion = "$($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor).$($PSVersionTable.PSVersion.Patch)"
+  if($true) { Write-Host -ForegroundColor Green "- We are on $CurrentOS Build Environment with PowerShell $PSVersion"  ([Char]0x221A) }
 }
 function ProcessDependencies($DependenciesFile) {
   # Check if the file exists
   if (-not (Test-Path $DependenciesFile)) {
-    if($Verbose) { Write-Host -ForegroundColor DarkYellow "The file $DependenciesFile does not exist." }
-    return
+    Write-Host -ForegroundColor Red "The file $DependenciesFile does not exist."
+    return $null
   }
 
   # Get the content of the file
@@ -94,7 +206,6 @@ function ProcessDependencies($DependenciesFile) {
       }
     }
   }
-
   return $dependedProjects
 }
 function Get-ProjectFiles($subprojects) {
@@ -105,7 +216,7 @@ function Get-ProjectFiles($subprojects) {
   foreach ($subproject in $subprojects) {
     # Find and Get the project file
       $projectFile = $subproject | Select-Object BaseName
-      if($Verbose) { Write-Host "Get-ProjectFiles - Found existing project file: $($projectFile.BaseName)" -ForegroundColor Yellow }
+      if($Verbose) { Write-Host "- Get-ProjectFiles - Found existing project file: $($projectFile.BaseName)" -ForegroundColor Yellow }
 
     # Check if the file name is not "README" and is not empty
     if ($projectFile.BaseName -ne "README" -and ![string]::IsNullOrWhiteSpace($projectFile.BaseName)) {
@@ -117,14 +228,15 @@ function Get-ProjectFiles($subprojects) {
   # Return the list of project files
   return $projectFiles
 }
-function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir) {
+function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $CloneModeHash= $false) {
   # Loop through each depended project
+  if($CloneModeHash -and $Verbose) { Write-Host "- CloneRepository - Using hash" -ForegroundColor Green }
   foreach ($dependedProject in $dependedProjects) {
     # Initialize a flag to track if the project is found
-    $found = $false
     $hashMatch = $false
+    $branchMatch = $false
     
-    if($Verbose) { Write-Host "CloneRepository - Check: "$dependedProject.ProjectName -ForegroundColor Green }
+    if($Verbose) { Write-Host "- CloneRepository - Check: '$($dependedProject.ProjectName)'" -ForegroundColor Green }
     # Loop through each project file's git information
     foreach ($projectFile in $projectFilesGitInfo) {
       # Check if projectFile contains valid data
@@ -132,25 +244,38 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir) {
           ($null -ne $dependedProject.ProjectName -and $dependedProject.ProjectName -ne "") -and
           (          $projectFile.BaseName      -match $dependedProject.ProjectName) )
       {
-        if ($null -ne $projectFile.TargetBranch -and $projectFile.TargetBranch -ne "") {
-          $found = $true
-          if($Verbose) { Write-Host "CloneRepository - Found: "$dependedProject.ProjectName" - "$projectFile.Path -ForegroundColor Green }
-          # Compare the TargetShortHash with depend hash
-          if ($null -ne $projectFile.TargetShortHash -and $null -ne $dependedProject.Hash -and $projectFile.TargetShortHash -match $dependedProject.Hash) {
-            # If the project is found, set the flag to true and break the loop
-            $hashMatch = $true
-            if($Verbose) { Write-Host "CloneRepository - Hashes mathing: "$dependedProject.ProjectName -ForegroundColor Green }
-          }
+        if($Verbose) { Write-Host "- CloneRepository - Found: '$($dependedProject.ProjectName)' - '$($projectFile.Path)'" -ForegroundColor Green }
+        #Compare the branches and hashes
+        # Check if the branches match
+        if (($null -ne $projectFile.TargetBranch -and $projectFile.TargetBranch -ne "") -and 
+                       $projectFile.TargetBranch -eq $dependedProject.Branch) 
+        {
+          # If the branches match, set the flag to true
+          $branchMatch = $true
+          if($Verbose) { Write-Host "- CloneRepository - Branch: '$($dependedProject.ProjectName)' - Both matches to ($($projectFile.TargetBranch))" -ForegroundColor Green }
+        }
+        # Check if the hashes match
+        if (($null -ne $projectFile.TargetShortHash -and $null -ne $dependedProject.Hash) -and 
+                       $projectFile.TargetShortHash -match $dependedProject.Hash) 
+        {
+          # If the project is found, set the flag to true and break the loop
+          $hashMatch = $true
+          if($Verbose) { Write-Host "- CloneRepository - Hash: '$($dependedProject.ProjectName)' - Both matches to ($($projectFile.TargetShortHash))" -ForegroundColor Green }
+        }
+        if($branchMatch -and $hashMatch) {
+          if($Verbose) { Write-Host "- CloneRepository - Found: "$dependedProject.ProjectName" - "$projectFile.Path -ForegroundColor Green }
+          if($Verbose) { Write-Host "- CloneRepository - Branches and Hashes matching: '$($dependedProject.ProjectName)'" -ForegroundColor Green }
           break
         }
+        break
       }
     }
 
     # If the project is not found, clone the repository
-    if (-not $found) {
+    if (-not $branchMatch -and -not $hashMatch) {
       # Create the Git clone URL with the URL and the Hash from the dependency
       $GitClone = ($dependedProject.URL).ToString()
-      if($Verbose) { Write-Host "CloneRepository - $($dependedProject.ProjectName) not Found. Target does not exist." -ForegroundColor DarkYellow }
+      if($Verbose) { Write-Host "- CloneRepository - '$($dependedProject.ProjectName)' not Found. Target does not exist." -ForegroundColor DarkYellow }
       # Try to clone the repository
       try {
         if($IsWinEnv){
@@ -158,10 +283,30 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir) {
         } else {
           $CloneTarget = Join-Path -Path $CloneDir -ChildPath $dependedProject.ProjectName
         }
-        if($Verbose) { Write-Host "CloneRepository - CloneTarget: " $CloneTarget -ForegroundColor Green }
-        if($Verbose) { Write-Host "- CloneRepository - Cloning "$dependedProject.ProjectName": '$GitClone' to '$CloneTarget'" -ForegroundColor Yellow }
-        Invoke-RestMethod -Uri $GitClone -Method Head -ErrorAction Stop; 
-        git clone -q $GitClone $CloneTarget.ToString()
+        if($Verbose) { Write-Host "- CloneRepository - CloneTarget: " $CloneTarget -ForegroundColor Green }
+        if($Verbose) { Write-Host "- CloneRepository - Cloning '$($dependedProject.ProjectName)': '$GitClone' to '$CloneTarget'" -ForegroundColor Yellow }
+        
+        $DoClone= $true
+        # Check if the folder already exists
+        if (Test-Path $CloneTarget -PathType Container) {
+          # Check if it's a Git repository (contains .git directory)
+          if (Test-Path (Join-Path $CloneTarget ".git") -PathType Container) {
+            if($Verbose) { Write-Host "- CloneRepository - Cloning: The target directory is already a Git repository." -ForegroundColor Yellow }
+            $DoClone= $false
+          } else {
+            # The folder exists, but it's not a Git repository, so rename it
+            if($true) { Write-Host "- CloneRepository - The directory already exists, but it's not a Git repository. Renaming..." -ForegroundColor Yellow }
+            Rename-Item -Path $CloneTarget -NewName "${CloneTarget}_backup" -Force
+          }
+        }
+        if($DoClone) {
+          Invoke-RestMethod -Uri $GitClone -Method Head -ErrorAction Stop;
+          if($Verbose) { $GitCmd= "git clone '$($GitClone)' '$($CloneTarget.ToString())'" 
+          } else { $GitCmd= "git clone -q '$($GitClone)' '$($CloneTarget.ToString())'" }
+          Invoke-Expression $($GitCmd)
+          #git clone -q '$GitClone' '$CloneTarget.ToString()'
+        }
+        
         if($true) { Write-Host "- CloneRepository - Cloning "$dependedProject.ProjectName": '$GitClone' to '$CloneTarget' Done"([Char]0x221A) -ForegroundColor Green }
       }
       # If the repository does not exist, catch the error
@@ -170,12 +315,13 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir) {
       }
     } 
     # If the project is found, check out to the specific branch
-    if(-not $hashMatch) 
+    if(-not $hashMatch -or -not $branchMatch) 
     {
-      if($Verbose) { Write-Host "CloneRepository - Found: "$dependedProject.ProjectName" - "$dependedProject.URL -ForegroundColor Green }
+      if($Verbose) { Write-Host "- CloneRepository - Found: "$dependedProject.ProjectName" - "$dependedProject.URL -ForegroundColor Green }
       
       # If the repository already exists, switch to the corresponding branch
-      if($Verbose) { Write-Host "CloneRepository -"$dependedProject.ProjectName"- Repository already exists. Checking out to the branch." -ForegroundColor Yellow }
+      $checkoutTarget = if ($CloneModeHash) { "Hash" } else { "Branch" }
+      if($Verbose) { Write-Host "- CloneRepository -"$dependedProject.ProjectName"- Repository already exists. Checking out to the $($checkoutTarget)." -ForegroundColor Yellow }
       
       try {
         # Check the installed Git version
@@ -187,22 +333,39 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir) {
           $GitDir = Join-Path -Path $CloneTarget.TargetPath -ChildPath ".git"
         }
         
-        if($Verbose) { Write-Host "CloneRepository - Branch - GitDir: "$GitDir -ForegroundColor Yellow }
+        if($Verbose) { Write-Host "- CloneRepository - $($checkoutTarget) - GitDir: "$GitDir -ForegroundColor Yellow }
         $GitCmd = "git --git-dir=""$($GitDir)"" --work-tree=""$($CloneTarget.ToString())"""
-        if($Verbose) { Write-Host "CloneRepository - Branch - GitCmd: "$GitCmd -ForegroundColor Yellow }
+        if($Verbose) { Write-Host "- CloneRepository - $($checkoutTarget) - GitCmd: "$GitCmd -ForegroundColor Yellow }
 
-        if ((& git --version) -ge 'git version 2.23') {
-          # If the Git version is 2.23 or higher, use the 'switch' command
-          Invoke-Expression "$GitCmd switch $($dependedProject.Branch)"
+        if($CloneModeHash) {
+          $CheckOutTarget = $($dependedProject.Hash)  # Optional: If the CloneModeHash is true, use the Hash
         } else {
-          # If the Git version is lower than 2.23, use the 'checkout' command
-          Invoke-Expression "$GitCmd checkout $($dependedProject.Branch)"
+          $CheckOutTarget = $($dependedProject.Branch) # If the CloneModeHash is false (default), use the Branch
         }
-        if($true) { Write-Host "- CloneRepository -$($dependedProject.ProjectName) Branch ""$($dependedProject.Branch)"" Checked out."([Char]0x221A) -ForegroundColor Green }
+
+        if ((& git --version) -ge 'git version 2.23' -and $CloneModeHash -eq $false ) {
+          $CheckOutMethod = "switch"    # If the Git version is 2.23 or higher, use the 'switch' command
+        } else {
+          $CheckOutMethod = "checkout"  # If the Git version is 2.23 or higher, use the 'switch' command
+        }
+
+        # Let's do the git checkout
+        if($Verbose) { 
+          Invoke-Expression "$GitCmd $CheckOutMethod $($CheckOutTarget)"
+        } else { 
+          Invoke-Expression "$GitCmd $CheckOutMethod $($CheckOutTarget) -q" | Out-Null
+        }
+
+        if($true) { 
+          $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
+          Write-Host "- CloneRepository - '$($dependedProject.ProjectName)' $($checkoutTarget) Checked out."([Char]0x221A) -ForegroundColor Green 
+        }
       }
       # If cannot check out to the branch, catch the error
       catch {
-        if($Verbose) { Write-Host "CloneRepository -"$dependedProject.ProjectName"- Checkout Error! Cannot checkout to branch: "$dependedProject.Hash -ForegroundColor DarkYellow }
+        if($Verbose) {
+          $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
+          Write-Host "- CloneRepository - $($dependedProject.ProjectName) - Checkout Error! Cannot checkout $($checkoutTarget) Checked out."([Char]0x2717) -ForegroundColor DarkYellow }
       }
     }
   }
@@ -219,9 +382,9 @@ function Get-GitInfo($path) {
     $LongCommitHash = "git --git-dir ""$($TargetDir)"" log -1 --pretty=format:'%H'"
     $RemoteOriginURL = "git --git-dir ""$($TargetDir)"" config --get remote.origin.url"
     
-    $ShortCommitHash= Invoke-Expression $ShortCommitHash
-    $LongCommitHash= Invoke-Expression $LongCommitHash
-    $RemoteOriginURL = Invoke-Expression $RemoteOriginURL
+    if($Verbose) { $ShortCommitHash= Invoke-Expression $ShortCommitHash } else { $ShortCommitHash= Invoke-Expression $ShortCommitHash | Out-Null }
+    if($Verbose) { $LongCommitHash= Invoke-Expression $LongCommitHash } else { $LongCommitHash= Invoke-Expression $LongCommitHash | Out-Null }
+    if($Verbose) { $RemoteOriginURL = Invoke-Expression $RemoteOriginURL } else { $RemoteOriginURL = Invoke-Expression $RemoteOriginURL  | Out-Null }
     
     if($Verbose) { Write-Host "GitInfo - Found git repo in directory: $path" -ForegroundColor Green }
     
@@ -293,74 +456,120 @@ function CreateSymbolicLink ($projectDir, $projectFiles) {
   
   # Check if projectDir and projectFiles are not empty
   if (-not $projectDir -or -not $projectFiles) {
-    if($Verbose) { Write-Host "CreateSymbolicLink - Project directory or project files are empty." -ForegroundColor DarkYellow }
+    if($Verbose) { Write-Host "- CreateSymbolicLink - Project directory or project files are empty." -ForegroundColor DarkYellow }
     return
   }
   foreach ($projectFile in $projectFiles) {
     $CreateSymLink = $true 
 
     # Test if if a symbolic link exists
-    if($Verbose) { Write-Host "CreateSymbolicLink - Symbolic link test: $($projectFile.Path)" -ForegroundColor Yellow }
+    if($Verbose) { Write-Host "- CreateSymbolicLink - Symbolic link test: $($projectFile.Path)" -ForegroundColor Yellow }
     if ($null -ne $projectFile.Path -and $projectFile.Path -ne '' -and (Test-Path $projectFile.Path)) {
         if ((Get-Item $projectFile.Path).Attributes.ToString().Contains("ReparsePoint")) {
         # Seems that there is a valid link. Now lets get the linked Target of it
         $targetPath = (Get-Item $projectFile.Path)
         if($DebugMsg) { write-output $targetPath }
-        $symlink = $targetPath.target[0]
-        if($Verbose) { Write-Host "CreateSymbolicLink - Found Symbolic Link: $($symlink)"-ForegroundColor DarkYellow }
-      
+        
+        # Get the target of the symbolic link
+        if($IsMacOS -or $IsLinux) { $symlink = $targetPath.target
+        } else { $symlink = $targetPath.target[0] }
+
+        if($Verbose) { Write-Host "- CreateSymbolicLink - Found Symbolic Link: $($symlink)"-ForegroundColor DarkYellow }
+        
         # Now, lets create target link path
-        if ($IsMacOS -or $IsLinux) { $linkTarget = "../../" + $ProjectFile.BaseName.ToString()  }
-        else { 
-          #$linkTarget = Get-Item ($projectFile.Path).ToString()
-          $TargetLinkDir = Split-Path -Path $projectDir -Parent
-          $linkTarget = Get-Item ($TargetLinkDir.ToString() + "/" + $ProjectFile.BaseName.ToString()).ToString()
-          if($Verbose) { Write-Host "CreateSymbolicLink - Should be Symbolic Link Target: $($linkTarget.ToString())" -ForegroundColor DarkYellow }
+        $linkTarget = Join-Path $(Join-Path ".." "..") $projectFile.BaseName.ToString()
+
+        # Check if we are on Windows and if we should use mklink to create the symbolic link
+        if($IsWinEnv -and -not $UseMklinkToCreateSymLinks) {
+          $LinkTarget = Join-Path $(Split-Path -Path $projectDir -Parent) $ProjectFile.BaseName
         }
-      
+        
+        # If the link target is the same as the project file name, set the CreateSymLink flag to false
         if ($symlink.ToString() -eq $linkTarget.ToString()) { 
-           if($true) { Write-Host "- CreateSymbolicLink -"$ProjectFile.BaseName"- A existing and valid symbolic link detected. Skip linking."([Char]0x221A) -ForegroundColor Green }
-          $CreateSymLink = $false
-        } 
+          if(!$ForceRecreateSymLinks) { Write-Host "- CreateSymbolicLink - '$($ProjectFile.BaseName)'- A existing and valid symbolic link detected. Skip linking."([Char]0x221A) -ForegroundColor Green }
+         $CreateSymLink = $false
+        }
       }
     } else { if (-not ($null -ne $projectFile.Path -and $projectFile.Path -ne '')) { $CreateSymLink = $false } }
 
-    if($CreateSymLink) {
+    if($CreateSymLink -or $ForceRecreateSymLinks ) {
       # Create a symlink
-      if($Verbose) { Write-Host "CreateSymbolicLink -"$ProjectFile.BaseName"- No valid symbolic link detected. Creating new symbolic link." -ForegroundColor Yellow }
+      if($Verbose) { 
+        $Message= "- CreateSymbolicLink - '$($ProjectFile.BaseName)' - No valid symbolic link detected. Creating new symbolic link."
+        if( $ForceRecreateSymLinks ) {
+          $Message= "- CreateSymbolicLink - '$($ProjectFile.BaseName)' - Forcing to create new symbolic links."
+        }
+        Write-Host $Message -ForegroundColor Yellow
+      }
+      
       # Remove a existing symbolic link first
-      if($null -ne $projectFile.Path -and $projectFile.Path -ne '' -and (Test-Path $projectFile.Path)) {
-        Remove-Item -Path $projectFile.Path -Force
+      if(  ($ForceRecreateSymLinks -or ($null -ne $projectFile.Path -and $projectFile.Path -ne '')) -and 
+           (Test-Path $projectFile.Path) )  {
+        
+        if($Verbose -and $ForceRecreateSymLinks ) { 
+          $Message= "- CreateSymbolicLink - '$($ProjectFile.BaseName)' - Forcing to remove existing symbolic link: '$($projectFile.Path)'"
+          Write-Host $Message -ForegroundColor Yellow
+        }
+        
+        Remove-Item -Path $projectFile.Path -Force -Recurse
         if (!$?) { exit 1 }
       }
       if($DebugMsg) { write-output $ProjectFile }
+      
+      # Create the symbolic link to link the project file to the target
       $linkTarget = $ProjectFile.BaseName
-      if ($IsMacOS -or $IsLinux) {
-        $linkValue = Join-Path -Path ".." -ChildPath ".." -AdditionalChildPath $linkTarget
-        New-Item -ItemType SymbolicLink -Path $projectFile.Path -Value $linkValue | Out-Null
-        if($true) { Write-Host "- CreateSymbolicLink - Symbolic link created at $($projectFile.Path) with target $linkValue"([Char]0x221A) -ForegroundColor Green }
-      } else { 
-        $TargetLinkDir = Split-Path -Path $projectDir -Parent
-        $LinkPath = Join-Path $projectDir "lib"
-        $LinkName = $ProjectFile.BaseName
-        $LinkTarget = Join-Path $TargetLinkDir $ProjectFile.BaseName
-        New-Item -ItemType Junction -Path $LinkPath -Name $LinkName -Value $LinkTarget -OutVariable output | Out-Null
-        if($true) { Write-Host "- CreateSymbolicLink - Symbolic (Junction) link created at $($LinkPath) with Name $($LinkName) and target $($LinkTarget)"([Char]0x221A)  -ForegroundColor Green }
-        
+      $linkValue = Join-Path $(Join-Path ".." "..") $linkTarget
+      
+      #The create smbolic link command
+      $CreateSymLinkCommand = "New-Item -ItemType SymbolicLink -Path '$($projectFile.Path)' -Target '$($linkValue)'"
+      
+      # Check if we are on Windows and if we should use mklink command to create the symbolic link
+      if($IsWinEnv) { 
+        if ( $UseMklinkToCreateSymLinks) {
+         $CreateSymLinkCommand = "cmd /C mklink /D ""$($projectFile.Path)"" ""$($linkValue)"""
+        } else {
+          $TargetLinkDir = Split-Path -Path $projectDir -Parent
+          $linkValue = Join-Path $TargetLinkDir $ProjectFile.BaseName
+          $CreateSymLinkCommand = "New-Item -ItemType SymbolicLink -Path '$($projectFile.Path)' -Target '$($linkValue)'" 
+        }
+      }
+      if($Verbose) { Write-Host "- CreateSymbolicLink - '$($ProjectFile.BaseName)' - CreateSymLinkCommand: $($CreateSymLinkCommand)" -ForegroundColor Yellow }
+      
+      # Try to create the symbolic link
+      try {
+        if($Verbose) { 
+            Invoke-Expression $CreateSymLinkCommand 
+        } else { 
+            Invoke-Expression $CreateSymLinkCommand | Out-Null
+        }
+        Write-Host "- CreateSymbolicLink - Symbolic link created at $($projectFile.Path) with target $linkValue"([Char]0x221A) -ForegroundColor Green
+      } catch {
+        Write-Host "Error creating symbolic link: $_" -ForegroundColor Red
+        exit 1
       }
     }
   }
 }
-Write-Host -ForegroundColor Green "Starting Restore-Dependencies.ps1"
+
+# Beispielaufruf der Funktion
+Clear-Host
+OpenKNX_ShowLogo -AddCustomText "Restore Dependencies"
+Write-Host "Starting to Restore depended projects..." -ForegroundColor Green
+
 CheckOS # check on which os we are running
-Write-Host -ForegroundColor Yellow "- We are on $($PSVersionTable.PSVersion.Major).$($PSVersionTable.PSVersion.Minor) Build Enviroment"
-Write-Host -ForegroundColor Yellow "- We assume, we start this script in the project's 'restore' directory."
+CheckForPrivileges # check for privileges, which are needed to run the script
+if($Verbose) { Write-Host -ForegroundColor Yellow "- We assume, we start this script in the project's 'restore' directory." }
+#Start-Sleep 30
 Set-Location .. # Go one directory back, to get the project dir.
 # Now we are in the project directory
 
 # Call the ProcessDependencies function and store the result in the $dependedProjects variable
 Write-Host -ForegroundColor Yellow "- Reading the dependencies.txt file and processing each line."
-$dependedProjects = ProcessDependencies ("dependencies.txt")
+$dependedProjects = ProcessDependencies $DependenciesFile
+if( $dependedProjects.Count -eq 0) { 
+  Write-Host -ForegroundColor Red "- No dependencies found in dependencies.txt file. Please check the file." 
+  exit 1  # exit with error
+}
 if($DebugMsg) { $dependedProjects | ForEach-Object { Write-Output $_ } } # Output each depended project
 
 # Call the Get-ProjectFiles function with the content of the 'lib' directory and store the result in the $projectFiles variable
@@ -371,7 +580,7 @@ if (Test-Path 'lib') {
   $projectFiles = Get-ProjectFiles (Get-ChildItem 'lib')
 } else {
   Write-Host -ForegroundColor DarkYellow "- The 'lib' directory was not found and will be created in 3 seconds..."
-  Start-Sleep -Seconds 5
+  Start-Sleep -Seconds 3
   New-Item -ItemType Directory -Path 'lib' | Out-Null
   $projectFiles = Get-ProjectFiles (Get-ChildItem 'lib')
 }
@@ -391,8 +600,9 @@ if($DebugMsg) { $projectFilesGitInfo | ForEach-Object { Write-Output $_ } }
 Write-Host -ForegroundColor Yellow "- Checking, cloning and rebranching the git repositories for each dependency."
 $CloneDir = (Resolve-Path (Join-Path $projectDir '..')).Path
 if($Verbose) { Write-Host $CloneDir }
-CloneRepository $projectFilesGitInfo $dependedProjects $CloneDir
+CloneRepository $projectFilesGitInfo $dependedProjects $CloneDir ($GitCheckoutMode -eq "Hash")
 
-Write-Host -ForegroundColor Yellow "- Checking and creating symbolic links for each project file."
+
+if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking and creating symbolic links for each project file." }
 CreateSymbolicLink $projectDir $projectFilesGitInfo
-Write-Host -ForegroundColor Green "- Done -"
+OpenKNX_ShowLogo -AddCustomText "Restore Dependencies: Done $([Char]0x221A)"
