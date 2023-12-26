@@ -8,3 +8,4 @@
 release/*
 src/*.baggages
 release-package/*
+release-collection/*

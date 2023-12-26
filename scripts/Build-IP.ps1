@@ -39,3 +39,7 @@ if (!$?) { exit 1 }
 # execute generic post-build steps
 lib/OGM-Common/scripts/setup/reusable/Build-Release-Postprocess.ps1 $args[0]
 if (!$?) { exit 1 }
+
+if (Test-Path -Path release-collection -PathType Container) {
+    Copy-Item release/* release-collection/
+}
