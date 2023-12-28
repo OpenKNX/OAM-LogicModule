@@ -38,7 +38,7 @@ if (!$device) {
             if ($usbDevice.Present) {
                 $isPico = $usbDevice.InstanceId.StartsWith("USB\VID_2E8A")
                 # $isCom = $usbDevice.Name -match "USB.*\((COM\d{1,3})\)"
-                # $isCom = $usbDevice.Name -match "COM\d{1,3}"
+                $isCom = $usbDevice.Name -match "COM\d{1,3}"
                 if ($isPico) {
                     # $port = $Matches[1]
                     $port = $Matches[0]
