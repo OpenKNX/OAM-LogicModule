@@ -1,9 +1,9 @@
 function OpenKNX_ShowLogo($AddCustomText = $null) {
     Write-Host ""
     Write-Host "Open " -NoNewline
-    #Write-Host "▀" -ForegroundColor Green
-    Write-Host "$( [char]::ConvertFromUtf32(0x2580) )" -ForegroundColor Green
-    $unicodeString = "$( [char]::ConvertFromUtf32(0x2533) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x2501) )$( [char]::ConvertFromUtf32(0x253B) ) "
+    #Write-Host "■" -ForegroundColor Green
+    Write-Host "$( [char]::ConvertFromUtf32(0x25A0) )" -ForegroundColor Green
+    $unicodeString = "$( [char]::ConvertFromUtf32(0x252C) )$( [char]::ConvertFromUtf32(0x2500) )$( [char]::ConvertFromUtf32(0x2500) )$( [char]::ConvertFromUtf32(0x2500) )$( [char]::ConvertFromUtf32(0x2500) )$( [char]::ConvertFromUtf32(0x2534) ) "
   
     if ($AddCustomText) { 
         #Write-Host "┳━━━━┻  $AddCustomText" -ForegroundColor Green
@@ -14,12 +14,11 @@ function OpenKNX_ShowLogo($AddCustomText = $null) {
         Write-Host "$($unicodeString)"  -ForegroundColor Green
     }
 
-    #Write-Host "▄" -NoNewline -ForegroundColor Green
-    Write-Host "$( [char]::ConvertFromUtf32(0x2584) )" -NoNewline -ForegroundColor Green
+    #Write-Host "■" -NoNewline -ForegroundColor Green
+    Write-Host "$( [char]::ConvertFromUtf32(0x25A0) )" -NoNewline -ForegroundColor Green
     Write-Host " KNX"
     Write-Host ""
 }
-
 
 $firmwareName = $args[0]
 $isRecursive = $args[1]
