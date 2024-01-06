@@ -36,6 +36,9 @@ if (!$?) { exit 1 }
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_REG1_BASE_IP firmware-REG1-BASE-IP uf2
 if (!$?) { exit 1 }
 
+# TEMPORARY: We use our own generic updload files for this version
+Copy-Item scripts/data/* release/data -Force
+
 # execute generic post-build steps
 lib/OGM-Common/scripts/setup/reusable/Build-Release-Postprocess.ps1 $args[0]
 if (!$?) { exit 1 }
