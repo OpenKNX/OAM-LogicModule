@@ -77,12 +77,14 @@ lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_Sensormodul_v30_SAM
 if (!$?) { exit 1 }
 
 # build firmware based on generated headerfile for REG2-PiPico
-#lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OKNXHW_REG2_PiPico firmware-OKNXHW-REG2-PiPico uf2
-lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 -productName OpenKNX-REG2-PiPico -pioEnv release_OKNXHW_REG2_PiPico -firmwareName firmware-OKNXHW-REG2-PiPico -binaryFormat uf2
+#lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 -productName OpenKNX-REG2-PiPico -pioEnv release_OKNXHW_REG2_PiPico -firmwareName firmware-OKNXHW-REG2-PiPico -binaryFormat uf2
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OKNXHW_REG2_PiPico firmware-OKNXHW-REG2-PiPico uf2
+
 if (!$?) { exit 1 }
 #build firmware based on generated headerfile for REG2-PiPico_W
-#lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OKNXHW_REG2_PiPico_W firmware-OpenKNX-REG2-PiPico_W uf2
-lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 -productName OpenKNX-REG2-PiPicoW -pioEnv release_OKNXHW_REG2_PiPico_W -firmwareName firmware-OpenKNX-REG2-PiPico_W -binaryFormat uf2 
+#lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 -productName OpenKNX-REG2-PiPicoW -pioEnv release_OKNXHW_REG2_PiPico_W -firmwareName firmware-OpenKNX-REG2-PiPico_W -binaryFormat uf2 
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_OKNXHW_REG2_PiPico_W firmware-OpenKNX-REG2-PiPico_W uf2
+
 if (!$?) { exit 1 }
 
 
