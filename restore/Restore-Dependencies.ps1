@@ -1,4 +1,8 @@
 <#
+Open ■
+┬────┴  Restore-Dependencies
+■ KNX   2024 OpenKNX - Erkan Çolak
+
 FILEPATH: restore/Restore-Dependencies.ps1
 
 This script is designed to automate the process of managing dependencies in a software project, making it easier to 
@@ -31,6 +35,7 @@ Here's a high-level description of what it does:
 
   8. Many core functions of the script are modularized and can be used outside of this script, providing flexibility and reusability.
 #>
+
 # Optional Input Parameters
 param(
   # Set the Git checkout mode
@@ -50,10 +55,13 @@ param(
 )
 
 # Global Variables
-# If the user has no permissions to create symbolic links with 'New-Item', the script will try to use mklink to create symbolic links.  
-$Auto_Use_mklink_To_Create_SymLinks = $true # Default is $true
+# If the user has no permissions to create symbolic links with 'New-Item', the script will try to use mklink to create symbolic links.
+
+#Those variables are used to check if the script is running on Windows. Only on Windows we can use mklink to create symbolic links.
+# If $Auto_Use_mklink_To_Create_SymLinks is $true, the script will automatically use mklink to create symbolic links.
+$Auto_Use_mklink_To_Create_SymLinks = $false # Default is $false 
 # Ignore the permissions to create symbolic links with 'New-Item' and use mklink to create symbolic links.
-$Foce_Use_mklink_To_Create_SymLinks = $false # Default is $false
+$Force_Use_mklink_To_Create_SymLinks = $true # Default is $true. If $Auto_Use_mklink_To_Create_SymLinks is $true, this variable is ignored.
 
 # Set the Write-Host message behavior
 [switch]$Verbose= $false # Default is $false
@@ -163,11 +171,11 @@ function CheckForPrivileges {
         exit 1
       } else { Write-Host -ForegroundColor Green "- The script is running with Developer Mode." ([Char]0x221A) }
     }
-    if(-not $Foce_Use_mklink_To_Create_SymLinks -and $CheckForSymbolicLinkPermissions) {
+    if(-not $Force_Use_mklink_To_Create_SymLinks -and $CheckForSymbolicLinkPermissions) {
       if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking if we have permissions to create symbolic links" }
       if( -not (Test-SymbolicLinkPermission) ) {
         if($Auto_Use_mklink_To_Create_SymLinks) {
-          $script:Foce_Use_mklink_To_Create_SymLinks = $true
+          $script:Force_Use_mklink_To_Create_SymLinks = $true
           Write-Host -ForegroundColor Yellow "- We have no permissions to create symbolic links with 'New-Item'. We will try to use mklink to create symbolic links."
         } else {
           Write-Host -ForegroundColor Red "ERROR: Restore-Dependencies requires permissions to create symbolic links to run!"
@@ -518,7 +526,7 @@ function CreateSymbolicLink ($projectDir, $projectFiles) {
         $linkTarget = Join-Path $(Join-Path ".." "..") $projectFile.BaseName.ToString()
 
         # Check if we are on Windows and if we should use mklink to create the symbolic link
-        if($IsWinEnv -and -not $Foce_Use_mklink_To_Create_SymLinks) {
+        if($IsWinEnv -and -not $Force_Use_mklink_To_Create_SymLinks) {
           $LinkTarget = Join-Path $(Split-Path -Path $projectDir -Parent) $ProjectFile.BaseName
         }
         
@@ -563,7 +571,7 @@ function CreateSymbolicLink ($projectDir, $projectFiles) {
       
       # Check if we are on Windows and if we should use mklink command to create the symbolic link
       if($IsWinEnv) { 
-        if ( $Foce_Use_mklink_To_Create_SymLinks) {
+        if ( $Force_Use_mklink_To_Create_SymLinks) {
          $CreateSymLinkCommand = "cmd /C mklink /D ""$($projectFile.Path)"" ""$($linkValue)"""
         } else {
           $TargetLinkDir = Split-Path -Path $projectDir -Parent
