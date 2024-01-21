@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
+
   <op:config name="%LOG_EnableHardware%" value="1" />
   <op:config name="%LOG_LedAccess%" value="ReadWrite" />
   <op:config name="%LOG_LedDefault%" value="0" />
   <op:config name="%LOG_BuzzerAccess%" value="ReadWrite" />
   <op:config name="%LOG_BuzzerDefault%" value="0" />
+  <op:config name="%BASE_ManualSave%" value="3" />
+
   <op:ETS ProductName="Logikmodul"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x30" 
-          ApplicationVersion="3.0"  
-          ReplacesVersions="8 9 11 12 13 16 17 18 19 20 1.5 1.6 1.7 1.8 1.9 1.10 1.11 1.12 1.13 1.14 1.15" 
+          ApplicationVersion="3.1"  
+          ReplacesVersions="8 9 11 12 13 16 17 18 19 20 1.5 1.6 1.7 1.8 1.9 1.10 1.11 1.12 1.13 1.14 1.15 3.0" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic"  
           HardwareName="OpenKNX-Logic" 
@@ -22,7 +25,7 @@
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
             ModuleType="10">
-     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.0" /> 
+     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.1" /> 
   </op:define>
  
   <op:define prefix="LOG" 
@@ -31,7 +34,7 @@
              NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.1" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->

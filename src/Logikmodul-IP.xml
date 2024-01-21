@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
+
+  <op:config name="%BASE_ManualSave%" value="3" />
+  <op:config name="%BASE_StartupDelay%" value="5" />
+
   <op:ETS ProductName="Logikmodul-IP"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x32" 
-          ApplicationVersion="3.0"  
-          ReplacesVersions="0" 
+          ApplicationVersion="3.1"  
+          ReplacesVersions="3.0" 
           ApplicationRevision="0" 
           ApplicationName="WP-Logic-Net"   
           OrderNumber="OpenKnxLogicIP"
@@ -18,13 +22,13 @@
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
             ModuleType="10">
-     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.0" /> 
+     <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="1.1" /> 
   </op:define>
 
   <op:define prefix="NET" 
             share="../lib/OFM-Network/src/Network.share.xml"
             ModuleType="11">
-    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="0.1" /> 
+    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="0.2" /> 
   </op:define>
  
   <op:define prefix="LOG" 
@@ -33,7 +37,7 @@
              NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.1" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->
