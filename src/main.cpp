@@ -14,7 +14,7 @@
 void setup()
 {
     // change this also in library.json
-    const uint8_t firmwareRevision = 2;
+    const uint8_t firmwareRevision = 3;
     openknx.init(firmwareRevision);
     openknx.addModule(1, openknxLogic);
 #ifdef ARDUINO_ARCH_RP2040
