@@ -388,7 +388,7 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $Cl
           $GitDir = Join-Path $CloneTarget ".git"
         } else {
           $CloneTarget = Join-Path -Path $CloneDir -ChildPath $dependedProject.ProjectName
-          $GitDir = Join-Path -Path $CloneTarget.TargetPath -ChildPath ".git"
+          $GitDir = Join-Path -Path $CloneTarget -ChildPath ".git"
         }
         
         if($Verbose) { Write-Host "- CloneRepository - $($checkoutTarget) - GitDir: "$GitDir -ForegroundColor Yellow }
@@ -423,7 +423,7 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $Cl
       catch {
         if($Verbose) {
           $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
-          Write-Host "- CloneRepository - $($dependedProject.ProjectName) - Checkout Error! Cannot checkout $($checkoutTarget) Checked out."([Char]0x2717) -ForegroundColor DarkYellow }
+          Write-Host "- CloneRepository - $($dependedProject.ProjectName) - Checkout Error! Cannot checkout $($checkoutTarget) Checked out."([Char]0x2717) -ForegroundColor Red }
       }
     }
   }
