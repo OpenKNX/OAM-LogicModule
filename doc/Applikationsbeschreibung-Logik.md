@@ -90,6 +90,10 @@ Eine Übersicht über die verfügbaren Konfigurationsseiten und Links zur jeweil
 
 Im folgenden werden Änderungen an dem Dokument erfasst, damit man nicht immer das Gesamtdokument lesen muss, um Neuerungen zu erfahren.
 
+11.12.2023: Firmware 1.7, Applikation 1.7
+
+* FIX: Wenn ein bereits bestehendes KO als Eingang genutzt wird, war fälschlicherweise zyklisch lesen aktiv. Dies ist jetzt entfernt.
+
 09.10.2023: Firmware 1.6, Applikation 1.6
 
 * FIX: Die KO-Nummer bei internen KO-Verknüpfungen konnte bei ETS-internen Kopiervorgängen verlorengehen bzw. sich verändern.
@@ -1182,6 +1186,8 @@ Der Eingang wird konstant mit einer 0 vorbelegt und hat somit sofort einen defin
 Der Eingang wird konstant mit einer 1 vorbelegt und hat somit sofort einen definierten Zustand.
 
 ### **Eingang wird alle n Sekunden gelesen (0=nicht zyklisch lesen)**
+
+Erscheint nur, wenn bei "Kommunikationsobjekt für Eingang" der Wert "Neues KO erzeugen" ausgewählt wurde.
 
 Manche Geräte können nicht von sich aus zyklisch senden. Hier kann man einstellen, dass ein Eingang aktiv den Wert zyklisch liest. In den Feld kann man angeben, wie viele Sekunden zwischen 2 Leseintervallen vergehen sollen.
 

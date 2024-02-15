@@ -172,7 +172,7 @@
                 <Parameter Id="%AID%_UP-%T%%CCC%022" Name="f%C%E1HighDpt9"     ParameterType="%AID%_PT-ValueDpt9"         Offset="4"  BitOffset="0" Text="Bis-Wert" Value="670760" />
                 <Parameter Id="%AID%_UP-%T%%CCC%322" Name="f%C%E1LowDpt9Fix"   ParameterType="%AID%_PT-ValueDpt9"         Offset="0"  BitOffset="0" Text="Eingang 1 ist konstant" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%405" Name="f%C%E1LowDpt12"     ParameterType="%AID%_PT-ValueDpt12"        Offset="0"  BitOffset="0" Text="Von-Wert" Value="2147483648" />
-                <Parameter Id="%AID%_UP-%T%%CCC%406" Name="f%C%E1HighDpt12"    ParameterType="%AID%_PT-ValueDpt12"        Offset="4"  BitOffset="0" Text="Bis-Wert" Value="4294967296" />
+                <Parameter Id="%AID%_UP-%T%%CCC%406" Name="f%C%E1HighDpt12"    ParameterType="%AID%_PT-ValueDpt12"        Offset="4"  BitOffset="0" Text="Bis-Wert" Value="4294967295" />
                 <Parameter Id="%AID%_UP-%T%%CCC%407" Name="f%C%E1LowDpt12Fix"  ParameterType="%AID%_PT-ValueDpt12"        Offset="0"  BitOffset="0" Text="Eingang 1 ist konstant" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%408" Name="f%C%E1LowDpt13"     ParameterType="%AID%_PT-ValueDpt13"        Offset="0"  BitOffset="0" Text="Von-Wert" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%409" Name="f%C%E1HighDpt13"    ParameterType="%AID%_PT-ValueDpt13"        Offset="4"  BitOffset="0" Text="Bis-Wert" Value="2147483647" />
@@ -258,7 +258,7 @@
                 <Parameter Id="%AID%_UP-%T%%CCC%042" Name="f%C%E2HighDpt9"     ParameterType="%AID%_PT-ValueDpt9"         Offset="12" BitOffset="0" Text="Bis-Wert" Value="670760" />
                 <Parameter Id="%AID%_UP-%T%%CCC%366" Name="f%C%E2LowDpt9Fix"   ParameterType="%AID%_PT-ValueDpt9"         Offset="8"  BitOffset="0" Text="Eingang 2 ist konstant" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%414" Name="f%C%E2LowDpt12"     ParameterType="%AID%_PT-ValueDpt12"        Offset="8"  BitOffset="0" Text="Von-Wert" Value="2147483648" />
-                <Parameter Id="%AID%_UP-%T%%CCC%415" Name="f%C%E2HighDpt12"    ParameterType="%AID%_PT-ValueDpt12"        Offset="12" BitOffset="0" Text="Bis-Wert" Value="4294967296" />
+                <Parameter Id="%AID%_UP-%T%%CCC%415" Name="f%C%E2HighDpt12"    ParameterType="%AID%_PT-ValueDpt12"        Offset="12" BitOffset="0" Text="Bis-Wert" Value="4294967295" />
                 <Parameter Id="%AID%_UP-%T%%CCC%416" Name="f%C%E2LowDpt12Fix"  ParameterType="%AID%_PT-ValueDpt12"        Offset="8"  BitOffset="0" Text="Eingang 2 ist konstant" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%417" Name="f%C%E2LowDpt13"     ParameterType="%AID%_PT-ValueDpt13"        Offset="8"  BitOffset="0" Text="Von-Wert" Value="0" />
                 <Parameter Id="%AID%_UP-%T%%CCC%418" Name="f%C%E2HighDpt13"    ParameterType="%AID%_PT-ValueDpt13"        Offset="12" BitOffset="0" Text="Bis-Wert" Value="2147483647" />
@@ -970,7 +970,7 @@
               <ParameterRef Id="%AID%_UP-%T%%CCC%404_R-%T%%CCC%40401" RefId="%AID%_UP-%T%%CCC%404" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%405_R-%T%%CCC%40501" RefId="%AID%_UP-%T%%CCC%405" Text="Von-Wert" Value="2147483648" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%405_R-%T%%CCC%40502" RefId="%AID%_UP-%T%%CCC%405" Text="Ausschalt-Wert" Value="300000" />
-              <ParameterRef Id="%AID%_UP-%T%%CCC%406_R-%T%%CCC%40601" RefId="%AID%_UP-%T%%CCC%406" Text="Bis-Wert" Value="4294967296" />
+              <ParameterRef Id="%AID%_UP-%T%%CCC%406_R-%T%%CCC%40601" RefId="%AID%_UP-%T%%CCC%406" Text="Bis-Wert" Value="4294967295" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%406_R-%T%%CCC%40602" RefId="%AID%_UP-%T%%CCC%406" Text="Einschalt-Wert" Value="600000" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%407_R-%T%%CCC%40701" RefId="%AID%_UP-%T%%CCC%407" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%408_R-%T%%CCC%40801" RefId="%AID%_UP-%T%%CCC%408" Text="Von-Wert" Value="0" />
@@ -985,7 +985,7 @@
               <ParameterRef Id="%AID%_UP-%T%%CCC%413_R-%T%%CCC%41301" RefId="%AID%_UP-%T%%CCC%413" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%414_R-%T%%CCC%41401" RefId="%AID%_UP-%T%%CCC%414" Text="Von-Wert" Value="2147483648" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%414_R-%T%%CCC%41402" RefId="%AID%_UP-%T%%CCC%414" Text="Ausschalt-Wert" Value="300000" />
-              <ParameterRef Id="%AID%_UP-%T%%CCC%415_R-%T%%CCC%41501" RefId="%AID%_UP-%T%%CCC%415" Text="Bis-Wert" Value="4294967296" />
+              <ParameterRef Id="%AID%_UP-%T%%CCC%415_R-%T%%CCC%41501" RefId="%AID%_UP-%T%%CCC%415" Text="Bis-Wert" Value="4294967295" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%415_R-%T%%CCC%41502" RefId="%AID%_UP-%T%%CCC%415" Text="Einschalt-Wert" Value="600000" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%416_R-%T%%CCC%41601" RefId="%AID%_UP-%T%%CCC%416" />
               <ParameterRef Id="%AID%_UP-%T%%CCC%417_R-%T%%CCC%41701" RefId="%AID%_UP-%T%%CCC%417" Text="Von-Wert" Value="0" />
@@ -1247,29 +1247,28 @@
                                   <when test="0">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%130_R-%T%%CCC%13001" />
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%026_R-%T%%CCC%02601" />
+                                    <!-- E1Repeat Delay pattern -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                                        <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
+                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
+                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
+                                    </ParameterBlock>
+                                    <choose ParamRefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401">
+                                      <when test=">0">
+                                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%164_R-%T%%CCC%16401" />
+                                      </when>
+                                    </choose>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%393_R-%T%%CCC%39301" />
-                                  </when>
-                                </choose>
-                                <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
-                                <!-- E1Repeat Delay pattern -->
-                                <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
-                                  <Rows>
-                                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                                  </Rows>
-                                  <Columns>
-                                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
-                                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
-                                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
-                                  </Columns>
-                                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
-                                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
-                                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
-                                </ParameterBlock>
-                                <choose ParamRefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401">
-                                  <when test=">0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%164_R-%T%%CCC%16401" />
                                   </when>
                                 </choose>
                               </ParameterBlock>
@@ -1911,29 +1910,28 @@
                                       <when test="0">
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%130_R-%T%%CCC%13001" />
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%026_R-%T%%CCC%02601" />
+                                        <!-- E1Repeat Delay pattern -->
+                                        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
+                                          <Rows>
+                                            <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                          </Rows>
+                                          <Columns>
+                                            <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                                            <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                                            <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                                          </Columns>
+                                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
+                                          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
+                                          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
+                                        </ParameterBlock>
+                                        <choose ParamRefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401">
+                                          <when test=">0">
+                                            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%164_R-%T%%CCC%16401" />
+                                          </when>
+                                        </choose>
                                       </when>
                                       <when test="1">
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%393_R-%T%%CCC%39301" />
-                                      </when>
-                                    </choose>
-                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%027_R-%T%%CCC%02701" /> -->
-                                    <!-- E1Repeat Delay pattern -->
-                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E1RepeatCycle" Inline="true" Layout="Grid">
-                                      <Rows>
-                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                                      </Rows>
-                                      <Columns>
-                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
-                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
-                                        <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
-                                      </Columns>
-                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 1 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
-                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401" Cell="1,2" />
-                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%383_R-%T%%CCC%38301" Cell="1,3" />
-                                    </ParameterBlock>
-                                    <choose ParamRefId="%AID%_UP-%T%%CCC%384_R-%T%%CCC%38401">
-                                      <when test=">0">
-                                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%164_R-%T%%CCC%16401" />
                                       </when>
                                     </choose>
                                   </when>
@@ -2031,29 +2029,29 @@
                                   <when test="0">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%131_R-%T%%CCC%13101" />
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%046_R-%T%%CCC%04601" />
+                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
+                                    <!-- E2Repeat Delay pattern -->
+                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                                      <Rows>
+                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                      </Rows>
+                                      <Columns>
+                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                                        <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                                      </Columns>
+                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
+                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
+                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
+                                    </ParameterBlock>
+                                    <choose ParamRefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601">
+                                      <when test=">0">
+                                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%165_R-%T%%CCC%16501" />
+                                      </when>
+                                    </choose>
                                   </when>
                                   <when test="1">
                                     <ParameterRefRef RefId="%AID%_UP-%T%%CCC%394_R-%T%%CCC%39401" />
-                                  </when>
-                                </choose>
-                                <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
-                                <!-- E2Repeat Delay pattern -->
-                                <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
-                                  <Rows>
-                                    <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                                  </Rows>
-                                  <Columns>
-                                    <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
-                                    <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
-                                    <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
-                                  </Columns>
-                                  <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
-                                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
-                                  <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
-                                </ParameterBlock>
-                                <choose ParamRefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601">
-                                  <when test=">0">
-                                    <ParameterRefRef RefId="%AID%_UP-%T%%CCC%165_R-%T%%CCC%16501" />
                                   </when>
                                 </choose>
                               </ParameterBlock>
@@ -2700,29 +2698,28 @@
                                       <when test="0">
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%131_R-%T%%CCC%13101" />
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%046_R-%T%%CCC%04601" />
+                                        <!-- E2Repeat Delay pattern -->
+                                        <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
+                                          <Rows>
+                                            <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
+                                          </Rows>
+                                          <Columns>
+                                            <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
+                                            <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
+                                            <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
+                                          </Columns>
+                                          <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
+                                          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
+                                          <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
+                                        </ParameterBlock>
+                                        <choose ParamRefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601">
+                                          <when test=">0">
+                                            <ParameterRefRef RefId="%AID%_UP-%T%%CCC%165_R-%T%%CCC%16501" />
+                                          </when>
+                                        </choose>
                                       </when>
                                       <when test="1">
                                         <ParameterRefRef RefId="%AID%_UP-%T%%CCC%394_R-%T%%CCC%39401" />
-                                      </when>
-                                    </choose>
-                                    <!-- <ParameterRefRef RefId="%AID%_UP-%T%%CCC%047_R-%T%%CCC%04701" /> -->
-                                    <!-- E2Repeat Delay pattern -->
-                                    <ParameterBlock Id="%AID%_PB-nnn" Name="f%C%E2RepeatCycle" Inline="true" Layout="Grid">
-                                      <Rows>
-                                        <Row Id="%AID%_PB-nnn_R-1" Name="Row1" />
-                                      </Rows>
-                                      <Columns>
-                                        <Column Id="%AID%_PB-nnn_C-1" Name="Col1" Width="45%" />
-                                        <Column Id="%AID%_PB-nnn_C-2" Name="Col2" Width="15%" />
-                                        <Column Id="%AID%_PB-nnn_C-3" Name="Col3" Width="20%" />
-                                      </Columns>
-                                      <ParameterSeparator Id="%AID%_PS-nnn" Text="Eingang 2 wird gelesen alle&#10;(0 = nicht zyklisch lesen)" Cell="1,1" />
-                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601" Cell="1,2" />
-                                      <ParameterRefRef RefId="%AID%_UP-%T%%CCC%385_R-%T%%CCC%38501" Cell="1,3" />
-                                    </ParameterBlock>
-                                    <choose ParamRefId="%AID%_UP-%T%%CCC%386_R-%T%%CCC%38601">
-                                      <when test=">0">
-                                        <ParameterRefRef RefId="%AID%_UP-%T%%CCC%165_R-%T%%CCC%16501" />
                                       </when>
                                     </choose>
                                   </when>
