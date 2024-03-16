@@ -143,6 +143,18 @@
             "args": [],
             "problemMatcher": [],
             "group": "test"
+        },
+        {
+            "label": "resolve platformio.ini",
+            "type": "shell",
+            "command": "~/.platformio/penv/Scripts/pio",
+            "args": [
+                "project",
+                "config",
+                ">platformio.ini.full.txt"
+            ],
+            "problemMatcher": [],
+            "group": "test"
         }
     ]
 }

@@ -9,3 +9,4 @@ release/*
 src/*.baggages
 release-package/*
 release-collection/*
+platformio.ini.full.txt

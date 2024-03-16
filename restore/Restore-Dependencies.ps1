@@ -40,7 +40,7 @@ Here's a high-level description of what it does:
 param(
   # Set the Git checkout mode
   [ValidateSet("Branch", "Hash")]
-  [string]$GitCheckoutMode= "Branch", # Branch or Hash. Default is Branch
+  [string]$GitCheckoutMode= "Hash", # Branch or Hash. Default is Hash
 
   # Force the script to recreate symbolic links
   [switch]$ForceRecreateSymLinks= $true, # Default is $true
