@@ -364,8 +364,7 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $Cl
           $exitCode = Invoke-Expression $($GitCmd+';$?')
           if (!$exitCode) {
             Write-Host "- CloneRepository - Failed Cloning "$dependedProject.ProjectName": '$GitClone' to '$CloneTarget' "([Char]0x2717) -ForegroundColor Red
-            # exit 1 expected, but error-handling should be consistent
-            # TODO: extend restore script error-handling and check for possible side-effects
+            exit 1
           }
           #git clone -q '$GitClone' '$CloneTarget.ToString()'
         }
