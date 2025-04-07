@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
+
+  <op:config href="Logikmodul.conf.xml" />
+  
+  <op:config name="%BASE_ManualSave%" value="3" />
+  <op:config name="%BASE_StartupDelay%" value="5" />
+  
   <op:ETS ProductName="Logikmodul-IP"
           OpenKnxId="0xA0" 
           ApplicationNumber="0x33" 
@@ -18,11 +24,22 @@
 
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
-            ModuleType="10" />
+            ModuleType="10">
+    <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="%BASE_VerifyVersion%" /> 
+  </op:define>
  
   <op:define prefix="NET" 
             share="../lib/OFM-Network/src/Network.share.xml"
-            ModuleType="11" />
+            ModuleType="11">
+    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="%NET_VerifyVersion%" /> 
+  </op:define>
+ 
+  <op:define prefix="UCT"
+    share="../../OFM-ConfigTransfer/src/ConfigTransfer.share.xml"
+    noConfigTransfer="true"
+    ModuleType="99">
+    <op:verify File="../../OFM-ConfigTransfer/library.json" ModuleVersion="%UCT_VerifyVersion%" />
+  </op:define>
  
   <op:define prefix="LOG" 
              share="../lib/OFM-LogicModule/src/Logikmodul.share.xml" 
@@ -30,7 +47,7 @@
              NumChannels="99" 
              KoOffset="20" 
              ModuleType="10" >
-    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="3.0" /> 
+    <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" /> 
   </op:define>
   
   <!-- <generate base="MyApplication.xml" /> -->

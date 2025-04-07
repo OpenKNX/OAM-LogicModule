@@ -109,6 +109,20 @@
             "group": "test"
         },
         {
+            "label": "OpenKNXproducer-IP",
+            "type": "shell",
+            "command": "~/bin/OpenKNXproducer.exe",
+            "args": [
+                "create",
+                "--Debug",
+                "--HeaderFileName",
+                "include/knxprod.h",
+                "src/Logikmodul-IP-dev"
+            ],
+            "problemMatcher": [],
+            "group": "test"
+        },
+        {
             "label": "Build-Release-Package",
             "type": "shell",
             "command": "scripts/Build-Release-Package.ps1",
