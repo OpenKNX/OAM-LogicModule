@@ -28,9 +28,13 @@ jobs:
         run: cd OpenKNXproducer && cp -av tools/Linux/OpenKNXproducer /usr/local/bin/OpenKNXproducer
 
       - name: Create knxprod (DEV)
-        run: OpenKNXproducer create --Debug -h include/knxprod.h src/StateEngine
-      - name: Create knxprod (DFA16 Release)
-        run: OpenKNXproducer create --Debug -h include/knxprod.h src/StateEngine-DFA16-Release
+        run: OpenKNXproducer create --Debug -h include/knxprod.h src/Logikmodul
+      - name: Create knxprod (DEV IP)
+        run: OpenKNXproducer create --Debug -h include/knxprod.h src/Logikmodul-IP-dev
+      - name: Create knxprod (Release)
+        run: OpenKNXproducer create --Debug -h include/knxprod.h src/Logikmodul-Release
+      - name: Create knxprod (Release IP)
+        run: OpenKNXproducer create --Debug -h include/knxprod.h src/Logikmodul-IP
 
       - name: Install Python
         uses: actions/setup-python@v5
@@ -49,7 +53,9 @@ jobs:
       #  run: pio run
 
       - name: OpenKNX Release Build
-        run: pwsh ./scripts/Build-Release.ps1 DFA16-Release
+        run: pwsh ./scripts/Build-Release.ps1 Release
+      - name: OpenKNX Release Build (IP)
+        run: pwsh ./scripts/Build-Release.ps1 IP
 
       - name: Show Changed Files
         run: git diff
