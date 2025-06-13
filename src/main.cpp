@@ -18,9 +18,10 @@ void setup()
     openknx.init(firmwareRevision);
     openknx.addModule(1, openknxLogic);
 #ifdef ARDUINO_ARCH_RP2040
-    // openknx.addModule(2, new UpdaterModule());
     openknx.addModule(9, openknxFileTransferModule);
+    #ifndef OPENKNX_DEBUG
     openknx.addModule(8, openknxUsbExchangeModule);
+    #endif
     #if defined(KNX_IP_LAN) || defined(KNX_IP_WIFI)
     openknx.addModule(7, openknxNetwork);
     #endif

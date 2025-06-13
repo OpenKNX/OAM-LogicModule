@@ -9,15 +9,15 @@
                                          (time & 0x3FFF) * 3600000 ) : 0 )
                                              
 #define MAIN_OpenKnxId 0xA0
-#define MAIN_ApplicationNumber 51
-#define MAIN_ApplicationVersion 24
+#define MAIN_ApplicationNumber 48
+#define MAIN_ApplicationVersion 54
 #define MAIN_ParameterSize 11586
 #define MAIN_MaxKoNumber 316
-#define MAIN_OrderNumber "OpenKnxLogicIP"
+#define MAIN_OrderNumber "OpenKnxLogic"
 #define BASE_ModuleVersion 19
 #define NET_ModuleVersion 4
 #define UCT_ModuleVersion 2
-#define LOG_ModuleVersion 53
+#define LOG_ModuleVersion 54
 // Parameter with single occurrence
 
 
@@ -816,6 +816,36 @@
 #define LOG_fE1Low2Dpt2                         15      // 8 Bits, Bit 7-0
 #define LOG_fE1Low3Dpt2                         16      // 8 Bits, Bit 7-0
 #define LOG_fE1LowDpt2Fix                       13      // 8 Bits, Bit 7-0
+#define LOG_fE1Low0Dpt3Dir                      13      // 5 Bits, Bit 7-3
+#define     LOG_fE1Low0Dpt3DirMask 0xF8
+#define     LOG_fE1Low0Dpt3DirShift 3
+#define LOG_fE1Low0Dpt3Dim                      13      // 3 Bits, Bit 2-0
+#define     LOG_fE1Low0Dpt3DimMask 0x07
+#define     LOG_fE1Low0Dpt3DimShift 0
+#define LOG_fE1Low1Dpt3Dir                      14      // 5 Bits, Bit 7-3
+#define     LOG_fE1Low1Dpt3DirMask 0xF8
+#define     LOG_fE1Low1Dpt3DirShift 3
+#define LOG_fE1Low1Dpt3Dim                      14      // 3 Bits, Bit 2-0
+#define     LOG_fE1Low1Dpt3DimMask 0x07
+#define     LOG_fE1Low1Dpt3DimShift 0
+#define LOG_fE1Low2Dpt3Dir                      15      // 5 Bits, Bit 7-3
+#define     LOG_fE1Low2Dpt3DirMask 0xF8
+#define     LOG_fE1Low2Dpt3DirShift 3
+#define LOG_fE1Low2Dpt3Dim                      15      // 3 Bits, Bit 2-0
+#define     LOG_fE1Low2Dpt3DimMask 0x07
+#define     LOG_fE1Low2Dpt3DimShift 0
+#define LOG_fE1Low3Dpt3Dir                      16      // 5 Bits, Bit 7-3
+#define     LOG_fE1Low3Dpt3DirMask 0xF8
+#define     LOG_fE1Low3Dpt3DirShift 3
+#define LOG_fE1Low3Dpt3Dim                      16      // 3 Bits, Bit 2-0
+#define     LOG_fE1Low3Dpt3DimMask 0x07
+#define     LOG_fE1Low3Dpt3DimShift 0
+#define LOG_fE1LowDpt3FixDir                    13      // 5 Bits, Bit 7-3
+#define     LOG_fE1LowDpt3FixDirMask 0xF8
+#define     LOG_fE1LowDpt3FixDirShift 3
+#define LOG_fE1LowDpt3FixDim                    13      // 3 Bits, Bit 2-0
+#define     LOG_fE1LowDpt3FixDimMask 0x07
+#define     LOG_fE1LowDpt3FixDimShift 0
 #define LOG_fE1LowDpt5                          13      // uint8_t
 #define LOG_fE1HighDpt5                         17      // uint8_t
 #define LOG_fE1Low0Dpt5In                       13      // uint8_t
@@ -956,6 +986,36 @@
 #define LOG_fE2Low2Dpt2                         30      // 8 Bits, Bit 7-0
 #define LOG_fE2Low3Dpt2                         31      // 8 Bits, Bit 7-0
 #define LOG_fE2LowDpt2Fix                       28      // 8 Bits, Bit 7-0
+#define LOG_fE2Low0Dpt3Dir                      28      // 5 Bits, Bit 7-3
+#define     LOG_fE2Low0Dpt3DirMask 0xF8
+#define     LOG_fE2Low0Dpt3DirShift 3
+#define LOG_fE2Low0Dpt3Dim                      28      // 3 Bits, Bit 2-0
+#define     LOG_fE2Low0Dpt3DimMask 0x07
+#define     LOG_fE2Low0Dpt3DimShift 0
+#define LOG_fE2Low1Dpt3Dir                      29      // 5 Bits, Bit 7-3
+#define     LOG_fE2Low1Dpt3DirMask 0xF8
+#define     LOG_fE2Low1Dpt3DirShift 3
+#define LOG_fE2Low1Dpt3Dim                      29      // 3 Bits, Bit 2-0
+#define     LOG_fE2Low1Dpt3DimMask 0x07
+#define     LOG_fE2Low1Dpt3DimShift 0
+#define LOG_fE2Low2Dpt3Dir                      30      // 5 Bits, Bit 7-3
+#define     LOG_fE2Low2Dpt3DirMask 0xF8
+#define     LOG_fE2Low2Dpt3DirShift 3
+#define LOG_fE2Low2Dpt3Dim                      30      // 3 Bits, Bit 2-0
+#define     LOG_fE2Low2Dpt3DimMask 0x07
+#define     LOG_fE2Low2Dpt3DimShift 0
+#define LOG_fE2Low3Dpt3Dir                      31      // 5 Bits, Bit 7-3
+#define     LOG_fE2Low3Dpt3DirMask 0xF8
+#define     LOG_fE2Low3Dpt3DirShift 3
+#define LOG_fE2Low3Dpt3Dim                      31      // 3 Bits, Bit 2-0
+#define     LOG_fE2Low3Dpt3DimMask 0x07
+#define     LOG_fE2Low3Dpt3DimShift 0
+#define LOG_fE2LowDpt3FixDir                    28      // 5 Bits, Bit 7-3
+#define     LOG_fE2LowDpt3FixDirMask 0xF8
+#define     LOG_fE2LowDpt3FixDirShift 3
+#define LOG_fE2LowDpt3FixDim                    28      // 3 Bits, Bit 2-0
+#define     LOG_fE2LowDpt3FixDimMask 0x07
+#define     LOG_fE2LowDpt3FixDimShift 0
 #define LOG_fE2LowDpt5                          28      // uint8_t
 #define LOG_fE2HighDpt5                         32      // uint8_t
 #define LOG_fE2Low0Dpt5In                       28      // uint8_t
@@ -1445,6 +1505,12 @@
 #define LOG_fOOnTone                            56      // 8 Bits, Bit 7-0
 #define LOG_fOOnDpt1                            56      // 8 Bits, Bit 7-0
 #define LOG_fOOnDpt2                            56      // 8 Bits, Bit 7-0
+#define LOG_fOOnDpt3Dir                         56      // 5 Bits, Bit 7-3
+#define     LOG_fOOnDpt3DirMask 0xF8
+#define     LOG_fOOnDpt3DirShift 3
+#define LOG_fOOnDpt3Dim                         56      // 3 Bits, Bit 2-0
+#define     LOG_fOOnDpt3DimMask 0x07
+#define     LOG_fOOnDpt3DimShift 0
 #define LOG_fOOnDpt5                            56      // uint8_t
 #define LOG_fOOnDpt5001                         56      // uint8_t
 #define LOG_fOOnDpt6                            56      // int8_t
@@ -1485,6 +1551,12 @@
 #define LOG_fOOffTone                           71      // 8 Bits, Bit 7-0
 #define LOG_fOOffDpt1                           71      // 8 Bits, Bit 7-0
 #define LOG_fOOffDpt2                           71      // 8 Bits, Bit 7-0
+#define LOG_fOOffDpt3Dir                        71      // 5 Bits, Bit 7-3
+#define     LOG_fOOffDpt3DirMask 0xF8
+#define     LOG_fOOffDpt3DirShift 3
+#define LOG_fOOffDpt3Dim                        71      // 3 Bits, Bit 2-0
+#define     LOG_fOOffDpt3DimMask 0x07
+#define     LOG_fOOffDpt3DimShift 0
 #define LOG_fOOffDpt5                           71      // uint8_t
 #define LOG_fOOffDpt5001                        71      // uint8_t
 #define LOG_fOOffDpt6                           71      // int8_t
@@ -1625,6 +1697,26 @@
 #define ParamLOG_fE1Low3Dpt2                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Dpt2)))
 // Eingang ist konstant
 #define ParamLOG_fE1LowDpt2Fix                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt2Fix)))
+// Eingang ist EIN, wenn Wert gleich
+#define ParamLOG_fE1Low0Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt3Dir)) & LOG_fE1Low0Dpt3DirMask) >> LOG_fE1Low0Dpt3DirShift)
+// 
+#define ParamLOG_fE1Low0Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low0Dpt3Dim)) & LOG_fE1Low0Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE1Low1Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt3Dir)) & LOG_fE1Low1Dpt3DirMask) >> LOG_fE1Low1Dpt3DirShift)
+// 
+#define ParamLOG_fE1Low1Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low1Dpt3Dim)) & LOG_fE1Low1Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE1Low2Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low2Dpt3Dir)) & LOG_fE1Low2Dpt3DirMask) >> LOG_fE1Low2Dpt3DirShift)
+// 
+#define ParamLOG_fE1Low2Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low2Dpt3Dim)) & LOG_fE1Low2Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE1Low3Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Dpt3Dir)) & LOG_fE1Low3Dpt3DirMask) >> LOG_fE1Low3Dpt3DirShift)
+// 
+#define ParamLOG_fE1Low3Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1Low3Dpt3Dim)) & LOG_fE1Low3Dpt3DimMask)
+// Eingang ist konstant
+#define ParamLOG_fE1LowDpt3FixDir                    ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt3FixDir)) & LOG_fE1LowDpt3FixDirMask) >> LOG_fE1LowDpt3FixDirShift)
+// 
+#define ParamLOG_fE1LowDpt3FixDim                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt3FixDim)) & LOG_fE1LowDpt3FixDimMask)
 // Von-Wert
 #define ParamLOG_fE1LowDpt5                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fE1LowDpt5)))
 // Bis-Wert
@@ -1827,6 +1919,26 @@
 #define ParamLOG_fE2Low3Dpt2                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Dpt2)))
 // Eingang ist konstant
 #define ParamLOG_fE2LowDpt2Fix                       (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt2Fix)))
+// Eingang ist EIN, wenn Wert gleich
+#define ParamLOG_fE2Low0Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt3Dir)) & LOG_fE2Low0Dpt3DirMask) >> LOG_fE2Low0Dpt3DirShift)
+// 
+#define ParamLOG_fE2Low0Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low0Dpt3Dim)) & LOG_fE2Low0Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE2Low1Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt3Dir)) & LOG_fE2Low1Dpt3DirMask) >> LOG_fE2Low1Dpt3DirShift)
+// 
+#define ParamLOG_fE2Low1Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low1Dpt3Dim)) & LOG_fE2Low1Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE2Low2Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low2Dpt3Dir)) & LOG_fE2Low2Dpt3DirMask) >> LOG_fE2Low2Dpt3DirShift)
+// 
+#define ParamLOG_fE2Low2Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low2Dpt3Dim)) & LOG_fE2Low2Dpt3DimMask)
+// ... oder wenn Wert gleich 
+#define ParamLOG_fE2Low3Dpt3Dir                      ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Dpt3Dir)) & LOG_fE2Low3Dpt3DirMask) >> LOG_fE2Low3Dpt3DirShift)
+// 
+#define ParamLOG_fE2Low3Dpt3Dim                      (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2Low3Dpt3Dim)) & LOG_fE2Low3Dpt3DimMask)
+// Eingang ist konstant
+#define ParamLOG_fE2LowDpt3FixDir                    ((knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt3FixDir)) & LOG_fE2LowDpt3FixDirMask) >> LOG_fE2LowDpt3FixDirShift)
+// 
+#define ParamLOG_fE2LowDpt3FixDim                    (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt3FixDim)) & LOG_fE2LowDpt3FixDimMask)
 // Von-Wert
 #define ParamLOG_fE2LowDpt5                          (knx.paramByte(LOG_ParamCalcIndex(LOG_fE2LowDpt5)))
 // Bis-Wert
@@ -2301,6 +2413,10 @@
 #define ParamLOG_fOOnDpt1                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt1)))
 //     Wert für EIN senden als
 #define ParamLOG_fOOnDpt2                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt2)))
+//     Wert für EIN senden als
+#define ParamLOG_fOOnDpt3Dir                         ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt3Dir)) & LOG_fOOnDpt3DirMask) >> LOG_fOOnDpt3DirShift)
+// 
+#define ParamLOG_fOOnDpt3Dim                         (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt3Dim)) & LOG_fOOnDpt3DimMask)
 //     Wert für EIN senden als 
 #define ParamLOG_fOOnDpt5                            (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOnDpt5)))
 //     Wert für EIN senden als
@@ -2361,6 +2477,10 @@
 #define ParamLOG_fOOffDpt1                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt1)))
 //     Wert für AUS senden als
 #define ParamLOG_fOOffDpt2                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt2)))
+//     Wert für AUS senden als
+#define ParamLOG_fOOffDpt3Dir                        ((knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt3Dir)) & LOG_fOOffDpt3DirMask) >> LOG_fOOffDpt3DirShift)
+// 
+#define ParamLOG_fOOffDpt3Dim                        (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt3Dim)) & LOG_fOOffDpt3DimMask)
 //     Wert für AUS senden als
 #define ParamLOG_fOOffDpt5                           (knx.paramByte(LOG_ParamCalcIndex(LOG_fOOffDpt5)))
 //     Wert für AUS senden als
