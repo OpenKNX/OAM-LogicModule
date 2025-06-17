@@ -30,8 +30,12 @@
 lib/OGM-Common/scripts/setup/reusable/Build-Release-Preprocess.ps1 $args[0]
 if (!$?) { exit 1 }
 
-# build firmware based on generated headerfile 
+# ESP32
+# build firmware for REG1_LAN_TP_BASE
+lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_LAN_TP_Base firmware-REG1-LAN-TP-BASE esp32
+if (!$?) { exit 1 }
 
+# RP2040
 # build firmware for OpenKNX-REG1-Base-V0
 lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE_V0 firmware-OpenKNX-REG1-BASE-V0 uf2
 if (!$?) { exit 1 }

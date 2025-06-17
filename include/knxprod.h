@@ -16,7 +16,7 @@
 #define MAIN_OrderNumber "OpenKnxLogic"
 #define BASE_ModuleVersion 19
 #define NET_ModuleVersion 4
-#define UCT_ModuleVersion 2
+#define UCT_ModuleVersion 3
 #define LOG_ModuleVersion 54
 // Parameter with single occurrence
 
