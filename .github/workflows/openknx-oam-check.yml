@@ -1,0 +1,83 @@
+# Check build of OpenKNX OAM (merging/building of OpenKNX knxprod for combination of all referenced module versions + build of full releases)
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2024-2025 Cornelius Koepp
+
+name: openknx-oam-check
+run-name: Check OpenKNX OAM Build
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
+      restore_branch:
+        required: true
+        type: boolean
+      KNXPROD_PREFIX:
+        required: true
+        type: string
+
+jobs:
+  oam-build:
+    runs-on: ubuntu-latest
+    env:
+      PRODUCER_VERSION: 3.7.18.0
+      PRODUCER_URL: https://github.com/OpenKNX/OpenKNXproducer/releases/download/v3.7.18/OpenKNXproducer-3.7.18.0.zip
+      PRODUCER_CHECKSUM: b03b7fbae0a65e1058a937705bf7434e32081afb2068afbecd0426541a13ce3a5920e585c518fb161526b2db69cf0686a5822853f33f4fca24bc056c388a521d
+      PRODUCER_FILENAME: OpenKNXproducer-${PRODUCER_VERSION}.zip
+
+    name: Build '${{ inputs.target }}' ${{ inputs.restore_branch && 'branch' || 'commit' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Project
+        shell: pwsh
+        run: |
+          cd restore
+          if ("${{ inputs.restore_branch }}" -eq "true") {
+            ./Restore-Dependencies-Branch.ps1
+          } else {
+            ./Restore-Dependencies.ps1
+          }
+
+      - name: Download OpenKNXproducer ${{ env.PRODUCER_VERSION }} and Verify
+        run: |
+          mkdir OpenKNXproducer
+          cd OpenKNXproducer
+          echo "${PRODUCER_CHECKSUM} *${PRODUCER_FILENAME}" > OpenKNXproducer.checksum
+          wget -q "${PRODUCER_URL}" -O "${PRODUCER_FILENAME}"
+          sha512sum "${PRODUCER_FILENAME}"
+          sha512sum -c OpenKNXproducer.checksum
+      - name: Unzip OpenKNXproducer and Make Executable
+        run: |
+          cd OpenKNXproducer
+          unzip "${PRODUCER_FILENAME}" || test -f tools/Linux/OpenKNXproducer
+          chmod u+x tools/Linux/OpenKNXproducer
+      - name: Check OpenKNXproducer
+        run: OpenKNXproducer/tools/Linux/OpenKNXproducer version || echo Ignore OpenKNXproducer always returning 1...
+
+      - name: Install OpenKNXproducer
+        run: cp -av OpenKNXproducer/tools/Linux/OpenKNXproducer /usr/local/bin/OpenKNXproducer
+
+      - name: Create knxprod
+        run: OpenKNXproducer create --Debug -h include/knxprod.h src/${{inputs.KNXPROD_PREFIX}}${{ inputs.target != '' && format('-{0}', inputs.target) || '' }}
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install virtualenv
+          virtualenv ~/.platformio/penv
+          source ~/.platformio/penv/bin/activate
+          pip install platformio
+
+      - name: OpenKNX Release Build
+        run: pwsh ./scripts/Build-Release.ps1 ${{ inputs.target }}
+
+      - name: Show Changed Files
+        run: git diff

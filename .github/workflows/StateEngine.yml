@@ -1,0 +1,31 @@
+# Check build of OpenKNX OAM (merging/building of OpenKNX knxprod for combination of all referenced module versions + build of full releases)
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2024-2025 Cornelius Koepp
+
+name: StateEngine-check
+run-name: Check OAM-StateEngine Build
+
+on: [push]
+
+jobs:
+  check:
+    name: Check '${{ matrix.target }}' (${{ matrix.restore_branch && 'branch' || 'commit' }})
+    strategy:
+      fail-fast: false
+      matrix:
+
+        # [BUILD]: all build targets
+        target:
+          - DFA16-Release
+          - ""
+
+        # [REF]: same commit and (newest on) branch
+        restore_branch:
+          - false
+          - true
+
+    uses: ./.github/workflows/openknx-oam-check.yml
+    with:
+      KNXPROD_PREFIX: StateEngine
+      target: ${{ matrix.target }}
+      restore_branch: ${{ matrix.restore_branch }}
