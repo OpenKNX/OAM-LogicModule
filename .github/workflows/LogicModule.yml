@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # Copyright (C) 2024-2025 Cornelius Koepp
 
-name: StateEngine-check
-run-name: Check OAM-StateEngine Build
+name: oam-check
+run-name: Check OAM Build
 
 on: [push]
 
