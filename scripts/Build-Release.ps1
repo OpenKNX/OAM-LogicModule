@@ -24,13 +24,14 @@
 
 
 # set product names, allows mapping of (devel) name in Project to a more consistent name in release
-$settings = scripts/OpenKNX-Build-Settings.ps1
+$settings = scripts/OpenKNX-Build-Settings.ps1 $args[0]
+$releaseIndication = $settings["appRelease"]
 
 # execute generic pre-build steps
 lib/OGM-Common/scripts/setup/reusable/Build-Release-Preprocess.ps1 $args[0]
 if (!$?) { exit 1 }
 
-if ($settings["appRelease"] -eq "Beta") {
+if ($releaseIndication -eq "Beta") {
     # build BETA firmware 
 
     # build firmware for 1TE-RP2040-SmartMF
@@ -43,7 +44,7 @@ if ($settings["appRelease"] -eq "Beta") {
 
 }
 
-if ($args[0] -eq "Release") {
+if ($releaseIndication -eq "Release") {
     # ESP32
     # build firmware for REG1_LAN_TP_BASE
     lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_LAN_TP_Base firmware-REG1-LAN-TP-BASE esp32

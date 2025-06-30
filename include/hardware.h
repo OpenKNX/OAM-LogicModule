@@ -32,5 +32,31 @@
     #define BUZZER_PIN 27
 #endif
 
+
+    #ifdef BOARD_AB_TOUCH_ROUND_RP2350
+        #define DEVICE_ID "AB-TOUCH-ROUND"
+        #define HARDWARE_NAME "AB-TOUCH-ROUND"
+        #define DEVICE_NAME "AB-SmartHouse Touch Round"
+        #define INFO_LED_PIN 11
+        #define INFO_LED_PIN_ACTIVE_ON HIGH
+        #define PROG_LED_PIN 10
+        #define PROG_LED_PIN_ACTIVE_ON HIGH
+        #define PROG_BUTTON_PIN 9
+        #define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
+
+        #define KNX_UART_NUM 0
+        #define KNX_UART_TX_PIN 12
+        #define KNX_UART_RX_PIN 13
+
+        #define SAVE_INTERRUPT_PIN 0
+
+        #define TOUCH_LEFT_PIN 24
+        #define TOUCH_RIGHT_PIN 25
+
+        #define I2C_WIRE Wire1
+        #define I2C_SDA_PIN 26
+        #define I2C_SCL_PIN 27
+    #endif
+
 // legacy hardware
 #include "LogikmodulHardware.h"

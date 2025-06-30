@@ -10,7 +10,7 @@
                                              
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 246
+#define MAIN_ApplicationVersion 251
 #define MAIN_ParameterSize 5785
 #define MAIN_MaxKoNumber 109
 #define MAIN_OrderNumber "OpenKnxLogicDev"
