@@ -19,17 +19,24 @@
     ApplicationVersion="%LOG_ApplicationVersion%"
     ReplacesVersions="%LOG_ReplacesVersions%"
     ApplicationRevision="0"
-    ApplicationName="Logic"
+    ApplicationName="Logic-Net"
     HardwareName="OpenKNX-Logic"
     OrderNumber="OpenKnxLogic"
     SerialNumber="WPKNX101"
     BaggagesRootDir="A0/30"
+    MediumTypes="MT-0 MT-5"
   />
 
   <op:define prefix="BASE" 
             share="../lib/OGM-Common/src/Common.share.xml"
             ModuleType="10">
      <op:verify File="../lib/OGM-Common/library.json" ModuleVersion="%BASE_VerifyVersion%" /> 
+  </op:define>
+
+  <op:define prefix="NET" 
+            share="../lib/OFM-Network/src/Network.share.xml"
+            ModuleType="11">
+    <op:verify File="../lib/OFM-Network/library.json" ModuleVersion="%NET_VerifyVersion%" /> 
   </op:define>
  
   <op:define prefix="UCT"

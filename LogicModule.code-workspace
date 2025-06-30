@@ -31,6 +31,10 @@
 		{
 			"name": "OFM-ConfigTransfer",
 			"path": "../OFM-ConfigTransfer"
+		},
+		{
+			"name": "OGM-HardwareConfig",
+			"path": "../OGM-HardwareConfig"
 		}
 	],
 	"settings": {
