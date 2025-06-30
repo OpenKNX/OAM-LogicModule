@@ -23,7 +23,8 @@ jobs:
 
         # [REF]: same commit and (newest on) branch
         restore_branch:
-          - false
+          # TODO check: building on commit will fail, on dependencies.txt creation
+          # - false
           - true
 
     uses: ./.github/workflows/openknx-oam-check.yml
