@@ -10,13 +10,13 @@
                                              
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 251
+#define MAIN_ApplicationVersion 1
 #define MAIN_ParameterSize 5785
 #define MAIN_MaxKoNumber 109
 #define MAIN_OrderNumber "OpenKnxLogicDev"
 #define BASE_ModuleVersion 19
 #define NET_ModuleVersion 4
-#define UCT_ModuleVersion 3
+#define UCT_ModuleVersion 4
 #define LOG_ModuleVersion 54
 // Parameter with single occurrence
 
