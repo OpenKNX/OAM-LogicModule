@@ -4,32 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Develop SAMD",
-            "type": "shell",
-            "command": "scripts/OpenKNX-Build.ps1",
-            "args": [
-                "develop_SAMD"
-            ],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
             "label": "Develop RP2040",
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
             "args": [
                 "develop_RP2040"
-            ],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Upload JLINK SAMD",
-            "type": "shell",
-            "command": "scripts/OpenKNX-Build.ps1",
-            "args": [
-                "upload_JLINK_SAMD",
-                "upload"
             ],
             "group": "build",
             "problemMatcher": []
@@ -46,17 +25,6 @@
             "problemMatcher": []
         },
         {
-            "label": "Upload USB SAMD",
-            "type": "shell",
-            "command": "scripts/OpenKNX-Build.ps1",
-            "args": [
-                "upload_USB_SAMD",
-                "upload"
-            ],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
             "label": "Upload USB RP2040",
             "type": "shell",
             "command": "scripts/OpenKNX-Build.ps1",
@@ -64,25 +32,6 @@
                 "upload_USB_RP2040",
                 "upload"
             ],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Upload ENDUSER",
-            "type": "shell",
-            "command": "scripts/OpenKNX-Build.ps1",
-            "args": [
-                "upload_enduser",
-                "upload"
-            ],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "label": "Build-Dependencies",
-            "type": "shell",
-            "command": "lib/OGM-Common/scripts/setup/reusable/Build-Dependencies.ps1",
-            "args": [],
             "group": "build",
             "problemMatcher": []
         },
@@ -122,16 +71,6 @@
             "command": "scripts/Build-Release.ps1",
             "args": [
                 "Release"
-            ],
-            "problemMatcher": [],
-            "group": "test"
-        },
-        {
-            "label": "Build-IP",
-            "type": "shell",
-            "command": "scripts/Build-IP.ps1",
-            "args": [
-                "IP"
             ],
             "problemMatcher": [],
             "group": "test"
