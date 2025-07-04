@@ -3,11 +3,11 @@
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer">
   <op:config name="%LOG_NumChannelsDefault%" value="5" />
 
-  <op:config name="%LOG_VerifyVersion%" value="3.6" />
+  <op:config name="%LOG_VerifyVersion%" value="3.7" />
   <op:config name="%UCT_VerifyVersion%" value="0.4" />
-  <op:config name="%NET_VerifyVersion%" value="0.4" />
-  <op:config name="%BASE_VerifyVersion%" value="1.3" />
+  <op:config name="%NET_VerifyVersion%" value="0.5" />
+  <op:config name="%BASE_VerifyVersion%" value="1.4" />
 
-  <op:config name="%LOG_ApplicationVersion%" value="3.6" />
-  <op:config name="%LOG_ReplacesVersions%" value="3.5 3.4 3.3 3.2 3.1" />
+  <op:config name="%LOG_ApplicationVersion%" value="3.7" />
+  <op:config name="%LOG_ReplacesVersions%" value="3.6 3.5 3.4 3.3 3.2 3.1" />
 </KNX>
