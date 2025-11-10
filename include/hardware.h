@@ -1,8 +1,6 @@
 #pragma once
 #include "HardwareConfig.h"
 
-#define FIRMWARE_NAME "Logikmodul"
-
 // verified hardware
 #ifdef DEVICE_SMARTMF_SENSORMODUL
     #define KNX_I2C_SDA_PIN SMARTMF_I2C0_SDA_PIN

@@ -14,8 +14,7 @@
 void setup()
 {
     // change this also in library.json
-    const uint8_t firmwareRevision = 0;
-    openknx.init(firmwareRevision);
+    openknx.init();
     openknx.addModule(1, openknxLogic);
 #ifdef ARDUINO_ARCH_RP2040
     openknx.addModule(9, openknxFileTransferModule);
@@ -25,6 +24,8 @@ void setup()
 #endif
 #if defined(KNX_IP_LAN) || defined(KNX_IP_WIFI)
     openknx.addModule(7, openknxNetwork);
+#else
+    openknx.unsupportedEtsModule(ETS_ModuleId_NET);
 #endif
     openknx.setup();
 }
