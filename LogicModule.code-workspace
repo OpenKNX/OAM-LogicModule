@@ -35,6 +35,12 @@
 		{
 			"name": "OGM-HardwareConfig",
 			"path": "../OGM-HardwareConfig"
+		},
+		{
+			"path": "../OFM-SmartMF"
+		},
+		{
+			"path": "../OFM-Feedback"
 		}
 	],
 	"settings": {

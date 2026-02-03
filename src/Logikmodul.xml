@@ -2,18 +2,10 @@
 <?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <KNX xmlns="http://knx.org/xml/project/20" xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" >
 
-  <op:config name="%LOG_ApplicationVersion%" value="0.1" />
-  <op:config name="%LOG_ReplacesVersions%" value="0.0" />
+  <op:config name="%LOG_ApplicationVersion%" value="2.1.0" />
+  <op:config name="%LOG_ReplacesVersions%" value="2.0 1.15 1.14 1.13 1.12 1.11 1.10 1.9 1.8 1.7 1.6 1.5 1.4 1.3 1.2 1.1 1.0 0.15 0.14 0.13 0.12 0.11 0.10 0.9 0.8 0.7 0.6 0.5 0.4 0.3 0.2 0.1" />
 
   <op:config href="Logikmodul.conf.xml" />
-  
-  <op:config name="%LOG_EnableHardware%" value="1" />
-  <op:config name="%LOG_LedAccess%" value="ReadWrite" />
-  <op:config name="%LOG_LedDefault%" value="0" />
-  <op:config name="%LOG_BuzzerAccess%" value="ReadWrite" />
-  <op:config name="%LOG_BuzzerDefault%" value="0" />
-  <op:config name="%LOG_EnableSave%" value="1" />
-  <op:config name="%BASE_ManualSave%" value="3" />
   
 
   <op:nowarn id="1" regex="NET_VerifyVersion" />
@@ -25,7 +17,7 @@
     ApplicationVersion="%LOG_ApplicationVersion%"
     ReplacesVersions="%LOG_ReplacesVersions%"
     ApplicationRevision="0"
-    ApplicationName="Logic-Net"
+    ApplicationName="Logikmodul"
     BuildSuffix="-Dev"
     BuildSuffixText=" (dev)"
     OrderNumber="OpenKnxLogicDev"
@@ -60,6 +52,14 @@
     ModuleType="10">
     <op:verify File="../lib/OFM-LogicModule/library.json" ModuleVersion="%LOG_VerifyVersion%" /> 
   </op:define>
+
+  <op:define prefix="BUZZ" 
+            share="../lib/OFM-Feedback/src/Feedback.share.xml"
+            KoSingleOffset="320"
+            ModuleType="12">
+    <op:verify File="../lib/OFM-Feedback/library.json" ModuleVersion="%BUZZ_VerifyVersion%" /> 
+  </op:define>
+ 
 
   <!-- <generate base="MyApplication.xml" /> -->
   <generate />

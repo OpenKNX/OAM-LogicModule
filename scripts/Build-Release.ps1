@@ -34,21 +34,29 @@ if (!$?) { exit 1 }
 if ($releaseIndication -eq "Beta") {
     # build BETA firmware 
 
-    # build firmware for 1TE-RP2040-SmartMF
-    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_SMARTMF_1TE_REG firmware-SmartMF-1TE-RP2040 rp2040-tp
+    # build firmware for OpenKNX-REG1-Base-V1
+    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE firmware-OpenKNX-REG1-BASE rp2040-tp
     if (!$?) { exit 1 }
+
+    # build firmware for RP2040 sensormodule 
+    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_SMARTMF_SENSORMODUL firmware-SmartMF-Sensormodul-RP2040 rp2040-tp
+    if (!$?) { exit 1 }
+
+    # build firmware for 1TE-RP2040-SmartMF
+    # lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_SMARTMF_1TE_REG firmware-SmartMF-1TE-RP2040 rp2040-tp
+    # if (!$?) { exit 1 }
 
     # build firmware for PiPico-BCU-Connector
-    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_PIPICO_BCU_CONNECTOR firmware-OpenKNX-PiPico-BCU-Connector rp2040-tp
-    if (!$?) { exit 1 }
+    # lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_PIPICO_BCU_CONNECTOR firmware-OpenKNX-PiPico-BCU-Connector rp2040-tp
+    # if (!$?) { exit 1 }
 
     # build firmware for REG1_LAN_TP_BASE
-    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_LAN_TP_Base firmware-OpenKNX-REG1-LAN-TP-BASE esp32-ip
-    if (!$?) { exit 1 }
+    # lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_LAN_TP_Base firmware-OpenKNX-REG1-LAN-TP-BASE esp32-ip
+    # if (!$?) { exit 1 }
 
     # build firmware for REG1_BASE_IP (with OTA)
-    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE_IP firmware-OpenKNX-REG1-BASE-IP rp2040-ip
-    if (!$?) { exit 1 }
+    # lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE_IP firmware-OpenKNX-REG1-BASE-IP rp2040-ip
+    # if (!$?) { exit 1 }
 }
 
 if ($releaseIndication -eq "Release") {

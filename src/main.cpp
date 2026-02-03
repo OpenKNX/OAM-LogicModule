@@ -1,4 +1,6 @@
 #include "Logic.h"
+#include "SmartMF.h"
+#include "Feedback.h"
 #ifdef ARDUINO_ARCH_RP2040
     #include "FileTransferModule.h"
     #include "UsbExchangeModule.h"
@@ -16,6 +18,8 @@ void setup()
     // change this also in library.json
     openknx.init();
     openknx.addModule(1, openknxLogic);
+    openknx.addModule(2, smartmf);
+    openknx.addModule(3, openknxfeedback);
 #ifdef ARDUINO_ARCH_RP2040
     openknx.addModule(9, openknxFileTransferModule);
     #ifndef OPENKNX_DEBUG

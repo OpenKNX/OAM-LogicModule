@@ -19,7 +19,7 @@
     ApplicationVersion="%LOG_ApplicationVersion%"
     ReplacesVersions="%LOG_ReplacesVersions%"
     ApplicationRevision="0"
-    ApplicationName="Logic-Net"
+    ApplicationName="Logikmodul"
     HardwareName="OpenKNX-Logic"
     OrderNumber="OpenKnxLogic"
     SerialNumber="WPKNX101"
