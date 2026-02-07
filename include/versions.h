@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAIN_Version "7f4202a"
+#define MAIN_Version "0d8d672"
 #define KNX_Version "2.2.2+f6111d3"
 #define MODULE_Feedback_Version "0.1.0+24e338e"
 #define MODULE_Feedback_Version_Major 0
@@ -12,7 +12,7 @@
 #define MODULE_Common_Version_Minor 6
 #define MODULE_Common_Version_Revision 0
 #define MODULE_Common_ETS 22
-#define MODULE_LogicModule_Version "3.9.0+b26421f"
+#define MODULE_LogicModule_Version "3.9.0+466851f"
 #define MODULE_LogicModule_Version_Major 3
 #define MODULE_LogicModule_Version_Minor 9
 #define MODULE_LogicModule_Version_Revision 0
