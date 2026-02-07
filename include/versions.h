@@ -1,23 +1,23 @@
 #pragma once
 
-#define MAIN_Version "816d5c8"
-#define KNX_Version "2.2.2+c5780d6"
-#define MODULE_Feedback_Version "0.1.0+44e81b1"
+#define MAIN_Version "7f4202a"
+#define KNX_Version "2.2.2+f6111d3"
+#define MODULE_Feedback_Version "0.1.0+24e338e"
 #define MODULE_Feedback_Version_Major 0
 #define MODULE_Feedback_Version_Minor 1
 #define MODULE_Feedback_Version_Revision 0
 #define MODULE_Feedback_ETS 1
-#define MODULE_Common_Version "1.6.0+de296ac"
+#define MODULE_Common_Version "1.6.0+7d08434"
 #define MODULE_Common_Version_Major 1
 #define MODULE_Common_Version_Minor 6
 #define MODULE_Common_Version_Revision 0
 #define MODULE_Common_ETS 22
-#define MODULE_LogicModule_Version "3.9.0+548e59e"
+#define MODULE_LogicModule_Version "3.9.0+b26421f"
 #define MODULE_LogicModule_Version_Major 3
 #define MODULE_LogicModule_Version_Minor 9
 #define MODULE_LogicModule_Version_Revision 0
 #define MODULE_LogicModule_ETS 57
-#define MODULE_FileTransferModule_Version "0.1.5+629ca09"
+#define MODULE_FileTransferModule_Version "0.1.5+178f186"
 #define MODULE_FileTransferModule_Version_Major 0
 #define MODULE_FileTransferModule_Version_Minor 1
 #define MODULE_FileTransferModule_Version_Revision 5

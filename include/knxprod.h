@@ -17,7 +17,7 @@
 #define MAIN_FirmwareName "Logikmodul (dev)"
 #define MAIN_OpenKnxId 0xA0
 #define MAIN_ApplicationNumber 49
-#define MAIN_ApplicationVersion 33
+#define MAIN_ApplicationVersion 34
 #define MAIN_FirmwareRevision 0
 #define MAIN_ApplicationEncoding iso-8859-15
 #define MAIN_ParameterSize 5858

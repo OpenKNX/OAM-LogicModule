@@ -19,7 +19,7 @@ void setup()
     openknx.init();
     openknx.addModule(1, openknxLogic);
     openknx.addModule(2, smartmf);
-    openknx.addModule(3, openknxfeedback);
+    openknx.addModule(3, openknxFeedback);
 #ifdef ARDUINO_ARCH_RP2040
     openknx.addModule(9, openknxFileTransferModule);
     #ifndef OPENKNX_DEBUG
