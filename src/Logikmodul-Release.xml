@@ -17,7 +17,7 @@
     OpenKnxId="0xA0"
     ApplicationNumber="0x30"
     ApplicationVersion="%LOG_ApplicationVersion%"
-    ReplacesVersions="%LOG_ReplacesVersions%"
+    ReplacesVersionsDownTo="3.1"
     ApplicationRevision="0"
     ApplicationName="Logikmodul"
     HardwareName="OpenKNX-Logic"

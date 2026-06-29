@@ -39,8 +39,8 @@ Here's a high-level description of what it does:
 # Optional Input Parameters
 param(
   # Set the Git checkout mode
-  [ValidateSet("Branch", "Hash")]
-  [string]$GitCheckoutMode= "Hash", # Branch or Hash. Default is Hash
+  [ValidateSet("None", "Branch", "Hash")]
+  [string]$GitCheckoutMode= "Hash", # None, Branch or Hash. Default is Hash
 
   # Force the script to recreate symbolic links
   [switch]$ForceRecreateSymLinks= $true, # Default is $true
@@ -406,10 +406,11 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $Cl
           $CheckOutTarget = $($dependedProject.Branch) # If the CloneModeHash is false (default), use the Branch
         }
 
+        # For git-version >=2.23, use the 'switch' command for branch-restore
         if ((& git --version) -ge 'git version 2.23' -and $CloneModeHash -eq $false ) {
-          $CheckOutMethod = "switch"    # If the Git version is 2.23 or higher, use the 'switch' command
+          $CheckOutMethod = "switch"
         } else {
-          $CheckOutMethod = "checkout"  # If the Git version is 2.23 or higher, use the 'switch' command
+          $CheckOutMethod = "checkout"
         }
 
         # Let's do the git checkout
@@ -420,17 +421,19 @@ function CloneRepository($projectFilesGitInfo, $dependedProjects, $CloneDir, $Cl
           Invoke-Expression "$GitCmd fetch --all -q" | Out-Null
           Invoke-Expression "$GitCmd $CheckOutMethod $($CheckOutTarget) -q" | Out-Null
         }
+        if ($LASTEXITCODE -ne 0) {
+          throw "Git checkout failed with exit code $LASTEXITCODE"
+        }
 
         if($true) { 
           $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
           Write-Host "- CloneRepository - '$($dependedProject.ProjectName)' $($checkoutTarget) Checked out."([Char]0x221A) -ForegroundColor Green 
         }
       }
-      # If cannot check out to the branch, catch the error
       catch {
-        if($Verbose) {
-          $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
-          Write-Host "- CloneRepository - $($dependedProject.ProjectName) - Checkout Error! Cannot checkout $($checkoutTarget)."([Char]0x2717) -ForegroundColor Red }
+        # If cannot check out to the branch, catch the error
+        $checkoutTarget = if ($CloneModeHash) {  "Hash '$($dependedProject.Hash)'" } else { "Branch '$($dependedProject.Branch)'" }
+        Write-Host "- CloneRepository - $($dependedProject.ProjectName) - Checkout Error! Cannot checkout $($checkoutTarget)."([Char]0x2717) -ForegroundColor Red
       }
     }
 
@@ -690,12 +693,13 @@ $projectFilesGitInfo = CreateGitDependencyInfo $projectDir $dependedProjects
 if($DebugMsg) { $projectFilesGitInfo | ForEach-Object { Write-Output $_ } }
  # Output each project file's git information
 
-# Call the CloneRepository function with the project files' git information and the depended projects
-Write-Host -ForegroundColor Yellow "- Checking, cloning and rebranching the git repositories for each dependency."
-$CloneDir = (Resolve-Path (Join-Path $projectDir '..')).Path
-if($Verbose) { Write-Host $CloneDir }
-CloneRepository $projectFilesGitInfo $dependedProjects $CloneDir ($GitCheckoutMode -eq "Hash")
-
+if ($GitCheckoutMode -ne "None") {
+  # Call the CloneRepository function with the project files' git information and the depended projects
+  Write-Host -ForegroundColor Yellow "- Checking, cloning and rebranching the git repositories for each dependency."
+  $CloneDir = (Resolve-Path (Join-Path $projectDir '..')).Path
+  if($Verbose) { Write-Host $CloneDir }
+  CloneRepository $projectFilesGitInfo $dependedProjects $CloneDir ($GitCheckoutMode -eq "Hash")
+}
 
 if($Verbose) { Write-Host -ForegroundColor Yellow "- Checking and creating symbolic links for each project file." }
 CreateSymbolicLink $projectDir $projectFilesGitInfo

@@ -67,8 +67,8 @@ if ($releaseIndication -eq "Release") {
 
     # RP2040
     # build firmware for OpenKNX-REG1-Base-V0
-    # lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE_V0 firmware-OpenKNX-REG1-BASE-V0 rp2040-tp
-    # if (!$?) { exit 1 }
+    lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE_V0 firmware-OpenKNX-REG1-BASE-V0 rp2040-tp
+    if (!$?) { exit 1 }
 
     # build firmware for OpenKNX-REG1-Base-V1
     lib/OGM-Common/scripts/setup/reusable/Build-Step.ps1 release_DEVICE_REG1_BASE firmware-OpenKNX-REG1-BASE rp2040-tp
